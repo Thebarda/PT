@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import modele.Centrale;
 /**
- * Controleur relatif à l'interface de création d'équipement
+ *Controleur relatif à l'interface de création d'équipement
  */
 public class CreationEquipementController {
 		
