@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPaneBuilder;
 
 
 /**
- * Classe permettant de lancer l'application fixe
+ * Classe permettant de lancer l'application fixe 
  */
 public class Main extends Application {
 
