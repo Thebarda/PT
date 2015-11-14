@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 
 /**
  * Controleur relatif à l'affichage de l'accueil et de la barre horizontale
+ * je modifie un commentaire
  */
 public class AccueilController {
 		
