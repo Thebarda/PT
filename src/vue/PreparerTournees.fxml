@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.PreparerTourneesController">
+   <children>
+      <AnchorPane fx:id="menuVertical" maxHeight="1.7976931348623157E308" maxWidth="200.0" prefHeight="200.0" prefWidth="140.0" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="540.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="110.0" prefWidth="140.0" text="Planning" VBox.vgrow="ALWAYS" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherGererCentrale" prefHeight="110.0" prefWidth="140.0" text="Gérer Centrales" VBox.vgrow="ALWAYS" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherGererEquipement" prefHeight="110.0" prefWidth="140.0" text="Gérer Equipements" VBox.vgrow="ALWAYS" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="110.0" prefWidth="140.0" text="Gérer Stations" VBox.vgrow="ALWAYS" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="110.0" prefWidth="140.0" text="Gérer modèle de tournées" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children></AnchorPane>
+      <AnchorPane fx:id="Centre" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="552.0" prefWidth="660.0" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>
