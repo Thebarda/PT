@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import modele.Centrale;
 import modele.Unite;
 /**
  * Gère les unités
