@@ -63,9 +63,9 @@ public class CentraleControler
 	public static void addCentrale(String nom, String lieu)
 	{
 		Connection connexion = null;
-		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO centrale(nomCentrale, localisation)VALUES(?,?)");
 			preparedStatement.setString(1, nom);
 			preparedStatement.setString(2, lieu);
@@ -76,7 +76,6 @@ public class CentraleControler
 			
 			try 
 	         {  
-	             statut.close();  
 	             connexion.close();  
 	         } 
 	         catch (Exception e) 
