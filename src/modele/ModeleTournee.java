@@ -1,9 +1,10 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Collection;
 /**
  * 
- * @author ThebardaPNK
+ * @author 
  *@version 1
  */
 public class ModeleTournee {
@@ -11,6 +12,36 @@ public class ModeleTournee {
 	private String nom;
 	private String description;
 	private ArrayList<Station> stations;
+	
+	/**
+	 * Constructeur d'un modele de tournée
+	 * @param id : l'id du modèle de tournée
+	 * @param nom : le nom du modèle de tournée
+	 * @param description : la description du modèle de tournée
+	 */
+	public ModeleTournee(int id, String nom, String description) {
+		this.id = id;
+		this.nom = nom;
+		this.description = description;
+		this.stations = new ArrayList<Station>();
+	}
+	
+	/**
+	 * Ajouter une station a un modele de tournée
+	 * @param station : la station à ajouter
+	 */
+	public void ajouterStation(Station station){
+		this.stations.add(station);
+	}
+	
+	/**
+	 * Recuperer les stations du modele de tournee
+	 * @return les stations du modèle de tournée dans une collection
+	 */
+	public Collection<Station> getStations(){
+		return this.stations;
+	}
+	
 	/**
 	 * retourne l'id
 	 * @return id
