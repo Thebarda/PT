@@ -56,6 +56,45 @@ public class EquipementController
 		}
 		return equipements;
 	}
+	/**
+	 * charge tous les équipements contenu dans la base de donnée
+	 * @return une ObservableList contenant tous les équipements
+	 */
+	public static ObservableList<Equipement> loadAllEquipement()
+	{
+		
+		ObservableList<Equipement> equipements=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			String sql = "SELECT * FROM EQUIPEMENT";
+			resultat = statut.executeQuery(sql);
+			while(resultat.next()){
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"));
+				equipements.add(equipement);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return equipements;
+	}
 	
 	/**
 	 * Ajoute une equipement dans la bd en fonction des paramÃ¨tres
