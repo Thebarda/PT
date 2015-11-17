@@ -60,7 +60,7 @@ public class GererEquipementController {
 	}
 	/**
 	 * Fonction qui permet d'ouvrir la popup d'ajout d'Equipement.
-	 * Une fois que l'utilisateur à annuler l'ajout ou ajouter une centrale, on recharge le tableau et ferme la popup
+	 * Une fois que l'utilisateur à annuler l'ajout ou ajouter un équipement , on recharge le tableau et ferme la popup
 	 */
 	public void ajouterEquipement(){
 		final Stage dialog = new Stage();

@@ -47,7 +47,7 @@ public class GererStationController {
 	TableColumn<Station, String> Nom;
 	
 	@FXML
-	TableColumn<Station, Unite> Unite;
+	TableColumn<Station, Integer> Unite;
 	
 	@FXML
 	Button Ajouter;
@@ -95,18 +95,21 @@ public class GererStationController {
 	 * Fonction qui permet de lister les stations dans le tableau quand on selectionne un équipement dans la combobox (après avoir selectionné une centrale)
 	 */
 	public void ListerStations(){
-		Ajouter.setVisible(true);
-		ObservableList<Station> stations=StationController.loadStation(listeEquipement.getValue().getId());
-		Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
-		ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
-		Unite.setCellValueFactory(new PropertyValueFactory<Station, Unite>("description"));
-		tableStation.setItems(stations);
+		if(listeEquipement.getValue()!=null){
+			Ajouter.setVisible(true);
+			ObservableList<Station> stations=StationController.loadStation(listeEquipement.getValue().getId());
+			ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
+			Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
+			Unite.setCellValueFactory(new PropertyValueFactory<Station, Integer>("idUnite"));
+			tableStation.setItems(stations);
+		}
 	}
 	
 	/**
 	 * Fonction qui permet de lister les équipements dans la combobox quand on selectionne une centrale dans la combobox correspondante
 	 */
 	public void ListerEquipement(){
+		Ajouter.setVisible(false);
 		ObservableList<Equipement> equipements=EquipementController.loadEquipement(listeCentrale.getValue().getId());
 		listeEquipement.setItems(equipements);
 	}

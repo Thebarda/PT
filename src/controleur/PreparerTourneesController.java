@@ -54,6 +54,24 @@ public class PreparerTourneesController {
 		}
 		
 	}
+	
+	/**
+	 * Fonction qui permet d'afficher le contenu relatif à la gestion d'équipement
+	 */
+	public void  AfficherGererStation(){
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Gerer_Station.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Centre.getChildren().removeAll(Centre.getChildren());
+			Centre.getChildren().addAll(page);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/**
 	 * Fonction qui permet d'afficher la page dont l'id est utilisé en parametres
 	 * @param idPage
