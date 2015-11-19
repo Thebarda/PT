@@ -2,13 +2,17 @@ package controleur;
 
 
 
+import java.util.Map;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import modele.Centrale;
 import modele.ModeleTournee;
+import modele.Station;
 import modele.Unite;
 
 /**
@@ -17,18 +21,28 @@ import modele.Unite;
 public class AjoutStationController {
 	
 	private int idCentrale;
+	private Map<Integer,Station> map;
+	private int rangActuel;
+	private CreationModeleTourneeController controllerParent;
+	
 	@FXML
 	ObservableList<ModeleTournee> data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 	
 	@FXML
 	private Button valider;
 	
+	@FXML
+	private ComboBox<Station> listeStations;
+	
 	@FXML 
 	private Button annuler;
 	
-	public void init(Centrale centrale)
+	public void init(int idCentrale,Map<Integer,Station> nouvelleMap,int rang,CreationModeleTourneeController controllerParent)
 	{
-		idCentrale = centrale.getId();
+		this.idCentrale = idCentrale;
+		map=nouvelleMap;
+		rangActuel=rang;
+		this.controllerParent=controllerParent;
 	}
 	
 	/**
@@ -40,7 +54,8 @@ public class AjoutStationController {
 		
 		if(estValide == true)
 		{
-			CentraleControler.addCentrale(nom.getText(), localisation.getText());
+			map.put(rangActuel+1, listeStations.getValue());
+			controllerParent.initFils(map, rangActuel+1);
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		

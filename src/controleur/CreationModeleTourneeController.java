@@ -4,6 +4,7 @@ package controleur;
 
 import java.awt.TextArea;
 import java.io.IOException;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -31,6 +32,9 @@ import vue.Main;
  * Controleur relatif à l'interface de création de centrale
  */
 public class CreationModeleTourneeController {
+	
+	private Map<Integer,Station> map;
+	private int rangActuel=0;
 		
 	@FXML
 	private TextField nom;
@@ -65,8 +69,7 @@ public class CreationModeleTourneeController {
 	private int idCentrale ;
 	
 	ObservableList<ModeleTournee> data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
-	
-	Map
+
 	
 	@FXML
 	private int idUnit;
@@ -77,6 +80,11 @@ public class CreationModeleTourneeController {
 		idCentrale=centrale.getId();
 	}
 	
+	public void initFils(Map<Integer,Station> nouvelleMap,int nouveauRang)
+	{
+		map=nouvelleMap;
+		rang=nouveauRang;
+	}
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
 	 * @param texte
@@ -169,6 +177,7 @@ public class CreationModeleTourneeController {
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
 	        AjoutStationController controller = loader.getController();
+	        controller.init(idCentrale, map,rangActuel,this);
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
