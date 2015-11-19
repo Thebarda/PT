@@ -57,6 +57,7 @@ public class CreationCentraleController {
 	 */
 	public void ValiderCentrale(){
 		boolean estValide=true;
+		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
@@ -83,6 +84,14 @@ public class CreationCentraleController {
 		annuler.getParent().getScene().getWindow().hide();	
 	}
 	
+	/**
+	 * Fonction qui permet de supprimer tous les messages d'erreur.
+	 * Se lance lorsque l'utilisateur appuie sur le bouton valider
+	 */
+	public void resetErreur(){
+		erreurLoca.setText("");
+		erreurNom.setText("");
+	}
 	
 	
 }

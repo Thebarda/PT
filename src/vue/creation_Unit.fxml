@@ -9,11 +9,11 @@
 <AnchorPane minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationUnitController">
    <children>
       <Button fx:id="valider" layoutX="347.0" layoutY="233.0" mnemonicParsing="false" onAction="#ValiderUnite" text="VALIDER" />
-      <Label fx:id="erreurNom" layoutX="299.0" layoutY="123.0" textFill="#fc0101" />
-      <TextField fx:id="nom" layoutX="272.0" layoutY="76.0" />
-      <Label layoutX="68.0" layoutY="80.0" text="Nom " />
+      <Label fx:id="erreurNom" layoutX="202.0" layoutY="159.0" prefHeight="16.0" prefWidth="184.0" textFill="#fc0101" />
+      <TextField fx:id="nom" layoutX="214.0" layoutY="118.0" />
+      <Label layoutX="67.0" layoutY="123.0" text="Nom " />
       <Button fx:id="annuler" layoutX="238.0" layoutY="233.0" mnemonicParsing="false" onAction="#annulerUnite" text="ANNULER" />
-      <Label layoutX="116.0" layoutY="29.0" text="Création d'une Unite">
+      <Label layoutX="134.0" layoutY="28.0" text="Création d'une Unite">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

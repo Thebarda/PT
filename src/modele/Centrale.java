@@ -80,7 +80,7 @@ public class Centrale
 
 	@Override
 	public String toString() {
-		return "id=" + id + ", nom=" + nom + ", lieu=" + lieu + "\n";
+		return "["+id+"]"+nom;
 	}
 	@Override
 	public int hashCode() {

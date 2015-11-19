@@ -59,6 +59,7 @@ public class CreationEquipementController {
 	 */
 	public void ValiderEquipement(){
 		boolean estValide=true;
+		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
@@ -96,6 +97,13 @@ public class CreationEquipementController {
 		idCentrale=centrale.getId();
 	}
 	
-	
+	/**
+	 * Fonction qui permet de supprimer tous les messages d'erreur.
+	 * Se lance lorsque l'utilisateur appuie sur le bouton valider
+	 */
+	public void resetErreur(){
+		erreurDesc.setText("");
+		erreurNom.setText("");
+	}
 	
 }

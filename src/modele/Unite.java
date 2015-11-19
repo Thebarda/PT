@@ -1,6 +1,6 @@
 package modele;
 /**
- * Classe qui instancie, modifie et affiche une unité de mesure
+ * Classe qui instancie, modifie et affiche une unitï¿½ de mesure
  * @author ThebardaPNK
  *
  */
@@ -8,7 +8,7 @@ public class Unite {
 	private int id;
 	private String nom;
 	/**
-	 * Construit l'unité par l'id et le nom
+	 * Construit l'unitï¿½ par l'id et le nom
 	 * @param id
 	 * @param nom
 	 */
@@ -17,28 +17,28 @@ public class Unite {
 		this.nom = nom;
 	}
 	/**
-	 * Retourne l'id de l'unité
+	 * Retourne l'id de l'unitï¿½
 	 * @return id
 	 */
 	public int getId(){
 		return this.id;
 	}
 	/**
-	 * Retourne le nom de l'unité
+	 * Retourne le nom de l'unitï¿½
 	 * @return nom
 	 */
 	public String getNom(){
 		return this.nom;
 	}
 	/**
-	 * Modifie l'id de l'unité
+	 * Modifie l'id de l'unitï¿½
 	 * @param id
 	 */
 	public void setId(int id){
 		this.id = id;
 	}
 	/**
-	 * Modifie le nom de l'unité
+	 * Modifie le nom de l'unitï¿½
 	 * @param nom
 	 */
 	public void setNom(String nom){
@@ -66,6 +66,6 @@ public class Unite {
 	}
 	@Override
 	public String toString(){
-		return "id = "+this.getId()+" nom = "+this.getNom();
+		return "["+id+"]"+nom;
 	}
 }

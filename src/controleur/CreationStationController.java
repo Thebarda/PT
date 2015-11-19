@@ -76,7 +76,7 @@ public class CreationStationController {
 	private int idEquipement;
 	
 	@FXML
-	private ComboBox<Integer> listeFrequence;
+	private ComboBox<String> listeFrequence;
 	
 	@FXML
 	private Button ajouter;
@@ -89,7 +89,7 @@ public class CreationStationController {
 	@FXML
 	TableColumn<Unite, String> Nom;
 	
-	ObservableList<Integer> frequence=FXCollections.observableArrayList(1,3,6,12);
+	ObservableList<String> frequence=FXCollections.observableArrayList("01 mois","03 mois","06 mois","12 mois");
 	
 	@FXML
 	private void initialize() {
@@ -135,6 +135,7 @@ public class CreationStationController {
 	 */
 	public void ValiderStation(){
 		boolean estValide=true;
+		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
@@ -172,24 +173,32 @@ public class CreationStationController {
 		
 		if(estValide==true)
 		{
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),listeFrequence.getValue(),Integer.parseInt(seuilBas.getText()),Integer.parseInt(seuilHaut.getText()),idEquipement);
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),Integer.parseInt(seuilBas.getText()),Integer.parseInt(seuilHaut.getText()),idEquipement);
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
 	}
 	/**
-	 * Fonction qui permet d'annuler la création d'une centrale, et ferme donc la fenêtre correspondante
+	 * Fonction qui permet d'annuler la création d'une station, et ferme donc la fenêtre correspondante
 	 */
 	public void annulerStation()
 	{
 		annuler.getParent().getScene().getWindow().hide();	
 	}
-	
+	/**
+	 * Fonction qui permet l'initialiser l'id de l'équipement choisi precedemment pour la création d'une station
+	 * @param equipement
+	 * 		Equipement choisi
+	 */
 	public void init(Equipement equipement)
 	{
 		idEquipement=equipement.getId();
 	}
 	
+	/**
+	 * Fonction qui permet d'ouvrir la fenêtre pour créer une unité
+	 * On gère aussi la fermeture de cette fenêtre, avec la mise à jour de la liste des Unité
+	 */
 	public void ajouterUnit(){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -213,10 +222,26 @@ public class CreationStationController {
 		
 		
 	}
+	/**
+	 * Fonction qui permet de rafraichir la liste des unités
+	 */
 	public void ListerUnit(){
 		ObservableList<Unite> unit=UniteController.loadUnites();
 		ListeUnite.setItems(unit);
 	}
 	
+	/**
+	 * Fonction qui permet de supprimer tous les messages d'erreur.
+	 * Se lance lorsque l'utilisateur appuie sur le bouton valider
+	 */
+	public void resetErreur(){
+		erreurNom.setText("");
+		erreurinstrLongues.setText("");
+		erreurinstrCourtes.setText("");
+		erreurUnite.setText("");
+		erreurSeuilHaut.setText("");
+		erreurSeuilBas.setText("");
+		erreurFrequence.setText("");
+	}
 	
 }

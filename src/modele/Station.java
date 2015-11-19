@@ -14,7 +14,6 @@ public class Station {
 	private int frequence;
 	private int seuilHaut;
 	private int seuilBas;
-	private String nomUnite;
 	
 	/**
 	 * constructeur d'une station en indiquant tous les param�tre qui la constitue
@@ -38,7 +37,6 @@ public class Station {
 		this.frequence = frequence;
 		this.seuilHaut = seuilHaut;
 		this.seuilBas = seuilBas;
-		this.nomUnite=UniteController.idVersNom(idUnite);
 	}
 	/**
 	 * getter de l'id de la station
@@ -158,7 +156,7 @@ public class Station {
 	 * @return le nom de l'unite de la station
 	 */
 	public String getNomUnite() {
-		return nomUnite;
+		return UniteController.idVersNom(idUnite);
 	}
 	@Override
 	public int hashCode() {

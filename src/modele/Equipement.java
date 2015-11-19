@@ -77,7 +77,7 @@ public class Equipement {
 	
 	@Override
 	public String toString() {
-		return "Equipement [centrale="+ idCentrale +"id=" + id + ", nom=" + nom + ", description=" + description + "]";
+		return "["+id+"]"+nom;
 	}
 	@Override
 	public int hashCode() {
