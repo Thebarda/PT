@@ -135,6 +135,8 @@ public class CreationStationController {
 	 */
 	public void ValiderStation(){
 		boolean estValide=true;
+		Integer haut=null;
+		Integer bas=null;
 		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
@@ -145,35 +147,24 @@ public class CreationStationController {
 			erreurinstrCourtes.setText("Erreur : l'instruction courte est vide");
 			estValide=false;
 		}
-		if(instructionLongues.getText().isEmpty())
-		{
-			erreurinstrLongues.setText("Erreur : l'instruction longues est vide");
-			estValide=false;
-		}
 		if(estVideComboBox(ListeUnite))
 		{
 			erreurUnite.setText("Erreur : l'unite est vide");
-			estValide=false;
-		}
-		if(estVide(seuilHaut))
-		{
-			erreurSeuilHaut.setText("Erreur : le seuil haut est vide");
-			estValide=false;
-		}
-		if(estVide(seuilBas))
-		{
-			erreurSeuilBas.setText("Erreur : le seuil bas est vide");
 			estValide=false;
 		}
 		if(listeFrequence.getValue()==null){
 			erreurFrequence.setText("Erreur : la fréquence est vide");
 			estValide=false;
 		}
-		
-		
 		if(estValide==true)
 		{
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),Integer.parseInt(seuilBas.getText()),Integer.parseInt(seuilHaut.getText()),idEquipement);
+			if(!seuilHaut.getText().isEmpty()){
+				haut=Integer.parseInt(seuilHaut.getText());
+			}
+			if(!seuilBas.getText().isEmpty()){
+				bas=Integer.parseInt(seuilBas.getText());
+			}
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),bas,haut,idEquipement);
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -208,7 +199,6 @@ public class CreationStationController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
-	        CreationUnitController controller = loader.getController();
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
@@ -236,11 +226,8 @@ public class CreationStationController {
 	 */
 	public void resetErreur(){
 		erreurNom.setText("");
-		erreurinstrLongues.setText("");
 		erreurinstrCourtes.setText("");
 		erreurUnite.setText("");
-		erreurSeuilHaut.setText("");
-		erreurSeuilBas.setText("");
 		erreurFrequence.setText("");
 	}
 	

@@ -31,7 +31,7 @@
       <Label layoutX="318.0" layoutY="422.0" text="Seuil bas" />
       <Label fx:id="erreurSeuilBas" layoutX="98.0" layoutY="444.0" prefHeight="16.0" prefWidth="193.0" textFill="#ff0000" />
       <Label fx:id="erreurSeuilHaut" layoutX="315.0" layoutY="444.0" prefHeight="16.0" prefWidth="262.0" textFill="#ff0000" />
-      <ComboBox fx:id="ListeUnite" layoutX="235.0" layoutY="360.0" onAction="#ListerUnit" onInputMethodTextChanged="#ListerUnit" prefWidth="150.0" />
+      <ComboBox fx:id="ListeUnite" layoutX="235.0" layoutY="360.0" prefWidth="150.0" />
       <Button layoutX="421.0" layoutY="360.0" mnemonicParsing="false" onAction="#ajouterUnit" text="AJOUTER" />
       <TextArea fx:id="instructionCourtes" layoutX="232.0" layoutY="148.0" prefHeight="59.0" prefWidth="301.0" />
       <Label layoutX="51.0" layoutY="478.0" text="Fréquence" />

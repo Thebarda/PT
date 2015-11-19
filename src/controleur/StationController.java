@@ -15,8 +15,8 @@ public class StationController
 {
 
 	/**
-	 * Fonction permettant de récuperer tous les objets Station dans la base de donnée pour un équipement donné
-	 * @param idEquipement id de l'équipement dont on veut connaitre les stations
+	 * Fonction permettant de rï¿½cuperer tous les objets Station dans la base de donnï¿½e pour un ï¿½quipement donnï¿½
+	 * @param idEquipement id de l'ï¿½quipement dont on veut connaitre les stations
 	 * @return
 	 */
 	public static ObservableList<Station> loadStation(int idEquipement){
@@ -58,21 +58,21 @@ public class StationController
 		return stations;
 	}
 	/**
-	 * Fonction qui permet d'ajouter une station a la base de donnée.
-	 * on indique tous les paremètre sauf l'id qui est en autoincrément.
-	 * attention particulière a l'idUnité/idEquipement, en effet l'utilisateur ne saisit que les nom de ces deux variables
-	 * n'oublier pas avant d'ajouter de récuperer l'id
+	 * Fonction qui permet d'ajouter une station a la base de donnï¿½e.
+	 * on indique tous les paremï¿½tre sauf l'id qui est en autoincrï¿½ment.
+	 * attention particuliï¿½re a l'idUnitï¿½/idEquipement, en effet l'utilisateur ne saisit que les nom de ces deux variables
+	 * n'oublier pas avant d'ajouter de rï¿½cuperer l'id
 	 * @param nom nom de la station
 	 * @param instructionCourte instruction courte de la station
 	 * @param instructionLongue instruction longue de la station
-	 * @param idUnite id de l'unité de controle de la station
-	 * @param frequence frequence de controle de la station ( sert a établir les planning de tounées )
-	 * @param seuilHaut Seuil maximum pour le relevé
-	 * @param seuilBas seuil minimum pour le relevé
-	 * @param idEquipement id de l'équipement auquel est rataché la station
+	 * @param idUnite id de l'unitï¿½ de controle de la station
+	 * @param frequence frequence de controle de la station ( sert a ï¿½tablir les planning de tounï¿½es )
+	 * @param seuilHaut Seuil maximum pour le relevï¿½
+	 * @param seuilBas seuil minimum pour le relevï¿½
+	 * @param idEquipement id de l'ï¿½quipement auquel est ratachï¿½ la station
 	 */
 	public static void addStation(String nom, String instructionCourte, String instructionLongue, int idUnite, int frequence,
-			int seuilHaut, int seuilBas,int idEquipement)
+			Integer seuilHaut, Integer seuilBas,int idEquipement)
 	{
 		Connection connexion = null;
 		try{
@@ -88,8 +88,16 @@ public class StationController
 			preparedStatement.setString(3, instructionLongue);
 			preparedStatement.setInt(4, idUnite);
 			preparedStatement.setInt(5, frequence);
-			preparedStatement.setInt(6, seuilHaut);
-			preparedStatement.setInt(7, seuilBas);
+			if (seuilHaut==null){
+				preparedStatement.setString(6, "NULL");
+			}else{
+				preparedStatement.setInt(6, seuilHaut);
+			}
+			if (seuilHaut==null){
+				preparedStatement.setString(7, "NULL");
+			}else{
+				preparedStatement.setInt(7, seuilBas);
+			}
 			preparedStatement.setInt(8, idEquipement);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){
