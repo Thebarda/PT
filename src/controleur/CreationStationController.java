@@ -116,6 +116,13 @@ public class CreationStationController {
 		}
 		
 	}
+	/**
+	 * Fonction qui permet de determiner si une combobox d'unite est vide
+	 * @param combo
+	 * 		combobox a tester
+	 * @return
+	 * 		vrai si elle est vide, faux sinon
+	 */
 	public Boolean estVideComboBox(ComboBox<Unite> combo)
 	{
 		if(combo.getValue()==null)
@@ -127,6 +134,22 @@ public class CreationStationController {
 			return false;
 		}
 		
+	}
+	/**
+	 * Fonction qui permet de determiner si une chaine est un entier
+	 * @param chaine
+	 * 		chiane a tester
+	 * @return
+	 * 		vrai si c'est un entier, faux sinon
+	 */
+	public boolean estUnEntier(String chaine) {
+		try {
+			Integer.parseInt(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+ 
+		return true;
 	}
 	
 	/**
@@ -156,6 +179,21 @@ public class CreationStationController {
 			erreurFrequence.setText("Erreur : la fréquence est vide");
 			estValide=false;
 		}
+		
+		if(!seuilHaut.getText().isEmpty() && !estUnEntier(seuilHaut.getText())){
+			erreurSeuilHaut.setText("Erreur : un nombre doit être saisi");
+			estValide=false;
+		}
+		
+		if(!seuilBas.getText().isEmpty() &&!estUnEntier(seuilBas.getText())){
+			erreurSeuilBas.setText("Erreur : un nombre doit être saisi");
+			estValide=false;
+		}
+		if(!seuilBas.getText().isEmpty() && estUnEntier(seuilBas.getText()) && !seuilHaut.getText().isEmpty() && estUnEntier(seuilHaut.getText()) && Integer.parseInt(seuilHaut.getText())<Integer.parseInt(seuilBas.getText())){
+			erreurSeuilBas.setText("Erreur : le seuil bas doit être inférieur au seuil haut !");
+			estValide=false;
+		}
+		
 		if(estValide==true)
 		{
 			if(!seuilHaut.getText().isEmpty()){
@@ -164,7 +202,7 @@ public class CreationStationController {
 			if(!seuilBas.getText().isEmpty()){
 				bas=Integer.parseInt(seuilBas.getText());
 			}
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),bas,haut,idEquipement);
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),haut,bas,idEquipement);
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -229,6 +267,8 @@ public class CreationStationController {
 		erreurinstrCourtes.setText("");
 		erreurUnite.setText("");
 		erreurFrequence.setText("");
+		erreurSeuilBas.setText("");
+		erreurSeuilHaut.setText("");
 	}
 	
 }
