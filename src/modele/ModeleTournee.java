@@ -1,7 +1,11 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 /**
  * 
  * @author 
@@ -11,7 +15,7 @@ public class ModeleTournee {
 	private int  id;
 	private String nom;
 	private String description;
-	private ArrayList<Station> stations;
+	private HashMap<Integer,Station> stations;
 	
 	/**
 	 * Constructeur d'un modele de tournée
@@ -23,23 +27,25 @@ public class ModeleTournee {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
-		this.stations = new ArrayList<Station>();
+		this.stations = new HashMap<Integer,Station>();
 	}
 	
 	/**
 	 * Ajouter une station a un modele de tournée
 	 * @param station : la station à ajouter
 	 */
-	public void ajouterStation(Station station){
-		this.stations.add(station);
+	public void ajouterStation(Station station, int ordre){
+		this.stations.put(ordre, station);
 	}
 	
 	/**
 	 * Recuperer les stations du modele de tournee
-	 * @return les stations du modèle de tournée dans une collection
+	 * @return les stations du modèle de tournée dans une arraylist
 	 */
-	public Collection<Station> getStations(){
-		return this.stations;
+	public ObservableMap<Integer, Station> getStationN(int ordre){
+		ObservableMap<Integer, Station> ObsStations = FXCollections.observableHashMap();
+		ObsStations.putAll(stations);
+		return ObsStations;
 	}
 	
 	/**
