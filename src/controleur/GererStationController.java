@@ -47,7 +47,7 @@ public class GererStationController {
 	TableColumn<Station, String> Nom;
 	
 	@FXML
-	TableColumn<Station, Integer> Unite;
+	TableColumn<Station, String> Unite;
 	
 	@FXML
 	Button Ajouter;
@@ -76,8 +76,8 @@ public class GererStationController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
-	        //CreationStationController controller = loader.getController();
-	        //controller.init(listeEquipement.getValue());
+	        CreationStationController controller = loader.getController();
+	        controller.init(listeEquipement.getValue());
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
@@ -100,7 +100,7 @@ public class GererStationController {
 			ObservableList<Station> stations=StationController.loadStation(listeEquipement.getValue().getId());
 			ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
 			Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
-			Unite.setCellValueFactory(new PropertyValueFactory<Station, Integer>("idUnite"));
+			Unite.setCellValueFactory(new PropertyValueFactory<Station, String>("nomUnite"));
 			tableStation.setItems(stations);
 		}
 	}

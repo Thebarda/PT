@@ -10,25 +10,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.Unite;
 /**
- * Gère les unités
+ * Gï¿½re les unitï¿½s
  * @version 1
  *
  */
 public class UniteController {
 	/**
-	 * Ajoute une unité dans la base
+	 * Ajoute une unitï¿½ dans la base
 	 * @param id
 	 * @param nom
 	 */
-	public static void addUnite(int id, String nom)
+	public static void addUnite(String nom)
 	{
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
-			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO UNITE(idUnite, nomUnite)VALUES(?,?)");
-			preparedStatement.setInt(1, id);
-			preparedStatement.setString(2, nom);
+			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO UNITE(nomUnite)VALUES(?)");
+			preparedStatement.setString(1, nom);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -45,8 +44,8 @@ public class UniteController {
 		}
 	}
 	/**
-	 * Charges les unités de la base
-	 * @return la liste des unités
+	 * Charges les unitï¿½s de la base
+	 * @return la liste des unitï¿½s
 	 */
 public static ObservableList<Unite> loadUnites(){
 		
@@ -81,4 +80,40 @@ public static ObservableList<Unite> loadUnites(){
 		}
 		return unites;
 	}
+	/**
+	 * Fonction qui donne le nom d'une unitÃ© en fonction de son id
+	 * @param id
+	 * 		id de l'unitÃ©
+	 * @return
+	 * 		Nom de l'unitÃ©
+	 */
+	public static String idVersNom(int id){
+		String nom=null;
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT nomUnite FROM UNITE WHERE idUnite="+id);
+			while(resultat.next()){
+				nom=resultat.getString("nomUnite");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return nom;
+	}
+
 }

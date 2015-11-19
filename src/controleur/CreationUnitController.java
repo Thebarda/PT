@@ -54,7 +54,7 @@ public class CreationUnitController {
 	 * Fonction qui permet de valider une centrale, et donc de l'ajouter à la base
 	 * On ajoute la centrale que si les champs nom et localisation sont non vide
 	 */
-	public void ValiderCentrale(){
+	public void ValiderUnite(){
 		boolean estValide=true;
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
@@ -62,7 +62,7 @@ public class CreationUnitController {
 		}
 		if(estValide == true)
 		{
-			UniteController.addUnite(idUnit,nom.getText());
+			UniteController.addUnite(nom.getText());
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -71,15 +71,9 @@ public class CreationUnitController {
 	 * Fonction qui permet d'annuler la création d'une centrale, et cahce la fenêtre correspondante
 	 * En réalité. La page est fermé par le controller gérant la page de gestion de Centrale
 	 */
-	public void annulerCentrale()
+	public void annulerUnite()
 	{
 		annuler.getParent().getScene().getWindow().hide();	
 	}
-	
-	public void init(Unite unit)
-	{
-		idUnit=unit.getId();
-	}
-	
 	
 }

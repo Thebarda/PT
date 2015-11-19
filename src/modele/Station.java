@@ -1,5 +1,7 @@
 package modele;
 
+import controleur.UniteController;
+
 /**
  * classe permettant la gestion d'une station
  */
@@ -12,14 +14,15 @@ public class Station {
 	private int frequence;
 	private int seuilHaut;
 	private int seuilBas;
+	private String nomUnite;
 	
 	/**
-	 * constructeur d'une station en indiquant tous les paramètre qui la constitue
+	 * constructeur d'une station en indiquant tous les paramï¿½tre qui la constitue
 	 * @param id id de la station
 	 * @param nom nom de la station
 	 * @param instructionCourte instruction courte de la station
 	 * @param instructionLongue instruction de la station
-	 * @param idUnite id de l'unité de mesure de la station
+	 * @param idUnite id de l'unitï¿½ de mesure de la station
 	 * @param frequence frequence de controle de la station
 	 * @param seuilHaut seuil maximum pour les mesures
 	 * @param seuilBas seuil minimum pour les mesures
@@ -35,6 +38,7 @@ public class Station {
 		this.frequence = frequence;
 		this.seuilHaut = seuilHaut;
 		this.seuilBas = seuilBas;
+		this.nomUnite=UniteController.idVersNom(idUnite);
 	}
 	/**
 	 * getter de l'id de la station
@@ -93,15 +97,15 @@ public class Station {
 		this.instructionLongue = instructionLongue;
 	}
 	/**
-	 * getter de l'id de l'unité de controle de la station
-	 * @return l'id de l'unité associé a la station
+	 * getter de l'id de l'unitï¿½ de controle de la station
+	 * @return l'id de l'unitï¿½ associï¿½ a la station
 	 */
 	public int getIdUnite() {
 		return idUnite;
 	}
 	/**
-	 * setter de l'id de l'unité de la station
-	 * @param unite id de l'unité de la station
+	 * setter de l'id de l'unitï¿½ de la station
+	 * @param unite id de l'unitï¿½ de la station
 	 */
 	public void setIdUnite(int unite) {
 		this.idUnite = unite;
@@ -147,6 +151,14 @@ public class Station {
 	 */
 	public void setSeuilBas(int seuilBas) {
 		this.seuilBas = seuilBas;
+	}
+	
+	/**
+	 * getter du nom de l'unite de la station
+	 * @return le nom de l'unite de la station
+	 */
+	public String getNomUnite() {
+		return nomUnite;
 	}
 	@Override
 	public int hashCode() {

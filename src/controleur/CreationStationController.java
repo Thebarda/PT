@@ -4,6 +4,7 @@ package controleur;
 
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,10 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,10 +31,10 @@ public class CreationStationController {
 	private TextField nom;
 	
 	@FXML
-	private TextField instructionCourtes ;
+	private TextArea instructionCourtes ;
 	
 	@FXML
-	private TextField instructionLongues ;
+	private TextArea instructionLongues ;
 	
 	@FXML
 	private ComboBox<Unite> ListeUnite;
@@ -62,6 +62,9 @@ public class CreationStationController {
 	
 	@FXML
 	private Label erreurSeuilBas;
+	
+	@FXML
+	private Label erreurFrequence;
 		
 	@FXML
 	private Button valider;
@@ -73,7 +76,7 @@ public class CreationStationController {
 	private int idEquipement;
 	
 	@FXML
-	private SplitMenuButton frequence;
+	private ComboBox<Integer> listeFrequence;
 	
 	@FXML
 	private Button ajouter;
@@ -86,8 +89,12 @@ public class CreationStationController {
 	@FXML
 	TableColumn<Unite, String> Nom;
 	
+	ObservableList<Integer> frequence=FXCollections.observableArrayList(1,3,6,12);
+	
+	@FXML
 	private void initialize() {
 		ListeUnite.setItems(unite);
+		listeFrequence.setItems(frequence);
 	}
 	
 	/**
@@ -111,7 +118,7 @@ public class CreationStationController {
 	}
 	public Boolean estVideComboBox(ComboBox<Unite> combo)
 	{
-		if(combo.getPromptText().isEmpty())
+		if(combo.getValue()==null)
 		{
 			return true;
 		}
@@ -123,28 +130,28 @@ public class CreationStationController {
 	}
 	
 	/**
-	 * Fonction qui permet de valider une centrale, et donc de l'ajouter à la base
-	 * On ajoute la centrale que si les champs nom et localisation sont non vide
+	 * Fonction qui permet de valider une station, et donc de l'ajouter à la base
+	 * On ajoute la station que si les champs nom,instructions courtes,unité, seuil haut, seuil bas instruction longues sont non vide
 	 */
-	public void ValiderEquipement(){
+	public void ValiderStation(){
 		boolean estValide=true;
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(estVide(instructionCourtes))
+		if(instructionCourtes.getText().isEmpty())
 		{
 			erreurinstrCourtes.setText("Erreur : l'instruction courte est vide");
 			estValide=false;
 		}
-		if(estVide(instructionLongues))
+		if(instructionLongues.getText().isEmpty())
 		{
 			erreurinstrLongues.setText("Erreur : l'instruction longues est vide");
 			estValide=false;
 		}
 		if(estVideComboBox(ListeUnite))
 		{
-			erreurUnite.setText("Erreur : l'unit� est vide");
+			erreurUnite.setText("Erreur : l'unite est vide");
 			estValide=false;
 		}
 		if(estVide(seuilHaut))
@@ -157,11 +164,15 @@ public class CreationStationController {
 			erreurSeuilBas.setText("Erreur : le seuil bas est vide");
 			estValide=false;
 		}
+		if(listeFrequence.getValue()==null){
+			erreurFrequence.setText("Erreur : la fréquence est vide");
+			estValide=false;
+		}
 		
 		
 		if(estValide==true)
 		{
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),Integer.parseInt(ListeUnite.getPromptText()),Integer.parseInt(frequence.getText()),Integer.parseInt(seuilBas.getText()),Integer.parseInt(seuilHaut.getText()),idEquipement);
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),listeFrequence.getValue(),Integer.parseInt(seuilBas.getText()),Integer.parseInt(seuilHaut.getText()),idEquipement);
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -169,7 +180,7 @@ public class CreationStationController {
 	/**
 	 * Fonction qui permet d'annuler la création d'une centrale, et ferme donc la fenêtre correspondante
 	 */
-	public void annulerEquipement()
+	public void annulerStation()
 	{
 		annuler.getParent().getScene().getWindow().hide();	
 	}
@@ -204,8 +215,6 @@ public class CreationStationController {
 	}
 	public void ListerUnit(){
 		ObservableList<Unite> unit=UniteController.loadUnites();
-		Nom.setCellValueFactory(new PropertyValueFactory<Unite, String>("nom"));
-		ID.setCellValueFactory(new PropertyValueFactory<Unite, Integer>("id"));
 		ListeUnite.setItems(unit);
 	}
 	
