@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationUnitController">
+   <children>
+      <Button fx:id="valider" layoutX="347.0" layoutY="233.0" mnemonicParsing="false" onAction="#ValiderCentrale" text="VALIDER" />
+      <Label fx:id="erreurNom" layoutX="299.0" layoutY="123.0" textFill="#fc0101" />
+      <TextField fx:id="nom" layoutX="272.0" layoutY="76.0" />
+      <Label layoutX="68.0" layoutY="80.0" text="Nom " />
+      <Button fx:id="annuler" layoutX="238.0" layoutY="233.0" mnemonicParsing="false" onAction="#annulerCentrale" text="ANNULER" />
+      <Label layoutX="116.0" layoutY="29.0" text="Création d'une Unite">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

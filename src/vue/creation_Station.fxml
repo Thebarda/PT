@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="300.0" minWidth="500.0" prefHeight="543.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationStationController">
+   <children>
+      <Button fx:id="valider" layoutX="398.0" layoutY="486.0" mnemonicParsing="false" onAction="#ValiderCentrale" text="VALIDER" />
+      <Label fx:id="erreurNom" layoutX="299.0" layoutY="123.0" textFill="#fc0101" />
+      <TextField fx:id="nom" layoutX="272.0" layoutY="76.0" />
+      <Label layoutX="68.0" layoutY="80.0" text="Nom " />
+      <TextField fx:id="instructionCourtes" layoutX="272.0" layoutY="157.0" />
+      <Label layoutX="50.0" layoutY="161.0" text="Instruction courte " />
+      <Label fx:id="erreurLoca" layoutX="285.0" layoutY="200.0" textFill="#f20404" />
+      <Button fx:id="annuler" layoutX="265.0" layoutY="486.0" mnemonicParsing="false" onAction="#annulerCentrale" text="ANNULER" />
+      <Label layoutX="116.0" layoutY="29.0" text="Création d'une Station">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <SplitMenuButton fx:id="frequence" layoutX="110.0" layoutY="434.0" mnemonicParsing="false" text="Fréquence">
+        <items>
+          <MenuItem mnemonicParsing="false" text="1 mois" />
+          <MenuItem mnemonicParsing="false" text="3 mois" />
+            <MenuItem mnemonicParsing="false" text="6 mois" />
+            <MenuItem mnemonicParsing="false" text="1 ans" />
+        </items>
+      </SplitMenuButton>
+      <Label layoutX="47.0" layoutY="236.0" text="Instruction longues" />
+      <TextField fx:id="instructionLongues" layoutX="272.0" layoutY="232.0" />
+      <Label layoutX="314.0" layoutY="272.0" />
+      <Label layoutX="69.0" layoutY="301.0" text="Unité" />
+      <Label layoutX="57.0" layoutY="367.0" text="Seuil haut" />
+      <TextField fx:id="seuilHaut" layoutX="136.0" layoutY="363.0" />
+      <TextField fx:id="seuilBas" layoutX="373.0" layoutY="363.0" />
+      <Label layoutX="300.0" layoutY="333.0" />
+      <Label layoutX="300.0" layoutY="367.0" text="Seuil bas" />
+      <Label layoutX="144.0" layoutY="400.0" />
+      <Label layoutX="403.0" layoutY="400.0" />
+      <ComboBox fx:id="ListeUnite" layoutX="272.0" layoutY="297.0" onAction="#ListerUnit" onInputMethodTextChanged="#ListerUnit" prefWidth="150.0" />
+      <Button layoutX="460.0" layoutY="297.0" mnemonicParsing="false" onAction="#ajouterUnit" text="AJOUTER" />
+   </children>
+</AnchorPane>
