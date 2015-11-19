@@ -56,10 +56,27 @@ public class PreparerTourneesController {
 	}
 	
 	/**
-	 * Fonction qui permet d'afficher le contenu relatif à la gestion d'équipement
+	 * Fonction qui permet d'afficher le contenu relatif à la gestion de station
 	 */
 	public void  AfficherGererStation(){
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Gerer_Station.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Centre.getChildren().removeAll(Centre.getChildren());
+			Centre.getChildren().addAll(page);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Fonction qui permet d'afficher le contenu relatif à la gestion de modele de tournees
+	 */
+	public void  AfficherModeleTournee(){
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Gerer_ModeleTournee.fxml"));
 		AnchorPane page;
 		try {
 			page = (AnchorPane) loader.load();
@@ -80,6 +97,9 @@ public class PreparerTourneesController {
 	public void init(int idPage) {
 		if (idPage==2){
 			AfficherGererCentrale();
+		}
+		if (idPage==5){
+			AfficherModeleTournee();
 		}
 	}
 }

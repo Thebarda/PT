@@ -63,7 +63,7 @@ public class GererModeleTourneeController {
 	 * Fonction qui permet d'ouvrir la popup d'ajout de modèle de tournées.
 	 * Une fois que l'utilisateur à annuler l'ajout ou ajouter un modèle de tournées , on recharge le tableau et ferme la popup
 	 */
-	public void ajouterModeleTournees(){
+	public void ajouterModeleTournee(){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Equipement.fxml"));
@@ -92,7 +92,7 @@ public class GererModeleTourneeController {
 	 */
 	public void ListerModeleTournees(){
 		Ajouter.setVisible(true);
-		ObservableList<ModeleTournee> modeleTournee=ModeleTourneeController.loadModeleTournee(listeCentrale.getValue().getId());
+		ObservableList<ModeleTournee> modeleTournee=ModeleTourneeController.loadAllModeleTournee(listeCentrale.getValue().getId());
 		Nom.setCellValueFactory(new PropertyValueFactory<ModeleTournee, String>("nom"));
 		ID.setCellValueFactory(new PropertyValueFactory<ModeleTournee, Integer>("id"));
 		Description.setCellValueFactory(new PropertyValueFactory<ModeleTournee, String>("description"));

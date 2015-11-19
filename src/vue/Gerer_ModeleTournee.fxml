@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.GererEquipementController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.GererModeleTourneeController">
    <children>
-      <TableView fx:id="tableEquipement" layoutX="22.0" layoutY="133.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="347.0" prefWidth="475.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="133.0">
+      <TableView fx:id="tableModeleTournee" layoutX="22.0" layoutY="133.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="347.0" prefWidth="475.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="133.0">
          <columns>
             <TableColumn fx:id="ID" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="Nom" maxWidth="1.7976931348623157E308" prefWidth="196.0" text="Nom" />
             <TableColumn fx:id="Description" maxWidth="1.7976931348623157E308" prefWidth="203.0" text="Description" />
          </columns>
       </TableView>
-      <Button fx:id="Ajouter" layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#ajouterEquipement" prefHeight="34.0" prefWidth="102.0" text="Ajouter" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="33.0" />
+      <Button fx:id="Ajouter" layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#ajouterModeleTournee" prefHeight="34.0" prefWidth="102.0" text="Ajouter" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="33.0" />
       <Label alignment="CENTER" layoutX="126.0" layoutY="36.0" style="-fx-alignment: center;" text="Gestion des Modeles de Tournées" AnchorPane.topAnchor="36.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <Label layoutX="181.0" layoutY="89.0" text="Centrale :" />
-      <ComboBox fx:id="listeCentrale" layoutX="279.0" layoutY="84.0" onAction="#ListerEquipement" onContextMenuRequested="#ListerEquipement" onInputMethodTextChanged="#ListerEquipement" prefWidth="150.0" />
+      <ComboBox fx:id="listeCentrale" layoutX="279.0" layoutY="84.0" onAction="#ListerModeleTournees" onContextMenuRequested="#ListerModeleTournees" onInputMethodTextChanged="#ListerModeleTournees" prefWidth="150.0" />
    </children>
 </AnchorPane>

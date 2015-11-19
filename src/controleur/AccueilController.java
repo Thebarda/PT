@@ -74,6 +74,25 @@ public class AccueilController {
 		
 	}
 	
+	/**
+	 * Fonction qui permet de changer le contenu du centre, en lui appliquant le contenu relatif à la préparation de tournées, et plus precisemment gerer les modele de tournee
+	 */
+	public void  AfficherGererModeleTournee(){
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("PreparerTournees.fxml"));
+		HBox page;
+		try {
+			page = (HBox) loader.load();
+			Appli.getChildren().removeAll(Appli.getChildren());
+			Appli.getChildren().addAll(page);
+			PreparerTourneesController controller = loader.getController();
+	        controller.init(5);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 
 	

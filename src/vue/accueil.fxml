@@ -31,7 +31,7 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <Button layoutX="525.0" layoutY="168.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="198.0" text="Gérer les Modèles de tournées" textAlignment="CENTER" wrapText="true" />
+                        <Button layoutX="525.0" layoutY="168.0" mnemonicParsing="false" onAction="#AfficherGererModeleTournee" prefHeight="76.0" prefWidth="198.0" text="Gérer les Modèles de tournées" textAlignment="CENTER" wrapText="true" />
                         <Button layoutX="120.0" layoutY="306.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="198.0" text="Planning" />
                      </children>
                   </AnchorPane>
