@@ -1,8 +1,8 @@
 
 package modele;
 /**
- * 
- * @author ThebardaPNK
+ * Classe qui créer un fichier
+ * @author 
  *@version 1
  */
 public class Fichier {

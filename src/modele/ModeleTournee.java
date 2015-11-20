@@ -7,7 +7,7 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 /**
- * 
+ * Classe qui créer un modèle de tournée à partir de station
  * @author 
  *@version 1
  */
