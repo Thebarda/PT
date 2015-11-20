@@ -1,7 +1,7 @@
 package modele;
 /**
  * Classe qui créer une tournée
- * @author ThebardaPNK
+ * @author 
  * @version 1
  */
 public class Tournee {

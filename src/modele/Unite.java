@@ -1,8 +1,8 @@
 package modele;
 /**
  * Classe qui instancie, modifie et affiche une unité de mesure
- * @author ThebardaPNK
- *
+ * @author 
+ * @version 1
  */
 public class Unite {
 	private int id;

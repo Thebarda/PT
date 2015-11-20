@@ -4,6 +4,8 @@ import controleur.UniteController;
 
 /**
  * classe permettant la gestion d'une station
+ * @author 
+ * @version 1
  */
 public class Station {
 	private int id;
