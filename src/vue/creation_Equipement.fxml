@@ -6,20 +6,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationEquipementController">
+<AnchorPane minHeight="300.0" minWidth="500.0" prefHeight="444.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationEquipementController">
    <children>
-      <Button fx:id="valider" layoutX="347.0" layoutY="233.0" mnemonicParsing="false" onAction="#ValiderEquipement" text="VALIDER" />
-      <Label fx:id="erreurNom" layoutX="299.0" layoutY="123.0" textFill="#fc0101" />
-      <TextField fx:id="nom" layoutX="272.0" layoutY="76.0" />
-      <Label layoutX="68.0" layoutY="80.0" text="Nom " />
-      <TextField fx:id="description" layoutX="272.0" layoutY="165.0" />
-      <Label layoutX="69.0" layoutY="169.0" text="Description  " />
-      <Label fx:id="erreurDesc" layoutX="285.0" layoutY="200.0" textFill="#f20404" />
-      <Button fx:id="annuler" layoutX="238.0" layoutY="233.0" mnemonicParsing="false" onAction="#annulerEquipement" text="ANNULER" />
+      <Button fx:id="valider" layoutX="358.0" layoutY="385.0" mnemonicParsing="false" onAction="#ValiderEquipement" text="VALIDER" />
+      <Label fx:id="erreurNom" layoutX="246.0" layoutY="111.0" prefHeight="16.0" prefWidth="171.0" textFill="#fc0101" />
+      <TextField fx:id="nom" layoutX="246.0" layoutY="76.0" />
+      <Label layoutX="66.0" layoutY="81.0" text="Nom " />
+      <Label layoutX="68.0" layoutY="216.0" text="Description  " />
+      <Label fx:id="erreurDesc" layoutX="198.0" layoutY="355.0" prefHeight="16.0" prefWidth="267.0" textFill="#f20404" />
+      <Button fx:id="annuler" layoutX="244.0" layoutY="385.0" mnemonicParsing="false" onAction="#annulerEquipement" text="ANNULER" />
       <Label layoutX="107.0" layoutY="37.0" text="Création d'un Equipement">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
+      <Label layoutX="66.0" layoutY="155.0" text="Repère ECSH" />
+      <TextField fx:id="ECSH" layoutX="246.0" layoutY="150.0" prefHeight="26.0" prefWidth="171.0" />
+      <TextArea fx:id="description" layoutX="198.0" layoutY="216.0" prefHeight="127.0" prefWidth="267.0" />
+      <Label fx:id="erreurECSH" layoutX="246.0" layoutY="190.0" prefHeight="16.0" prefWidth="171.0" textFill="#f20404" />
    </children>
 </AnchorPane>
