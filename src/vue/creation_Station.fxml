@@ -51,9 +51,9 @@
          </font></Label>
       <Label layoutX="52.0" layoutY="461.0" text="Paramètre de fonctionnement" />
       <TextField fx:id="paramFonc" layoutX="294.0" layoutY="456.0" prefHeight="26.0" prefWidth="255.0" />
-      <Label fx:id="erreurParamFonc" layoutX="248.0" layoutY="482.0" prefHeight="16.0" prefWidth="450.0" />
+      <Label fx:id="erreurParamFonc" layoutX="248.0" layoutY="482.0" prefHeight="16.0" prefWidth="450.0" textFill="RED" />
       <Label layoutX="51.0" layoutY="511.0" text="MISH :" />
       <TextField fx:id="MISH" layoutX="293.0" layoutY="506.0" prefHeight="26.0" prefWidth="255.0" />
-      <Label fx:id="erreurMISH" layoutX="292.0" layoutY="541.0" prefHeight="16.0" prefWidth="262.0" />
+      <Label fx:id="erreurMISH" layoutX="292.0" layoutY="541.0" prefHeight="16.0" prefWidth="262.0" textFill="RED"/>
    </children>
 </AnchorPane>

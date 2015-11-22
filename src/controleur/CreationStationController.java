@@ -48,6 +48,18 @@ public class CreationStationController {
 	@FXML
 	private TextField valeurNormale;
 	
+	@FXML
+	private TextField MISH;
+	
+	@FXML
+	private Label erreurMISH;
+	
+	@FXML
+	private TextField paramFonc;
+	
+	@FXML
+	private Label erreurParamFonc;
+	
 	@FXML 
 	private Label erreurValeurNormale;
 	
@@ -186,7 +198,14 @@ public class CreationStationController {
 			erreurFrequence.setText("Erreur : la fréquence est vide");
 			estValide=false;
 		}
-		
+		if(estVide(MISH)){
+			erreurMISH.setText("Erreur : MISH est vide");
+			estValide=false;
+		}
+		if(estVide(paramFonc)){
+			erreurParamFonc.setText("Erreur : le parametre de fonctionnement est vide");
+			estValide=false;
+		}
 		if(!seuilHaut.getText().isEmpty() && !estUnEntier(seuilHaut.getText())){
 			erreurSeuilHaut.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
@@ -292,6 +311,8 @@ public class CreationStationController {
 		erreurSeuilBas.setText("");
 		erreurSeuilHaut.setText("");
 		erreurValeurNormale.setText("");
+		erreurParamFonc.setText("");
+		erreurMISH.setText("");
 	}
 	
 }
