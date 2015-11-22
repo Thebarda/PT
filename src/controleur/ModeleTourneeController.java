@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.ModeleTournee;
 import modele.Station;
+import modele.Tournee;
 
 public class ModeleTourneeController {
 	
@@ -166,5 +169,67 @@ public class ModeleTourneeController {
 	         }  
 		}
 	}
-
+	/**
+	 * cette fonction permet de generer la tournée suivante d'un modele
+	 * @param modele
+	 * @return
+	 * Pas encore Finie, on touche pas (Quentin)
+	 */
+	public Tournee genererProchaineTournee(ModeleTournee modele)
+	{
+		// t0 du modèle
+		int t0 = modele.getT0();
+		
+		// mois courant 
+		GregorianCalendar date = new GregorianCalendar();
+		int mois = date.get(Calendar.MONTH);
+		
+		int typeTournee = mois-t0;
+		if(typeTournee < 0)
+		{
+			typeTournee+=11;
+		}
+		//typeTournée = ecart entre le t0 et le moi actuel
+		
+		switch(typeTournee)
+		{
+		case 12:
+			
+			break;
+		case 9 :
+			break;
+		case 6 : 
+			break;
+		case 3 :
+			break;
+		default :
+			break;
+		}
+		return null;
+	}
+	/**
+	 * cette fonction permet de filtrer les stations avec une fréquence max
+	 * si la frequence de la station est <= a la fréquenceMax alors elle est ajoutée a une nouvelle HashMap<key,Station>
+	 * @param stations Stations initiale du modèle
+	 * @param frequenceMax fréquence maximum voulu pour les stations
+	 * @return une sous HashMap de la HashMap du modele avec seulement les stations avec une fréquence <= FrequenceIndiquée
+	 */
+	public HashMap<Integer, Station> extraireStations(HashMap<Integer, Station> stations,int frequenceMax)
+	{
+		int currentPos = 1;
+		int numStation =1; 
+		Station station;
+		
+		HashMap<Integer, Station> stationFiltrees = new HashMap<Integer, Station>();
+		while((station = stations.get(numStation)) != null)
+		{
+			if(station.getFrequence() <= frequenceMax)
+			{
+				stationFiltrees.put(currentPos, station);
+				currentPos++;
+			}
+			numStation++;
+		}
+		return stationFiltrees;	
+	}
 }

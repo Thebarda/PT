@@ -1,6 +1,8 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,14 +13,27 @@ import javafx.collections.ObservableMap;
  * @author 
  *@version 1
  */
-public class ModeleTournee {
+public class ModeleTournee 
+{
+	/**
+	 *  ce champ permet de fixer le mois "t0" d'un modèle de tournée
+	 *  c'est a dire que si t0 = 0, le mois de début est janvier
+	 *  les tournée des 3 mois sont  t0 + 3, les 6 mois t0 + 6....
+	 *  si aucun paramètre de t0 n'est indiqué, le mois courant deviens alors le mois de base pour ce modèle de tournée
+	 *  permet de determiner quelles stations il faut inclure pour la prochaine tournée a exporter
+	 */
+	private final int t0;
+	/**
+	 * sert a savoir quand on peut importer la prochaine tournée
+	 */
+	private int moisDernierImport;
 	private int  id;
 	private String nom;
 	private String description;
 	private HashMap<Integer,Station> stations;
 	
 	/**
-	 * Constructeur d'un modele de tournée
+	 * Constructeur d'un modele de tournée avec un T0 par default
 	 * @param id : l'id du modèle de tournée
 	 * @param nom : le nom du modèle de tournée
 	 * @param description : la description du modèle de tournée
@@ -28,8 +43,32 @@ public class ModeleTournee {
 		this.nom = nom;
 		this.description = description;
 		this.stations = new HashMap<Integer,Station>();
+		
+		// date courante
+		GregorianCalendar date = new GregorianCalendar();
+		this.t0 = date.get(Calendar.MONTH);
+		//initialiser a -1 car on a pas réaliser d'import
+		this.moisDernierImport = -1;
 	}
-	
+	/**
+	 * Constructeur d'un modele de tournée avec un T0 indiqué, attention janvier=0.... decembre = 11
+	 * @param t0
+	 * @param id
+	 * @param nom
+	 * @param description
+	 * @param stations
+	 */
+	public ModeleTournee(int t0, int id, String nom, String description, HashMap<Integer, Station> stations) 
+	{
+		this.t0 = t0;
+		this.id = id;
+		this.nom = nom;
+		this.description = description;
+		this.stations = stations;
+		//initialiser a -1 car on a pas réaliser d'import
+		this.moisDernierImport = -1;
+	}
+
 	/**
 	 * Ajouter une station a un modele de tournée
 	 * @param station : la station à ajouter
@@ -84,7 +123,22 @@ public class ModeleTournee {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
+	
+	
+	public int getMoisDernierImport() {
+		return moisDernierImport;
+	}
+	public void setMoisDernierImport(int moisDernierImport) {
+		this.moisDernierImport = moisDernierImport;
+	}
+	public int getT0() {
+		return t0;
+	}
+	
+	public HashMap<Integer, Station> getStations() {
+		return stations;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,12 +172,10 @@ public class ModeleTournee {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "ModeleTournee [id=" + id + ", nom=" + nom + ", description=" + description + "]";
+		return "ModeleTournee [t0=" + t0 + ", moisDernierImport=" + moisDernierImport + ", id=" + id + ", nom=" + nom
+				+ ", description=" + description + ", stations=" + stations + "]";
 	}
-
-	
-	
 }
