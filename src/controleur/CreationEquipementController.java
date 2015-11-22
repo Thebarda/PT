@@ -5,6 +5,7 @@ package controleur;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import modele.Centrale;
 /**
@@ -16,13 +17,19 @@ public class CreationEquipementController {
 	private TextField nom;
 	
 	@FXML
-	private TextField description ;
+	private TextArea description ;
+	
+	@FXML
+	private TextField ECSH;
 	
 	@FXML 
 	private Label erreurNom;
 	
 	@FXML
 	private Label erreurDesc;
+	
+	@FXML
+	private Label erreurECSH;
 	
 	@FXML
 	private Button valider;
@@ -64,7 +71,11 @@ public class CreationEquipementController {
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(estVide(description))
+		if(estVide(ECSH)){
+			erreurECSH.setText("Erreur : le repère est vide");
+			estValide=false;
+		}
+		if(description.getText().isEmpty())
 		{
 			erreurDesc.setText("Erreur : la description est vide");
 			estValide=false;
@@ -104,6 +115,7 @@ public class CreationEquipementController {
 	public void resetErreur(){
 		erreurDesc.setText("");
 		erreurNom.setText("");
+		erreurECSH.setText("");
 	}
 	
 }

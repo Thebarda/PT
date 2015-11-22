@@ -35,7 +35,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "'";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"));
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),null);
 				equipements.add(equipement);
 			}
 			
@@ -57,8 +57,8 @@ public class EquipementController
 		return equipements;
 	}
 	/**
-	 * charge tous les équipements contenu dans la base de donnée
-	 * @return une ObservableList contenant tous les équipements
+	 * charge tous les ï¿½quipements contenu dans la base de donnï¿½e
+	 * @return une ObservableList contenant tous les ï¿½quipements
 	 */
 	public static ObservableList<Equipement> loadAllEquipement()
 	{
@@ -74,7 +74,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"));
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),null);
 				equipements.add(equipement);
 			}
 			

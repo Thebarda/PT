@@ -45,6 +45,12 @@ public class CreationStationController {
 	@FXML
 	private TextField seuilBas;
 	
+	@FXML
+	private TextField valeurNormale;
+	
+	@FXML 
+	private Label erreurValeurNormale;
+	
 	@FXML 
 	private Label erreurNom;
 	
@@ -138,7 +144,7 @@ public class CreationStationController {
 	/**
 	 * Fonction qui permet de determiner si une chaine est un entier
 	 * @param chaine
-	 * 		chiane a tester
+	 * 		chaine a tester
 	 * @return
 	 * 		vrai si c'est un entier, faux sinon
 	 */
@@ -160,6 +166,7 @@ public class CreationStationController {
 		boolean estValide=true;
 		Integer haut=null;
 		Integer bas=null;
+		Integer normale=null;
 		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
@@ -189,8 +196,20 @@ public class CreationStationController {
 			erreurSeuilBas.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
 		}
+		if(!valeurNormale.getText().isEmpty() &&!estUnEntier(valeurNormale.getText())){
+			erreurValeurNormale.setText("Erreur : un nombre doit être saisi");
+			estValide=false;
+		}
 		if(!seuilBas.getText().isEmpty() && estUnEntier(seuilBas.getText()) && !seuilHaut.getText().isEmpty() && estUnEntier(seuilHaut.getText()) && Integer.parseInt(seuilHaut.getText())<Integer.parseInt(seuilBas.getText())){
 			erreurSeuilBas.setText("Erreur : le seuil bas doit être inférieur au seuil haut !");
+			estValide=false;
+		}
+		if(!valeurNormale.getText().isEmpty() && estUnEntier(valeurNormale.getText()) && !seuilHaut.getText().isEmpty() && estUnEntier(seuilHaut.getText()) && Integer.parseInt(seuilHaut.getText())<Integer.parseInt(valeurNormale.getText())){
+			erreurValeurNormale.setText("Erreur : la valeur doit être inférieur au seuil haut !");
+			estValide=false;
+		}
+		if(!valeurNormale.getText().isEmpty() && estUnEntier(valeurNormale.getText()) && !seuilBas.getText().isEmpty() && estUnEntier(seuilBas.getText()) && Integer.parseInt(seuilBas.getText())>Integer.parseInt(valeurNormale.getText())){
+			erreurValeurNormale.setText("Erreur : la valeur doit être supérieur au seuil bas !");
 			estValide=false;
 		}
 		
@@ -201,6 +220,9 @@ public class CreationStationController {
 			}
 			if(!seuilBas.getText().isEmpty()){
 				bas=Integer.parseInt(seuilBas.getText());
+			}
+			if(!valeurNormale.getText().isEmpty()){
+				normale=Integer.parseInt(valeurNormale.getText());
 			}
 			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),haut,bas,idEquipement);
 			annuler.getParent().getScene().getWindow().hide();
@@ -269,6 +291,7 @@ public class CreationStationController {
 		erreurFrequence.setText("");
 		erreurSeuilBas.setText("");
 		erreurSeuilHaut.setText("");
+		erreurValeurNormale.setText("");
 	}
 	
 }

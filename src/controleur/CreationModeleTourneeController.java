@@ -190,11 +190,11 @@ public class CreationModeleTourneeController {
 		}
 	}
 	public void ListerStation(){
-	ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
-	Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
-	Ordre.setCellValueFactory(new PropertyValueFactory<Station, String>("ordre "));
-	data.removeAll(data);
-	data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
-	tableStation.setItems(data);
-}
+		ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
+		Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
+		Ordre.setCellValueFactory(new PropertyValueFactory<Station, String>("ordre "));
+		data.removeAll(data);
+		data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
+		tableStation.setItems(data);
+	}
 }

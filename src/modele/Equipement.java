@@ -7,6 +7,7 @@ public class Equipement {
 	private String nom;
 	private String description;
 	private int idCentrale;
+	private String ECSH;
 	
 	/**
 	 * Constructeur pour un équipement en spécifiant son id, son nom, sa descriptione et l'id de la Centrale relatif à cet équipement
@@ -18,12 +19,15 @@ public class Equipement {
 	 * 		description de l'équipement
 	 * @param idCentrale
 	 * 		id de la Centrale relatif à l'équipement
+	 * @param ECSH
+	 * 		repere ECSH de l'equipement
 	 */
-	public Equipement(int id, String nom, String description, int idCentrale){
+	public Equipement(int id, String nom, String description, int idCentrale,String ECSH){
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
 		this.idCentrale=idCentrale;
+		this.ECSH=ECSH;
 	}
 	
 	/**
@@ -73,6 +77,24 @@ public class Equipement {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	/**
+	 * Geter pour le repere ECSH de l'equipement
+	 * @return
+	 * 		le repere de l'equipement
+	 */
+	public String getECSH(){
+		return ECSH;
+	}
+	
+	/**
+	 * Setter pour le repere ECSH de l'equipement 
+	 * @param ECSH
+	 * 		nouveau repere
+	 */
+	public void setECSH(String ECSH){
+		this.ECSH=ECSH;
 	}
 	
 	@Override

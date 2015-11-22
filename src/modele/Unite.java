@@ -1,14 +1,14 @@
 package modele;
 /**
- * Classe qui instancie, modifie et affiche une unitï¿½ de mesure
- * @author ThebardaPNK
- *
+ * Classe qui instancie, modifie et affiche une unité de mesure
+ * @author 
+ * @version 1
  */
 public class Unite {
 	private int id;
 	private String nom;
 	/**
-	 * Construit l'unitï¿½ par l'id et le nom
+	 * Construit l'unité par l'id et le nom
 	 * @param id
 	 * @param nom
 	 */
@@ -17,28 +17,28 @@ public class Unite {
 		this.nom = nom;
 	}
 	/**
-	 * Retourne l'id de l'unitï¿½
+	 * Retourne l'id de l'unité
 	 * @return id
 	 */
 	public int getId(){
 		return this.id;
 	}
 	/**
-	 * Retourne le nom de l'unitï¿½
+	 * Retourne le nom de l'unité
 	 * @return nom
 	 */
 	public String getNom(){
 		return this.nom;
 	}
 	/**
-	 * Modifie l'id de l'unitï¿½
+	 * Modifie l'id de l'unité
 	 * @param id
 	 */
 	public void setId(int id){
 		this.id = id;
 	}
 	/**
-	 * Modifie le nom de l'unitï¿½
+	 * Modifie le nom de l'unité
 	 * @param nom
 	 */
 	public void setNom(String nom){
