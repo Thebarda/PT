@@ -43,7 +43,7 @@ public class CreationModeleTourneeController {
 	private Label erreurNom;
 	
 	@FXML
-	private TextArea description ;
+	private TextField description  ;
 	
 	@FXML 
 	private Label erreurDescription;
@@ -71,8 +71,6 @@ public class CreationModeleTourneeController {
 	ObservableList<ModeleTournee> data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 
 	
-	@FXML
-	private int idUnit;
 	
 	
 	public void init(Centrale centrale)
@@ -83,7 +81,7 @@ public class CreationModeleTourneeController {
 	public void initFils(Map<Integer,Station> nouvelleMap,int nouveauRang)
 	{
 		map=nouvelleMap;
-		rang=nouveauRang;
+		rangActuel=nouveauRang;
 	}
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
@@ -92,7 +90,7 @@ public class CreationModeleTourneeController {
 	 * @return
 	 * 		Vrai si le champs est vide, faux sinon
 	 */
-	public Boolean estVide(TextField texte)
+	public Boolean estVideField(TextField texte)
 	{
 		if(texte.getText().isEmpty())
 		{
@@ -111,9 +109,9 @@ public class CreationModeleTourneeController {
 	 * @return
 	 * 		Vrai si le champs est vide, faux sinon
 	 */
-	public Boolean estVide(TextArea texte)
+	public Boolean estVide(TextArea textea)
 	{
-		if(texte.getText().isEmpty())
+		if(textea.getText().isEmpty())
 		{
 			return true;
 		}
@@ -131,11 +129,11 @@ public class CreationModeleTourneeController {
 	public void ValiderModeleTournee(){
 		boolean estValide=true;
 		resetErreur();
-		if(estVide(nom)){
+		if(estVideField(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(estVide(description)){
+		if(estVideField(description)){
 			erreurNom.setText("Erreur : la description est vide");
 			estValide=false;
 		}
@@ -143,11 +141,11 @@ public class CreationModeleTourneeController {
 			erreurNom.setText("Erreur : il faut des station pour une tournee ");
 			estValide=false;
 		}
-		if(estValide == true)
+		/*if(estValide == true)
 		{
-			ModeleTournee.addModeleTournee(nom.getText(),description.getText(),);
+			ModeleTournee.addModeleTournee(nom.getText(),description.getText(),map);
 			annuler.getParent().getScene().getWindow().hide();
-		}
+		}*/
 		
 	}
 	/**
@@ -181,7 +179,7 @@ public class CreationModeleTourneeController {
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
-	            	ListerStation();
+	            	//ListerStation();
 	            	dialog.close();
 	            }
 	        });
@@ -189,12 +187,12 @@ public class CreationModeleTourneeController {
 			e.printStackTrace();
 		}
 	}
-	public void ListerStation(){
+	/*public void ListerStation(){
 		ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
 		Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
-		Ordre.setCellValueFactory(new PropertyValueFactory<Station, String>("ordre "));
+		Ordre.setCellValueFactory(new PropertyValueFactory<Station, Integer>("ordre "));
 		data.removeAll(data);
 		data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 		tableStation.setItems(data);
-	}
+	}*/
 }
