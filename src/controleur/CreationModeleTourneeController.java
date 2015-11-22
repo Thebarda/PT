@@ -4,9 +4,15 @@ package controleur;
 
 import java.awt.TextArea;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import modele.Centrale;
 import modele.Equipement;
 import modele.ModeleTournee;
@@ -33,6 +40,7 @@ import vue.Main;
  */
 public class CreationModeleTourneeController {
 	
+	ModeleTournee modele;
 	private Map<Integer,Station> map;
 	private int rangActuel=0;
 		
@@ -55,33 +63,43 @@ public class CreationModeleTourneeController {
 	private Button annuler;
 	
 	@FXML
-	TableView<ModeleTournee> tableStation;
+	TableView<ObservableMap.Entry<Integer,Station>> tableStation;
 	
 	@FXML
-	TableColumn<ModeleTournee, Integer> ID;
+	TableColumn<ObservableMap.Entry<Integer,Station>, Integer> ID;
 	
 	@FXML
-	TableColumn<ModeleTournee, String> Nom;
+	TableColumn<ObservableMap.Entry<Integer,Station>, Integer> Nom;
 	
 	@FXML
-	TableColumn<ModeleTournee, Integer> Ordre;
+	TableColumn<ObservableMap.Entry<Integer,Station>, Integer> Ordre;
 	
 	private int idCentrale ;
 	
 	ObservableList<ModeleTournee> data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 
+	Map<Integer, Station> stations=new HashMap<Integer, Station>();
+	ObservableMap<Integer,Station> Ostations=FXCollections.observableHashMap();
+	ObservableList<ObservableMap.Entry<Integer,Station>> rowMaps;
+	public void init2()
+	{
+		
+		 rowMaps = FXCollections.observableArrayList(Ostations.entrySet());
 	
+	}
 	
 	
 	public void init(Centrale centrale)
 	{
+		//Ostations= ModeleTourneeController.loadStationIntoModeleTournee(modele);
 		idCentrale=centrale.getId();
 	}
 	
-	public void initFils(Map<Integer,Station> nouvelleMap,int nouveauRang)
+	public void initFils(ObservableMap<Integer,Station> nouvelleMap,int nouveauRang)
 	{
-		map=nouvelleMap;
+		Ostations=nouvelleMap;
 		rangActuel=nouveauRang;
+		
 	}
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
@@ -141,11 +159,11 @@ public class CreationModeleTourneeController {
 			erreurNom.setText("Erreur : il faut des station pour une tournee ");
 			estValide=false;
 		}
-		/*if(estValide == true)
+		if(estValide == true)
 		{
-			ModeleTournee.addModeleTournee(nom.getText(),description.getText(),map);
+			ModeleTournee.addModeleTournee(nom.getText(),description.getText(),Ostations);
 			annuler.getParent().getScene().getWindow().hide();
-		}*/
+		}
 		
 	}
 	/**
@@ -175,7 +193,7 @@ public class CreationModeleTourneeController {
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
 	        AjoutStationController controller = loader.getController();
-	        controller.init(idCentrale, map,rangActuel,this);
+	        controller.init(idCentrale, map,rangActuel,this,Ostations);
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
@@ -187,12 +205,32 @@ public class CreationModeleTourneeController {
 			e.printStackTrace();
 		}
 	}
-	/*public void ListerStation(){
-		ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
-		Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
-		Ordre.setCellValueFactory(new PropertyValueFactory<Station, Integer>("ordre "));
+	public void ListerStation(){
+		
+		ID.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Integer>, ObservableValue<Integer>>() {
+
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Integer> p) {
+                return new SimpleIntegerProperty(p.getValue().getKey()).asObject();
+            }
+        });
+		
+		Nom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station>, ObservableValue<Station>>() {
+
+            @Override
+            public ObservableValue<Station> call(TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station> p) {
+                return new SimpleObjectProperty<Station>(p.getValue().getValue());
+            }
+        });
+		Ordre.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station>, ObservableValue<Station>>() {
+
+            @Override
+            public ObservableValue<Station> call(TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station> p) {
+                return new SimpleObjectProperty<Station>(p.getValue().getValue());
+            }
+        });
 		data.removeAll(data);
 		data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
-		tableStation.setItems(data);
-	}*/
+		tableStation.setItems(rowMaps);
+	}
 }

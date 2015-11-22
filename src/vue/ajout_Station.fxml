@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="300.0" minWidth="471.0" prefHeight="304.0" prefWidth="471.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationCentraleController">
+<AnchorPane minHeight="300.0" minWidth="471.0" prefHeight="304.0" prefWidth="471.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.AjoutStationController">
    <children>
-      <Button fx:id="valider" layoutX="340.0" layoutY="247.0" mnemonicParsing="false" onAction="#ValiderCentrale" text="VALIDER" />
-      <Button fx:id="annuler" layoutX="236.0" layoutY="247.0" mnemonicParsing="false" onAction="#annulerCentrale" text="ANNULER" />
+      <Button fx:id="valider" layoutX="340.0" layoutY="247.0" mnemonicParsing="false" onAction="#ValiderAjoutStation" text="VALIDER" />
+      <Button fx:id="annuler" layoutX="236.0" layoutY="247.0" mnemonicParsing="false" onAction="#annulerAjoutStation" text="ANNULER" />
       <Label layoutX="144.0" layoutY="34.0" text="Ajout d'une Station">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ComboBox layoutX="161.0" layoutY="127.0" prefWidth="150.0" />
+      <ComboBox fx:id="listeStations" layoutX="161.0" layoutY="127.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

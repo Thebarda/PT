@@ -66,13 +66,13 @@ public class GererModeleTourneeController {
 	public void ajouterModeleTournee(){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Equipement.fxml"));
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_ModeleTourne.fxml"));
 		AnchorPane page;
 		try {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
-	        CreationEquipementController controller = loader.getController();
+	        CreationModeleTourneeController controller = loader.getController();
 	        controller.init(listeCentrale.getValue());
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
