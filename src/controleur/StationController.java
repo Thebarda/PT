@@ -57,6 +57,53 @@ public class StationController
 		}
 		return stations;
 	}
+	
+	/**
+	 * Fonction permettant de récuperer tous les objets Station dans la base de donnée pour une centrale donnée
+	 * @param idEquipement id de l'ï¿½quipement dont on veut connaitre les stations
+	 * @return
+	 */
+	public static ObservableList<Station> loadStationForCentrale(int idCentrale){
+		
+		ObservableList<Station> stations=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM station s "
+										+ "INNER JOIN Equipement e ON e.idEquipement=s.idEquipement "
+										+ "WHERE e.idCentrale='" + idCentrale + "'");
+			while(resultat.next()){
+				Station station = new Station(resultat.getInt("idStation"),
+						resultat.getString("nomStation"),
+						resultat.getString("instructionsCourtes"),
+						resultat.getString("instructionsLongues"),
+						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"));
+				stations.add(station);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return stations;
+	}
+	
 	/**
 	 * Fonction qui permet d'ajouter une station a la base de donnï¿½e.
 	 * on indique tous les paremï¿½tre sauf l'id qui est en autoincrï¿½ment.
