@@ -2,9 +2,7 @@ package controleur;
 
 
 
-import java.awt.TextArea;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -18,9 +16,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +40,6 @@ import vue.Main;
  */
 public class CreationModeleTourneeController {
 	
-	ModeleTournee modele;
 	private Map<Integer,Station> map;
 	private int rangActuel=0;
 		
@@ -51,10 +50,19 @@ public class CreationModeleTourneeController {
 	private Label erreurNom;
 	
 	@FXML
-	private TextField description  ;
+	private TextArea description;
 	
 	@FXML 
 	private Label erreurDescription;
+	
+	@FXML 
+	private Label erreurStation;
+	
+	@FXML
+	private Label erreurMois;
+	
+	@FXML
+	private ComboBox<String> debut;
 	
 	@FXML
 	private Button valider;
@@ -66,35 +74,42 @@ public class CreationModeleTourneeController {
 	TableView<ObservableMap.Entry<Integer,Station>> tableStation;
 	
 	@FXML
-	TableColumn<ObservableMap.Entry<Integer,Station>, Integer> ID;
-	
-	@FXML
-	TableColumn<ObservableMap.Entry<Integer,Station>, Integer> Nom;
-	
-	@FXML
 	TableColumn<ObservableMap.Entry<Integer,Station>, Integer> Ordre;
+	
+	@FXML
+	TableColumn<ObservableMap.Entry<Integer,Station>, Station> Station;
 	
 	private int idCentrale ;
 	
 	ObservableList<ModeleTournee> data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 
-	Map<Integer, Station> stations=new HashMap<Integer, Station>();
 	ObservableMap<Integer,Station> Ostations=FXCollections.observableHashMap();
 	ObservableList<ObservableMap.Entry<Integer,Station>> rowMaps;
-	public void init2()
-	{
-		
-		 rowMaps = FXCollections.observableArrayList(Ostations.entrySet());
 	
+	ObservableList<String> mois=FXCollections.observableArrayList("01 - Janvier","02 - Fevrier","03 - Mars","04 - Avril","05 - Mai","06 - Juin","07 - Juillet","08 - Aout","09 - Septembre","10 - Octobre","11 - Novembre","12 - Decembre");
+	
+	@FXML
+	private void initialize() {
+		debut.setItems(mois);
 	}
-	
-	
+		
+	/**
+	 * Fonction qui permet de connaitre la station choisi par le controlleur de gestion de modele de tournee
+	 * @param centrale
+	 * 		centrale choisie
+	 */
 	public void init(Centrale centrale)
 	{
-		//Ostations= ModeleTourneeController.loadStationIntoModeleTournee(modele);
 		idCentrale=centrale.getId();
 	}
 	
+	/**
+	 * Fonction qui permet qui permet de connaitre la map contenant la nouvelle stations (modifier lors de l'ajout de stations)
+	 * @param nouvelleMap
+	 * 		map contenant la nouvelle stations et les anciennes
+	 * @param nouveauRang
+	 * 		nouveau rang de la map
+	 */
 	public void initFils(ObservableMap<Integer,Station> nouvelleMap,int nouveauRang)
 	{
 		Ostations=nouvelleMap;
@@ -142,7 +157,7 @@ public class CreationModeleTourneeController {
 	
 	/**
 	 * Fonction qui permet de valider un modele de tournee , et donc de l'ajouter à la base
-	 * On ajoute le modele de tournee que si le champs nom est non vide
+	 * On ajoute le modele de tournee que si le champs nom,description, la table de station et le mois de debut sont non vides
 	 */
 	public void ValiderModeleTournee(){
 		boolean estValide=true;
@@ -151,24 +166,30 @@ public class CreationModeleTourneeController {
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(estVideField(description)){
-			erreurNom.setText("Erreur : la description est vide");
+		if(description.getText().isEmpty()){
+			erreurDescription.setText("Erreur : la description est vide");
 			estValide=false;
 		}
-		if(ID.getText() == null){
-			erreurNom.setText("Erreur : il faut des station pour une tournee ");
+		if(tableStation.getItems().size()==0){
+			erreurStation.setText("Erreur : il faut des stations pour une tournee ");
 			estValide=false;
 		}
+		if(debut.getValue()==null){
+			erreurMois.setText("Erreur : veuillez saisir un mois de debut");
+			estValide=false;
+		}
+		
 		if(estValide == true)
 		{
-			ModeleTournee.addModeleTournee(nom.getText(),description.getText(),Ostations);
+			
+			ModeleTourneeController.addModeleTournee(nom.getText(),description.getText(),Ostations);
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
 	}
 	/**
-	 * Fonction qui permet d'annuler la création d'une unité, et cache la fenêtre correspondante
-	 * En réalité. La page est fermé par le controller gérant la page de gestion de Station
+	 * Fonction qui permet d'annuler la création d'un modele de tournee, et cacher la fenêtre correspondante
+	 * En réalité. La page est fermé par le controller gérant la page de gestion de modele de tournee
 	 */
 	public void annulerModeleTournee()
 	{
@@ -181,7 +202,13 @@ public class CreationModeleTourneeController {
 	 */
 	public void resetErreur(){
 		erreurNom.setText("");
+		erreurDescription.setText("");
+		erreurMois.setText("");
+		erreurStation.setText("");
 	}
+	/**
+	 * Fonction qui permet d'ouvrir la fenetre d'ajout de station
+	 */
 	public void ajouterStationTournee()
 	{
 		final Stage dialog = new Stage();
@@ -193,11 +220,11 @@ public class CreationModeleTourneeController {
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
 	        AjoutStationController controller = loader.getController();
-	        controller.init(idCentrale, map,rangActuel,this,Ostations);
+	        controller.init(idCentrale,rangActuel,this,Ostations);
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
-	            	//ListerStation();
+	            	ListerStation();
 	            	dialog.close();
 	            }
 	        });
@@ -205,9 +232,13 @@ public class CreationModeleTourneeController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Fonction qui permet de lister les stations du modele de tournee dans le tableau
+	 */
 	public void ListerStation(){
-		
-		ID.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Integer>, ObservableValue<Integer>>() {
+		ObservableList<ObservableMap.Entry<Integer,Station>> rowMaps = FXCollections.observableArrayList(Ostations.entrySet());
+		Ordre.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Integer>, ObservableValue<Integer>>() {
 
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Integer> p) {
@@ -215,22 +246,18 @@ public class CreationModeleTourneeController {
             }
         });
 		
-		Nom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station>, ObservableValue<Station>>() {
+		Station.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station>, ObservableValue<Station>>() {
 
             @Override
             public ObservableValue<Station> call(TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station> p) {
                 return new SimpleObjectProperty<Station>(p.getValue().getValue());
             }
         });
-		Ordre.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station>, ObservableValue<Station>>() {
-
-            @Override
-            public ObservableValue<Station> call(TableColumn.CellDataFeatures<Map.Entry<Integer, Station>, Station> p) {
-                return new SimpleObjectProperty<Station>(p.getValue().getValue());
-            }
-        });
+		
 		data.removeAll(data);
 		data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 		tableStation.setItems(rowMaps);
 	}
+	
+	
 }

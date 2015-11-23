@@ -11,12 +11,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import modele.Centrale;
-import modele.Equipement;
 import modele.ModeleTournee;
 import modele.Station;
-import modele.Unite;
+
 
 /**
  * Controleur relatif à l'interface de création de centrale
@@ -24,12 +21,14 @@ import modele.Unite;
 public class AjoutStationController {
 	
 	private int idCentrale;
-	private Map<Integer,Station> map;
 	private int rangActuel;
 	private CreationModeleTourneeController controllerParent;
 	
 	@FXML
 	ObservableList<ModeleTournee> data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
+	
+	@FXML
+	Label erreurStation;
 	
 	@FXML
 	private Button valider;
@@ -42,21 +41,40 @@ public class AjoutStationController {
 
 	ObservableMap<Integer,Station> Ostations=FXCollections.observableHashMap();
 
-	public void init(int idCentrale,Map<Integer,Station> nouvelleMap,int rang,CreationModeleTourneeController controllerParent,ObservableMap<Integer,Station> ostatio)
+	/**
+	 * Fonction qui permet de faire la liaison entre le controller parent (modeleTourneeController) et ce controlleur
+	 * @param idCentrale
+	 * 		id de la centrale precedemment choisi
+	 * @param rang
+	 * 		rang actuel de la map
+	 * @param controllerParent
+	 * 		controller parent
+	 * @param Ostations
+	 * 		ObservableMap de stations
+	 */
+	public void init(int idCentrale,int rang,CreationModeleTourneeController controllerParent,ObservableMap<Integer,Station> Ostations)
 	{
 		this.idCentrale = idCentrale;
-		map=nouvelleMap;
 		rangActuel=rang;
 		this.controllerParent=controllerParent;
 		ObservableList<Station> station=StationController.loadStationForCentrale(idCentrale);
 		listeStations.setItems(station);
+		this.Ostations=Ostations;
 	}
 	/**
-	 * Fonction qui permet de valider une centrale, et donc de l'ajouter à la base
-	 * On ajoute la centrale que si les champs nom et localisation sont non vide
+	 * Fonction qui permet de valider une station à la map, et donc de l'ajouter au modele de tournee
 	 */
 	public void ValiderAjoutStation(){
 		boolean estValide=true;
+		
+		if(listeStations.getValue()==null){
+			erreurStation.setText("Erreur : une station doit être validée");
+			estValide=false;
+		}
+		if(Ostations.containsValue(listeStations.getValue())){
+			erreurStation.setText("Erreur : cette station est dejà contenu dans le modele de tournee");
+			estValide=false;
+		}
 		
 		if(estValide == true)
 		{
@@ -67,8 +85,8 @@ public class AjoutStationController {
 		
 	}
 	/**
-	 * Fonction qui permet d'annuler la création d'une centrale, et cahce la fenêtre correspondante
-	 * En réalité. La page est fermé par le controller gérant la page de gestion de Centrale
+	 * Fonction qui permet d'annuler l'ajout d'une station, et cache la fenêtre correspondante
+	 * En réalité. La page est fermé par le controller gérant la page de gestion de Modele de tournee
 	 */
 	public void annulerAjoutStation()
 	{

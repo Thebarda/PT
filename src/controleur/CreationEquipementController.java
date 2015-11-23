@@ -83,7 +83,7 @@ public class CreationEquipementController {
 		
 		if(estValide==true)
 		{
-			EquipementController.addEquipement(idCentrale,nom.getText(), description.getText());
+			EquipementController.addEquipement(idCentrale,nom.getText(), description.getText(),ECSH.getText());
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		

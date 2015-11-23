@@ -8,29 +8,31 @@
 
 <AnchorPane minHeight="300.0" minWidth="500.0" prefHeight="578.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.CreationModeleTourneeController">
    <children>
-      <Button fx:id="valider" layoutX="508.0" layoutY="495.0" mnemonicParsing="false" onAction="#ValiderModeleTournee" text="VALIDER" />
-      <Label fx:id="erreurNom" layoutX="299.0" layoutY="123.0" textFill="#fc0101" />
-      <TextField fx:id="nom" layoutX="251.0" layoutY="76.0" />
-      <Label layoutX="68.0" layoutY="80.0" text="Nom " />
-      <Button fx:id="annuler" layoutX="406.0" layoutY="495.0" mnemonicParsing="false" onAction="#annulerModeleTournee" text="ANNULER" />
-      <Label layoutX="139.0" layoutY="25.0" text="Création d'un Modele de Tournee">
+      <Button fx:id="valider" layoutX="526.0" layoutY="534.0" mnemonicParsing="false" onAction="#ValiderModeleTournee" text="VALIDER" />
+      <Label fx:id="erreurNom" layoutX="238.0" layoutY="109.0" prefHeight="16.0" prefWidth="265.0" textFill="#fc0101" />
+      <TextField fx:id="nom" layoutX="273.0" layoutY="75.0" />
+      <Label layoutX="52.0" layoutY="80.0" text="Nom " />
+      <Button fx:id="annuler" layoutX="409.0" layoutY="534.0" mnemonicParsing="false" onAction="#annulerModeleTournee" text="ANNULER" />
+      <Label layoutX="183.0" layoutY="22.0" text="Création d'un Modele de Tournee">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="56.0" layoutY="140.0" text="Description " />
-      <TextField fx:id="description" layoutX="230.0" layoutY="140.0" prefHeight="69.0" prefWidth="218.0" />
-      <TableView fx:id="tableStation" layoutX="230.0" layoutY="243.0" prefHeight="205.0" prefWidth="259.0">
+      <Label layoutX="48.0" layoutY="131.0" text="Description " />
+      <TableView fx:id="tableStation" layoutX="228.0" layoutY="294.0" prefHeight="205.0" prefWidth="259.0">
         <columns>
             <TableColumn fx:id="Ordre" prefWidth="86.0" text="Ordre" />
-          <TableColumn fx:id="ID" prefWidth="85.0" text="ID" />
-          <TableColumn fx:id="Nom" prefWidth="87.0" text="Nom" />
+          <TableColumn fx:id="Station" prefWidth="171.0" text="Station" />
         </columns>
       </TableView>
-      <Label layoutX="69.0" layoutY="281.0" text="Station" />
-      <Label layoutX="69.0" layoutY="308.0" text="(dans l'ordre)" />
-      <Button fx:id="valider1" layoutX="525.0" layoutY="333.0" mnemonicParsing="false" onAction="#ajouterStationTournee" text="AJOUTER" />
-      <Label layoutX="238.0" layoutY="219.0" />
-      <Label layoutX="237.0" layoutY="460.0" prefHeight="17.0" prefWidth="0.0" />
+      <Label layoutX="48.0" layoutY="318.0" text="Station" />
+      <Label layoutX="51.0" layoutY="345.0" text="(dans l'ordre)" />
+      <Button fx:id="valider" layoutX="515.0" layoutY="384.0" mnemonicParsing="false" onAction="#ajouterStationTournee" text="AJOUTER" />
+      <Label fx:id="erreurDescription" layoutX="238.0" layoutY="210.0" prefHeight="16.0" prefWidth="319.0" textFill="#fc0101" />
+      <Label fx:id="erreurStation" layoutX="202.0" layoutY="506.0" prefHeight="17.0" prefWidth="300.0" textFill="#fc0101" />
+      <TextArea fx:id="description" layoutX="229.0" layoutY="131.0" prefHeight="71.0" prefWidth="259.0" />
+      <Label layoutX="52.0" layoutY="235.0" text="Debut :" />
+      <ComboBox fx:id="debut" layoutX="272.0" layoutY="238.0" prefHeight="26.0" prefWidth="171.0" />
+      <Label fx:id="erreurMois" layoutX="215.0" layoutY="273.0" prefHeight="16.0" prefWidth="288.0" textFill="#fc0101" />
    </children>
 </AnchorPane>

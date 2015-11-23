@@ -16,5 +16,6 @@
          </font>
       </Label>
       <ComboBox fx:id="listeStations" layoutX="161.0" layoutY="127.0" prefWidth="150.0" />
+      <Label fx:id="erreurStation" layoutX="21.0" layoutY="175.0" prefHeight="16.0" prefWidth="430" textFill="RED" />
    </children>
 </AnchorPane>

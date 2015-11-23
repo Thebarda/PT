@@ -36,7 +36,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"));
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getString("MISH"));
 				stations.add(station);
 			}
 			
@@ -59,7 +59,7 @@ public class StationController
 	}
 	
 	/**
-	 * Fonction permettant de récuperer tous les objets Station dans la base de donnée pour une centrale donnée
+	 * Fonction permettant de rï¿½cuperer tous les objets Station dans la base de donnï¿½e pour une centrale donnï¿½e
 	 * @param idEquipement id de l'ï¿½quipement dont on veut connaitre les stations
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"));
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getString("MISH"));
 				stations.add(station);
 			}
 			
@@ -119,7 +119,7 @@ public class StationController
 	 * @param idEquipement id de l'ï¿½quipement auquel est ratachï¿½ la station
 	 */
 	public static void addStation(String nom, String instructionCourte, String instructionLongue, int idUnite, int frequence,
-			Integer seuilHaut, Integer seuilBas,int idEquipement)
+			Integer seuilHaut, Integer seuilBas,int idEquipement,String paramFonc,Integer valeurNormale,String MISH)
 	{
 		Connection connexion = null;
 		try{
@@ -128,13 +128,16 @@ public class StationController
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "station(nomStation,instructionsCourtes,"
 					+ "instructionsLongues,idUnite,FrequenceControle,"
-					+ "seuilHaut,seuilBas,idEquipement) "
-					+ "VALUES(?,?,?,?,?,?,?,?)");
+					+ "seuilHaut,seuilBas,idEquipement,paramFonc,valeurNormale,MISH) "
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, nom);
 			preparedStatement.setString(2, instructionCourte);
 			preparedStatement.setString(3, instructionLongue);
 			preparedStatement.setInt(4, idUnite);
 			preparedStatement.setInt(5, frequence);
+			preparedStatement.setString(6,paramFonc);
+			preparedStatement.setInt(7,valeurNormale);
+			preparedStatement.setString(8,MISH);
 			if (seuilHaut==null){
 				preparedStatement.setString(6, "NULL");
 			}else{
@@ -144,6 +147,9 @@ public class StationController
 				preparedStatement.setString(7, "NULL");
 			}else{
 				preparedStatement.setInt(7, seuilBas);
+			}
+			if(valeurNormale==null){
+				preparedStatement.setString(7, "NULL");
 			}
 			preparedStatement.setInt(8, idEquipement);
 			preparedStatement.executeUpdate();

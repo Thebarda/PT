@@ -16,6 +16,9 @@ public class Station {
 	private int frequence;
 	private int seuilHaut;
 	private int seuilBas;
+	private int valeurNormale;
+	private String paramFonc;
+	private String MISH;
 	
 	/**
 	 * constructeur d'une station en indiquant tous les param�tre qui la constitue
@@ -27,9 +30,12 @@ public class Station {
 	 * @param frequence frequence de controle de la station
 	 * @param seuilHaut seuil maximum pour les mesures
 	 * @param seuilBas seuil minimum pour les mesures
+	 * @param valeurNotmale valeur normale pour les mesures
+	 * @param paramFonc parametre de fonctionnement de la station
+	 * @param MISH MISH de la station
 	 */
 	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite, int frequence,
-			int seuilHaut, int seuilBas) {
+			int seuilHaut, int seuilBas,int valeurNormale,String paramFonc,String MISH) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -39,6 +45,9 @@ public class Station {
 		this.frequence = frequence;
 		this.seuilHaut = seuilHaut;
 		this.seuilBas = seuilBas;
+		this.valeurNormale=valeurNormale;
+		this.paramFonc=paramFonc;
+		this.MISH=MISH;
 	}
 	/**
 	 * getter de l'id de la station
@@ -182,9 +191,7 @@ public class Station {
 	}
 	@Override
 	public String toString() {
-		return "Station [id=" + id + ", nom=" + nom + ", instructionCourte=" + instructionCourte
-				+ ", instructionLongue=" + instructionLongue + ", idUnite=" + idUnite + ", frequence=" + frequence
-				+ ", seuilHaut=" + seuilHaut + ", seuilBas=" + seuilBas + "]";
+		return "["+id+"]"+nom;
 	}
 	
 }

@@ -35,7 +35,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "'";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),null);
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereICSH"));
 				equipements.add(equipement);
 			}
 			
@@ -74,7 +74,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),null);
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereICSH"));
 				equipements.add(equipement);
 			}
 			
@@ -105,8 +105,10 @@ public class EquipementController
 	 * 			Nom de l'equipement à ajouter
 	 * @param description
 	 * 			Lieu de la centrale à ajouter
+	 * @param ECSH
+	 * 			Clé ECSH de l'équipement 
 	 */
-	public static void addEquipement(int idCentrale,String nom, String description)
+	public static void addEquipement(int idCentrale,String nom, String description,String ECSH)
 	{
 		Connection connexion = null;
 		Statement statut = null;
@@ -114,10 +116,11 @@ public class EquipementController
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO equipement(idCentrale,nomEquipement, descriptionEquipement)VALUES(?,?,?)");
+			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO equipement(idCentrale,nomEquipement, descriptionEquipement,repereICSH)VALUES(?,?,?,?)");
 			preparedStatement.setInt(1, idCentrale);
 			preparedStatement.setString(2, nom);
 			preparedStatement.setString(3, description);
+			preparedStatement.setString(4, ECSH);
 			preparedStatement.executeUpdate();
 			
 		}catch(Exception e){

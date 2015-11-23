@@ -20,8 +20,8 @@ import modele.Tournee;
 public class ModeleTourneeController {
 	
 	/**
-	 * Fonction permettant de récuperer tous les modèles de tournée pour une centrale dans la base de donnée
-	 * @param idCentrale id de la centrale dont on veut récupérer les modèles de tournée
+	 * Fonction permettant de rï¿½cuperer tous les modï¿½les de tournï¿½e pour une centrale dans la base de donnï¿½e
+	 * @param idCentrale id de la centrale dont on veut rï¿½cupï¿½rer les modï¿½les de tournï¿½e
 	 * @return
 	 */
 	public static ObservableList<ModeleTournee> loadAllModeleTournee(int idCentrale){
@@ -69,10 +69,10 @@ public class ModeleTourneeController {
 		return modelesTournee;
 	}
 	/**
-	 * Fonction qui permet d'ajouter un modele de tournée a la base de donnée.
-	 * on indique tous les paremètre sauf l'id qui est en autoincrément.
-	 * @param nomModele le nom du modele de tournée
-	 * @param descriptionModele description du modèle de tournée
+	 * Fonction qui permet d'ajouter un modele de tournï¿½e a la base de donnï¿½e.
+	 * on indique tous les paremï¿½tre sauf l'id qui est en autoincrï¿½ment.
+	 * @param nomModele le nom du modele de tournï¿½e
+	 * @param descriptionModele description du modï¿½le de tournï¿½e
 	 */
 	public static void addModeleTournee(String nomModele, String descriptionModele, Map<Integer, Station> stations)
 	{
@@ -88,7 +88,7 @@ public class ModeleTourneeController {
 			preparedStatement.setString(2, descriptionModele);
 			preparedStatement.executeUpdate();
 			
-			// On recupère l'id du modèle créé
+			// On recupï¿½re l'id du modï¿½le crï¿½ï¿½
 			int id = preparedStatement.getGeneratedKeys().getInt(1);
 			
 			// Ajout dans l'association avec les stations
@@ -124,8 +124,8 @@ public class ModeleTourneeController {
 	}
 	
 	/**
-	 * Fonction permettant de récuperer toutes les station d'un modèle de tournée
-	 * et les ajoute au modele de tournée
+	 * Fonction permettant de rï¿½cuperer toutes les station d'un modï¿½le de tournï¿½e
+	 * et les ajoute au modele de tournï¿½e
 	 * @return
 	 */
 	public static void loadStationIntoModeleTournee(ModeleTournee modele)
@@ -148,7 +148,7 @@ public class ModeleTourneeController {
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"));
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getString("MISH"));
 				int ordre = resultat.getInt("ordre");
 				modele.ajouterStation(station, ordre);
 			}
@@ -170,14 +170,14 @@ public class ModeleTourneeController {
 		}
 	}
 	/**
-	 * cette fonction permet de generer la tournée suivante d'un modele
+	 * cette fonction permet de generer la tournï¿½e suivante d'un modele
 	 * @param modele
 	 * @return
 	 * Pas encore Finie, on touche pas (Quentin)
 	 */
 	public Tournee genererProchaineTournee(ModeleTournee modele)
 	{
-		// t0 du modèle
+		// t0 du modï¿½le
 		int t0 = modele.getT0();
 		
 		// mois courant 
@@ -189,7 +189,7 @@ public class ModeleTourneeController {
 		{
 			typeTournee+=11;
 		}
-		//typeTournée = ecart entre le t0 et le moi actuel
+		//typeTournï¿½e = ecart entre le t0 et le moi actuel
 		
 		switch(typeTournee)
 		{
@@ -208,11 +208,11 @@ public class ModeleTourneeController {
 		return null;
 	}
 	/**
-	 * cette fonction permet de filtrer les stations avec une fréquence max
-	 * si la frequence de la station est <= a la fréquenceMax alors elle est ajoutée a une nouvelle HashMap<key,Station>
-	 * @param stations Stations initiale du modèle
-	 * @param frequenceMax fréquence maximum voulu pour les stations
-	 * @return une sous HashMap de la HashMap du modele avec seulement les stations avec une fréquence <= FrequenceIndiquée
+	 * cette fonction permet de filtrer les stations avec une frï¿½quence max
+	 * si la frequence de la station est <= a la frï¿½quenceMax alors elle est ajoutï¿½e a une nouvelle HashMap<key,Station>
+	 * @param stations Stations initiale du modï¿½le
+	 * @param frequenceMax frï¿½quence maximum voulu pour les stations
+	 * @return une sous HashMap de la HashMap du modele avec seulement les stations avec une frï¿½quence <= FrequenceIndiquï¿½e
 	 */
 	public HashMap<Integer, Station> extraireStations(HashMap<Integer, Station> stations,int frequenceMax)
 	{

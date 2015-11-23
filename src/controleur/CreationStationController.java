@@ -243,7 +243,7 @@ public class CreationStationController {
 			if(!valeurNormale.getText().isEmpty()){
 				normale=Integer.parseInt(valeurNormale.getText());
 			}
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),haut,bas,idEquipement);
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),haut,bas,idEquipement,paramFonc.getText(),normale,MISH.getText());
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
