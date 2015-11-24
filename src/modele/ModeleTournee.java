@@ -38,15 +38,16 @@ public class ModeleTournee
 	 * @param nom : le nom du modèle de tournée
 	 * @param description : la description du modèle de tournée
 	 */
-	public ModeleTournee(int id, String nom, String description) {
+	public ModeleTournee(int id, String nom, String description, int t0) {
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
 		this.stations = new HashMap<Integer,Station>();
 		
 		// date courante
-		GregorianCalendar date = new GregorianCalendar();
-		this.t0 = date.get(Calendar.MONTH);
+		//GregorianCalendar date = new GregorianCalendar();			A faire dans le controller de creation de modele de tournee
+		//this.t0 = date.get(Calendar.MONTH);						--
+		this.t0 = t0;
 		//initialiser a -1 car on a pas réaliser d'import
 		this.moisDernierImport = -1;
 	}

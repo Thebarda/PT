@@ -34,7 +34,7 @@ public class ModeleTourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele FROM modele_tournee mt "
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, t0 FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -44,7 +44,8 @@ public class ModeleTourneeController {
 			while(resultat.next()){
 				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
 						resultat.getString("nomModele"),
-						resultat.getString("descriptionModele"));
+						resultat.getString("descriptionModele"),
+						resultat.getInt("t0"));
 				
 				loadStationIntoModeleTournee(modeleTournee);
 				
@@ -74,7 +75,7 @@ public class ModeleTourneeController {
 	 * @param nomModele le nom du modele de tourn�e
 	 * @param descriptionModele description du mod�le de tourn�e
 	 */
-	public static void addModeleTournee(String nomModele, String descriptionModele, Map<Integer, Station> stations)
+	public static void addModeleTournee(String nomModele, String descriptionModele, Map<Integer, Station> stations, int t0)
 	{
 		Connection connexion = null;
 		try{
@@ -82,10 +83,11 @@ public class ModeleTourneeController {
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
-					+ "modele_tournee(nomModele,descriptionModele) "
-					+ "VALUES(?,?)");
+					+ "modele_tournee(nomModele,descriptionModele,t0) "
+					+ "VALUES(?,?,?)");
 			preparedStatement.setString(1, nomModele);
 			preparedStatement.setString(2, descriptionModele);
+			preparedStatement.setInt(3, t0);
 			preparedStatement.executeUpdate();
 			
 			// On recup�re l'id du mod�le cr��
