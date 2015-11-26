@@ -50,6 +50,9 @@ public class GererStationController {
 	TableColumn<Station, String> Unite;
 	
 	@FXML
+	TableColumn<Station, Integer> Frequence;
+	
+	@FXML
 	Button Ajouter;
 	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
@@ -103,6 +106,7 @@ public class GererStationController {
 			ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
 			Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
 			Unite.setCellValueFactory(new PropertyValueFactory<Station, String>("nomUnite"));
+			Frequence.setCellValueFactory(new PropertyValueFactory<Station, Integer>("frequence"));
 			tableStation.setItems(stations);
 		}
 	}

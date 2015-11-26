@@ -211,7 +211,7 @@ public class CreationModeleTourneeController {
 	public void ajouterStationTournee()
 	{
 		final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog .initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ajout_Station.fxml"));
 		AnchorPane page;
 		try {

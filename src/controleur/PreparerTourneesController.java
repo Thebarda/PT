@@ -19,7 +19,30 @@ public class PreparerTourneesController {
 	@FXML
 	AnchorPane menuVertical;
 	
+	@FXML
+	/**
+	 * Fonction qui permet d'initialiser la page en affichant le planning(page par défaut)
+	 */
+	private void initialize() {
+		AfficherPlanning();
+	}
 	
+	/**
+	 * Fonction qui permet d'afficher le contenu relatif eu planning
+	 */
+	public void  AfficherPlanning(){
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Planning.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Centre.getChildren().removeAll(Centre.getChildren());
+			Centre.getChildren().addAll(page);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	/**
 	 * Fonction qui permet d'afficher le contenu relatif à la gestion de centrale

@@ -191,7 +191,7 @@ public class Station {
 	}
 	@Override
 	public String toString() {
-		return "["+id+"]"+nom;
+		return "["+id+"]"+nom +"("+frequence+" mois)";
 	}
 	
 }
