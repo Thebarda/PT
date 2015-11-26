@@ -96,7 +96,7 @@ public class PlanningController {
             	    }
             	};
             	Button button=new Button("Vers le mobile");
-            	if(!p.getValue().isEstExportee()){
+            	if(!p.getValue().isTerminee()){
             		button.setOnAction(event);
             	}
             	else{
