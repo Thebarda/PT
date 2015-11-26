@@ -1,11 +1,8 @@
 package modele;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Map;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 /**
@@ -23,14 +20,11 @@ public class ModeleTournee
 	 *  permet de determiner quelles stations il faut inclure pour la prochaine tournée a exporter
 	 */
 	private final int t0;
-	/**
-	 * sert a savoir quand on peut importer la prochaine tournée
-	 */
-	private int moisDernierImport;
 	private int  id;
 	private String nom;
 	private String description;
 	private HashMap<Integer,Station> stations;
+	private int numExport;
 	
 	/**
 	 * Constructeur d'un modele de tournée avec un T0 par default
@@ -38,7 +32,8 @@ public class ModeleTournee
 	 * @param nom : le nom du modèle de tournée
 	 * @param description : la description du modèle de tournée
 	 */
-	public ModeleTournee(int id, String nom, String description, int t0) {
+	public ModeleTournee(int id, String nom, String description, int t0,int numExport) 
+	{
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
@@ -46,7 +41,7 @@ public class ModeleTournee
 
 		this.t0 = t0;
 		//initialiser a -1 car on a pas réaliser d'import
-		this.moisDernierImport = -1;
+		this.numExport = numExport;
 	}
 
 	/**
@@ -103,15 +98,6 @@ public class ModeleTournee
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
-	public int getMoisDernierImport() {
-		return moisDernierImport;
-	}
-	public void setMoisDernierImport(int moisDernierImport) {
-		this.moisDernierImport = moisDernierImport;
-	}
 	public int getT0() {
 		return t0;
 	}
@@ -155,7 +141,76 @@ public class ModeleTournee
 	
 	@Override
 	public String toString() {
-		return "ModeleTournee [t0=" + t0 + ", moisDernierImport=" + moisDernierImport + ", id=" + id + ", nom=" + nom
+		return "ModeleTournee [t0=" + t0 + ", id=" + id + ", nom=" + nom
 				+ ", description=" + description + ", stations=" + stations + "]";
+	}
+	
+	/**
+	 * cette fonction permet de generer la tournï¿½e suivante d'un modele
+	 * @param modele
+	 * @return 
+	 */
+	public void genererProchaineTournee()
+	{
+		Tournee tournee;
+		int mois = (((t0 + numExport -2)%12)+1);
+		String moisAnnee = String.valueOf(mois);
+		
+		GregorianCalendar calendar = new GregorianCalendar();
+		if(calendar.get(Calendar.MONTH) > mois)
+		{
+			moisAnnee+= "-" + (calendar.getWeekYear()+1);
+		}
+		else
+		{
+			moisAnnee+= "-" + calendar.getWeekYear();
+		}
+		switch(numExport)
+		{
+		case 1:
+			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(12),moisAnnee);
+			break;
+		case 10 :
+			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(3),moisAnnee);
+			break;
+		case 7 :
+			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(6),moisAnnee);
+			break;
+		case 4 :
+			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(3),moisAnnee);
+			break;
+		default :
+			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(1),moisAnnee);
+			break;
+		}
+		// ne pas oublier d'incrementer la base de donnee
+		numExport++;
+		
+		/*
+		 * ajout de la tournee ainsi creer a la base de donnee
+		 */
+	}
+	/**
+	 * cette fonction permet de filtrer les stations avec une frï¿½quence max
+	 * si la frequence de la station est <= a la frï¿½quenceMax alors elle est ajoutï¿½e a une nouvelle HashMap<key,Station>
+	 * @param stations Stations initiale du modï¿½le
+	 * @param frequenceMax frï¿½quence maximum voulu pour les stations
+	 * @return une sous HashMap de la HashMap du modele avec seulement les stations avec une frï¿½quence <= FrequenceIndiquï¿½e
+	 */
+	public HashMap<Integer, Station> extraireStations(int frequenceMax)
+	{
+		int currentPos = 1;
+		
+		HashMap<Integer, Station> stationFiltrees = new HashMap<Integer, Station>();
+		for(int key : this.getStations().keySet())
+		{
+			Station station = this.getStations().get(key);
+			if(station.getFrequence() <= frequenceMax)
+			{
+				stationFiltrees.put(currentPos, station);
+				currentPos++;
+			}
+		}
+		return stationFiltrees;	
 	}
 }

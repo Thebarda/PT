@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -14,12 +15,13 @@ public class Tournee
 	private final int idModele;
 	private boolean estExportee;
 	private boolean estTerminee;
+	private String moisAnnee;
 	private HashMap<Integer,Station> stations;
 	
 	
 	
-	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee) {
-		super();
+	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee,String moisAnnee) 
+	{
 		this.id = id;
 		this.nom = nom;
 		this.idModele = idModele;
@@ -27,6 +29,11 @@ public class Tournee
 		this.estExportee = estExportee;
 		this.estTerminee = estTerminee;
 		this.stations = stations;
+		this.moisAnnee = moisAnnee;
+	}
+	public Tournee(String nom, int idModele, HashMap<Integer, Station> stations,String moisAnnee) 
+	{
+		this(-1,nom,idModele,stations,false,false,moisAnnee);
 	}
 	/**
 	 * retourne l'id 
@@ -98,9 +105,68 @@ public class Tournee
 	 * @param mois mois courant
 	 * @return un nom explicite pour la tournée
 	 */
-	public static String getNomTournee(int mois)
+	public static String getNomTournee(String nomModele,int t0, int numExport)
 	{
-		return "Tournee";
+		String temp=nomModele;
+		
+		int numMois = ((t0+numExport -2)%12);
+		switch(numMois)
+		{
+		case 0 :
+			temp+="_Janvier";
+			break;
+		case 1 :
+			temp+="_Fevrier";
+			break;
+		case 2 :
+			temp+="_Mars";
+			break;
+		case 3 :
+			temp+="_Avril";
+			break;
+		case 4 :
+			temp+="_Mai";
+			break;
+		case 5 :
+			temp+="_Juin";
+			break;
+		case 6 :
+			temp+="_Juillet";
+			break;
+		case 7 :
+			temp+="_Aout";
+			break;
+		case 8 :
+			temp+="_Septembre";
+			break;
+		case 9 :
+			temp+="_Octobre";
+			break;
+		case 10 :
+			temp+="_Novembre";
+			break;
+		case 11 :
+			temp+="_Decembre";
+			break;
+		}
+		GregorianCalendar calendar = new GregorianCalendar();
+		if(calendar.get(calendar.MONTH) > numMois)
+		{
+			temp+= (calendar.getWeekYear()+1);
+		}
+		else
+		{
+			temp+= calendar.getWeekYear();
+		}
+		
+		
+		return temp;
 	}
+	@Override
+	public String toString() {
+		return "Tournee [id=" + id + ", nom=" + nom + ", idModele=" + idModele + ", estExportee=" + estExportee
+				+ ", estTerminee=" + estTerminee + ", moisAnnee=" + moisAnnee + ", stations=" + stations + "]";
+	}
+	
 	
 }
