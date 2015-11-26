@@ -13,17 +13,19 @@ public class Tournee
 	private final String nom;
 	private final int idModele;
 	private boolean estExportee;
+	private boolean estTerminee;
 	private HashMap<Integer,Station> stations;
 	
 	
 	
-	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations) {
+	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.idModele = idModele;
 		// une tournée est par default non exportée
-		this.estExportee = false;
+		this.estExportee = estExportee;
+		this.estTerminee = estTerminee;
 		this.stations = stations;
 	}
 	/**
@@ -62,11 +64,25 @@ public class Tournee
 		return estExportee;
 	}
 	/**
+	 * indique si la tournée a été terminée
+	 * @return si la tournée est terminée
+	 */
+	public boolean isTerminee() {
+		return estTerminee;
+	}
+	/**
 	 * modifie la valeur de l'importation d'une tournée
 	 * @param estExportee indique si la tournée est exportée
 	 */
 	public void setEstExportee(boolean estExportee) {
 		this.estExportee = estExportee;
+	}
+	/**
+	 * Definit une tournée comme terminee ou non
+	 * @param estTerminee indique si la tournée est terminée
+	 */
+	public void setEstTerminee(boolean estTerminee) {
+		this.estTerminee = estTerminee;
 	}
 	/**
 	 * retourne les station de la tournée
