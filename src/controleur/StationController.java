@@ -135,9 +135,6 @@ public class StationController
 			preparedStatement.setString(3, instructionLongue);
 			preparedStatement.setInt(4, idUnite);
 			preparedStatement.setInt(5, frequence);
-			preparedStatement.setString(6,paramFonc);
-			preparedStatement.setInt(7,valeurNormale);
-			preparedStatement.setString(8,MISH);
 			if (seuilHaut==null){
 				preparedStatement.setString(6, "NULL");
 			}else{
@@ -152,6 +149,9 @@ public class StationController
 				preparedStatement.setString(7, "NULL");
 			}
 			preparedStatement.setInt(8, idEquipement);
+			preparedStatement.setString(9,paramFonc);
+			preparedStatement.setInt(10,valeurNormale);
+			preparedStatement.setString(11,MISH);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
