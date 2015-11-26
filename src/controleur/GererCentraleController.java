@@ -67,6 +67,8 @@ public class GererCentraleController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Creation d'une centrale");
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {

@@ -71,6 +71,8 @@ public class GererEquipementController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Creation d'une equipement");
 	        CreationEquipementController controller = loader.getController();
 	        controller.init(listeCentrale.getValue());
 	        dialog.show();

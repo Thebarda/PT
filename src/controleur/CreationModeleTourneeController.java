@@ -218,6 +218,8 @@ public class CreationModeleTourneeController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Ajout d'une station");
 	        AjoutStationController controller = loader.getController();
 	        controller.init(idCentrale,rangActuel,this,Ostations);
 	        dialog.show();

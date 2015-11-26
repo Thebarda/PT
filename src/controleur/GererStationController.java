@@ -76,6 +76,8 @@ public class GererStationController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Creation d'une station");
 	        CreationStationController controller = loader.getController();
 	        controller.init(listeEquipement.getValue());
 	        dialog.show();

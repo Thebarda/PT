@@ -72,6 +72,8 @@ public class GererModeleTourneeController {
 			page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Creation d'un modele de tournee");
 	        CreationModeleTourneeController controller = loader.getController();
 	        controller.init(listeCentrale.getValue());
 	        dialog.show();
