@@ -97,7 +97,6 @@ public class ModeleTourneeController {
 			
 			for(int i=1; i<=stations.size();i++){
 				Station station = stations.get(i);
-				System.out.println(station);
 				PreparedStatement preparedStatementAsso = connexion.prepareStatement("INSERT INTO "
 					+ "asso_station_modele(idModele, idStation, ordre) "
 					+ "VALUES(?,?,?)");
