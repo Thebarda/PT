@@ -13,7 +13,7 @@ import modele.Tournee;
 
 public class TourneeController {
 	
-	public ObservableList<Tournee> loadTournee(int idCentrale, int date){
+	public static ObservableList<Tournee> loadTournee(int idCentrale, String date){
 		
 		ObservableList<Tournee> tournees=FXCollections.observableArrayList();
 		Connection connexion = null;
@@ -25,23 +25,26 @@ public class TourneeController {
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idTournee, dateTournee, idModele, estExportee, estTerminee FROM tournee t "
-										+ "WHERE " + idCentrale + " = ( "
+										+ "WHERE ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
 										+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
-										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele"
+										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
 										+ "WHERE mt.idModele=t.idModele "
 										+ "limit 1 "
-										+ ") AND dateTournee='" + date + "'");
+										+ ")= " + idCentrale + " AND dateTournee='" + date + "'");
 			while(resultat.next()){
 				int  idTournee = resultat.getInt("idTournee");
+				String dateTournee = resultat.getString("dateTournee");
+				int idModele = resultat.getInt("idModele");
+				boolean estExportee = resultat.getBoolean("estExportee");
+				boolean estTerminee = resultat.getBoolean("estTerminee");
 				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
-				
-				resultatStations = statut.executeQuery("SELECT r.idStation, nom, instructionsCoutes, "
+				resultatStations = statut.executeQuery("SELECT r.idStation, nomStation, instructionsCourtes, "
 													+ "instructionsLongues, seuilBas, seuilHaut, frequenceControle, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
 													+ "MISH from station s "
-													+ "INNER JOIN releve r ON s.idStation=r.idStation"
+													+ "INNER JOIN releve r ON s.idStation=r.idStation "
 													+ "WHERE r.idTournee=" + idTournee);
 				int i = 1;
 				while(resultatStations.next()){
@@ -56,11 +59,11 @@ public class TourneeController {
 				}
 				
 				Tournee tournee = new Tournee(idTournee,
-						resultat.getString("dateTournee"),
-						resultat.getInt("idModele"),
+						dateTournee,
+						idModele,
 						stations,
-						resultat.getBoolean("estExportee"),
-						resultat.getBoolean("estTerminee"));
+						estExportee,
+						estTerminee);
 				
 				tournees.add(tournee);
 			}
@@ -71,7 +74,8 @@ public class TourneeController {
 			
 			try 
 	         {  
-	             resultat.close();  
+				 resultatStations.close();
+	             resultat.close();
 	             statut.close();  
 	             connexion.close();  
 	         } 
@@ -80,8 +84,7 @@ public class TourneeController {
 	             e.printStackTrace();  
 	         }  
 		}
-		
-		return null;
+		return tournees;
 	}
 	
 }
