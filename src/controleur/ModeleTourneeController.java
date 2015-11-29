@@ -109,6 +109,7 @@ public class ModeleTourneeController {
 			}
 			modifierNumExport(id, 1);
 			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele, t0, 1);
+			loadStationIntoModeleTournee(modele);
 			modele.genererProchaineTournee();
 			
 		}catch(Exception e){
