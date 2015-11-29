@@ -167,6 +167,9 @@ public class Tournee
 		return "Tournee [id=" + id + ", nom=" + nom + ", idModele=" + idModele + ", estExportee=" + estExportee
 				+ ", estTerminee=" + estTerminee + ", moisAnnee=" + moisAnnee + ", stations=" + stations + "]";
 	}
+	public String getDate() {
+		return this.moisAnnee;
+	}
 	
 	
 }
