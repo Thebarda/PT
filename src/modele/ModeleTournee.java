@@ -3,6 +3,8 @@ package modele;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+
+import controleur.ModeleTourneeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 /**
@@ -185,6 +187,7 @@ public class ModeleTournee
 		}
 		// ne pas oublier d'incrementer la base de donnee
 		numExport++;
+		ModeleTourneeController.modifierNumExport(this.getId(), numExport);
 		
 		/*
 		 * ajout de la tournee ainsi creer a la base de donnee

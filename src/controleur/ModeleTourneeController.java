@@ -172,4 +172,31 @@ public class ModeleTourneeController {
 	         }  
 		}
 	}
+	public static void modifierNumExport(int idModeleTournee ,int numExport)
+	{
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			/*UPDATE table
+			SET nom_colonne_1 = 'nouvelle valeur'
+			WHERE condition*/
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE modele_tournee SET numExport = ? WHERE idModele = ?");
+			preparedStatement.setInt(1, numExport);
+			preparedStatement.setInt(2, idModeleTournee);
+			preparedStatement.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
 }
