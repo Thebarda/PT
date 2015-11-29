@@ -107,9 +107,20 @@ public class ModeleTournee
 	
 	
 	
-	public void setNumExport(int numExport) {
-		this.numExport = numExport;
-		ModeleTourneeController.modifierNumExport(this.getId(), numExport);
+	public void setNumExport(int numExport) 
+	{
+		if(numExport == 13)
+		{
+			this.numExport = numExport;
+			ModeleTourneeController.modifierNumExport(this.getId(), 1);
+		}
+		else
+		{
+			this.numExport = numExport;
+			ModeleTourneeController.modifierNumExport(this.getId(), numExport);
+
+		}
+		
 	}
 
 	public HashMap<Integer, Station> getStations() {
