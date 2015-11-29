@@ -141,8 +141,8 @@ public class ModeleTournee
 	
 	@Override
 	public String toString() {
-		return "ModeleTournee [t0=" + t0 + ", id=" + id + ", nom=" + nom
-				+ ", description=" + description + ", stations=" + stations + "]";
+		return "ModeleTournee [t0=" + t0 + ", id=" + id + ", nom=" + nom + ", description=" + description
+				+ ", stations=" + stations + ", numExport=" + numExport + "]";
 	}
 	
 	/**

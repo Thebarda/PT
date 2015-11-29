@@ -34,7 +34,7 @@ public class ModeleTourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, t0 FROM modele_tournee mt "
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, t0, numExport FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -42,10 +42,12 @@ public class ModeleTourneeController {
 										+ "WHERE asm.idModele=mt.idModele "
 										+ "limit 1)");
 			while(resultat.next()){
+				//public ModeleTournee(int id, String nom, String description, int t0,int numExport) 
 				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
 						resultat.getString("nomModele"),
 						resultat.getString("descriptionModele"),
-						resultat.getInt("t0"));
+						resultat.getInt("t0"),
+						resultat.getInt("numExport"));
 				
 				loadStationIntoModeleTournee(modeleTournee);
 				
