@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import controleur.ModeleTourneeController;
+import controleur.TourneeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 /**
@@ -198,6 +199,7 @@ public class ModeleTournee
 		/*
 		 * ajout de la tournee ainsi creer a la base de donnee
 		 */
+		TourneeController.addTournee(tournee);
 	}
 	/**
 	 * cette fonction permet de filtrer les stations avec une fr�quence max
