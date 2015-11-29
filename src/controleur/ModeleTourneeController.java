@@ -172,6 +172,11 @@ public class ModeleTourneeController {
 	         }  
 		}
 	}
+	/**
+	 * Cette fonction permet de modifier pour un modele donné son numéro d'export en base de donnée
+	 * @param idModeleTournee id du modele sur lequel faire la modification
+	 * @param numExport nouveau num d'export après la modification
+	 */
 	public static void modifierNumExport(int idModeleTournee ,int numExport)
 	{
 		Connection connexion = null;

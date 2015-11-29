@@ -104,6 +104,13 @@ public class ModeleTournee
 		return t0;
 	}
 	
+	
+	
+	public void setNumExport(int numExport) {
+		this.numExport = numExport;
+		ModeleTourneeController.modifierNumExport(this.getId(), numExport);
+	}
+
 	public HashMap<Integer, Station> getStations() {
 		return stations;
 	}
@@ -186,8 +193,7 @@ public class ModeleTournee
 			break;
 		}
 		// ne pas oublier d'incrementer la base de donnee
-		numExport++;
-		ModeleTourneeController.modifierNumExport(this.getId(), numExport);
+		this.setNumExport(numExport + 1);
 		
 		/*
 		 * ajout de la tournee ainsi creer a la base de donnee
