@@ -22,6 +22,7 @@ public class TourneeController {
 		ResultSet resultat = null;
 		ResultSet resultatStations = null;
 		Statement statut = null;
+		Statement statutStations = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
@@ -44,7 +45,10 @@ public class TourneeController {
 				boolean estTerminee = resultat.getBoolean("estTerminee");
 	
 				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
-				resultatStations = statut.executeQuery("SELECT r.idStation, nomStation, instructionsCourtes, "
+				
+				statutStations = connexion.createStatement();
+				
+				resultatStations = statutStations.executeQuery("SELECT r.idStation, nomStation, instructionsCourtes, "
 													+ "instructionsLongues, seuilBas, seuilHaut, frequenceControle, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
 													+ "MISH from station s "
@@ -82,7 +86,8 @@ public class TourneeController {
 	         {  
 				 resultatStations.close();
 	             resultat.close();
-	             statut.close();  
+	             statut.close();
+	             statutStations.close();
 	             connexion.close();  
 	         } 
 	         catch (Exception e) 
