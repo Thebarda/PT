@@ -50,7 +50,7 @@ public class TourneeController {
 													+ "MISH from station s "
 													+ "INNER JOIN releve r ON s.idStation=r.idStation "
 													+ "INNER JOIN asso_station_modele asm ON asm.idStation=r.idStation "
-													+ "WHERE r.idTournee=" + idTournee
+													+ "WHERE r.idTournee=" + idTournee + " "
 													+ "ORDER BY asm.ordre ASC");
 				int i = 1;
 				while(resultatStations.next()){
@@ -102,7 +102,7 @@ public class TourneeController {
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "tournee(nomTournee,dateTournee,idModele,estExportee,estTerminee) "
-					+ "VALUES(?,?,?)");
+					+ "VALUES(?,?,?,?,?)");
 			preparedStatement.setString(1, tournee.getNom());
 			preparedStatement.setString(2, tournee.getDate());
 			preparedStatement.setInt(3, tournee.getIdModele());
