@@ -107,9 +107,9 @@ public class ModeleTourneeController {
 				preparedStatementAsso.setInt(3, i);
 				preparedStatementAsso.executeUpdate();
 			}
-			
-			
-			
+			modifierNumExport(id, 1);
+			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele, t0, 1);
+			modele.genererProchaineTournee();
 			
 		}catch(Exception e){
 			e.printStackTrace();
