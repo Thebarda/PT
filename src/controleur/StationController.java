@@ -146,11 +146,12 @@ public class StationController
 				preparedStatement.setInt(7, seuilBas);
 			}
 			if(valeurNormale==null){
-				preparedStatement.setString(7, "NULL");
+				preparedStatement.setString(10, "NULL");
+			}else{
+				preparedStatement.setInt(10,valeurNormale);
 			}
 			preparedStatement.setInt(8, idEquipement);
 			preparedStatement.setString(9,paramFonc);
-			preparedStatement.setInt(10,valeurNormale);
 			preparedStatement.setString(11,MISH);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){

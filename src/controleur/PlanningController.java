@@ -97,7 +97,7 @@ public class PlanningController {
             	};
             	Button button=new Button("Vers le mobile");
             	if(!p.getValue().isTerminee()){
-            		button.setOnAction(event);
+            		//button.setOnAction(event);
             	}
             	else{
             		button.setVisible(false);
@@ -132,7 +132,7 @@ public class PlanningController {
             	};
             	Button button=new Button("Importer depuis le mobile");
             	if(!p.getValue().isTerminee() && p.getValue().isEstExportee()){
-            		button.setOnAction(event);
+            		//button.setOnAction(event);
             	}
             	else{
             		button.setVisible(false);
