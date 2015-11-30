@@ -111,7 +111,7 @@ public class ModeleTournee
 	{
 		if(numExport == 13)
 		{
-			this.numExport = numExport;
+			this.numExport = 1;
 			ModeleTourneeController.modifierNumExport(this.getId(), 1);
 		}
 		else
@@ -120,7 +120,6 @@ public class ModeleTournee
 			ModeleTourneeController.modifierNumExport(this.getId(), numExport);
 
 		}
-		
 	}
 
 	public HashMap<Integer, Station> getStations() {
