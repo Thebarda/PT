@@ -1,6 +1,8 @@
 package controleur;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -62,7 +64,10 @@ public class PlanningController {
 	 * Fonction qui permet de lister les tournees dans le tableau quand on selectionne une centrale dans la combobox
 	 */
 	public void ListerEquipement(){
-		//ObservableList<Tournee> tournees=TourneeController.loadTournee(listeCentrale.getValue().getId());
+		GregorianCalendar calendar = new GregorianCalendar();
+		int mois = calendar.get(Calendar.MONTH)+1;
+		String date = mois + "-" + calendar.get(Calendar.YEAR);
+		ObservableList<Tournee> tournees=TourneeController.loadTournee(listeCentrale.getValue().getId(), date);
 		ID.setCellValueFactory(new PropertyValueFactory<Tournee, Integer>("id"));
 		Nom.setCellValueFactory(new PropertyValueFactory<Tournee, String>("nom"));
 		Export.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Tournee, Button>, ObservableValue<Button>>(){
@@ -91,8 +96,8 @@ public class PlanningController {
             	    }
             	};
             	Button button=new Button("Vers le mobile");
-            	if(!p.getValue().isEstExportee()){
-            		button.setOnAction(event);
+            	if(!p.getValue().isTerminee()){
+            		//button.setOnAction(event);
             	}
             	else{
             		button.setVisible(false);
@@ -126,8 +131,8 @@ public class PlanningController {
             	    }
             	};
             	Button button=new Button("Importer depuis le mobile");
-            	if(!p.getValue().isTerminee()){
-            		button.setOnAction(event);
+            	if(!p.getValue().isTerminee() && p.getValue().isEstExportee()){
+            		//button.setOnAction(event);
             	}
             	else{
             		button.setVisible(false);
@@ -136,7 +141,7 @@ public class PlanningController {
             }
         });
 		
-		//planning.setItems(tournees);
+		planning.setItems(tournees);
 	}
 
 }

@@ -34,7 +34,7 @@ public class ModeleTourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, t0 FROM modele_tournee mt "
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, t0, numExport FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -42,10 +42,12 @@ public class ModeleTourneeController {
 										+ "WHERE asm.idModele=mt.idModele "
 										+ "limit 1)");
 			while(resultat.next()){
+				//public ModeleTournee(int id, String nom, String description, int t0,int numExport) 
 				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
 						resultat.getString("nomModele"),
 						resultat.getString("descriptionModele"),
-						resultat.getInt("t0"));
+						resultat.getInt("t0"),
+						resultat.getInt("numExport"));
 				
 				loadStationIntoModeleTournee(modeleTournee);
 				
@@ -105,9 +107,10 @@ public class ModeleTourneeController {
 				preparedStatementAsso.setInt(3, i);
 				preparedStatementAsso.executeUpdate();
 			}
-			
-			
-			
+			modifierNumExport(id, 1);
+			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele, t0, 1);
+			loadStationIntoModeleTournee(modele);
+			modele.genererProchaineTournee();
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -171,66 +174,35 @@ public class ModeleTourneeController {
 		}
 	}
 	/**
-	 * cette fonction permet de generer la tournï¿½e suivante d'un modele
-	 * @param modele
-	 * @return
-	 * Pas encore Finie, on touche pas (Quentin)
+	 * Cette fonction permet de modifier pour un modele donné son numéro d'export en base de donnée
+	 * @param idModeleTournee id du modele sur lequel faire la modification
+	 * @param numExport nouveau num d'export après la modification
 	 */
-	public Tournee genererProchaineTournee(ModeleTournee modele)
+	public static void modifierNumExport(int idModeleTournee ,int numExport)
 	{
-		// t0 du modï¿½le
-		int t0 = modele.getT0();
-		
-		// mois courant 
-		GregorianCalendar date = new GregorianCalendar();
-		int mois = date.get(Calendar.MONTH);
-		
-		int typeTournee = mois-t0;
-		if(typeTournee < 0)
-		{
-			typeTournee+=11;
-		}
-		//typeTournï¿½e = ecart entre le t0 et le moi actuel
-		
-		switch(typeTournee)
-		{
-		case 12:
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			/*UPDATE table
+			SET nom_colonne_1 = 'nouvelle valeur'
+			WHERE condition*/
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE modele_tournee SET numExport = ? WHERE idModele = ?");
+			preparedStatement.setInt(1, numExport);
+			preparedStatement.setInt(2, idModeleTournee);
+			preparedStatement.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
 			
-			break;
-		case 9 :
-			break;
-		case 6 : 
-			break;
-		case 3 :
-			break;
-		default :
-			break;
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
 		}
-		return null;
-	}
-	/**
-	 * cette fonction permet de filtrer les stations avec une frï¿½quence max
-	 * si la frequence de la station est <= a la frï¿½quenceMax alors elle est ajoutï¿½e a une nouvelle HashMap<key,Station>
-	 * @param stations Stations initiale du modï¿½le
-	 * @param frequenceMax frï¿½quence maximum voulu pour les stations
-	 * @return une sous HashMap de la HashMap du modele avec seulement les stations avec une frï¿½quence <= FrequenceIndiquï¿½e
-	 */
-	public HashMap<Integer, Station> extraireStations(HashMap<Integer, Station> stations,int frequenceMax)
-	{
-		int currentPos = 1;
-		int numStation =1; 
-		Station station;
-		
-		HashMap<Integer, Station> stationFiltrees = new HashMap<Integer, Station>();
-		while((station = stations.get(numStation)) != null)
-		{
-			if(station.getFrequence() <= frequenceMax)
-			{
-				stationFiltrees.put(currentPos, station);
-				currentPos++;
-			}
-			numStation++;
-		}
-		return stationFiltrees;	
 	}
 }
