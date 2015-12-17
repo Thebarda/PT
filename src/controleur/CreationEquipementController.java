@@ -77,7 +77,7 @@ public class CreationEquipementController {
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(ECSH1.getWidth()!=2 || ECSH2.getWidth()!=2 || ECSH3.getWidth()!=2){
+		if(ECSH1.getText().length()!=2 || ECSH2.getText().length()!=2 || ECSH3.getText().length()!=2){
 			erreurECSH.setText("Erreur : chaque champs est composé de 2 caractères");
 			estValide=false;
 		}

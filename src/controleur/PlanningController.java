@@ -64,10 +64,7 @@ public class PlanningController {
 	 * Fonction qui permet de lister les tournees dans le tableau quand on selectionne une centrale dans la combobox
 	 */
 	public void ListerEquipement(){
-		GregorianCalendar calendar = new GregorianCalendar();
-		int mois = calendar.get(Calendar.MONTH)+1;
-		String date = mois + "-" + calendar.get(Calendar.YEAR);
-		ObservableList<Tournee> tournees=TourneeController.loadTournee(listeCentrale.getValue().getId(), date);
+		ObservableList<Tournee> tournees=TourneeController.loadTournee(listeCentrale.getValue().getId());
 		ID.setCellValueFactory(new PropertyValueFactory<Tournee, Integer>("id"));
 		Nom.setCellValueFactory(new PropertyValueFactory<Tournee, String>("nom"));
 		Export.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Tournee, Button>, ObservableValue<Button>>(){

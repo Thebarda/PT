@@ -25,7 +25,7 @@ import modele.Releve;
 
 public class TourneeController {
 	
-	public static ObservableList<Tournee> loadTournee(int idCentrale, String date){
+	public static ObservableList<Tournee> loadTournee(int idCentrale){
 		
 		ObservableList<Tournee> tournees=FXCollections.observableArrayList();
 		Connection connexion = null;
@@ -45,7 +45,7 @@ public class TourneeController {
 										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
 										+ "WHERE mt.idModele=t.idModele "
 										+ "limit 1 "
-										+ ")= " + idCentrale + " AND dateTournee='" + date + "'");
+										+ ")= " + idCentrale + " AND estTerminee = false");
 			while(resultat.next()){
 				int  idTournee = resultat.getInt("idTournee");
 				String dateTournee = resultat.getString("dateTournee");

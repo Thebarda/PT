@@ -106,7 +106,6 @@ public class ModeleTourneeController {
 			}
 			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele);
 			loadStationIntoModeleTournee(modele);
-			modele.genererTournee();
 			
 		}catch(Exception e){
 			e.printStackTrace();
