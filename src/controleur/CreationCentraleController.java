@@ -17,13 +17,13 @@ public class CreationCentraleController {
 	private TextField nom;
 	
 	@FXML
-	private TextField localisation ;
+	private TextField codeIdentiteNationale ;
 	
 	@FXML 
 	private Label erreurNom;
 	
 	@FXML
-	private Label erreurLoca;
+	private Label erreurCode;
 	
 	@FXML
 	private Button valider;
@@ -53,7 +53,7 @@ public class CreationCentraleController {
 	
 	/**
 	 * Fonction qui permet de valider une centrale, et donc de l'ajouter à la base
-	 * On ajoute la centrale que si les champs nom et localisation sont non vide
+	 * On ajoute la centrale que si les champs nom et identité sont non vide
 	 */
 	public void ValiderCentrale(){
 		boolean estValide=true;
@@ -62,15 +62,15 @@ public class CreationCentraleController {
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(estVide(localisation))
+		if(estVide(codeIdentiteNationale))
 		{
-			erreurLoca.setText("Erreur : la localisation est vide");
+			erreurCode.setText("Erreur : le code est vide");
 			estValide=false;
 		}
 		
 		if(estValide == true)
 		{
-			CentraleControler.addCentrale(nom.getText(), localisation.getText());
+			CentraleControler.addCentrale(nom.getText(), codeIdentiteNationale.getText());
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -89,7 +89,7 @@ public class CreationCentraleController {
 	 * Se lance lorsque l'utilisateur appuie sur le bouton valider
 	 */
 	public void resetErreur(){
-		erreurLoca.setText("");
+		erreurCode.setText("");
 		erreurNom.setText("");
 	}
 	

@@ -37,7 +37,7 @@ public class GererCentraleController {
 	TableColumn<Centrale, String> Nom;
 	
 	@FXML
-	TableColumn<Centrale, String> Localisation;
+	TableColumn<Centrale, String> codeIdentiteNationale;
 	
 	ObservableList<Centrale> data=CentraleControler.loadCentrales();
 	
@@ -49,7 +49,7 @@ public class GererCentraleController {
 	private void initialize() {
 		ID.setCellValueFactory(new PropertyValueFactory<Centrale, Integer>("id"));
 		Nom.setCellValueFactory(new PropertyValueFactory<Centrale, String>("nom"));
-		Localisation.setCellValueFactory(new PropertyValueFactory<Centrale, String>("lieu"));
+		codeIdentiteNationale.setCellValueFactory(new PropertyValueFactory<Centrale, String>("identiteNationale"));
 		data.removeAll(data);
 		data=CentraleControler.loadCentrales();
 		tableCentrale.setItems(data);
