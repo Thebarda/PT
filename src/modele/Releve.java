@@ -1,4 +1,7 @@
 package modele;
+
+import javax.json.JsonValue;
+
 /**
  * Classe qui permet de créer un relevé
  * @author 
@@ -9,6 +12,7 @@ public class Releve {
 	private int  id;
 	private String  commentaire;
 	private int  valeur;
+	
 	/**
 	 * Retourne l'id du relevé
 	 * @return id
@@ -83,5 +87,9 @@ public class Releve {
 	@Override
 	public String toString() {
 		return "Releve [id=" + id + ", commentaire=" + commentaire + ", valeur=" + valeur + "]";
+	}
+	public JsonValue getDate() {
+		
+		return null;
 	}	
 }

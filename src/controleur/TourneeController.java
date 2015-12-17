@@ -1,5 +1,6 @@
 package controleur;
 
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,11 +8,20 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+import javax.json.JsonWriter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.Station;
 import modele.Tournee;
+import modele.Releve;
 
 public class TourneeController {
 	
@@ -62,8 +72,8 @@ public class TourneeController {
 							resultatStations.getString("nomStation"),
 							resultatStations.getString("instructionsCourtes"),
 							resultatStations.getString("instructionsLongues"),
-							resultatStations.getInt("idUnite"),resultatStations.getInt("FrequenceControle"),
-							resultatStations.getInt("seuilHaut"),resultatStations.getInt("seuilBas"),resultatStations.getInt("valeurNormale"),resultatStations.getString("paramFonc"),resultatStations.getString("MISH"));
+							resultatStations.getInt("idUnite"),
+							resultatStations.getInt("seuilHaut"),resultatStations.getInt("seuilBas"),resultatStations.getInt("valeurNormale"),resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
 					stations.put(i, station);
 					i++;
 				}
@@ -159,4 +169,98 @@ public class TourneeController {
 	         }  
 		}
 	}
+	
+	
+	/*
+	
+	
+	public static void genererJsonTournee(int idTournee, String location){
+		
+		Tournee tournee = loadTourneeById(idTournee);
+
+		JsonArray jsonStations;
+		
+		JsonArray jsonHistoriqueStation = (JsonArray) Json.createArrayBuilder();
+		
+		// Chargement des stations de la tournée en Json
+		HashMap<Integer, Station> stations = tournee.getStations();
+		for(int i=1; i<=stations.size();i++){
+			Station station = stations.get(i);
+			
+			for(int j=1; j<=5; j++){
+				stations = loadStations
+				jsonHistoriqueStation = (JsonArray) Json.createArrayBuilder();
+			}
+			
+			JsonObject jsonStation= Json.createObjectBuilder()
+					.add("idStation", station.getId())
+					.add("Nom", station.getNom())
+					.add("Instruction courte", station.getInstructionCourte())
+					.add("Instruction longue", station.getInstructionLongue())
+					.add("Historique", jsonHistoriqueStation)
+					.add("Unite", station.getNomUnite())
+					.build();
+			
+			// Ajout dans le JsonArray des station
+			jsonStations = (JsonArray) Json.createArrayBuilder()
+					.add(jsonStation);
+		}
+		
+		jsonStations = (JsonArray) Json.createArrayBuilder()
+				.build();
+		
+		JsonObject jsonTournee= Json.createObjectBuilder()
+				.add("Nom", "Station Boitier")
+				.add("Instruction courte", "C'est rigolo")
+				.add("Instruction longue", "C'est VRAIMENT rigolo")
+				.add("Historique", historique)
+				.add("Equipement", "Boitier")
+				.add("Unite", "Volt")
+				.add("Nb Releve", "0")
+				.add("Accepte releve Multiple", "1")
+				.build();
+		
+		
+
+		
+	}
+
+	
+	
+	
+	
+	private static JsonObject addHistoriqueForStation(JsonObject jo, Releve releve){
+		
+		JsonObject jsonAncienReleve= Json.createObjectBuilder()
+			.add("dateReleve", releve.getDate())
+			.add("Nom", releve.getValeur())
+			.build();
+
+		jo=jsonObjectToBuilder(jo).add("Releve", jsonAncienReleve).build();
+		
+		
+		StringWriter stringWriter = new StringWriter();
+		try (JsonWriter writer = Json.createWriter(stringWriter)) {
+			writer.writeObject(jo);;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return jo;
+	}
+
+	private static JsonObjectBuilder jsonObjectToBuilder(JsonObject jo) {
+	    JsonObjectBuilder job = Json.createObjectBuilder();
+
+	    for (Entry<String, JsonValue> entry : jo.entrySet()) {
+	        job.add(entry.getKey(), entry.getValue());
+	    }
+
+	    return job;
+	}
+
+
+*/
+	
+	
 }

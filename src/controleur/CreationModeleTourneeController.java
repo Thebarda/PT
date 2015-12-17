@@ -182,7 +182,7 @@ public class CreationModeleTourneeController {
 		if(estValide == true)
 		{
 			
-			ModeleTourneeController.addModeleTournee(nom.getText(),description.getText(),Ostations,Integer.parseInt(debut.getValue().substring(0, 2)));			annuler.getParent().getScene().getWindow().hide();
+			ModeleTourneeController.addModeleTournee(nom.getText(),description.getText(),Ostations);			annuler.getParent().getScene().getWindow().hide();
 		}
 		
 	}

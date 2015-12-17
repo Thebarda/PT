@@ -34,7 +34,7 @@ public class ModeleTourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, t0, numExport FROM modele_tournee mt "
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -42,12 +42,10 @@ public class ModeleTourneeController {
 										+ "WHERE asm.idModele=mt.idModele "
 										+ "limit 1)");
 			while(resultat.next()){
-				//public ModeleTournee(int id, String nom, String description, int t0,int numExport) 
+				//public ModeleTournee(int id, String nom, String description, int numExport) 
 				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
 						resultat.getString("nomModele"),
-						resultat.getString("descriptionModele"),
-						resultat.getInt("t0"),
-						resultat.getInt("numExport"));
+						resultat.getString("descriptionModele"));
 				
 				loadStationIntoModeleTournee(modeleTournee);
 				
@@ -77,7 +75,7 @@ public class ModeleTourneeController {
 	 * @param nomModele le nom du modele de tournï¿½e
 	 * @param descriptionModele description du modï¿½le de tournï¿½e
 	 */
-	public static void addModeleTournee(String nomModele, String descriptionModele, Map<Integer, Station> stations, int t0)
+	public static void addModeleTournee(String nomModele, String descriptionModele, Map<Integer, Station> stations)
 	{
 		Connection connexion = null;
 		try{
@@ -85,11 +83,10 @@ public class ModeleTourneeController {
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
-					+ "modele_tournee(nomModele,descriptionModele,t0) "
-					+ "VALUES(?,?,?)");
+					+ "modele_tournee(nomModele,descriptionModele) "
+					+ "VALUES(?,?)");
 			preparedStatement.setString(1, nomModele);
 			preparedStatement.setString(2, descriptionModele);
-			preparedStatement.setInt(3, t0);
 			preparedStatement.executeUpdate();
 			
 			// On recupï¿½re l'id du modï¿½le crï¿½ï¿½
@@ -107,10 +104,9 @@ public class ModeleTourneeController {
 				preparedStatementAsso.setInt(3, i);
 				preparedStatementAsso.executeUpdate();
 			}
-			modifierNumExport(id, 1);
-			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele, t0, 1);
+			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele);
 			loadStationIntoModeleTournee(modele);
-			modele.genererProchaineTournee();
+			modele.genererTournee();
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -142,7 +138,7 @@ public class ModeleTourneeController {
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT s.idStation, s.nomStation, s.instructionsCourtes, s.instructionsLongues, "
-										+ "s.idUnite, s.FrequenceControle, s.seuilHaut, s.seuilBas, s.valeurNormale, s.paramFonc, s.MISH, asm.ordre FROM station s "
+										+ "s.idUnite, s.seuilHaut, s.seuilBas, s.valeurNormale, s.paramFonc, s.MISH, asm.ordre FROM station s "
 										+ "INNER JOIN asso_station_modele asm ON s.idStation=asm.idStation "
 										+ "WHERE asm.idModele=" + modele.getId());
 			
@@ -151,8 +147,8 @@ public class ModeleTourneeController {
 						resultat.getString("nomStation"),
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
-						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getString("MISH"));
+						resultat.getInt("idUnite"),
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
 				int ordre = resultat.getInt("ordre");
 				modele.ajouterStation(station, ordre);
 			}
@@ -165,38 +161,6 @@ public class ModeleTourneeController {
 	         {  
 	             resultat.close();  
 	             statut.close();  
-	             connexion.close();  
-	         } 
-	         catch (Exception e) 
-	         {  
-	             e.printStackTrace();  
-	         }  
-		}
-	}
-	/**
-	 * Cette fonction permet de modifier pour un modele donné son numéro d'export en base de donnée
-	 * @param idModeleTournee id du modele sur lequel faire la modification
-	 * @param numExport nouveau num d'export après la modification
-	 */
-	public static void modifierNumExport(int idModeleTournee ,int numExport)
-	{
-		Connection connexion = null;
-		try{
-			Class.forName("org.sqlite.JDBC");
-			/*UPDATE table
-			SET nom_colonne_1 = 'nouvelle valeur'
-			WHERE condition*/
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
-			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE modele_tournee SET numExport = ? WHERE idModele = ?");
-			preparedStatement.setInt(1, numExport);
-			preparedStatement.setInt(2, idModeleTournee);
-			preparedStatement.executeUpdate();
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			
-			try 
-	         {  
 	             connexion.close();  
 	         } 
 	         catch (Exception e) 

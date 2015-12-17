@@ -13,12 +13,11 @@ public class Station {
 	private String instructionCourte;
 	private String instructionLongue;
 	private int idUnite;
-	private int frequence;
 	private int seuilHaut;
 	private int seuilBas;
 	private int valeurNormale;
 	private String paramFonc;
-	private String MISH;
+	private boolean MISH;
 	
 	/**
 	 * constructeur d'une station en indiquant tous les param�tre qui la constitue
@@ -34,15 +33,14 @@ public class Station {
 	 * @param paramFonc parametre de fonctionnement de la station
 	 * @param MISH MISH de la station
 	 */
-	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite, int frequence,
-			int seuilHaut, int seuilBas,int valeurNormale,String paramFonc,String MISH) {
+	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite,
+			int seuilHaut, int seuilBas,int valeurNormale,String paramFonc,boolean MISH) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.instructionCourte = instructionCourte;
 		this.instructionLongue = instructionLongue;
 		this.idUnite = idUnite;
-		this.frequence = frequence;
 		this.seuilHaut = seuilHaut;
 		this.seuilBas = seuilBas;
 		this.valeurNormale=valeurNormale;
@@ -120,20 +118,6 @@ public class Station {
 		this.idUnite = unite;
 	}
 	/**
-	 * getter de la frequence de controle de la station
-	 * @return la frenquence de controle de la station
-	 */
-	public int getFrequence() {
-		return frequence;
-	}
-	/**
-	 * setter de la frequence de controle de la station
-	 * @param frequence frequence de controle de la station
-	 */
-	public void setFrequence(int frequence) {
-		this.frequence = frequence;
-	}
-	/**
 	 * getter du seuil haut de controle de la station
 	 * @return le seuil haut de controle de la station
 	 */
@@ -191,7 +175,7 @@ public class Station {
 	}
 	@Override
 	public String toString() {
-		return "["+id+"]"+nom +"("+frequence+" mois)";
+		return "["+id+"]"+nom;
 	}
 	
 }

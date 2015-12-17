@@ -1,5 +1,6 @@
 package modele;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
@@ -105,11 +106,12 @@ public class Tournee
 	 * @param mois mois courant
 	 * @return un nom explicite pour la tournée
 	 */
-	public static String getNomTournee(String nomModele,int t0, int numExport)
+	public static String getNomTournee(String nomModele)
 	{
+		GregorianCalendar calendar = new GregorianCalendar();
 		String temp=nomModele;
 		
-		int numMois = ((t0+numExport -2)%12);
+		int numMois = calendar.get(Calendar.MONTH);
 		switch(numMois)
 		{
 		case 0 :
@@ -149,7 +151,6 @@ public class Tournee
 			temp+="_Decembre";
 			break;
 		}
-		GregorianCalendar calendar = new GregorianCalendar();
 		if(calendar.get(calendar.MONTH) > numMois)
 		{
 			temp+= (calendar.getWeekYear()+1);
