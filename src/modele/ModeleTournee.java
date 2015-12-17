@@ -166,11 +166,11 @@ public class ModeleTournee
 	}
 	
 	/**
-	 * cette fonction permet de generer la tournï¿½e suivante d'un modele
+	 * cette fonction permet de generer la tournée d'un modele
 	 * @param modele
 	 * @return 
 	 */
-	public void genererProchaineTournee()
+	public void genererTournee()
 	{
 		Tournee tournee;
 		int mois = (((t0 + numExport -2)%12)+1);
@@ -185,30 +185,7 @@ public class ModeleTournee
 		{
 			moisAnnee+= "-" + calendar.getWeekYear();
 		}
-		switch(numExport)
-		{
-		case 1:
-			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(12),moisAnnee);
-			break;
-		case 10 :
-			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(3),moisAnnee);
-			break;
-		case 7 :
-			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(6),moisAnnee);
-			break;
-		case 4 :
-			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(3),moisAnnee);
-			break;
-		default :
-			tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),extraireStations(1),moisAnnee);
-			break;
-		}
-		// ne pas oublier d'incrementer la base de donnee
-		this.setNumExport(numExport + 1);
-		
-		/*
-		 * ajout de la tournee ainsi creer a la base de donnee
-		 */
+		tournee = new Tournee(Tournee.getNomTournee(this.getNom(),t0,numExport),this.getId(),this.stations,moisAnnee);
 		TourneeController.addTournee(tournee);
 	}
 	/**
