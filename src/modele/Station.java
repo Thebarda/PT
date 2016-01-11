@@ -10,12 +10,12 @@ public class Station {
 	private String nom;
 	private String instructionCourte;
 	private String instructionLongue;
-	private int idUnite;
+	private String unite;
 	private int seuilHaut;
 	private int seuilBas;
 	private int valeurNormale;
 	private String paramFonc;
-	private boolean MISH;
+	private int MISH;
 	
 	/**
 	 * constructeur d'une station en indiquant tous les param�tre qui la constitue
@@ -23,27 +23,27 @@ public class Station {
 	 * @param nom nom de la station
 	 * @param instructionCourte instruction courte de la station
 	 * @param instructionLongue instruction de la station
-	 * @param idUnite id de l'unit� de mesure de la station
+	 * @param unite id de l'unit� de mesure de la station
 	 * @param frequence frequence de controle de la station
 	 * @param seuilHaut seuil maximum pour les mesures
 	 * @param seuilBas seuil minimum pour les mesures
 	 * @param valeurNotmale valeur normale pour les mesures
 	 * @param paramFonc parametre de fonctionnement de la station
-	 * @param MISH MISH de la station
+	 * @param i MISH de la station
 	 */
-	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite,
-			int seuilHaut, int seuilBas,int valeurNormale,String paramFonc,boolean MISH) {
+	public Station(int id, String nom, String instructionCourte, String instructionLongue, String unite,
+			int seuilHaut, int seuilBas,int valeurNormale,String paramFonc,int i) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.instructionCourte = instructionCourte;
 		this.instructionLongue = instructionLongue;
-		this.idUnite = idUnite;
+		this.unite = unite;
 		this.seuilHaut = seuilHaut;
 		this.seuilBas = seuilBas;
 		this.valeurNormale=valeurNormale;
 		this.paramFonc=paramFonc;
-		this.MISH=MISH;
+		this.MISH=i;
 	}
 	/**
 	 * getter de l'id de la station
@@ -105,15 +105,15 @@ public class Station {
 	 * getter de l'id de l'unit� de controle de la station
 	 * @return l'id de l'unit� associ� a la station
 	 */
-	public int getIdUnite() {
-		return idUnite;
+	public String getUnite() {
+		return unite;
 	}
 	/**
 	 * setter de l'id de l'unit� de la station
 	 * @param unite id de l'unit� de la station
 	 */
-	public void setIdUnite(int unite) {
-		this.idUnite = unite;
+	public void setUnite(String unite) {
+		this.unite = unite;
 	}
 	/**
 	 * getter du seuil haut de controle de la station
@@ -144,13 +144,6 @@ public class Station {
 		this.seuilBas = seuilBas;
 	}
 	
-	/**
-	 * getter du nom de l'unite de la station
-	 * @return le nom de l'unite de la station
-	 */
-	public String getNomUnite() {
-		return UniteController.idVersNom(idUnite);
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
