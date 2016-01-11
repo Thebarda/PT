@@ -73,24 +73,29 @@ public class JsonController {
 		
 	}
 	
-	public static ObservableList<JsonObject> loadStations(String fichier){
+	public static JsonObject[] loadStations(String fichier){
 		JsonReader reader;
 		JsonObject[] tabStations;
-		ObservableList<JsonObject> oStations=FXCollections.observableArrayList();
-		
 		try {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			JsonArray stations = tournee.getJsonArray("stations");
 			
 			tabStations = stations.toArray(new JsonObject[0]);
-			
-			for(JsonObject jo : tabStations){
-				oStations.add(jo);
-			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			tabStations = null;
 		}
+		return tabStations;
+	}
+	public static ObservableList<Station> loadObservableStations(String fichier){
+		ObservableList<Station> oStations=FXCollections.observableArrayList();
+		JsonObject[] tabStations = loadStations(fichier);
+		
+		for(JsonObject jo : tabStations){
+			oStations.add(new Station(jo.getInt("idStation"), jo.getString("nomStation"), jo.getString("instructionsCourtes"), jo.getString("instructionsLongues"), jo.getString("unite"), jo.getInt("seuilBas"), jo.getInt("seuilHaut"), jo.getInt("valeurNormale"), jo.getString("paramFonc"), jo.getInt("MISH")));
+		}
+
 		return oStations;
 	}
 	
