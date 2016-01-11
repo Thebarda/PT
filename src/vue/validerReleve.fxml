@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane minHeight="600.0" minWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+   <children>
+      <Label layoutX="202.0" layoutY="38.0" text="Validation du Releve">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="143.0" layoutY="204.0" text="Votre releve n'est pas compris entre les seuil de valeur normale">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="113.0" layoutY="339.0" text="Il se peut que vous ayez effectué une erreur lors de la saisie du relevé .">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="233.0" layoutY="453.0" text="Validez-vous le relevé ?">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="280.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" text="Valider le relevé" />
+      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" text="Annuler le relevé" />
+   </children>
+</AnchorPane>

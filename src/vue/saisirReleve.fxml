@@ -77,7 +77,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="1280.0">
          <children>
             <Button layoutX="1100.0" layoutY="124.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="135.0" text="Fin" />
-            <ScrollPane accessibleRole="SLIDER" hbarPolicy="NEVER" layoutX="299.0" layoutY="32.0" pannable="true" prefHeight="140.0" prefWidth="586.0" vbarPolicy="NEVER">
+            <ScrollPane fx:id="scroll" accessibleRole="SLIDER" hbarPolicy="NEVER" layoutX="299.0" layoutY="32.0" pannable="true" prefHeight="140.0" prefWidth="586.0" vbarPolicy="NEVER">
               <content>
                 <AnchorPane fx:id="Stations" minHeight="0.0" minWidth="0.0" prefHeight="138.0">
                      <children>

@@ -10,6 +10,7 @@ import javax.json.JsonReader;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -35,13 +36,18 @@ public class saisirReleveController {
 	TextField releve;
 	
 	@FXML
+	ScrollPane scroll;
+	
+	@FXML
 	TextArea commentaire;
 	
 	JsonObject[] stations;
 	
 	int currentPos;
 	
-	static String nomJson="/home/clement/Dropbox/Projet tut EDF/Json/testJson2.json";
+	static String nomJson;
+	
+	int nbStations;
 	
 	public static void initialise(String nomFichier){
 		nomJson=nomFichier;
@@ -53,12 +59,12 @@ public class saisirReleveController {
 		try {
 			reader = Json.createReader(new FileInputStream(nomJson));
 			JsonObject tournee = reader.readObject();
-			int nbStations= tournee.getInt("nbStations");
+			nbStations= tournee.getInt("nbStations");
 			stations=JsonController.loadStations(nomJson);
 			for (int i=0;i<nbStations;i++){
 				Label releve=new Label(stations[i].getString("nomStation"));
 				releve.setPrefHeight(138.0);
-				releve.setPrefWidth(200.0);
+				releve.setPrefWidth(75.0);
 				releve.setStyle("-fx-border-style: solid;");
 				releve.setWrapText(true);
 				if(i>0){
@@ -91,7 +97,13 @@ public class saisirReleveController {
 			System.out.println("PAS COMPRIS ENTRE LES SEUIL");
 		}
 		else{
-			System.out.println("OK");
+			currentPos++;
+			charge(currentPos);
+			releve.setText("");
+			commentaire.setText("");
+			scroll.setHvalue(1/scroll.getWidth()-(double)(nbStations * 200));
+			System.out.println(currentPos/nbStations);
+			System.out.println(scroll.getHvalue());
 		}
 	}
 	
