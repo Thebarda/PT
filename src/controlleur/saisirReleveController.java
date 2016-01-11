@@ -62,11 +62,11 @@ public class saisirReleveController {
 			for (int i=0;i<nbStations;i++){
 				Label releve=new Label(stations[i].getString("nomStation"));
 				releve.setPrefHeight(138.0);
-				releve.setPrefWidth(75.0);
+				releve.setPrefWidth(175.0);
 				releve.setStyle("-fx-border-style: solid;");
 				releve.setWrapText(true);
 				if(i>0){
-					releve.setLayoutX((i*200)-1);
+					releve.setLayoutX((i*175)-1);
 				}
 				releve.setAlignment(Pos.CENTER);
 				Stations.getChildren().add(releve);
@@ -99,7 +99,7 @@ public class saisirReleveController {
 			charge(currentPos);
 			releve.setText("");
 			commentaire.setText("");
-			scroll.setHvalue(1/scroll.getWidth()-(double)(nbStations * 200));
+			scroll.setHvalue((double)currentPos/((double)nbStations-4));
 			System.out.println(currentPos/nbStations);
 			System.out.println(scroll.getHvalue());
 		}
