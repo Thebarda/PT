@@ -22,7 +22,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="eleve" layoutX="502.0" layoutY="143.0" prefHeight="61.0" prefWidth="227.0">
+            <TextField fx:id="releve" layoutX="502.0" layoutY="143.0" prefHeight="61.0" prefWidth="227.0">
                <font>
                   <Font size="20.0" />
                </font>
@@ -37,7 +37,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextArea layoutX="440.0" layoutY="289.0" prefHeight="200.0" prefWidth="470.0">
+            <TextArea fx:id="commentaire" layoutX="440.0" layoutY="289.0" prefHeight="200.0" prefWidth="470.0">
                <font>
                   <Font size="18.0" />
                </font>
@@ -47,7 +47,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="838.0" layoutY="143.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="169.0" text="Valider">
+            <Button layoutX="838.0" layoutY="143.0" mnemonicParsing="false" onAction="#valider" prefHeight="61.0" prefWidth="169.0" text="Valider">
                <font>
                   <Font size="20.0" />
                </font>

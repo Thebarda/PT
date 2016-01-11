@@ -2,20 +2,17 @@ package controlleur;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.StringReader;
 
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.TextAlignment;
 
 public class saisirReleveController {
 
@@ -34,9 +31,21 @@ public class saisirReleveController {
 	@FXML
 	Label seuil;
 	
+	@FXML
+	TextField releve;
+	
+	@FXML
+	TextArea commentaire;
+	
 	JsonObject[] stations;
 	
-	String nomJson="/home/clement/Dropbox/Projet tut EDF/Json/testJson2.json";
+	int currentPos;
+	
+	static String nomJson="/home/clement/Dropbox/Projet tut EDF/Json/testJson2.json";
+	
+	public static void initialise(String nomFichier){
+		nomJson=nomFichier;
+	}
 	
 	@FXML
 	private void initialize(){
@@ -58,7 +67,9 @@ public class saisirReleveController {
 				releve.setAlignment(Pos.CENTER);
 				Stations.getChildren().add(releve);
 			}
+			currentPos=0;
 			charge(0);
+			ReleveController.initialize(stations, nomJson);
 			
 
 		} catch (FileNotFoundException e) {
@@ -72,6 +83,16 @@ public class saisirReleveController {
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
 		unite.setText(stations[numStation].getString("unite"));
 		seuil.setText("Seuil Bas: "+stations[numStation].getInt("seuilBas")+"		Seuil Haut: "+stations[numStation].getInt("seuilHaut")+"		Valeur Normale: "+stations[numStation].getInt("valeurNormale"));
+	}
+	
+	public void valider(){
+		boolean estValide=ReleveController.controller(currentPos, Double.parseDouble(releve.getText()), commentaire.getText());
+		if (!estValide){
+			System.out.println("PAS COMPRIS ENTRE LES SEUIL");
+		}
+		else{
+			System.out.println("OK");
+		}
 	}
 	
 	

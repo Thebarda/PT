@@ -4,14 +4,15 @@ import javax.json.JsonObject;
 
 public class ReleveController {
 
-	private JsonObject[] tabStations;
-	private String nomFichier;
+	static private JsonObject[] tabStations;
+	static private String nomFichier;
 
-	public void initialize(JsonObject[] tab, String nomFichier) {
+	public static void initialize(JsonObject[] tab, String nom) {
 		tabStations = tab;
+		nomFichier=nom;
 	}
 
-	public boolean controller(int num, double releve, String commentaire) {
+	public static boolean controller(int num, double releve, String commentaire) {
 		
 		JsonObject station = tabStations[num];
 		double seuilHaut = station.getInt("seuilHaut");
@@ -21,11 +22,11 @@ public class ReleveController {
 		{
 			return false;
 		}
-		enregistrer(num,releve,commentaire);
+		enregistrer(station.getInt("idStation"),releve,commentaire);
 		return true;
 	}
 
-	public void enregistrer(int num, double releve, String commentaire) {
+	public static void enregistrer(int num, double releve, String commentaire) {
 		JsonController.ecrireReleve(nomFichier, num, commentaire, releve);
 	}
 
