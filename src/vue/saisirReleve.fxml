@@ -79,9 +79,8 @@
             <Button layoutX="1100.0" layoutY="124.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="135.0" text="Fin" />
             <ScrollPane accessibleRole="SLIDER" hbarPolicy="NEVER" layoutX="299.0" layoutY="32.0" pannable="true" prefHeight="140.0" prefWidth="586.0" vbarPolicy="NEVER">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="657.0">
+                <AnchorPane fx:id="Stations" minHeight="0.0" minWidth="0.0" prefHeight="138.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="138.0" prefWidth="200.0" style="-fx-border-style: solid;" text="Releve 1&#10;VALIDE" textAlignment="CENTER" wrapText="true" />
                      </children>
                   </AnchorPane>
               </content>
