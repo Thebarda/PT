@@ -1,4 +1,4 @@
-package controleur;
+package controlleur;
 
 import java.io.File;
 
