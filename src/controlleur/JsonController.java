@@ -37,10 +37,19 @@ public class JsonController {
 			
 			JsonObject[] tabReleves;
 			tabReleves = releves.toArray(new JsonObject[0]);
+			boolean existe = false;
 			for(JsonObject jo : tabReleves){
-				builder.add(jo);
+				if(jo.getInt("idStation")==idStation){
+					builder.add(releve);
+					existe = true;
+				}
+				else{
+					builder.add(jo);
+				}
 			}
-			builder.add(releve);
+			if(!existe){
+				builder.add(releve);
+			}
 			JsonArray newReleves = builder.build();
 			
 			JsonObject newTournee = Json.createObjectBuilder()
@@ -68,9 +77,27 @@ public class JsonController {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+	}
+	
+	public static JsonObject[] loadHistoriques(String fichier, int idStation){
+		JsonReader reader;
+		JsonObject[] tabStations;
+		JsonObject[] tabHistorique = null;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+			JsonArray stations = tournee.getJsonArray("stations");
+			
+			tabStations = stations.toArray(new JsonObject[0]);
+			for(JsonObject jo : tabStations){
+				if(jo.getInt("idStation")==idStation){
+					tabHistorique = jo.getJsonArray("historiques").toArray(new JsonObject[0]);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return tabHistorique;
 	}
 	
 	public static JsonObject[] loadStations(String fichier){
