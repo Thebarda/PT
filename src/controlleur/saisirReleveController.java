@@ -49,14 +49,12 @@ public class saisirReleveController {
 	
 	int nbStations;
 	
-	public static void initialise(String nomFichier){
-		nomJson=nomFichier;
-	}
 	
 	@FXML
 	private void initialize(){
 		JsonReader reader;
 		try {
+			nomJson = ImportationController.chemin;
 			reader = Json.createReader(new FileInputStream(nomJson));
 			JsonObject tournee = reader.readObject();
 			nbStations= tournee.getInt("nbStations");

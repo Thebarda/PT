@@ -14,14 +14,16 @@ import javafx.scene.layout.VBox;
  * Classe permettant de lancer l'application fixe 
  */
 public class Main extends Application {
-
+	public static AnchorPane page;
+	public static Stage primaryStage;
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		primaryStage.setTitle("Application EDF");
 		
 		try {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("Importation.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
+			page = (AnchorPane) loader.load();
 			Scene scene = new Scene(page);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);

@@ -3,6 +3,7 @@ package controlleur;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -11,17 +12,31 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import modele.Station;
+import vue.Main;
 
 /**
  * Controleur relatif Ã  l'interface de crÃ©ation de centrale
@@ -55,16 +70,19 @@ public class ImportationController {
 	
 	@FXML
 	private Label Ldescription;
+	@FXML
+	ObservableList<Station> listStations;
 	
 	protected File file;
 	JsonReader reader;
-	String chemin;
+	public static String chemin;
 	JsonObject tournee;
 	JsonArray releves;
 	JsonArray stations;
 	JsonObject[] objects;
 	
 	public void initialize(){
+		valider.setVisible(false);
 		station.setVisible(false);
 		nomTournee.setVisible(false);
 		description.setVisible(false);
@@ -104,8 +122,28 @@ public class ImportationController {
         
          //Show open file dialog
          file = fileChooser.showOpenDialog(null);
-         chemin = file.getAbsolutePath();
          route.setText(file.getPath());
+         chemin = route.getText();
+     	try {
+			reader = Json.createReader(new FileInputStream(route.getText()));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		tournee = reader.readObject();
+		valider.setVisible(true);
+ 			station.setVisible(true);
+ 			nomTournee.setVisible(true);
+ 			description.setVisible(true);
+ 			LnomTournee.setVisible(true);
+ 			Ldescription.setVisible(true);
+ 			
+        releves = tournee.getJsonArray("Releves");
+ 		nomTournee.setText(tournee.getString("nomModele"));
+ 		description.setText(tournee.getString("descModele"));
+ 		listStations = JsonController.loadObservableStations(route.getText());
+ 		nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
+ 		instru.setCellValueFactory(new PropertyValueFactory<Station, String>("instructionCourte"));
+ 		station.setItems(listStations);
      }
  
 	/**
@@ -115,36 +153,26 @@ public class ImportationController {
 	public void ValiderImportation(){
 		boolean estValide=true;
 		resetErreur();
-		try {
-			reader = Json.createReader(new FileInputStream(route.getText()));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		tournee = reader.readObject();
+	
 		if(estVide(route)){
-			erreurRoute.setText("Erreur : veuillez sspécifier votre fichier ");
+			erreurRoute.setText("Erreur : veuillez spécifier votre fichier ");
 			estValide=false;
 		}
-		/*if(tournee.getString("nomApp")!="relevEDF"){
+		if(tournee.getString("nomApp")=="relevEDF"){
 			estValide=false;
-			erreurRoute.setText("Erreur : fichier n'appartenant pas à l'application");
+			erreurRoute.setText("Erreur : fichier n'appartenant pas à l'application nick taaaaaaaa rase");
 		}
-		if(tournee.getBoolean("estComplete")==true){
+		if(tournee.getInt("estComplete")==1){
 			estValide=false;
 			erreurRoute.setText("Erreur : fichier déjà complété");
-		}*/
-		if(estValide==true){
-			station.setVisible(true);
-			nomTournee.setVisible(true);
-			description.setVisible(true);
-			LnomTournee.setVisible(true);
-			Ldescription.setVisible(true);
 		}
-		releves = tournee.getJsonArray("Releves");
-		stations = tournee.getJsonArray("stations");
-		nomTournee.setText(tournee.getString("nomApp"));
-		description.setText(tournee.getString("dateExport"));
+		if(estValide==true){
+			toSaisirReleve();	
+		}
+		
+		
 	}	
+
 	/**
 	 * Fonction qui permet de supprimer tous les messages d'erreur.
 	 * Se lance lorsque l'utilisateur appuie sur le bouton valider
@@ -152,6 +180,22 @@ public class ImportationController {
 	public void resetErreur(){
 		erreurRoute.setText("");
 	}
-	
+	public void toSaisirReleve(){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("saisirReleve.fxml"));
+		try {
+			VBox page = (VBox) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Saisir un relevé");
+	        dialog.show();
+	        Main.primaryStage.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
+	}
 }
 

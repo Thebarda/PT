@@ -34,8 +34,8 @@
       </GridPane>
       <TableView fx:id="station" layoutX="245.0" layoutY="186.0" prefHeight="200.0" prefWidth="227.0">
         <columns>
-          <TableColumn prefWidth="101.0" text="Nom" />
-          <TableColumn prefWidth="125.0" text="Instruction courte" />
+          <TableColumn fx:id="nom" prefWidth="101.0" text="Nom" />
+          <TableColumn fx:id="instru" prefWidth="125.0" text="Instruction courte" />
         </columns>
       </TableView>
    </children>
