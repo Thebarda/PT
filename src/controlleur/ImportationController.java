@@ -5,10 +5,14 @@ import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import modele.Station;
 
 /**
  * Controleur relatif à l'interface de création de centrale
@@ -24,12 +28,26 @@ public class ImportationController {
 	@FXML
 	private Button valider;
 	
-	@FXML 
-	private Button annuler;
+	@FXML
+	private TableView<Station> station;
+	
+	@FXML
+	private TableColumn<Station, String> nom;
+	
+	@FXML
+	private TableColumn<Station, String> instru;
+	@FXML
+	private Label nomTournee;
+	
+	@FXML
+	private Label description;
 	
 	protected File file;
 
-	
+	public void initialize(){
+		nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
+		instru.setCellValueFactory(new PropertyValueFactory<Station, String>("Instruction courte"));
+	}
 	
 	 
 	/**
