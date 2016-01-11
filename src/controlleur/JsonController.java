@@ -18,7 +18,7 @@ import modele.Station;
 
 public class JsonController {
 
-	public static void ecrireReleve(String fichier, int idStation, String com, float valeur) {
+	public static void ecrireReleve(String fichier, int idStation, String com, double valeur) {
 		
 		JsonReader reader;
 		try {
