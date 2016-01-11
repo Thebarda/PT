@@ -14,11 +14,11 @@ import javax.json.JsonWriter;
 
 public class JsonController {
 
-public static void ecrireReleve(int idStation, String com, float valeur) {
+public static void ecrireReleve(String fichier, int idStation, String com, float valeur) {
 		
 		JsonReader reader;
 		try {
-			reader = Json.createReader(new FileInputStream("C:\\Users\\Clément\\git\\testJson.json"));
+			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
 			JsonArray releves = tournee.getJsonArray("Releves");
@@ -55,7 +55,7 @@ public static void ecrireReleve(int idStation, String com, float valeur) {
 			
 			try {
 				JsonWriter writer;
-				writer = Json.createWriter(new FileOutputStream("C:\\Users\\Clément\\git\\testJson.json"));
+				writer = Json.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
 			} catch (IOException e) {
@@ -69,11 +69,11 @@ public static void ecrireReleve(int idStation, String com, float valeur) {
 		
 	}
 	
-	public static JsonObject[] loadStations(){
+	public static JsonObject[] loadStations(String fichier){
 		JsonReader reader;
 		JsonObject[] tabStations;
 		try {
-			reader = Json.createReader(new FileInputStream("C:\\Users\\Clément\\git\\testJson.json"));
+			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
 			JsonArray stations = tournee.getJsonArray("stations");
@@ -86,10 +86,10 @@ public static void ecrireReleve(int idStation, String com, float valeur) {
 		return tabStations;
 	}
 	
-	public static void changerMISH(int idStation, int mish){
+	public static void changerMISH(String fichier, int idStation, int mish){
 		JsonReader reader;
 		try {
-			reader = Json.createReader(new FileInputStream("C:\\Users\\Clément\\git\\testJson.json"));
+			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
 			JsonArray stations = tournee.getJsonArray("stations");
@@ -146,10 +146,10 @@ public static void ecrireReleve(int idStation, String com, float valeur) {
 		}
 	}
 	
-	public static void changerEstComplete(int estComplete){
+	public static void changerEstComplete(String fichier, int estComplete){
 		JsonReader reader;
 		try {
-			reader = Json.createReader(new FileInputStream("C:\\Users\\Clément\\git\\testJson.json"));
+			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
 			JsonObject newTournee = Json.createObjectBuilder()
