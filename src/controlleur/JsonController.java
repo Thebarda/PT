@@ -12,9 +12,13 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import modele.Station;
+
 public class JsonController {
 
-public static void ecrireReleve(String fichier, int idStation, String com, float valeur) {
+	public static void ecrireReleve(String fichier, int idStation, String com, float valeur) {
 		
 		JsonReader reader;
 		try {
@@ -69,21 +73,25 @@ public static void ecrireReleve(String fichier, int idStation, String com, float
 		
 	}
 	
-	public static JsonObject[] loadStations(String fichier){
+	public static ObservableList<JsonObject> loadStations(String fichier){
 		JsonReader reader;
 		JsonObject[] tabStations;
+		ObservableList<JsonObject> oStations=FXCollections.observableArrayList();
+		
 		try {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
-			
 			JsonArray stations = tournee.getJsonArray("stations");
 			
 			tabStations = stations.toArray(new JsonObject[0]);
+			
+			for(JsonObject jo : tabStations){
+				oStations.add(jo);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			tabStations = null;
 		}
-		return tabStations;
+		return oStations;
 	}
 	
 	public static void changerMISH(String fichier, int idStation, int mish){
