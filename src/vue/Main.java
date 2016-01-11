@@ -20,8 +20,8 @@ public class Main extends Application {
 		primaryStage.setTitle("Application EDF");
 		
 		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource("saisirReleve.fxml"));
-			VBox page = (VBox) loader.load();
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("Importation.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
 			Scene scene = new Scene(page);
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
