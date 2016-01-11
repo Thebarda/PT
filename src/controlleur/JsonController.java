@@ -17,7 +17,13 @@ import javafx.collections.ObservableList;
 import modele.Station;
 
 public class JsonController {
-
+	/**
+	 * Fonction qui ecrit un releve dans un fichier json
+	 * @param fichier
+	 * @param idStation
+	 * @param com
+	 * @param valeur
+	 */
 	public static void ecrireReleve(String fichier, int idStation, String com, double valeur) {
 		
 		JsonReader reader;
@@ -78,7 +84,12 @@ public class JsonController {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Fonction qui charge l'historique
+	 * @param fichier
+	 * @param idStation
+	 * @return
+	 */
 	public static JsonObject[] loadHistoriques(String fichier, int idStation){
 		JsonReader reader;
 		JsonObject[] tabStations;
@@ -99,7 +110,11 @@ public class JsonController {
 		}
 		return tabHistorique;
 	}
-	
+	/**
+	 * Charge les stations
+	 * @param fichier
+	 * @return un objet json
+	 */
 	public static JsonObject[] loadStations(String fichier){
 		JsonReader reader;
 		JsonObject[] tabStations;
@@ -115,6 +130,11 @@ public class JsonController {
 		}
 		return tabStations;
 	}
+	/**
+	 * Charge les stations
+	 * @param fichier
+	 * @return une observableList
+	 */
 	public static ObservableList<Station> loadObservableStations(String fichier){
 		ObservableList<Station> oStations=FXCollections.observableArrayList();
 		JsonObject[] tabStations = loadStations(fichier);
@@ -125,7 +145,12 @@ public class JsonController {
 
 		return oStations;
 	}
-	
+	/**
+	 * Fonction qui permet de changer MISH
+	 * @param fichier
+	 * @param idStation
+	 * @param mish
+	 */
 	public static void changerMISH(String fichier, int idStation, int mish){
 		JsonReader reader;
 		try {
@@ -185,7 +210,11 @@ public class JsonController {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Fonction qui permet de savoir un fichier json est completé ou pas
+	 * @param fichier
+	 * @param estComplete
+	 */
 	public static void changerEstComplete(String fichier, int estComplete){
 		JsonReader reader;
 		try {

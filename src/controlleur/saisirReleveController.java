@@ -81,18 +81,23 @@ public class saisirReleveController {
 		}
 		
 	}
-	
+	/**
+	 * Charge la station suivante
+	 * @param numStation
+	 */
 	public void charge(int numStation){
 		nom.setText(stations[numStation].getString("nomStation"));
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
 		unite.setText(stations[numStation].getString("unite"));
 		seuil.setText("Seuil Bas: "+stations[numStation].getInt("seuilBas")+"		Seuil Haut: "+stations[numStation].getInt("seuilHaut")+"		Valeur Normale: "+stations[numStation].getInt("valeurNormale"));
 	}
-	
+	/**
+	 * Permet la validation d'une station et décale le scroll des stations
+	 */
 	public void valider(){
 		boolean estValide=ReleveController.controller(currentPos, Double.parseDouble(releve.getText()), commentaire.getText());
 		if (!estValide){
-			System.out.println("PAS COMPRIS ENTRE LES SEUIL");
+			System.out.println("PAS COMPRIS ENTRE LES SEUILS");
 		}
 		else{
 			currentPos++;

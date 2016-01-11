@@ -39,7 +39,7 @@ import modele.Station;
 import vue.Main;
 
 /**
- * Controleur relatif à l'interface de création de centrale
+ * Controleur relatif à l'interface de l'importation du fichier json
  */
 public class ImportationController {
 		
@@ -80,7 +80,9 @@ public class ImportationController {
 	JsonArray releves;
 	JsonArray stations;
 	JsonObject[] objects;
-	
+	/**
+	 * Initialisation
+	 */
 	public void initialize(){
 		valider.setVisible(false);
 		station.setVisible(false);
@@ -147,8 +149,7 @@ public class ImportationController {
      }
  
 	/**
-	 * Fonction qui permet de valider une centrale, et donc de l'ajouter à la base
-	 * On ajoute la centrale que si les champs nom et localisation sont non vide
+	 * Fonction qui permet de valider l'import
 	 */
 	public void ValiderImportation(){
 		boolean estValide=true;
@@ -180,6 +181,9 @@ public class ImportationController {
 	public void resetErreur(){
 		erreurRoute.setText("");
 	}
+	/**
+	 * Fonction qui charge et lance la fenetre de la saisie des releves
+	 */
 	public void toSaisirReleve(){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
