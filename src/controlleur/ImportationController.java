@@ -27,7 +27,7 @@ public class ImportationController {
 	@FXML 
 	private Button annuler;
 	
-	 File file;
+	protected File file;
 
 	
 	
@@ -52,7 +52,9 @@ public class ImportationController {
 		
 	}
 	
-
+	/**
+	 * Fonction qui importe un fichier
+	 */
      public void Importation() {
     	 FileChooser fileChooser = new FileChooser();
     	 
@@ -79,7 +81,6 @@ public class ImportationController {
 		}		
 		if(estValide == true)
 		{
-			
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
