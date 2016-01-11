@@ -37,10 +37,19 @@ public class JsonController {
 			
 			JsonObject[] tabReleves;
 			tabReleves = releves.toArray(new JsonObject[0]);
+			boolean existe = false;
 			for(JsonObject jo : tabReleves){
-				builder.add(jo);
+				if(jo.getInt("idStation")==idStation){
+					builder.add(releve);
+					existe = true;
+				}
+				else{
+					builder.add(jo);
+				}
 			}
-			builder.add(releve);
+			if(!existe){
+				builder.add(releve);
+			}
 			JsonArray newReleves = builder.build();
 			
 			JsonObject newTournee = Json.createObjectBuilder()
@@ -70,60 +79,25 @@ public class JsonController {
 		}
 	}
 	
-	public static void modifierReleve(String fichier, int idStation, String com, double valeur) {
-		
+	public static JsonObject[] loadHistoriques(String fichier, int idStation){
 		JsonReader reader;
+		JsonObject[] tabStations;
+		JsonObject[] tabHistorique = null;
 		try {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
+			JsonArray stations = tournee.getJsonArray("stations");
 			
-			JsonArray releves = tournee.getJsonArray("Releves");
-			
-			JsonObject releve = Json.createObjectBuilder()
-					.add("idStation", idStation)
-					.add("commentaire", com)
-					.add("valeur", valeur)
-					.build();
-			
-			JsonArrayBuilder builder = Json.createArrayBuilder();
-			
-			JsonObject[] tabReleves;
-			tabReleves = releves.toArray(new JsonObject[0]);
-			for(JsonObject jo : tabReleves){
+			tabStations = stations.toArray(new JsonObject[0]);
+			for(JsonObject jo : tabStations){
 				if(jo.getInt("idStation")==idStation){
-					builder.add(releve);
+					tabHistorique = jo.getJsonArray("historiques").toArray(new JsonObject[0]);
 				}
-				else{
-					builder.add(jo);
-				}
-			}
-			JsonArray newReleves = builder.build();
-			
-			JsonObject newTournee = Json.createObjectBuilder()
-					.add("nomApp", tournee.getString("nomApp"))
-					.add("idTournee", tournee.getInt("idTournee"))
-					.add("nomModele", tournee.getString("nomModele"))
-					.add("descModele", tournee.getString("descModele"))
-					.add("dateExport", tournee.getString("dateExport"))
-					.add("estComplete", tournee.getInt("estComplete"))
-					.add("nbStations", tournee.getInt("nbStations"))
-					.add("stations", tournee.getJsonArray("stations"))
-					.add("Releves", newReleves)
-					.build();
-			
-			reader.close();
-			
-			try {
-				JsonWriter writer;
-				writer = Json.createWriter(new FileOutputStream(fichier));
-			    writer.writeObject(newTournee);
-			    writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		return tabHistorique;
 	}
 	
 	public static JsonObject[] loadStations(String fichier){
