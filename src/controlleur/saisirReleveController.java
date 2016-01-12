@@ -117,7 +117,7 @@ public class saisirReleveController {
 					releveDejaSaisi=JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
 					if(releveDejaSaisi>=stations[compteur].getInt("seuilBas")){
 						if(releveDejaSaisi<=stations[compteur].getInt("seuilHaut")){
-							labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+unite.getText()+"\nValide");
+							labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nValide");
 							labels.get(compteur).setStyle("-fx-background-color: green; -fx-border-style: solid;");
 						}
 						else{
@@ -129,7 +129,7 @@ public class saisirReleveController {
 					}
 					
 					if(releveDejaSaisiAnormale==true){
-						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+unite.getText()+"\nAnormale");
+						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nAnormale");
 						labels.get(compteur).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
 						releveDejaSaisiAnormale=false;
 					}
