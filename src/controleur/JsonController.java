@@ -138,6 +138,23 @@ public class JsonController {
 		return estComplete;
 	}
 	
+	public static boolean estPareilTournee(String fichier, Tournee tournee){
+		JsonReader reader;
+		boolean estPareil = false;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject jsonTournee = reader.readObject();
+			if(jsonTournee.getInt("idTournee") == tournee.getId())
+				estPareil = true;
+			
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return estPareil;
+	}
+	
 	public static int getIdTournee(String fichier){
 		JsonReader reader;
 		int idTournee = 0;
