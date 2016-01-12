@@ -170,12 +170,13 @@ public class JsonController {
 							.add("nomStation", tabStations[i].getString("nomStation"))
 							.add("instructionsCourtes", tabStations[i].getString("instructionsCourtes"))
 							.add("instructionsLongues", tabStations[i].getString("instructionsLongues"))
-							.add("seuilBas", tabStations[i].getInt("seuilBas"))
-							.add("seuilHaut", tabStations[i].getInt("seuilHaut"))
+							.add("seuilBas", tabStations[i].getJsonNumber("seuilBas").doubleValue())
+							.add("seuilHaut", tabStations[i].getJsonNumber("seuilHaut").doubleValue())
 							.add("idEquipement", tabStations[i].getInt("idEquipement"))
 							.add("unite", tabStations[i].getString("unite"))
+							.add("marqueur", tabStations[i].getString("marqueur"))
 							.add("paramFonc", tabStations[i].getString("paramFonc"))
-							.add("valeurNormale", tabStations[i].getInt("valeurNormale"))
+							.add("valeurNormale", tabStations[i].getJsonNumber("valeurNormale").doubleValue())
 							.add("MISH", mish)
 							.build();
 				}
