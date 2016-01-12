@@ -327,6 +327,7 @@ public class saisirReleveController {
 	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
 	            	dialog.close();
+	            	charge(0);
 	            }
 	        });
 		} catch (IOException e) {
