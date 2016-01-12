@@ -113,7 +113,8 @@ public class JsonController {
 			for(JsonObject jo : tabReleves){
 				ReleveController.ajouterReleve(jo.getJsonNumber("valeur").doubleValue(), jo.getString("commentaire"), jo.getInt("idStation"), tournee.getInt("idTournee"));
 			}
-			ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tournee.getInt("idModele"));
+			Tournee tourneeBdd = TourneeController.loadTourneeById(tournee.getInt("idTournee"));
+			ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tourneeBdd.getIdModele());
 			modele.genererTournee();
 			reader.close();
 		} catch (FileNotFoundException e) {

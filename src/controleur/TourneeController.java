@@ -235,4 +235,102 @@ public class TourneeController {
 	         }  
 		}
 	}
+	
+	
+	public static Tournee loadTourneeById(int idTournee){
+		
+		Tournee tournee = null;
+		Connection connexion = null;
+		ResultSet resultat = null;
+		ResultSet resultatStations = null;
+		Statement statut = null;
+		Statement statutStations = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idTournee, dateTournee, idModele, estExportee, estTerminee, nomTournee FROM tournee t "
+										+ "WHERE idTournee = " + idTournee);
+			while(resultat.next()){
+				String dateTournee = resultat.getString("dateTournee");
+				String nomTournee = resultat.getString("nomTournee");
+				int idModele = resultat.getInt("idModele");
+				boolean estExportee = resultat.getBoolean("estExportee");
+				boolean estTerminee = resultat.getBoolean("estTerminee");
+	
+				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
+				
+				statutStations = connexion.createStatement();
+				
+				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
+													+ "instructionsLongues, marqueur, seuilBas, seuilHaut, "
+													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
+													+ "MISH from station s "
+													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
+													+ "WHERE asm.idModele=" + idModele + " "
+													+ "ORDER BY asm.ordre ASC");
+				int i = 1;
+				while(resultatStations.next()){
+					
+					//1er bit = 1   ==>  seuilHaut NULL
+					//2eme bit = 1  ==>  seuilBas NULL
+					//3eme bit = 1  ==>  valeurNormale NULL
+					
+					double seuilHaut;
+					double seuilBas;
+					double valeurNormale;
+					
+					if (resultatStations.getString("marqueur").substring(0, 1).equals("1")){
+						seuilHaut = 0.0;
+					}else{
+						seuilHaut = resultatStations.getDouble("seuilHaut");
+					}
+					if (resultatStations.getString("marqueur").substring(1, 2).equals("1")){
+						seuilBas = 0.0;
+					}else{
+						seuilBas = resultatStations.getDouble("seuilBas");
+					}
+					if(resultatStations.getString("marqueur").substring(2, 3).equals("1")){
+						valeurNormale = 0.0;
+					}else{
+						valeurNormale = resultatStations.getDouble("valeurNormale");
+					}
+					
+					Station station = new Station(resultatStations.getInt("idStation"),
+							resultatStations.getString("nomStation"),
+							resultatStations.getString("instructionsCourtes"),
+							resultatStations.getString("instructionsLongues"),
+							resultatStations.getInt("idUnite"), resultatStations.getString("marqueur"),
+							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
+					stations.put(i, station);
+					i++;
+				}
+				tournee = new Tournee(idTournee,
+						nomTournee,
+						idModele,
+						stations,
+						estExportee,
+						estTerminee,
+						dateTournee);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+				 resultatStations.close();
+	             resultat.close();
+	             statut.close();
+	             statutStations.close();
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return tournee;
+	}
 }
