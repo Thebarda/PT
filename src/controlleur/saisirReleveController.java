@@ -34,7 +34,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
+/**
+ * Classe qui gère la saisie des releves
+ * @author ThebardaPNK
+ *
+ */
 public class saisirReleveController {
 
 	@FXML
@@ -92,7 +96,9 @@ public class saisirReleveController {
 	double x;
 	
 	double y;
-
+	/**
+	 * Initialisation
+	 */
 	@FXML
 	private void initialize() {
 		JsonReader reader;
@@ -153,7 +159,9 @@ public class saisirReleveController {
 		}
 
 	}
-
+	/**
+	 * Gere l'evenement quand le bouton de la souris est presse
+	 */
 	EventHandler<MouseEvent> pressed = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent e) {
@@ -161,7 +169,9 @@ public class saisirReleveController {
 			y = e.getSceneY();
 		}
 	};
-	
+	/**
+	 * Gere l'evenement quand le outon de la souris est relache
+	 */
 	EventHandler<MouseEvent> release = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent e) {
@@ -178,7 +188,6 @@ public class saisirReleveController {
 
 	/**
 	 * Charge la station suivante
-	 * 
 	 * @param numStation
 	 */
 	public void charge(int numStation) {
@@ -230,7 +239,9 @@ public class saisirReleveController {
 			}
 		
 	}
-	
+	/**
+	 * Ouvre la fenetre qui permet de valider ou non une valeur anormale
+	 */
 	public void verifierReleve(){
 		commentaireEff=commentaire.getText();
 		final Stage dialog = new Stage();
@@ -254,7 +265,9 @@ public class saisirReleveController {
 			e.printStackTrace();
 		}	
 	}
-	
+	/**
+	 * Permet de passer à la station suivante au niveau du scroll pane
+	 */
 	public void passerSuivant(){
 		if(currentPos+1!=nbStations){
 			currentPos++;
@@ -264,7 +277,9 @@ public class saisirReleveController {
 			scroll.setHvalue((double)currentPos/((double)nbStations-4));
 		}
 	}
-	
+	/**
+	 * Charge les valeurs de la station suivante
+	 */
 	public void chargerSuivant(){
 		if (doitChargerSuivant){
 			releveAnormale(currentPos);
@@ -272,7 +287,9 @@ public class saisirReleveController {
 			doitChargerSuivant=false;
 		}
 	}
-	
+	/**
+	 * Affiche les détails
+	 */
 	public void afficherDetails(){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -293,7 +310,11 @@ public class saisirReleveController {
 			e.printStackTrace();
 		}	
 	}
-	
+	/**
+	 * Vérifie si la valeur passe en parametre est un double ou pas
+	 * @param chaine
+	 * @return booleen
+	 */
 	public boolean estUnDouble(String chaine) {
 		try {
 			Double.parseDouble(chaine);
@@ -303,17 +324,25 @@ public class saisirReleveController {
  
 		return true;
 	}
-	
+	/**
+	 * Code couleur vert et affichage du resultat si la valeur est normale
+	 * @param pos
+	 */
 	public void releveNormale(int pos){
 		labels.get(pos).setText(stations[pos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nValide");
 		labels.get(pos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
 	}
-	
+	/**
+	 * Code coumeur orange et affichage du resultat si la valeur est anormale
+	 * @param pos
+	 */
 	public void releveAnormale(int pos){
 		labels.get(pos).setText(stations[pos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
 		labels.get(pos).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
 	}
-	
+	/**
+	 * Fin des releves et passage vers la fenetre de validation finale
+	 */
 	public void fin(){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -336,7 +365,10 @@ public class saisirReleveController {
 			e.printStackTrace();
 		}	
 	}
-	
+	/**
+	 * Affiche l'historique
+	 * @param idStation
+	 */
 	public void afficherHistorique(int idStation){
 		Historique.getChildren().clear();
 		JsonObject[] historique=JsonController.loadHistoriques(nomJson,idStation);

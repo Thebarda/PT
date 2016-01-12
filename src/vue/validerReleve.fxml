@@ -13,27 +13,27 @@
             <Font name="System Bold" size="34.0" />
          </font>
       </Label>
-      <Label layoutX="143.0" layoutY="204.0" text="Votre releve n'est pas compris entre les seuil de valeur normale">
+      <Label layoutX="143.0" layoutY="204.0" text="Votre releve n'est pas compris entre les seuils de valeurs normaux">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="113.0" layoutY="339.0" text="Il se peut que vous ayez effectué une erreur lors de la saisie du relevé .">
+      <Label layoutX="113.0" layoutY="339.0" text="Il se peut que vous ayez effectue une erreur lors de la saisie du releve.">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="233.0" layoutY="453.0" text="Validez-vous le relevé ?">
+      <Label layoutX="233.0" layoutY="453.0" text="Validez-vous le releve ?">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="seuilDepasse" layoutX="28.0" layoutY="280.0" prefHeight="20.0" prefWidth="788.0" textAlignment="CENTER">
+      <Label fx:id="seuilDepasse" alignment="CENTER" layoutX="28.0" layoutY="280.0" prefHeight="20.0" prefWidth="788.0" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" onAction="#valider" text="Valider le relevé" />
-      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" onAction="#annuler" text="Annuler le relevé" />
+      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="168.0" text="Valider le releve" />
+      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" onAction="#annuler" prefHeight="64.0" prefWidth="168.0" text="Annuler le releve" />
    </children>
 </AnchorPane>

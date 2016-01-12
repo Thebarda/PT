@@ -156,16 +156,16 @@ public class ImportationController {
 		resetErreur();
 	
 		if(estVide(route)){
-			erreurRoute.setText("Erreur : veuillez sp�cifier votre fichier ");
+			erreurRoute.setText("Erreur : veuillez specifier votre fichier ");
 			estValide=false;
 		}
 		if(tournee.getString("nomApp")=="relevEDF"){
 			estValide=false;
-			erreurRoute.setText("Erreur : fichier n'appartenant pas � l'application nick taaaaaaaa rase");
+			erreurRoute.setText("Erreur : fichier n'appartenant pas a l'application");
 		}
 		if(tournee.getInt("estComplete")==1){
 			estValide=false;
-			erreurRoute.setText("Erreur : fichier d�j� compl�t�");
+			erreurRoute.setText("Erreur : fichier deja complete");
 		}
 		if(estValide==true){
 			toSaisirReleve();	

@@ -22,7 +22,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import vue.Main;
-
+/**
+ * Classe qui gere la validation finale de la tournee
+ * @author ThebardaPNK
+ *
+ */
 public class ValidationFinaleController {
 	@FXML
 	AnchorPane Stations;
@@ -39,7 +43,9 @@ public class ValidationFinaleController {
 	private List<Label> labels = new ArrayList<>();
 	int currentPos;
 	final static Stage dialog = new Stage();
-	
+	/**
+	 * Initialisation
+	 */
 	@FXML
 	public void initialize(){
 		JsonReader reader;
@@ -95,7 +101,9 @@ public class ValidationFinaleController {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Passage vers la fenetre de fin de l'application
+	 */
 	@FXML
 	public void toExportation(){
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -117,7 +125,9 @@ public class ValidationFinaleController {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Retourne vers la fenetre de saisie des releves pour modification
+	 */
 	public void modif(){
 		non.getParent().getScene().getWindow().hide();
 	}

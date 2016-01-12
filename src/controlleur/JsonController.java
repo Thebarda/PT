@@ -15,7 +15,11 @@ import javax.json.JsonWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.Station;
-
+/**
+ * Classe qui permet l'édition d'un fichier json
+ * @author ThebardaPNK
+ *
+ */
 public class JsonController {
 	/**
 	 * Fonction qui ecrit un releve dans un fichier json
@@ -131,7 +135,7 @@ public class JsonController {
 		return tabStations;
 	}
 	/**
-	 * Charge les stations
+	 * Charge les stations dans une observableList pour l'import
 	 * @param fichier
 	 * @return une observableList
 	 */
@@ -247,7 +251,12 @@ public class JsonController {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * FOnction qui permet de savoir si un releve est saisi
+	 * @param fichier
+	 * @param idStation
+	 * @return booleen
+	 */
 	public static boolean estReleveSaisi(String fichier, int idStation){
 		JsonReader reader;
 		boolean existe = false;
@@ -272,7 +281,12 @@ public class JsonController {
 		}
 		return existe;
 	}
-	
+	/**
+	 * Retourne la valeur du releve
+	 * @param fichier
+	 * @param idStation
+	 * @return double
+	 */
 	public static double getReleve(String fichier, int idStation){
 		JsonReader reader;
 		double valeurReleve = 0;
@@ -298,6 +312,12 @@ public class JsonController {
 		}
 		return valeurReleve;
 	}
+	/**
+	 * Retourne le commentaire
+	 * @param fichier
+	 * @param idStation
+	 * @return String
+	 */
 	public static String getCommentaire(String fichier, int idStation){
 		JsonReader reader;
 		String comReleve=null;

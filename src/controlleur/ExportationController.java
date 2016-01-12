@@ -19,13 +19,18 @@ public class ExportationController {
 	private Button quit;
 	
 	private String route;
+	/**
+	 * Initialisation
+	 */
 	@FXML
 	public void initialize(){
 		this.route = saisirReleveController.nomJson;
 		chemin.setText(route);
 		JsonController.changerEstComplete(route, 1);
 	}
-	
+	/**
+	 * Ferme l'application donc toutes les fenetres d ouvertes
+	 */
 	public void fin(){
 		Platform.exit();
 	}

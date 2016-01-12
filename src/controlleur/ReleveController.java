@@ -3,7 +3,11 @@ package controlleur;
 import java.text.DecimalFormat;
 
 import javax.json.JsonObject;
-
+/**
+ * Classe qui gere un releve
+ * @author ThebardaPNK
+ *
+ */
 public class ReleveController {
 
 	static private JsonObject[] tabStations;
@@ -76,7 +80,11 @@ public class ReleveController {
 	public static void enregistrer(int num, double releve, String commentaire) {
 		JsonController.ecrireReleve(nomFichier, num, commentaire, releve);
 	}
-	
+	/**
+	 * Retourne le seuil bas
+	 * @param num
+	 * @return String
+	 */
 	public static String seuil(int num){
 		JsonObject station = tabStations[num];
 		String seuil="";
@@ -96,7 +104,11 @@ public class ReleveController {
 		}
 		return seuil;
 	}
-	
+	/**
+	 * Retourne le seuil haut
+	 * @param num
+	 * @return String
+	 */
 	public static String seuil2(int num){
 		JsonObject station = tabStations[num];
 		String seuil="";
@@ -105,10 +117,10 @@ public class ReleveController {
 			seuil="compris entre "+station.getInt("seuilBas")+" et "+station.getInt("seuilHaut");
 		}
 		else if(station.getString("marqueur").substring(0, 1).equals("0")){
-			seuil="inférieure à "+station.getInt("seuilHaut");
+			seuil="infeieure a "+station.getInt("seuilHaut");
 		}
 		else if(station.getString("marqueur").substring(1, 2).equals("0")){
-			seuil="supérieure à "+station.getInt("seuilBas");
+			seuil="superieure a� "+station.getInt("seuilBas");
 		}
 		return seuil;
 	}
