@@ -270,4 +270,27 @@ public class JsonController {
 		}
 		return existe;
 	}
+	
+	public static int getReleve(String fichier, int idStation){
+		JsonReader reader;
+		int valeurReleve = 0;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+				
+			JsonArray releves = tournee.getJsonArray("Releves");
+
+			JsonObject[] tabReleves;
+			tabReleves = releves.toArray(new JsonObject[0]);
+			int i=0;
+			while(i<tabReleves.length && valeurReleve==0){
+				if(tabReleves[i].getInt("idStation")==idStation){
+					valeurReleve = tabReleves[i].getInt("valeur");
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return valeurReleve;
+	}
 }
