@@ -118,7 +118,6 @@ public class ValidationFinaleController {
 		}
 	}
 	
-	@FXML
 	public void modif(){
 		non.getParent().getScene().getWindow().hide();
 	}

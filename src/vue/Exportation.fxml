@@ -14,7 +14,7 @@
          </font>
       </Label>
       <Label fx:id="chemin" alignment="CENTER" contentDisplay="CENTER" layoutY="78.0" prefHeight="82.0" prefWidth="607.0" text="Label" />
-      <Button layoutX="233.0" layoutY="160.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="142.0" text="Quitter">
+      <Button fx:id="quit" layoutX="233.0" layoutY="160.0" mnemonicParsing="false" onAction="#fin" prefHeight="70.0" prefWidth="142.0" text="Quitter">
          <font>
             <Font size="14.0" />
          </font>
