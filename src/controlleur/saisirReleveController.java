@@ -298,4 +298,25 @@ public class saisirReleveController {
 		labels.get(pos).setText(stations[pos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
 		labels.get(pos).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
 	}
+	
+	public void fin(){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ValidationFinale.fxml"));
+		try {
+			AnchorPane page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Validation");
+	        dialog.show();
+	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
 }

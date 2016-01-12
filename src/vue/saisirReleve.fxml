@@ -78,7 +78,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="150.0" prefWidth="1024.0">
          <children>
-            <Button layoutX="862.0" layoutY="85.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="135.0" text="Fin">
+            <Button layoutX="862.0" layoutY="85.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="135.0" onAction="#fin" text="Fin">
                <font>
                   <Font size="20.0" />
                </font></Button>
