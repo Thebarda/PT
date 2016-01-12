@@ -64,17 +64,17 @@ public class TourneeController {
 					double seuilBas;
 					double valeurNormale;
 					
-					if (resultatStations.getString("marqueur").substring(0, 0).equals("1")){
+					if (resultatStations.getString("marqueur").substring(0, 1).equals("1")){
 						seuilHaut = 0.0;
 					}else{
 						seuilHaut = resultatStations.getDouble("seuilHaut");
 					}
-					if (resultatStations.getString("marqueur").substring(1, 1).equals("1")){
+					if (resultatStations.getString("marqueur").substring(1, 2).equals("1")){
 						seuilBas = 0.0;
 					}else{
 						seuilBas = resultatStations.getDouble("seuilBas");
 					}
-					if(resultatStations.getString("marqueur").substring(2, 2).equals("1")){
+					if(resultatStations.getString("marqueur").substring(2, 3).equals("1")){
 						valeurNormale = 0.0;
 					}else{
 						valeurNormale = resultatStations.getDouble("valeurNormale");

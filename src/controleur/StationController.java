@@ -40,17 +40,17 @@ public class StationController
 				double seuilBas;
 				double valeurNormale;
 				
-				if (resultat.getString("marqueur").substring(0, 0).equals("1")){
+				if (resultat.getString("marqueur").substring(0, 1).equals("1")){
 					seuilHaut = 0.0;
 				}else{
 					seuilHaut = resultat.getDouble("seuilHaut");
 				}
-				if (resultat.getString("marqueur").substring(1, 1).equals("1")){
+				if (resultat.getString("marqueur").substring(1, 2).equals("1")){
 					seuilBas = 0.0;
 				}else{
 					seuilBas = resultat.getDouble("seuilBas");
 				}
-				if(resultat.getString("marqueur").substring(2, 2).equals("1")){
+				if(resultat.getString("marqueur").substring(2, 3).equals("1")){
 					valeurNormale = 0.0;
 				}else{
 					valeurNormale = resultat.getDouble("valeurNormale");
@@ -111,17 +111,17 @@ public class StationController
 				double seuilBas;
 				double valeurNormale;
 				
-				if (resultat.getString("marqueur").substring(0, 0).equals("1")){
+				if (resultat.getString("marqueur").substring(0, 1).equals("1")){
 					seuilHaut = 0.0;
 				}else{
 					seuilHaut = resultat.getDouble("seuilHaut");
 				}
-				if (resultat.getString("marqueur").substring(1, 1).equals("1")){
+				if (resultat.getString("marqueur").substring(1, 2).equals("1")){
 					seuilBas = 0.0;
 				}else{
 					seuilBas = resultat.getDouble("seuilBas");
 				}
-				if(resultat.getString("marqueur").substring(2, 2).equals("1")){
+				if(resultat.getString("marqueur").substring(2, 3).equals("1")){
 					valeurNormale = 0.0;
 				}else{
 					valeurNormale = resultat.getDouble("valeurNormale");
@@ -189,22 +189,18 @@ public class StationController
 			//1er bit = 1   ==>  seuilHaut NULL
 			//2eme bit = 1  ==>  seuilBas NULL
 			//3eme bit = 1  ==>  valeurNormale NULL
-			System.out.println(marqueur);
-			System.out.println(marqueur.substring(0, 0));
-			System.out.println(marqueur.substring(1, 1));
-			System.out.println(marqueur.substring(2, 2));
 			
-			if (marqueur.substring(0, 0).equals("1")){
+			if (marqueur.substring(0, 1).equals("1")){
 				preparedStatement.setString(5, "NULL");
 			}else{
 				preparedStatement.setDouble(5, seuilHaut);
 			}
-			if (marqueur.substring(1, 1).equals("1")){
+			if (marqueur.substring(1, 2).equals("1")){
 				preparedStatement.setString(6, "NULL");
 			}else{
 				preparedStatement.setDouble(6, seuilBas);
 			}
-			if(marqueur.substring(2, 2).equals("1")){
+			if(marqueur.substring(2, 3).equals("1")){
 				preparedStatement.setString(9, "NULL");
 			}else{
 				preparedStatement.setDouble(9,valeurNormale);
