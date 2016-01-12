@@ -3,6 +3,7 @@ package controlleur;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +57,9 @@ public class saisirReleveController {
 
 	@FXML
 	TextArea commentaire;
+	
+	@FXML
+	Label erreur;
 
 	JsonObject[] stations;
 
@@ -131,9 +135,12 @@ public class saisirReleveController {
 		@Override
 		public void handle(MouseEvent e) {
 			if(((e.getSceneX() - x) < 10.0) && ((e.getSceneY() - y) < 10.0)){
+				if(((e.getSceneX() - x) < -10.0) && ((e.getSceneY() - y) < -10.0)){
 				Label label = (Label)e.getSource();
 				currentPos=Integer.parseInt(label.getId());
 				charge(Integer.parseInt(label.getId()));
+			
+				}
 			}
 		}
 	};
@@ -144,6 +151,7 @@ public class saisirReleveController {
 	 * @param numStation
 	 */
 	public void charge(int numStation) {
+		erreur.setVisible(false);
 		seuilBas=stations[numStation].getInt("seuilBas");
 		seuilHaut=stations[numStation].getInt("seuilHaut");
 		paramFonc=stations[numStation].getString("paramFonc");
@@ -157,7 +165,7 @@ public class saisirReleveController {
 		releve.setText("");
 		commentaire.setText("");
 		if(JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))){
-			releve.setText(Integer.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
+			releve.setText(Double.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
 			commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
 		}
 	}
@@ -166,19 +174,29 @@ public class saisirReleveController {
 	 * Permet la validation d'une station et d�cale le scroll des stations
 	 */
 	public void valider(){
-		ecartSeuil=ReleveController.controller(currentPos, Double.parseDouble(releve.getText()), commentaire.getText());
-		if (ecartSeuil!=0){
-			verifierReleve();
+		erreur.setVisible(false);
+		String releveStr=releve.getText();
+		if(releveStr.contains(",")){
+			releveStr=releveStr.replace(",", ".");
+		}
+		if (!estUnDouble(releveStr)){
+			erreur.setVisible(true);
 		}
 		else{
-			labels.get(currentPos).setText(stations[currentPos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nValide");
-			labels.get(currentPos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
-			passerSuivant();
+			releveEff=Double.parseDouble(releveStr);
+			ecartSeuil=ReleveController.controller(currentPos, releveEff, commentaire.getText());
+			if (ecartSeuil!=0){
+				verifierReleve();
+			}
+			else{
+				labels.get(currentPos).setText(stations[currentPos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nValide");
+				labels.get(currentPos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+				passerSuivant();
+			}
 		}
 	}
 	
 	public void verifierReleve(){
-		releveEff=Double.parseDouble(releve.getText());
 		commentaireEff=commentaire.getText();
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -238,6 +256,16 @@ public class saisirReleveController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	public boolean estUnDouble(String chaine) {
+		try {
+			Double.parseDouble(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+ 
+		return true;
 	}
 
 }
