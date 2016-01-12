@@ -71,6 +71,8 @@ public class saisirReleveController {
 	static double seuilBas;
 	static double seuilHaut;
 	static boolean doitChargerSuivant=false;
+	static String instruLongue;
+	static String paramFonc;
 
 	int nbStations;
 
@@ -144,15 +146,20 @@ public class saisirReleveController {
 	public void charge(int numStation) {
 		seuilBas=stations[numStation].getInt("seuilBas");
 		seuilHaut=stations[numStation].getInt("seuilHaut");
+		paramFonc=stations[numStation].getString("paramFonc");
+		instruLongue=stations[numStation].getString("instructionsLongues");
 		nom.setText(stations[numStation].getString("nomStation"));
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
 		unite.setText(stations[numStation].getString("unite"));
 		seuil.setText("Seuil Bas: " + seuilBas + "		Seuil Haut: "
 				+ seuilHaut + "		Valeur Normale: "
 				+ stations[numStation].getInt("valeurNormale"));
-		/*if(JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))){
-			System.out.println(Integer.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
-		}*/
+		releve.setText("");
+		commentaire.setText("");
+		if(JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))){
+			releve.setText(Integer.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
+			commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
+		}
 	}
 
 	/**
@@ -210,6 +217,27 @@ public class saisirReleveController {
 			passerSuivant();
 			doitChargerSuivant=false;
 		}
+	}
+	
+	public void afficherDetails(){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("detailsReleves.fxml"));
+		try {
+			AnchorPane page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Detail d'un releve");
+	        dialog.show();
+	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 
 }

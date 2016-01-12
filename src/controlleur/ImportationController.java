@@ -156,16 +156,16 @@ public class ImportationController {
 		resetErreur();
 	
 		if(estVide(route)){
-			erreurRoute.setText("Erreur : veuillez spécifier votre fichier ");
+			erreurRoute.setText("Erreur : veuillez spï¿½cifier votre fichier ");
 			estValide=false;
 		}
 		if(tournee.getString("nomApp")=="relevEDF"){
 			estValide=false;
-			erreurRoute.setText("Erreur : fichier n'appartenant pas à l'application nick taaaaaaaa rase");
+			erreurRoute.setText("Erreur : fichier n'appartenant pas ï¿½ l'application nick taaaaaaaa rase");
 		}
 		if(tournee.getInt("estComplete")==1){
 			estValide=false;
-			erreurRoute.setText("Erreur : fichier déjà complété");
+			erreurRoute.setText("Erreur : fichier dï¿½jï¿½ complï¿½tï¿½");
 		}
 		if(estValide==true){
 			toSaisirReleve();	
@@ -193,7 +193,7 @@ public class ImportationController {
 			Scene dialogScene = new Scene(page);
 	        dialog.setScene(dialogScene);
 	        dialog.setResizable(false);
-			dialog.setTitle("Saisir un relevé");
+			dialog.setTitle("Saisir un releve");
 	        dialog.show();
 	        Main.primaryStage.close();
 		} catch (IOException e) {
