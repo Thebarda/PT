@@ -52,6 +52,7 @@ public class JsonController {
 					.add("seuilHaut", station.getSeuilHaut())
 					.add("idEquipement", StationController.loadStationIdEquipement(station.getId()))
 					.add("unite", UniteController.idVersNom(station.getIdUnite()))
+					.add("marqueur", station.getMarqueur())
 					.add("paramFonc", station.getParamFonc())
 					.add("valeurNormale", station.getValeurNormale())
 					.add("MISH", station.getMishEntier())
@@ -135,6 +136,22 @@ public class JsonController {
 		}
 		
 		return estComplete;
+	}
+	
+	public static int getIdTournee(String fichier){
+		JsonReader reader;
+		int idTournee = 0;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+			idTournee = tournee.getInt("idTournee");
+			
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return idTournee;
 	}
 	
 	public static void main(String[] args){

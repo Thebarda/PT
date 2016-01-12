@@ -13,9 +13,10 @@ public class Station {
 	private String instructionCourte;
 	private String instructionLongue;
 	private int idUnite;
-	private int seuilHaut;
-	private int seuilBas;
-	private int valeurNormale;
+	private String marqueur;
+	private double seuilHaut;
+	private double seuilBas;
+	private double valeurNormale;
 	private String paramFonc;
 	private boolean MISH;
 	
@@ -33,14 +34,15 @@ public class Station {
 	 * @param paramFonc parametre de fonctionnement de la station
 	 * @param MISH MISH de la station
 	 */
-	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite,
-			int seuilHaut, int seuilBas,int valeurNormale,String paramFonc,boolean MISH) {
+	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite, String marqueur,
+			double seuilHaut, double seuilBas,double valeurNormale,String paramFonc,boolean MISH) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.instructionCourte = instructionCourte;
 		this.instructionLongue = instructionLongue;
 		this.idUnite = idUnite;
+		this.marqueur = marqueur;
 		this.seuilHaut = seuilHaut;
 		this.seuilBas = seuilBas;
 		this.valeurNormale=valeurNormale;
@@ -54,6 +56,7 @@ public class Station {
 	public int getId() {
 		return id;
 	}
+	
 	/**
 	 * setter de l'id de la station
 	 * @param id id de la station
@@ -61,6 +64,23 @@ public class Station {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * getter du marqueur de la station
+	 * @return le marqueur de la station
+	 */
+	public String getMarqueur() {
+		return marqueur;
+	}
+	
+	/**
+	 * setter du marqueur de la station
+	 * @param marqueur : marqueur de la station
+	 */
+	public void setMarqueur(String marqueur) {
+		this.marqueur = marqueur;
+	}
+	
 	/**
 	 * getter du nom de la station
 	 * @return le nom de la station
@@ -121,28 +141,28 @@ public class Station {
 	 * getter du seuil haut de controle de la station
 	 * @return le seuil haut de controle de la station
 	 */
-	public int getSeuilHaut() {
+	public double getSeuilHaut() {
 		return seuilHaut;
 	}
 	/**
 	 * setter du seuil haut de la station
 	 * @param seuilHaut seuil de controle haut de la station
 	 */
-	public void setSeuilHaut(int seuilHaut) {
+	public void setSeuilHaut(double seuilHaut) {
 		this.seuilHaut = seuilHaut;
 	}
 	/**
 	 * getter du seuil bas de controle de la station
 	 * @return la seuil bas de controle de la station
 	 */
-	public int getSeuilBas() {
+	public double getSeuilBas() {
 		return seuilBas;
 	}
 	/**
 	 * setter du seuil bas de controle de la station
 	 * @param seuilBas seuil bas de controle de la station
 	 */
-	public void setSeuilBas(int seuilBas) {
+	public void setSeuilBas(double seuilBas) {
 		this.seuilBas = seuilBas;
 	}
 	
@@ -157,7 +177,7 @@ public class Station {
 	 * getter de la valeur normale
 	 * @return la valeur normale de la station
 	 */
-	public int getValeurNormale() {
+	public double getValeurNormale() {
 		return valeurNormale;
 	}
 	/**

@@ -47,7 +47,7 @@ public class TourneeController {
 				statutStations = connexion.createStatement();
 				
 				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
-													+ "instructionsLongues, seuilBas, seuilHaut, "
+													+ "instructionsLongues, marqueur, seuilBas, seuilHaut, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
 													+ "MISH from station s "
 													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
@@ -55,12 +55,37 @@ public class TourneeController {
 													+ "ORDER BY asm.ordre ASC");
 				int i = 1;
 				while(resultatStations.next()){
+					
+					//1er bit = 1   ==>  seuilHaut NULL
+					//2eme bit = 1  ==>  seuilBas NULL
+					//3eme bit = 1  ==>  valeurNormale NULL
+					
+					double seuilHaut;
+					double seuilBas;
+					double valeurNormale;
+					
+					if (resultat.getString("marqueur").substring(0, 0).equals("1")){
+						seuilHaut = 0.0;
+					}else{
+						seuilHaut = resultat.getDouble("seuilHaut");
+					}
+					if (resultat.getString("marqueur").substring(1, 1).equals("1")){
+						seuilBas = 0.0;
+					}else{
+						seuilBas = resultat.getDouble("seuilBas");
+					}
+					if(resultat.getString("marqueur").substring(2, 2).equals("1")){
+						valeurNormale = 0.0;
+					}else{
+						valeurNormale = resultat.getDouble("valeurNormale");
+					}
+					
 					Station station = new Station(resultatStations.getInt("idStation"),
 							resultatStations.getString("nomStation"),
 							resultatStations.getString("instructionsCourtes"),
 							resultatStations.getString("instructionsLongues"),
-							resultatStations.getInt("idUnite"),
-							resultatStations.getInt("seuilHaut"),resultatStations.getInt("seuilBas"),resultatStations.getInt("valeurNormale"),resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
+							resultatStations.getInt("idUnite"), resultat.getString("marqueur"),
+							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
 					stations.put(i, station);
 					i++;
 				}

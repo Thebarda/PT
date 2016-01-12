@@ -31,12 +31,37 @@ public class StationController
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM station WHERE idEquipement='" + idEquipement + "'");
 			while(resultat.next()){
+				
+				//1er bit = 1   ==>  seuilHaut NULL
+				//2eme bit = 1  ==>  seuilBas NULL
+				//3eme bit = 1  ==>  valeurNormale NULL
+				
+				double seuilHaut;
+				double seuilBas;
+				double valeurNormale;
+				
+				if (resultat.getString("marqueur").substring(0, 0).equals("1")){
+					seuilHaut = 0.0;
+				}else{
+					seuilHaut = resultat.getDouble("seuilHaut");
+				}
+				if (resultat.getString("marqueur").substring(1, 1).equals("1")){
+					seuilBas = 0.0;
+				}else{
+					seuilBas = resultat.getDouble("seuilBas");
+				}
+				if(resultat.getString("marqueur").substring(2, 2).equals("1")){
+					valeurNormale = 0.0;
+				}else{
+					valeurNormale = resultat.getDouble("valeurNormale");
+				}
+				
 				Station station = new Station(resultat.getInt("idStation"),
 						resultat.getString("nomStation"),
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
-						resultat.getInt("idUnite"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						resultat.getInt("idUnite"), resultat.getString("marqueur"),
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
 				stations.add(station);
 			}
 			
@@ -77,12 +102,37 @@ public class StationController
 										+ "INNER JOIN Equipement e ON e.idEquipement=s.idEquipement "
 										+ "WHERE e.idCentrale='" + idCentrale + "'");
 			while(resultat.next()){
+				
+				//1er bit = 1   ==>  seuilHaut NULL
+				//2eme bit = 1  ==>  seuilBas NULL
+				//3eme bit = 1  ==>  valeurNormale NULL
+				
+				double seuilHaut;
+				double seuilBas;
+				double valeurNormale;
+				
+				if (resultat.getString("marqueur").substring(0, 0).equals("1")){
+					seuilHaut = 0.0;
+				}else{
+					seuilHaut = resultat.getDouble("seuilHaut");
+				}
+				if (resultat.getString("marqueur").substring(1, 1).equals("1")){
+					seuilBas = 0.0;
+				}else{
+					seuilBas = resultat.getDouble("seuilBas");
+				}
+				if(resultat.getString("marqueur").substring(2, 2).equals("1")){
+					valeurNormale = 0.0;
+				}else{
+					valeurNormale = resultat.getDouble("valeurNormale");
+				}
+				
 				Station station = new Station(resultat.getInt("idStation"),
 						resultat.getString("nomStation"),
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
-						resultat.getInt("idUnite"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						resultat.getInt("idUnite"), resultat.getString("marqueur"),
+						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
 				stations.add(station);
 			}
 			
@@ -118,8 +168,8 @@ public class StationController
 	 * @param seuilBas seuil minimum pour le relev�
 	 * @param idEquipement id de l'�quipement auquel est ratach� la station
 	 */
-	public static void addStation(String nom, String instructionCourte, String instructionLongue, int idUnite,
-			Integer seuilHaut, Integer seuilBas,int idEquipement,String paramFonc,Integer valeurNormale,boolean MISH)
+	public static void addStation(String nom, String instructionCourte, String instructionLongue, int idUnite, String marqueur,
+			double seuilHaut, double seuilBas,int idEquipement,String paramFonc,double valeurNormale,boolean MISH)
 	{
 		Connection connexion = null;
 		try{
@@ -128,30 +178,41 @@ public class StationController
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "station(nomStation,instructionsCourtes,"
 					+ "instructionsLongues,idUnite,"
-					+ "seuilHaut,seuilBas,idEquipement,paramFonc,valeurNormale,MISH) "
-					+ "VALUES(?,?,?,?,?,?,?,?,?,?)");
+					+ "seuilHaut,seuilBas,idEquipement,paramFonc,valeurNormale,MISH, marqueur) "
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, nom);
 			preparedStatement.setString(2, instructionCourte);
 			preparedStatement.setString(3, instructionLongue);
 			preparedStatement.setInt(4, idUnite);
-			if (seuilHaut==null){
+			
+
+			//1er bit = 1   ==>  seuilHaut NULL
+			//2eme bit = 1  ==>  seuilBas NULL
+			//3eme bit = 1  ==>  valeurNormale NULL
+			System.out.println(marqueur);
+			System.out.println(marqueur.substring(0, 0));
+			System.out.println(marqueur.substring(1, 1));
+			System.out.println(marqueur.substring(2, 2));
+			
+			if (marqueur.substring(0, 0).equals("1")){
 				preparedStatement.setString(5, "NULL");
 			}else{
-				preparedStatement.setInt(5, seuilHaut);
+				preparedStatement.setDouble(5, seuilHaut);
 			}
-			if (seuilHaut==null){
+			if (marqueur.substring(1, 1).equals("1")){
 				preparedStatement.setString(6, "NULL");
 			}else{
-				preparedStatement.setInt(6, seuilBas);
+				preparedStatement.setDouble(6, seuilBas);
 			}
-			if(valeurNormale==null){
+			if(marqueur.substring(2, 2).equals("1")){
 				preparedStatement.setString(9, "NULL");
 			}else{
-				preparedStatement.setInt(9,valeurNormale);
+				preparedStatement.setDouble(9,valeurNormale);
 			}
 			preparedStatement.setInt(7, idEquipement);
 			preparedStatement.setString(8,paramFonc);
 			preparedStatement.setBoolean(10,MISH);
+			preparedStatement.setString(11, marqueur);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();

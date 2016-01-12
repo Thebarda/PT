@@ -152,9 +152,9 @@ public class CreationStationController {
 	 * @return
 	 * 		vrai si c'est un entier, faux sinon
 	 */
-	public boolean estUnEntier(String chaine) {
+	public boolean estUnDouble(String chaine) {
 		try {
-			Integer.parseInt(chaine);
+			Double.parseDouble(chaine);
 		} catch (NumberFormatException e){
 			return false;
 		}
@@ -168,9 +168,9 @@ public class CreationStationController {
 	 */
 	public void ValiderStation(){
 		boolean estValide=true;
-		Integer haut=null;
-		Integer bas=null;
-		Integer normale=null;
+		double haut=0.0;
+		double bas=0.0;
+		double normale=0.0;
 		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
@@ -198,44 +198,48 @@ public class CreationStationController {
 			erreurMISH.setText("Erreur : MISH doit être un booleen");
 			estValide=false;
 		}*/
-		if(!seuilHaut.getText().isEmpty() && !estUnEntier(seuilHaut.getText())){
+		if(!seuilHaut.getText().isEmpty() && !estUnDouble(seuilHaut.getText())){
 			erreurSeuilHaut.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
 		}
 		
-		if(!seuilBas.getText().isEmpty() &&!estUnEntier(seuilBas.getText())){
+		if(!seuilBas.getText().isEmpty() &&!estUnDouble(seuilBas.getText())){
 			erreurSeuilBas.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
 		}
-		if(!valeurNormale.getText().isEmpty() &&!estUnEntier(valeurNormale.getText())){
+		if(!valeurNormale.getText().isEmpty() &&!estUnDouble(valeurNormale.getText())){
 			erreurValeurNormale.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
 		}
-		if(!seuilBas.getText().isEmpty() && estUnEntier(seuilBas.getText()) && !seuilHaut.getText().isEmpty() && estUnEntier(seuilHaut.getText()) && Integer.parseInt(seuilHaut.getText())<Integer.parseInt(seuilBas.getText())){
+		if(!seuilBas.getText().isEmpty() && estUnDouble(seuilBas.getText()) && !seuilHaut.getText().isEmpty() && estUnDouble(seuilHaut.getText()) && Double.parseDouble(seuilHaut.getText())<Double.parseDouble(seuilBas.getText())){
 			erreurSeuilBas.setText("Erreur : le seuil bas doit être inférieur au seuil haut !");
 			estValide=false;
 		}
-		if(!valeurNormale.getText().isEmpty() && estUnEntier(valeurNormale.getText()) && !seuilHaut.getText().isEmpty() && estUnEntier(seuilHaut.getText()) && Integer.parseInt(seuilHaut.getText())<Integer.parseInt(valeurNormale.getText())){
+		if(!valeurNormale.getText().isEmpty() && estUnDouble(valeurNormale.getText()) && !seuilHaut.getText().isEmpty() && estUnDouble(seuilHaut.getText()) && Double.parseDouble(seuilHaut.getText())<Double.parseDouble(valeurNormale.getText())){
 			erreurValeurNormale.setText("Erreur : la valeur doit être inférieur au seuil haut !");
 			estValide=false;
 		}
-		if(!valeurNormale.getText().isEmpty() && estUnEntier(valeurNormale.getText()) && !seuilBas.getText().isEmpty() && estUnEntier(seuilBas.getText()) && Integer.parseInt(seuilBas.getText())>Integer.parseInt(valeurNormale.getText())){
+		if(!valeurNormale.getText().isEmpty() && estUnDouble(valeurNormale.getText()) && !seuilBas.getText().isEmpty() && estUnDouble(seuilBas.getText()) && Double.parseDouble(seuilBas.getText())>Double.parseDouble(valeurNormale.getText())){
 			erreurValeurNormale.setText("Erreur : la valeur doit être supérieur au seuil bas !");
 			estValide=false;
 		}
 		
 		if(estValide==true)
 		{
+			String m1 = "1", m2 = "1", m3 = "1";
 			if(!seuilHaut.getText().isEmpty()){
-				haut=Integer.parseInt(seuilHaut.getText());
+				haut=Double.parseDouble(seuilHaut.getText());
+				m1 = "0";
 			}
 			if(!seuilBas.getText().isEmpty()){
-				bas=Integer.parseInt(seuilBas.getText());
+				bas=Double.parseDouble(seuilBas.getText());
+				m2 = "0";
 			}
 			if(!valeurNormale.getText().isEmpty()){
-				normale=Integer.parseInt(valeurNormale.getText());
+				normale=Double.parseDouble(valeurNormale.getText());
+				m3 = "0";
 			}
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),haut,bas,idEquipement,paramFonc.getText(),normale,Boolean.valueOf(MISH.getText()));
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),(m1+m2+m3),haut,bas,idEquipement,paramFonc.getText(),normale,Boolean.valueOf(MISH.getText()));
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
