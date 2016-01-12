@@ -264,8 +264,8 @@ public class JsonController {
 				if(tabReleves[i].getInt("idStation")==idStation){
 					existe = true;
 				}
+				i++;
 			}
-			
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -289,8 +289,8 @@ public class JsonController {
 				if(tabReleves[i].getInt("idStation")==idStation){
 					valeurReleve = tabReleves[i].getInt("valeur");
 				}
+				i++;
 			}
-			
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -313,6 +313,7 @@ public class JsonController {
 				if(tabReleves[i].getInt("idStation")==idStation){
 					comReleve = tabReleves[i].getString("commentaire");
 				}
+				i++;
 			}
 			
 			reader.close();
