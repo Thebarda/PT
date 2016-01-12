@@ -153,11 +153,4 @@ public class JsonController {
 		
 		return idTournee;
 	}
-	
-	public static void main(String[] args){
-		ObservableList<Tournee> tournee = TourneeController.loadTournee(1);
-		Tournee t3 = tournee.get(0);
-		
-		exporterTournee("C:\\Users\\Clément\\git\\ProjetTutEDF\\test.json", t3);
-	}
 }
