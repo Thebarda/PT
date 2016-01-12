@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -113,6 +115,7 @@ public class saisirReleveController {
 					releve.setLayoutX((compteur * 175) - 1);
 				}
 				releve.setAlignment(Pos.CENTER);
+				releve.setTextAlignment(TextAlignment.CENTER);
 				releve.setOnMousePressed(pressed);
 				releve.setOnMouseReleased(release);
 				Stations.getChildren().add(releve);
@@ -178,6 +181,7 @@ public class saisirReleveController {
 	 * @param numStation
 	 */
 	public void charge(int numStation) {
+		unite.setFont(new Font(24.0));
 		erreur.setVisible(false);
 		seuilBas=stations[numStation].getInt("seuilBas");
 		seuilHaut=stations[numStation].getInt("seuilHaut");
@@ -186,6 +190,9 @@ public class saisirReleveController {
 		nom.setText(stations[numStation].getString("nomStation"));
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
 		unite.setText(stations[numStation].getString("unite"));
+		if(unite.getText().length()>=12){
+			unite.setFont(new Font(15));
+		};
 		seuil.setText("Seuil Bas: " + seuilBas + "		Seuil Haut: "
 				+ seuilHaut + "		Valeur Normale: "
 				+ stations[numStation].getInt("valeurNormale"));
@@ -195,7 +202,7 @@ public class saisirReleveController {
 			releve.setText(Double.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
 			commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
 		}
-		afficherHistorique(currentPos);
+		afficherHistorique(stations[numStation].getInt("idStation"));
 	}
 
 	/**
@@ -326,19 +333,18 @@ public class saisirReleveController {
 	}
 	
 	public void afficherHistorique(int idStation){
+		Historique.getChildren().clear();
 		JsonObject[] historique=JsonController.loadHistoriques(nomJson,idStation);
-		for(int i=0;i>historique.length;i++){
-			Label valhist = new Label(historique[i].getString("date")+"\n"+historique[i].getString("valeur"));
+		for(JsonObject obj : historique){
+			Label valhist = new Label(obj.getString("date")+"\n"+obj.getJsonNumber("valeur").doubleValue());
 			valhist.setPrefHeight(80);
 			valhist.setPrefWidth(140);
 			valhist.setStyle("-fx-border-style: solid;");
 			valhist.setWrapText(true);
 			valhist.setId(String.valueOf(compteur));
-			if (i > 0) {
-				releve.setLayoutY((i * 140) - 1);
-			}
 			valhist.setAlignment(Pos.CENTER);
-			Historique.getChildren().add(releve);
+			valhist.setTextAlignment(TextAlignment.CENTER);
+			Historique.getChildren().add(valhist);
 		}
 	}
 }
