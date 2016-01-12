@@ -273,9 +273,9 @@ public class JsonController {
 		return existe;
 	}
 	
-	public static int getReleve(String fichier, int idStation){
+	public static double getReleve(String fichier, int idStation){
 		JsonReader reader;
-		int valeurReleve = 0;
+		double valeurReleve = 0;
 		try {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
@@ -287,10 +287,12 @@ public class JsonController {
 			int i=0;
 			while(i<tabReleves.length && valeurReleve==0){
 				if(tabReleves[i].getInt("idStation")==idStation){
-					valeurReleve = tabReleves[i].getInt("valeur");
+					valeurReleve = tabReleves[i].getJsonNumber("valeur").doubleValue();
+					System.out.println(" ? : " + valeurReleve);
 				}
 				i++;
 			}
+			
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
