@@ -118,6 +118,7 @@ public class PlanningController {
             				Scene dialogScene = new Scene(page);
             		        dialog.setScene(dialogScene);
             		        dialog.show();
+            		        ImportationController.init(p.getValue());
             		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
             		            public void handle(WindowEvent we) {
             		            	dialog.close();

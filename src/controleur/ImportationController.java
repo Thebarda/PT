@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import modele.Tournee;
 
 /**
  * Controleur relatif Ã  l'interface de crÃ©ation de centrale
@@ -28,9 +29,14 @@ public class ImportationController {
 	private Button annuler;
 	
 	 File file;
-
+	 
+	 Tournee tournee ;
 	
 	
+	 public void init (Tournee tourne )
+	 {
+		 tournee = tourne;
+	 }
 	 
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
@@ -77,10 +83,14 @@ public class ImportationController {
 			erreurRoute.setText("Erreur : veuillez sspécifier votre fichier ");
 			estValide=false;
 		}	
-		if(JsonController.estCompleteTournee(route.getText()))
+		if(!JsonController.estCompleteTournee(route.getText()))
 		{
 			erreurRoute.setText("Erreur : la tournée n'est pas complétée ");
 			estValide=false;
+		}
+		if(!JsonController.estPareilTournee(route.getText(), tournee))
+		{
+			estValide = false;
 		}
 		if(estValide == true)
 		{
