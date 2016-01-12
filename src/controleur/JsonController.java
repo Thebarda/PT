@@ -72,6 +72,9 @@ public class JsonController {
 		
 		ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tournee.getIdModele());
 		
+		JsonArray jsonReleves = Json.createArrayBuilder()
+				.build();
+		
 		JsonObject JsonTournee = Json.createObjectBuilder()
 				.add("nomApp", "relevEDF")
 				.add("idTournee", tournee.getId())
@@ -81,6 +84,7 @@ public class JsonController {
 				.add("estComplete", 0)
 				.add("nbStations", stations.size())
 				.add("stations", JsonStations)
+				.add("Releves", jsonReleves)
 				.build();
 		
 		try {
@@ -88,6 +92,7 @@ public class JsonController {
 			writer = Json.createWriter(new FileOutputStream(fichier));
 		    writer.writeObject(JsonTournee);
 		    writer.close();
+		    TourneeController.setExportee(tournee.getId());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,8 +112,8 @@ public class JsonController {
 			for(JsonObject jo : tabReleves){
 				ReleveController.ajouterReleve(jo.getJsonNumber("valeur").doubleValue(), jo.getString("commentaire"), jo.getInt("idStation"), tournee.getInt("idTournee"));
 			}
-			
-			
+			ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tournee.getInt("idModele"));
+			modele.genererTournee();
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
