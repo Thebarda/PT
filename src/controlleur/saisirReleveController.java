@@ -76,6 +76,7 @@ public class saisirReleveController {
 	static String nomJson;
 	
 	static double ecartSeuil;
+	static String seuilAff;
 	static double releveEff;
 	static String commentaireEff;
 	static double seuilBas;
@@ -144,9 +145,9 @@ public class saisirReleveController {
 				compteur++;
 			}
 			currentPos = 0;
-			charge(0);
 			ReleveController.initialize(stations, nomJson);
-
+			charge(0);
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -193,9 +194,7 @@ public class saisirReleveController {
 		if(unite.getText().length()>=12){
 			unite.setFont(new Font(15));
 		};
-		seuil.setText("Seuil Bas: " + seuilBas + "		Seuil Haut: "
-				+ seuilHaut + "		Valeur Normale: "
-				+ stations[numStation].getInt("valeurNormale"));
+		seuil.setText(ReleveController.seuil(numStation));
 		releve.setText("");
 		commentaire.setText("");
 		if(JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))){
@@ -220,6 +219,8 @@ public class saisirReleveController {
 		else{
 			releveEff=Double.parseDouble(releveStr);
 			ecartSeuil=ReleveController.controller(currentPos, releveEff, commentaire.getText());
+			seuilAff=ReleveController.seuil2(currentPos);
+		}
 			if (ecartSeuil!=0){
 				verifierReleve();
 			}
@@ -227,7 +228,7 @@ public class saisirReleveController {
 				releveNormale(currentPos);
 				passerSuivant();
 			}
-		}
+		
 	}
 	
 	public void verifierReleve(){

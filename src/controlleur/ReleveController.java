@@ -33,7 +33,7 @@ public class ReleveController {
 		DecimalFormat format=new DecimalFormat();
 		format.setMaximumFractionDigits(2);
 		
-		if(station.getString("marqueur").equals("110") || station.getString("marqueur").equals("111")){
+		if(station.getString("marqueur").equals("001") || station.getString("marqueur").equals("000")){
 			seuilHaut = station.getInt("seuilHaut");
 			seuilBas = station.getInt("seuilBas");
 			if(releve < seuilBas){
@@ -46,7 +46,7 @@ public class ReleveController {
 				enregistrer(station.getInt("idStation"),releve,commentaire);
 			}
 		}
-		else if(station.getString("marqueur").substring(0, 0).equals("0") && station.getString("marqueur").substring(1, 1).equals("1")){
+		else if(station.getString("marqueur").substring(0, 1).equals("1") && station.getString("marqueur").substring(1, 2).equals("0")){
 			seuilBas = station.getInt("seuilBas");
 			if(releve < seuilBas){
 				result= seuilBas-releve;
@@ -55,7 +55,7 @@ public class ReleveController {
 				enregistrer(station.getInt("idStation"),releve,commentaire);
 			}
 		}
-		else if(station.getString("marqueur").substring(0, 0).equals("1") && station.getString("marqueur").substring(1, 1).equals("0")){
+		else if(station.getString("marqueur").substring(0, 1).equals("0") && station.getString("marqueur").substring(1, 2).equals("1")){
 			seuilHaut = station.getInt("seuilHaut");
 			if(releve > seuilHaut){
 				result= releve-seuilHaut;
@@ -80,16 +80,35 @@ public class ReleveController {
 	public static String seuil(int num){
 		JsonObject station = tabStations[num];
 		String seuil="";
-		if (station.getString("marqueur").substring(1, 1).equals("1")){
+		
+		if (station.getString("marqueur").substring(1, 2).equals("0")){
 			seuil+="Seuil Bas: "+station.getInt("seuilBas")+ "		";
 		}
 		
-		if(station.getString("marqueur").substring(0, 0).equals("1")){
+		if(station.getString("marqueur").substring(0, 1).equals("0")){
 			seuil+="Seuil Haut: "+station.getInt("seuilHaut")+ "		";
+
 		}
 		
-		if(station.getString("marqueur").substring(2, 2).equals("1")){
-			seuil+="Valeur Normale: "+station.getInt("valeurNormale");;
+		if(station.getString("marqueur").substring(2, 3).equals("0")){
+			seuil+="Valeur Normale: "+station.getInt("valeurNormale");
+
+		}
+		return seuil;
+	}
+	
+	public static String seuil2(int num){
+		JsonObject station = tabStations[num];
+		String seuil="";
+		
+		if (station.getString("marqueur").substring(1, 2).equals("0") && station.getString("marqueur").substring(0, 1).equals("0")){
+			seuil="compris entre "+station.getInt("seuilBas")+" et "+station.getInt("seuilHaut");
+		}
+		else if(station.getString("marqueur").substring(0, 1).equals("0")){
+			seuil="inférieure à "+station.getInt("seuilHaut");
+		}
+		else if(station.getString("marqueur").substring(1, 2).equals("0")){
+			seuil="supérieure à "+station.getInt("seuilBas");
 		}
 		return seuil;
 	}

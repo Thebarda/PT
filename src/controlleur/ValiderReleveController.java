@@ -21,7 +21,7 @@ public class ValiderReleveController {
 	
 	@FXML
 	private void initialize(){
-		seuilDepasse.setText("Ce releve devait être compris entre "+saisirReleveController.seuilBas+" et "+saisirReleveController.seuilHaut+" . Or vous avez saisie "+saisirReleveController.releveEff+"(ecart de "+saisirReleveController.ecartSeuil+")");
+		seuilDepasse.setText("Ce releve devrait être "+ saisirReleveController.seuilAff+". Or vous avez saisie "+saisirReleveController.releveEff+"(ecart de "+saisirReleveController.ecartSeuil+")");
 	}
 	
 	public void annuler(){
