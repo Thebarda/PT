@@ -293,4 +293,26 @@ public class JsonController {
 		}
 		return valeurReleve;
 	}
+	public static String getCommentaire(String fichier, int idStation){
+		JsonReader reader;
+		String comReleve=null;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+				
+			JsonArray releves = tournee.getJsonArray("Releves");
+
+			JsonObject[] tabReleves;
+			tabReleves = releves.toArray(new JsonObject[0]);
+			int i=0;
+			while(i<tabReleves.length && comReleve==null){
+				if(tabReleves[i].getInt("idStation")==idStation){
+					comReleve = tabReleves[i].getString("commentaire");
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return comReleve;
+	}
 }
