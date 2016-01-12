@@ -30,10 +30,10 @@ public class ImportationController {
 	
 	 File file;
 	 
-	 Tournee tournee ;
+	 static Tournee tournee ;
 	
 	
-	 public void init (Tournee tourne )
+	 public static void init (Tournee tourne )
 	 {
 		 tournee = tourne;
 	 }
