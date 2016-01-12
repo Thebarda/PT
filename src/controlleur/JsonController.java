@@ -211,7 +211,7 @@ public class JsonController {
 		}
 	}
 	/**
-	 * Fonction qui permet de savoir un fichier json est completé ou pas
+	 * Fonction qui permet de savoir un fichier json est completï¿½ ou pas
 	 * @param fichier
 	 * @param estComplete
 	 */
@@ -288,7 +288,6 @@ public class JsonController {
 			while(i<tabReleves.length && valeurReleve==0){
 				if(tabReleves[i].getInt("idStation")==idStation){
 					valeurReleve = tabReleves[i].getJsonNumber("valeur").doubleValue();
-					System.out.println(" ? : " + valeurReleve);
 				}
 				i++;
 			}

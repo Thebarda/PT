@@ -135,7 +135,7 @@ public class saisirReleveController {
 		@Override
 		public void handle(MouseEvent e) {
 			if(((e.getSceneX() - x) < 10.0) && ((e.getSceneY() - y) < 10.0)){
-				if(((e.getSceneX() - x) < -10.0) && ((e.getSceneY() - y) < -10.0)){
+				if(((e.getSceneX() - x) > -10.0) && ((e.getSceneY() - y) > -10.0)){
 				Label label = (Label)e.getSource();
 				currentPos=Integer.parseInt(label.getId());
 				charge(Integer.parseInt(label.getId()));
