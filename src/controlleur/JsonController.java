@@ -265,6 +265,8 @@ public class JsonController {
 					existe = true;
 				}
 			}
+			
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -288,9 +290,35 @@ public class JsonController {
 					valeurReleve = tabReleves[i].getInt("valeur");
 				}
 			}
+			
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return valeurReleve;
+	}
+	public static String getCommentaire(String fichier, int idStation){
+		JsonReader reader;
+		String comReleve=null;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+				
+			JsonArray releves = tournee.getJsonArray("Releves");
+
+			JsonObject[] tabReleves;
+			tabReleves = releves.toArray(new JsonObject[0]);
+			int i=0;
+			while(i<tabReleves.length && comReleve==null){
+				if(tabReleves[i].getInt("idStation")==idStation){
+					comReleve = tabReleves[i].getString("commentaire");
+				}
+			}
+			
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return comReleve;
 	}
 }
