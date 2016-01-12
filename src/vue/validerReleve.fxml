@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane minHeight="600.0" minWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+<AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.ValiderReleveController">
    <children>
       <Label layoutX="202.0" layoutY="38.0" text="Validation du Releve">
          <font>
@@ -29,12 +28,12 @@
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="112.0" layoutY="280.0">
+      <Label fx:id="seuilDepasse" layoutX="28.0" layoutY="280.0" prefHeight="20.0" prefWidth="788.0" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" text="Valider le relevé" />
-      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" text="Annuler le relevé" />
+      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" onAction="#valider" text="Valider le relevé" />
+      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="168.0" onAction="#annuler" text="Annuler le relevé" />
    </children>
 </AnchorPane>

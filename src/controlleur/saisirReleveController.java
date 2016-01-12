@@ -2,7 +2,10 @@ package controlleur;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.json.Json;
@@ -15,8 +18,12 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import vue.Main;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -54,7 +61,16 @@ public class saisirReleveController {
 
 	int currentPos;
 
+	List<Label> labels=new ArrayList<Label>();
+	
 	static String nomJson;
+	
+	static double ecartSeuil;
+	static double releveEff;
+	static String commentaireEff;
+	static double seuilBas;
+	static double seuilHaut;
+	static boolean doitChargerSuivant=false;
 
 	int nbStations;
 
@@ -89,6 +105,7 @@ public class saisirReleveController {
 				releve.setOnMouseReleased(release);
 				Stations.getChildren().add(releve);
 				compteur++;
+				labels.add(releve);
 			}
 			currentPos = 0;
 			charge(0);
@@ -111,8 +128,9 @@ public class saisirReleveController {
 	EventHandler<MouseEvent> release = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent e) {
-			if(((e.getSceneX() - x) < 2.0) && ((e.getSceneY() - y) < 2.0)){
+			if(((e.getSceneX() - x) < 10.0) && ((e.getSceneY() - y) < 10.0)){
 				Label label = (Label)e.getSource();
+				currentPos=Integer.parseInt(label.getId());
 				charge(Integer.parseInt(label.getId()));
 			}
 		}
@@ -124,30 +142,73 @@ public class saisirReleveController {
 	 * @param numStation
 	 */
 	public void charge(int numStation) {
+		seuilBas=stations[numStation].getInt("seuilBas");
+		seuilHaut=stations[numStation].getInt("seuilHaut");
 		nom.setText(stations[numStation].getString("nomStation"));
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
 		unite.setText(stations[numStation].getString("unite"));
-		seuil.setText("Seuil Bas: " + stations[numStation].getInt("seuilBas") + "		Seuil Haut: "
-				+ stations[numStation].getInt("seuilHaut") + "		Valeur Normale: "
+		seuil.setText("Seuil Bas: " + seuilBas + "		Seuil Haut: "
+				+ seuilHaut + "		Valeur Normale: "
 				+ stations[numStation].getInt("valeurNormale"));
+		/*if(JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))){
+			System.out.println(Integer.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
+		}*/
 	}
 
 	/**
-	 * Permet la validation d'une station et décale le scroll des stations
+	 * Permet la validation d'une station et dï¿½cale le scroll des stations
 	 */
-	public void valider() {
-		boolean estValide = ReleveController.controller(currentPos, Double.parseDouble(releve.getText()),
-				commentaire.getText());
-		if (!estValide) {
-			System.out.println("PAS COMPRIS ENTRE LES SEUILS");
-		} else {
-			currentPos++;
-			charge(currentPos);
-			releve.setText("");
-			commentaire.setText("");
-			scroll.setHvalue((double) currentPos / ((double) nbStations - 4));
-			System.out.println(currentPos / nbStations);
-			System.out.println(scroll.getHvalue());
+	public void valider(){
+		ecartSeuil=ReleveController.controller(currentPos, Double.parseDouble(releve.getText()), commentaire.getText());
+		if (ecartSeuil!=0){
+			verifierReleve();
+		}
+		else{
+			labels.get(currentPos).setText(labels.get(currentPos).getText()+"\n"+releve.getText()+" "+unite.getText()+"\nValidÃ©");
+			labels.get(currentPos).setStyle("-fx-background-color: green;");
+			passerSuivant();
+		}
+	}
+	
+	public void verifierReleve(){
+		releveEff=Double.parseDouble(releve.getText());
+		commentaireEff=commentaire.getText();
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("validerReleve.fxml"));
+		try {
+			AnchorPane page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Valider un releve");
+	        dialog.show();
+	        ValiderReleveController.initialise(stations, currentPos);
+	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	dialog.close();
+	            	chargerSuivant();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void passerSuivant(){
+		currentPos++;
+		charge(currentPos);
+		releve.setText("");
+		commentaire.setText("");
+		scroll.setHvalue((double)currentPos/((double)nbStations-4));
+	}
+	
+	public void chargerSuivant(){
+		if (doitChargerSuivant){
+			labels.get(currentPos).setText(labels.get(currentPos).getText()+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
+			labels.get(currentPos).setStyle("-fx-background-color: orange;");
+			passerSuivant();
+			doitChargerSuivant=false;
 		}
 	}
 

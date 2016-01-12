@@ -1,5 +1,7 @@
 package controlleur;
 
+import java.text.DecimalFormat;
+
 import javax.json.JsonObject;
 
 public class ReleveController {
@@ -22,18 +24,24 @@ public class ReleveController {
 	 * @param commentaire
 	 * @return
 	 */
-	public static boolean controller(int num, double releve, String commentaire) {
+	public static double controller(int num, double releve, String commentaire) {
 		
 		JsonObject station = tabStations[num];
 		double seuilHaut = station.getInt("seuilHaut");
 		double seuilBas = station.getInt("seuilBas");
+		double result=0.0;
 		
-		if((releve < seuilBas) || ( releve > seuilHaut))
-		{
-			return false;
+		
+		if(releve < seuilBas){
+			result= seuilBas-releve;
+		}
+		else if(releve > seuilHaut){
+			result= releve-seuilHaut;
 		}
 		enregistrer(station.getInt("idStation"),releve,commentaire);
-		return true;
+		DecimalFormat format=new DecimalFormat();
+		format.setMaximumFractionDigits(2);
+		return Double.parseDouble(format.format(result).replace(",", "."));
 	}
 	/**
 	 * Enregistre un releve dans un fichier json
