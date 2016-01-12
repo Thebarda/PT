@@ -64,27 +64,27 @@ public class TourneeController {
 					double seuilBas;
 					double valeurNormale;
 					
-					if (resultat.getString("marqueur").substring(0, 0).equals("1")){
+					if (resultatStations.getString("marqueur").substring(0, 0).equals("1")){
 						seuilHaut = 0.0;
 					}else{
-						seuilHaut = resultat.getDouble("seuilHaut");
+						seuilHaut = resultatStations.getDouble("seuilHaut");
 					}
-					if (resultat.getString("marqueur").substring(1, 1).equals("1")){
+					if (resultatStations.getString("marqueur").substring(1, 1).equals("1")){
 						seuilBas = 0.0;
 					}else{
-						seuilBas = resultat.getDouble("seuilBas");
+						seuilBas = resultatStations.getDouble("seuilBas");
 					}
-					if(resultat.getString("marqueur").substring(2, 2).equals("1")){
+					if(resultatStations.getString("marqueur").substring(2, 2).equals("1")){
 						valeurNormale = 0.0;
 					}else{
-						valeurNormale = resultat.getDouble("valeurNormale");
+						valeurNormale = resultatStations.getDouble("valeurNormale");
 					}
 					
 					Station station = new Station(resultatStations.getInt("idStation"),
 							resultatStations.getString("nomStation"),
 							resultatStations.getString("instructionsCourtes"),
 							resultatStations.getString("instructionsLongues"),
-							resultatStations.getInt("idUnite"), resultat.getString("marqueur"),
+							resultatStations.getInt("idUnite"), resultatStations.getString("marqueur"),
 							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
 					stations.put(i, station);
 					i++;
