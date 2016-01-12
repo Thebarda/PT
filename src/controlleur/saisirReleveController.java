@@ -89,6 +89,8 @@ public class saisirReleveController {
 	@FXML
 	private void initialize() {
 		JsonReader reader;
+		double releveDejaSaisi;
+		boolean releveDejaSaisiAnormale=false;
 		try {
 			nomJson = ImportationController.chemin;
 			reader = Json.createReader(new FileInputStream(nomJson));
@@ -110,8 +112,29 @@ public class saisirReleveController {
 				releve.setOnMousePressed(pressed);
 				releve.setOnMouseReleased(release);
 				Stations.getChildren().add(releve);
-				compteur++;
 				labels.add(releve);
+				if(JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))){
+					releveDejaSaisi=JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
+					if(releveDejaSaisi>=stations[compteur].getInt("seuilBas")){
+						if(releveDejaSaisi<=stations[compteur].getInt("seuilHaut")){
+							labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+unite.getText()+"\nValide");
+							labels.get(compteur).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+						}
+						else{
+							releveDejaSaisiAnormale=true;
+						}
+					}
+					else{
+						releveDejaSaisiAnormale=true;
+					}
+					
+					if(releveDejaSaisiAnormale==true){
+						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+unite.getText()+"\nAnormale");
+						labels.get(compteur).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
+						releveDejaSaisiAnormale=false;
+					}
+				}
+				compteur++;
 			}
 			currentPos = 0;
 			charge(0);
@@ -189,8 +212,7 @@ public class saisirReleveController {
 				verifierReleve();
 			}
 			else{
-				labels.get(currentPos).setText(stations[currentPos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nValide");
-				labels.get(currentPos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+				releveNormale(currentPos);
 				passerSuivant();
 			}
 		}
@@ -230,8 +252,7 @@ public class saisirReleveController {
 	
 	public void chargerSuivant(){
 		if (doitChargerSuivant){
-			labels.get(currentPos).setText(stations[currentPos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
-			labels.get(currentPos).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
+			releveAnormale(currentPos);
 			passerSuivant();
 			doitChargerSuivant=false;
 		}
@@ -267,5 +288,14 @@ public class saisirReleveController {
  
 		return true;
 	}
-
+	
+	public void releveNormale(int pos){
+		labels.get(pos).setText(stations[pos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nValide");
+		labels.get(pos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+	}
+	
+	public void releveAnormale(int pos){
+		labels.get(pos).setText(stations[pos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
+		labels.get(pos).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
+	}
 }
