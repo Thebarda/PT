@@ -200,7 +200,7 @@ public class JsonController {
 			
 			try {
 				JsonWriter writer;
-				writer = Json.createWriter(new FileOutputStream("C:\\Users\\Clément\\git\\testJson.json"));
+				writer = Json.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
 			} catch (IOException e) {
@@ -237,7 +237,7 @@ public class JsonController {
 			
 			try {
 				JsonWriter writer;
-				writer = Json.createWriter(new FileOutputStream("C:\\Users\\Clément\\git\\testJson.json"));
+				writer = Json.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
 			} catch (IOException e) {
@@ -246,5 +246,28 @@ public class JsonController {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean estReleveSaisi(String fichier, int idStation){
+		JsonReader reader;
+		boolean existe = false;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+				
+			JsonArray releves = tournee.getJsonArray("Releves");
+
+			JsonObject[] tabReleves;
+			tabReleves = releves.toArray(new JsonObject[0]);
+			int i=0;
+			while(i<tabReleves.length && !existe){
+				if(tabReleves[i].getInt("idStation")==idStation){
+					existe = true;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return existe;
 	}
 }
