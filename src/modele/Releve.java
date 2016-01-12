@@ -9,10 +9,10 @@ package modele;
 public class Releve {
 	private int  id;
 	private String  commentaire;
-	private int  valeur;
+	private double  valeur;
 	private String date;
 	
-	public Releve(int id, String commentaire, int valeur, String date){
+	public Releve(int id, String commentaire, double valeur, String date){
 		this.id = id;
 		this.commentaire = commentaire;
 		this.valeur = valeur;
@@ -51,7 +51,7 @@ public class Releve {
 	 * Retourne la valeur
 	 * @return valeur
 	 */
-	public int getValeur() {
+	public double getValeur() {
 		return valeur;
 	}
 	/**
@@ -74,7 +74,7 @@ public class Releve {
 		int result = 1;
 		result = prime * result + ((commentaire == null) ? 0 : commentaire.hashCode());
 		result = prime * result + id;
-		result = prime * result + valeur;
+		result = (int) (prime * result + valeur);
 		return result;
 	}
 	@Override

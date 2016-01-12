@@ -1,27 +1,15 @@
 package controleur;
 
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
-import javax.json.JsonWriter;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.Station;
 import modele.Tournee;
-import modele.Releve;
 
 public class TourneeController {
 	
@@ -45,7 +33,7 @@ public class TourneeController {
 										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
 										+ "WHERE mt.idModele=t.idModele "
 										+ "limit 1 "
-										+ ")= " + idCentrale + " AND estTerminee = false");
+										+ ")= " + idCentrale + " AND estTerminee = 0");
 			while(resultat.next()){
 				int  idTournee = resultat.getInt("idTournee");
 				String dateTournee = resultat.getString("dateTournee");
@@ -58,13 +46,12 @@ public class TourneeController {
 				
 				statutStations = connexion.createStatement();
 				
-				resultatStations = statutStations.executeQuery("SELECT r.idStation, nomStation, instructionsCourtes, "
-													+ "instructionsLongues, seuilBas, seuilHaut, frequenceControle, "
+				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
+													+ "instructionsLongues, seuilBas, seuilHaut, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
 													+ "MISH from station s "
-													+ "INNER JOIN releve r ON s.idStation=r.idStation "
-													+ "INNER JOIN asso_station_modele asm ON asm.idStation=r.idStation "
-													+ "WHERE r.idTournee=" + idTournee + " "
+													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
+													+ "WHERE asm.idModele=" + idModele + " "
 													+ "ORDER BY asm.ordre ASC");
 				int i = 1;
 				while(resultatStations.next()){
@@ -137,7 +124,7 @@ public class TourneeController {
 			preparedStatement.setInt(5, isTerminee);
 			preparedStatement.executeUpdate();
 			
-			// On recupère l'id de la tournée crée
+			/*// On recupère l'id de la tournée crée
 			int id = preparedStatement.getGeneratedKeys().getInt(1);
 			
 			// Ajout dans l'association avec les stations
@@ -150,7 +137,7 @@ public class TourneeController {
 				preparedStatementAsso.setInt(1, id);
 				preparedStatementAsso.setInt(2, station.getId());
 				preparedStatementAsso.executeUpdate();
-			}
+			}*/
 			
 			
 			
@@ -168,5 +155,10 @@ public class TourneeController {
 	             e.printStackTrace();  
 	         }  
 		}
+	}
+
+	public static void setTerminee(int int1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

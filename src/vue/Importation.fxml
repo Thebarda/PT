@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ImportationController">
+   <children>
+      <TextField fx:id="route" layoutX="72.0" layoutY="175.0" prefHeight="25.0" prefWidth="270.0" />
+      <Label layoutX="193.0" layoutY="71.0" text="Importation du fichier ">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="importation" layoutX="401.0" layoutY="175.0" mnemonicParsing="false" onAction="#Importation" text="Importer  ...." />
+      <Button fx:id="valider" layoutX="453.0" layoutY="316.0" mnemonicParsing="false" onAction="#ValiderImportation" text="Valider" />
+      <Button fx:id="annuler" layoutX="362.0" layoutY="316.0" mnemonicParsing="false" onAction="#annulerExportation" text="Annuler" />
+      <Label fx:id="erreurRoute" layoutX="179.0" layoutY="234.0" />
+   </children>
+</AnchorPane>

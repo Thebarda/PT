@@ -1,7 +1,5 @@
 package modele;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
@@ -100,69 +98,6 @@ public class Tournee
 		return stations;
 	}
 	
-	/**
-	 * le but de cette fonction est de fournir un nom explicite a la tournée en fonction de certain paramètre
-	 * exemples de nom = TourneeBarrageJuillet
-	 * @param mois mois courant
-	 * @return un nom explicite pour la tournée
-	 */
-	public static String getNomTournee(String nomModele)
-	{
-		GregorianCalendar calendar = new GregorianCalendar();
-		String temp=nomModele;
-		
-		int numMois = calendar.get(Calendar.MONTH);
-		switch(numMois)
-		{
-		case 0 :
-			temp+="_Janvier";
-			break;
-		case 1 :
-			temp+="_Fevrier";
-			break;
-		case 2 :
-			temp+="_Mars";
-			break;
-		case 3 :
-			temp+="_Avril";
-			break;
-		case 4 :
-			temp+="_Mai";
-			break;
-		case 5 :
-			temp+="_Juin";
-			break;
-		case 6 :
-			temp+="_Juillet";
-			break;
-		case 7 :
-			temp+="_Aout";
-			break;
-		case 8 :
-			temp+="_Septembre";
-			break;
-		case 9 :
-			temp+="_Octobre";
-			break;
-		case 10 :
-			temp+="_Novembre";
-			break;
-		case 11 :
-			temp+="_Decembre";
-			break;
-		}
-		if(calendar.get(calendar.MONTH) > numMois)
-		{
-			temp+= (calendar.getWeekYear()+1);
-		}
-		else
-		{
-			temp+= calendar.getWeekYear();
-		}
-		
-		
-		return temp;
-	}
 	@Override
 	public String toString() {
 		return "Tournee [id=" + id + ", nom=" + nom + ", idModele=" + idModele + ", estExportee=" + estExportee

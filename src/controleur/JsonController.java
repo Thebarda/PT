@@ -1,5 +1,7 @@
 package controleur;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +11,10 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.JsonWriter;
 
+import javafx.collections.ObservableList;
 import modele.ModeleTournee;
 import modele.Releve;
 import modele.Station;
@@ -23,7 +27,7 @@ public class JsonController {
 		JsonArrayBuilder builderStations = Json.createArrayBuilder();
 		
 		HashMap<Integer, Station> stations = tournee.getStations();
-		for (int i=1; i<stations.size(); i++) {
+		for (int i=1; i<=stations.size(); i++) {
 			Station station = stations.get(i);
 			ArrayList<Releve> releves = ReleveController.load5LastReleve(station.getId());
 			
@@ -73,7 +77,7 @@ public class JsonController {
 				.add("idTournee", tournee.getId())
 				.add("nomModele", modele.getNom())
 				.add("descModele", modele.getDescription())
-				.add("dateExport", date.toString())
+				.add("dateExport", formater.format( date ).toString())
 				.add("estComplete", 0)
 				.add("nbStations", stations.size())
 				.add("stations", JsonStations)
@@ -87,5 +91,51 @@ public class JsonController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void importerTournee(String fichier){
+		JsonReader reader;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+			JsonArray releves = tournee.getJsonArray("Releves");
+
+			JsonObject[] tabReleves;
+			tabReleves = releves.toArray(new JsonObject[0]);
+			
+			TourneeController.setTerminee(tournee.getInt("idTournee"));
+			for(JsonObject jo : tabReleves){
+				ReleveController.ajouterReleve(jo.getJsonNumber("valeur").doubleValue(), jo.getString("commentaire"), jo.getInt("idStation"), tournee.getInt("idTournee"));
+			}
+			
+			
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean estCompleteTournee(String fichier){
+		JsonReader reader;
+		boolean estComplete = false;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+			if(tournee.getInt("estComplete") == 1)
+				estComplete = true;
+			
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return estComplete;
+	}
+	
+	public static void main(String[] args){
+		ObservableList<Tournee> tournee = TourneeController.loadTournee(1);
+		Tournee t3 = tournee.get(0);
+		
+		exporterTournee("C:\\Users\\Clément\\git\\ProjetTutEDF\\test.json", t3);
 	}
 }

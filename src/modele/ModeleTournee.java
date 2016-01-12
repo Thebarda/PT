@@ -161,7 +161,7 @@ public class ModeleTournee
 		{
 			moisAnnee+= "-" + calendar.getWeekYear();
 		}
-		tournee = new Tournee(Tournee.getNomTournee(this.getNom()),this.getId(),this.stations,moisAnnee);
+		tournee = new Tournee(this.getNom(),this.getId(),this.stations,moisAnnee);
 		TourneeController.addTournee(tournee);
 	}
 }

@@ -5,17 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.ModeleTournee;
 import modele.Station;
-import modele.Tournee;
 
 public class ModeleTourneeController {
 	

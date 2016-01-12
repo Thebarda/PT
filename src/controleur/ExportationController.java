@@ -1,8 +1,10 @@
 package controleur;
 
-
-
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import vue.Main;
 
 /**
  * Controleur relatif Ã  l'interface de crÃ©ation de centrale
@@ -30,10 +33,31 @@ public class ExportationController {
 	private Button annuler;
 	
 	 File file;
-	 
-	@FXML
-	private Button exportation;
 	
+	final String Santa_Claus_Is_Coming_To_Town =
+            "You better watch out\n"
+            + "You better not cry\n"
+            + "Better not pout\n"
+            + "I'm telling you why\n"
+            + "Santa Claus is coming to town\n"
+            + "\n"
+            + "He's making a list\n"
+            + "And checking it twice;\n"
+            + "Gonna find out Who's naughty and nice\n"
+            + "Santa Claus is coming to town\n"
+            + "\n"
+            + "He sees you when you're sleeping\n"
+            + "He knows when you're awake\n"
+            + "He knows if you've been bad or good\n"
+            + "So be good for goodness sake!\n"
+            + "\n"
+            + "O! You better watch out!\n"
+            + "You better not cry\n"
+            + "Better not pout\n"
+            + "I'm telling you why\n"
+            + "Santa Claus is coming to town\n"
+            + "Santa Claus is coming to town\n";
+     
 	
 	 
 	/**
@@ -59,15 +83,16 @@ public class ExportationController {
 
      public void Exportation() {
     	 FileChooser fileChooser = new FileChooser();
-    	 
+    	  
          //Set extension filter
          FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
          fileChooser.getExtensionFilters().add(extFilter);
-        
-         //Show open file dialog
-         file = fileChooser.showOpenDialog(null);
-        
+         
+         //Show save file dialog
+         file = fileChooser.showSaveDialog(null);
+         
          route.setText(file.getPath());
+        
      }
  
 	/**
@@ -78,12 +103,15 @@ public class ExportationController {
 		boolean estValide=true;
 		resetErreur();
 		if(estVide(route)){
-			erreurRoute.setText("Erreur : veuillez sspécifier votre fichier ");
+			erreurRoute.setText("Erreur : veuillez spécifier votre répertoire ");
 			estValide=false;
-		}		
-		if(estValide == true)
+		}	
+		//if(estValide == true)
 		{
-			
+			System.out.println(file);
+			 if(file != null){
+             SaveFile(Santa_Claus_Is_Coming_To_Town, file);
+         }
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -103,6 +131,18 @@ public class ExportationController {
 	public void resetErreur(){
 		erreurRoute.setText("");
 	}
-	
+	private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter = null;
+             System.out.println(file);
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }
 	
 }
+
