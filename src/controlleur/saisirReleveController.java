@@ -31,11 +31,15 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class saisirReleveController {
 
 	@FXML
 	AnchorPane Stations;
+	
+	@FXML
+	VBox Historique;
 
 	@FXML
 	Label nom;
@@ -191,6 +195,7 @@ public class saisirReleveController {
 			releve.setText(Double.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
 			commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
 		}
+		afficherHistorique(currentPos);
 	}
 
 	/**
@@ -318,5 +323,22 @@ public class saisirReleveController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	public void afficherHistorique(int idStation){
+		JsonObject[] historique=JsonController.loadHistoriques(nomJson,idStation);
+		for(int i=0;i>historique.length;i++){
+			Label valhist = new Label(historique[i].getString("date")+"\n"+historique[i].getString("valeur"));
+			valhist.setPrefHeight(80);
+			valhist.setPrefWidth(140);
+			valhist.setStyle("-fx-border-style: solid;");
+			valhist.setWrapText(true);
+			valhist.setId(String.valueOf(compteur));
+			if (i > 0) {
+				releve.setLayoutY((i * 140) - 1);
+			}
+			valhist.setAlignment(Pos.CENTER);
+			Historique.getChildren().add(releve);
+		}
 	}
 }
