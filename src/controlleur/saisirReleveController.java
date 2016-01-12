@@ -255,11 +255,13 @@ public class saisirReleveController {
 	}
 	
 	public void passerSuivant(){
-		currentPos++;
-		charge(currentPos);
-		releve.setText("");
-		commentaire.setText("");
-		scroll.setHvalue((double)currentPos/((double)nbStations-4));
+		if(currentPos+1!=nbStations){
+			currentPos++;
+			charge(currentPos);
+			releve.setText("");
+			commentaire.setText("");
+			scroll.setHvalue((double)currentPos/((double)nbStations-4));
+		}
 	}
 	
 	public void chargerSuivant(){
