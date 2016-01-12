@@ -171,8 +171,8 @@ public class saisirReleveController {
 			verifierReleve();
 		}
 		else{
-			labels.get(currentPos).setText(labels.get(currentPos).getText()+"\n"+releve.getText()+" "+unite.getText()+"\nValidé");
-			labels.get(currentPos).setStyle("-fx-background-color: green;");
+			labels.get(currentPos).setText(stations[currentPos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nValide");
+			labels.get(currentPos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
 			passerSuivant();
 		}
 	}
@@ -212,8 +212,8 @@ public class saisirReleveController {
 	
 	public void chargerSuivant(){
 		if (doitChargerSuivant){
-			labels.get(currentPos).setText(labels.get(currentPos).getText()+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
-			labels.get(currentPos).setStyle("-fx-background-color: orange;");
+			labels.get(currentPos).setText(stations[currentPos].getString("nomStation")+"\n"+releve.getText()+" "+unite.getText()+"\nAnormale");
+			labels.get(currentPos).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
 			passerSuivant();
 			doitChargerSuivant=false;
 		}
