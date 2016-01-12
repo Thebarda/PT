@@ -265,6 +265,8 @@ public class JsonController {
 					existe = true;
 				}
 			}
+			
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -288,6 +290,8 @@ public class JsonController {
 					valeurReleve = tabReleves[i].getInt("valeur");
 				}
 			}
+			
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -310,6 +314,8 @@ public class JsonController {
 					comReleve = tabReleves[i].getString("commentaire");
 				}
 			}
+			
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
