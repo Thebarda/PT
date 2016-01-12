@@ -31,7 +31,7 @@ public class CentraleControler
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM centrale");
 			while(resultat.next()){
-				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("localisation"));
+				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"));
 				centrales.add(centrale);
 			}
 			
@@ -60,15 +60,15 @@ public class CentraleControler
 	 * @param lieu
 	 * 			Lieu de la centrale à ajouter
 	 */
-	public static void addCentrale(String nom, String lieu)
+	public static void addCentrale(String nom, String identiteNationale)
 	{
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
-			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO centrale(nomCentrale, localisation)VALUES(?,?)");
+			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO centrale(nomCentrale, identiteNationale)VALUES(?,?)");
 			preparedStatement.setString(1, nom);
-			preparedStatement.setString(2, lieu);
+			preparedStatement.setString(2, identiteNationale);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -123,7 +123,7 @@ public class CentraleControler
 	 * @param lieu
 	 * 		Lieu de la centrale recherche
 	 */
-	public static Centrale rechercherCentrale(String nom, String lieu){
+	public static Centrale rechercherCentrale(String nom, String identiteNationale){
 		Connection connexion = null;
 		ResultSet resultat = null;
 		Statement statut = null;
@@ -132,9 +132,9 @@ public class CentraleControler
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT nomCentrale, localisation FROM centrale WHERE nomCentrale = '"+nom+"' AND localisation = '"+lieu+"'");
+			resultat = statut.executeQuery("SELECT nomCentrale, identiteNationale FROM centrale WHERE nomCentrale = '"+nom+"' AND identiteNationale = '"+identiteNationale+"'");
 			while(resultat.next()){
-				centrale=new Centrale(resultat.getInt("Id"),resultat.getString("nomCentrale"),resultat.getString("localisation"));
+				centrale=new Centrale(resultat.getInt("Id"),resultat.getString("nomCentrale"),resultat.getString("identiteNationale"));
 			}
 			
 		}catch(Exception e){

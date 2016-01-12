@@ -12,7 +12,7 @@
          <columns>
             <TableColumn fx:id="ID" maxWidth="1.7976931348623157E308" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="Nom" maxWidth="1.7976931348623157E308" prefWidth="196.0" text="Nom" />
-            <TableColumn fx:id="Localisation" maxWidth="1.7976931348623157E308" prefWidth="198.0" text="Localisation" />
+            <TableColumn fx:id="codeIdentiteNationale" maxWidth="1.7976931348623157E308" prefWidth="203.0" text="Code Nationale" />
          </columns>
       </TableView>
       <Button layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#ajouterCentrale" prefHeight="34.0" prefWidth="102.0" text="Ajouter" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="33.0" />

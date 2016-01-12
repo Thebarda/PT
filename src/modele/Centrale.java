@@ -11,7 +11,7 @@ public class Centrale
 {
 	private int id;
 	private String nom;
-	private String lieu;
+	private String identiteNationale;
 	/**
 	 * Constructeur pour la centrale en spécifiant son id, son nom et sa localisation
 	 * @param id
@@ -21,11 +21,11 @@ public class Centrale
 	 * @param lieu
 	 * 		localisation de la centrale
 	 */
-	public Centrale(int id, String nom, String lieu) {
+	public Centrale(int id, String nom, String identiteNationale) {
 		
 		this.id = id;
 		this.nom = nom;
-		this.lieu = lieu;
+		this.identiteNationale = identiteNationale;
 		
 	}
 
@@ -66,16 +66,16 @@ public class Centrale
 	 * @return lieu
 	 * 		Localisation de la centrale
 	 */
-	public String getLieu() {
-		return lieu;
+	public String getIdentiteNationale() {
+		return identiteNationale;
 	}
 	/**
 	 * Setter pour la localisation de la centrale
 	 * @param lieu
 	 * 		Nouvelle localisation de la centrale
 	 */
-	public void setLieu(String lieu) {
-		this.lieu = lieu;
+	public void setIdentiteNationale(String identiteNationale) {
+		this.identiteNationale = identiteNationale;
 	}
 
 	@Override

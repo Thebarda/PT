@@ -80,9 +80,6 @@ public class CreationStationController {
 	
 	@FXML
 	private Label erreurSeuilBas;
-	
-	@FXML
-	private Label erreurFrequence;
 		
 	@FXML
 	private Button valider;
@@ -93,8 +90,6 @@ public class CreationStationController {
 	@FXML
 	private int idEquipement;
 	
-	@FXML
-	private ComboBox<String> listeFrequence;
 	
 	@FXML
 	private Button ajouter;
@@ -106,13 +101,10 @@ public class CreationStationController {
 	
 	@FXML
 	TableColumn<Unite, String> Nom;
-	
-	ObservableList<String> frequence=FXCollections.observableArrayList("01 mois","03 mois","06 mois","12 mois");
-	
+		
 	@FXML
 	private void initialize() {
 		ListeUnite.setItems(unite);
-		listeFrequence.setItems(frequence);
 	}
 	
 	/**
@@ -194,10 +186,6 @@ public class CreationStationController {
 			erreurUnite.setText("Erreur : l'unite est vide");
 			estValide=false;
 		}
-		if(listeFrequence.getValue()==null){
-			erreurFrequence.setText("Erreur : la fréquence est vide");
-			estValide=false;
-		}
 		if(estVide(MISH)){
 			erreurMISH.setText("Erreur : MISH est vide");
 			estValide=false;
@@ -206,6 +194,10 @@ public class CreationStationController {
 			erreurParamFonc.setText("Erreur : le parametre de fonctionnement est vide");
 			estValide=false;
 		}
+		/*if(!estVide(MISH) && ((!MISH.getText().equals("1")) || (!MISH.getText().equals("0")))){
+			erreurMISH.setText("Erreur : MISH doit être un booleen");
+			estValide=false;
+		}*/
 		if(!seuilHaut.getText().isEmpty() && !estUnEntier(seuilHaut.getText())){
 			erreurSeuilHaut.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
@@ -243,7 +235,7 @@ public class CreationStationController {
 			if(!valeurNormale.getText().isEmpty()){
 				normale=Integer.parseInt(valeurNormale.getText());
 			}
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),Integer.parseInt(listeFrequence.getValue().substring(0, 2)),haut,bas,idEquipement,paramFonc.getText(),normale,MISH.getText());
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),haut,bas,idEquipement,paramFonc.getText(),normale,Boolean.valueOf(MISH.getText()));
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -307,7 +299,6 @@ public class CreationStationController {
 		erreurNom.setText("");
 		erreurinstrCourtes.setText("");
 		erreurUnite.setText("");
-		erreurFrequence.setText("");
 		erreurSeuilBas.setText("");
 		erreurSeuilHaut.setText("");
 		erreurValeurNormale.setText("");

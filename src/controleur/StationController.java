@@ -35,8 +35,8 @@ public class StationController
 						resultat.getString("nomStation"),
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
-						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getString("MISH"));
+						resultat.getInt("idUnite"),
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
 				stations.add(station);
 			}
 			
@@ -81,8 +81,8 @@ public class StationController
 						resultat.getString("nomStation"),
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
-						resultat.getInt("idUnite"),resultat.getInt("FrequenceControle"),
-						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getString("MISH"));
+						resultat.getInt("idUnite"),
+						resultat.getInt("seuilHaut"),resultat.getInt("seuilBas"),resultat.getInt("valeurNormale"),resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
 				stations.add(station);
 			}
 			
@@ -118,8 +118,8 @@ public class StationController
 	 * @param seuilBas seuil minimum pour le relevï¿½
 	 * @param idEquipement id de l'ï¿½quipement auquel est ratachï¿½ la station
 	 */
-	public static void addStation(String nom, String instructionCourte, String instructionLongue, int idUnite, int frequence,
-			Integer seuilHaut, Integer seuilBas,int idEquipement,String paramFonc,Integer valeurNormale,String MISH)
+	public static void addStation(String nom, String instructionCourte, String instructionLongue, int idUnite,
+			Integer seuilHaut, Integer seuilBas,int idEquipement,String paramFonc,Integer valeurNormale,boolean MISH)
 	{
 		Connection connexion = null;
 		try{
@@ -127,32 +127,31 @@ public class StationController
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "station(nomStation,instructionsCourtes,"
-					+ "instructionsLongues,idUnite,FrequenceControle,"
+					+ "instructionsLongues,idUnite,"
 					+ "seuilHaut,seuilBas,idEquipement,paramFonc,valeurNormale,MISH) "
-					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, nom);
 			preparedStatement.setString(2, instructionCourte);
 			preparedStatement.setString(3, instructionLongue);
 			preparedStatement.setInt(4, idUnite);
-			preparedStatement.setInt(5, frequence);
+			if (seuilHaut==null){
+				preparedStatement.setString(5, "NULL");
+			}else{
+				preparedStatement.setInt(5, seuilHaut);
+			}
 			if (seuilHaut==null){
 				preparedStatement.setString(6, "NULL");
 			}else{
-				preparedStatement.setInt(6, seuilHaut);
-			}
-			if (seuilHaut==null){
-				preparedStatement.setString(7, "NULL");
-			}else{
-				preparedStatement.setInt(7, seuilBas);
+				preparedStatement.setInt(6, seuilBas);
 			}
 			if(valeurNormale==null){
-				preparedStatement.setString(10, "NULL");
+				preparedStatement.setString(9, "NULL");
 			}else{
-				preparedStatement.setInt(10,valeurNormale);
+				preparedStatement.setInt(9,valeurNormale);
 			}
-			preparedStatement.setInt(8, idEquipement);
-			preparedStatement.setString(9,paramFonc);
-			preparedStatement.setString(11,MISH);
+			preparedStatement.setInt(7, idEquipement);
+			preparedStatement.setString(8,paramFonc);
+			preparedStatement.setBoolean(10,MISH);
 			preparedStatement.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -167,5 +166,41 @@ public class StationController
 	             e.printStackTrace();  
 	         }  
 		}
+	}
+	
+	/**
+	 * Fonction qui donne l'id de l'équipement auquel la station est ratachée
+	 * @param id
+	 * 		id de la station
+	 * @return
+	 * 		id de l'equipement
+	 */
+	public static int loadStationIdEquipement(int idStation){
+		int idE = 0;
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idEquipement FROM STATION WHERE idStation="+idStation);
+			while(resultat.next()){
+				idE=resultat.getInt("idEquipement");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return idE;
 	}
 }
