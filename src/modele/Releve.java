@@ -1,7 +1,5 @@
 package modele;
 
-import javax.json.JsonValue;
-
 /**
  * Classe qui permet de créer un relevé
  * @author 
@@ -12,6 +10,14 @@ public class Releve {
 	private int  id;
 	private String  commentaire;
 	private int  valeur;
+	private String date;
+	
+	public Releve(int id, String commentaire, int valeur, String date){
+		this.id = id;
+		this.commentaire = commentaire;
+		this.valeur = valeur;
+		this.date = date;
+	}
 	
 	/**
 	 * Retourne l'id du relevé
@@ -47,6 +53,13 @@ public class Releve {
 	 */
 	public int getValeur() {
 		return valeur;
+	}
+	/**
+	 * Retourne la date du relevé
+	 * @return date
+	 */
+	public String getDate() {
+		return date;
 	}
 	/**
 	 * Modifie la valeur
@@ -88,8 +101,4 @@ public class Releve {
 	public String toString() {
 		return "Releve [id=" + id + ", commentaire=" + commentaire + ", valeur=" + valeur + "]";
 	}
-	public JsonValue getDate() {
-		
-		return null;
-	}	
 }

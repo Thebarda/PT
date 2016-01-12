@@ -168,4 +168,47 @@ public class ModeleTourneeController {
 	         }  
 		}
 	}
+	
+	/**
+	 * Fonction permettant de recuperer un modele de tournee avec son id
+	 * @param idModele id du modele de tournee a recuperer
+	 * @return
+	 */
+	public static ModeleTournee loadModeleTournee(int idModele){
+		
+		ModeleTournee modeleTournee = null;
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele FROM modele_tournee mt "
+										+ "WHERE idModele = " + idModele);
+			while(resultat.next()){
+				modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
+						resultat.getString("nomModele"),
+						resultat.getString("descriptionModele"));
+				
+				loadStationIntoModeleTournee(modeleTournee);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return modeleTournee;
+	}
 }

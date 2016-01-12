@@ -147,6 +147,31 @@ public class Station {
 	}
 	
 	/**
+	 * getter du parametre de fonctionnement
+	 * @return le parametre de fonctionnement de la station
+	 */
+	public String getParamFonc() {
+		return paramFonc;
+	}
+	/**
+	 * getter de la valeur normale
+	 * @return la valeur normale de la station
+	 */
+	public int getValeurNormale() {
+		return valeurNormale;
+	}
+	/**
+	 * getter du MISH
+	 * @return le MISH de la station
+	 */
+	public int getMishEntier() {
+		if(MISH)
+			return 1;
+		else
+			return 0;
+	}
+	
+	/**
 	 * getter du nom de l'unite de la station
 	 * @return le nom de l'unite de la station
 	 */

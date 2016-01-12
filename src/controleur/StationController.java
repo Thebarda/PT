@@ -167,4 +167,40 @@ public class StationController
 	         }  
 		}
 	}
+	
+	/**
+	 * Fonction qui donne l'id de l'équipement auquel la station est ratachée
+	 * @param id
+	 * 		id de la station
+	 * @return
+	 * 		id de l'equipement
+	 */
+	public static int loadStationIdEquipement(int idStation){
+		int idE = 0;
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idEquipement FROM STATION WHERE idStation="+idStation);
+			while(resultat.next()){
+				idE=resultat.getInt("idEquipement");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return idE;
+	}
 }
