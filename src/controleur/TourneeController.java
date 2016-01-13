@@ -264,6 +264,34 @@ public class TourneeController {
 		}
 	}
 	
+	public static void setDateReleve(int idTournee, String dateReleve) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
+					+ "SET dateReleve = ? "
+					+ "WHERE idTournee = ?");
+			preparedStatement.setString(1, dateReleve);
+			preparedStatement.setInt(2, idTournee);
+			preparedStatement.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
+	
 	public static Tournee loadTourneeById(int idTournee){
 		
 		Tournee tournee = null;

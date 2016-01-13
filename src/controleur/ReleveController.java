@@ -20,16 +20,16 @@ public class ReleveController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateExport FROM releve r "
+			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
 										+ "WHERE r.idStation = " + idStation + " "
-										+ "ORDER BY t.dateExport desc "
+										+ "ORDER BY t.dateReleve desc "
 										+ "limit 5");
 			while(resultat.next()){
 				int  idReleve = resultat.getInt("idReleve");
 				String commentaireReleve = resultat.getString("commentaireReleve");
 				double valeurReleve = resultat.getDouble("valeurReleve");
-				String date = resultat.getString("dateExport");
+				String date = resultat.getString("dateReleve");
 	
 				releves.add(new Releve(idReleve, commentaireReleve, valeurReleve, date));
 			}
