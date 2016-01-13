@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -229,6 +230,7 @@ public class ImportationController {
 	        dialog.setResizable(false);
 			dialog.setTitle("Saisir un releve");
 	        dialog.show();
+	        dialog.getIcons().add(new Image("file:logo.png"));
 	        Main.primaryStage.close();
 		} catch (IOException e) {
 			e.printStackTrace();
