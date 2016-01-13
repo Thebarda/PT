@@ -412,6 +412,7 @@ public class saisirReleveController {
 						dialog.close();
 						currentPos = 0;
 						charge(0);
+						scroll.setHvalue(0.0);
 					}
 				});
 			} catch (IOException e) {
