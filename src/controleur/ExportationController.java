@@ -86,11 +86,14 @@ public class ExportationController {
 		boolean estValide=true;
 		resetErreur();
 		if(estVide(route)){
-			erreurRoute.setText("Erreur : veuillez sspécifier votre fichier ");
+			erreurRoute.setText("Erreur : veuillez specifier votre fichier ");
 			estValide=false;
 		}		
 		if(estValide == true)
 		{
+			if(!route.getText().endsWith(".json")){
+				route.setText(route.getText()+".json");
+			}
 			JsonController.exporterTournee(route.getText(),tournee);
                
             
