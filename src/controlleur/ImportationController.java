@@ -55,21 +55,31 @@ public class ImportationController {
 	@FXML
 	private TableView<Station> station;
 	
+	
 	@FXML
 	private TableColumn<Station, String> nom;
 	
 	@FXML
 	private TableColumn<Station, String> instru;
+	
 	@FXML
 	private Label nomTournee;
 	
 	@FXML
 	private Label description;
+	
 	@FXML
 	private Label LnomTournee;
 	
 	@FXML
 	private Label Ldescription;
+	
+	@FXML
+	private Label id;
+	
+	@FXML
+	private Label IDD;
+	
 	@FXML
 	ObservableList<Station> listStations;
 	
@@ -90,6 +100,8 @@ public class ImportationController {
 		description.setVisible(false);
 		LnomTournee.setVisible(false);
 		Ldescription.setVisible(false);
+		id.setVisible(false);
+		IDD.setVisible(false);
 	}
 	 
 	/**
@@ -138,10 +150,13 @@ public class ImportationController {
  			description.setVisible(true);
  			LnomTournee.setVisible(true);
  			Ldescription.setVisible(true);
+ 			id.setVisible(true);
+ 			IDD.setVisible(true);
  			
         releves = tournee.getJsonArray("Releves");
  		nomTournee.setText(tournee.getString("nomModele"));
  		description.setText(tournee.getString("descModele"));
+ 		id.setText(""+tournee.getInt("idTournee"));
  		listStations = JsonController.loadObservableStations(route.getText());
  		nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
  		instru.setCellValueFactory(new PropertyValueFactory<Station, String>("instructionCourte"));
