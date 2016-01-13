@@ -51,7 +51,6 @@ public class ReleveController {
 				result= releve-seuilHaut;
 			}
 			else{
-				System.out.println("Bonjour");
 				enregistrer(station.getInt("idStation"),releve,commentaire);
 			}
 		}
@@ -89,7 +88,9 @@ public class ReleveController {
 	 * 		commentaire a enregistrer
 	 */
 	public static void enregistrer(int num, double releve, String commentaire) {
-		JsonController.ecrireReleve(nomFichier, num, commentaire, releve);
+		if(!JsonController.ecrireReleve(nomFichier, num, commentaire, releve)){
+			saisirReleveController.nbReleveEff++;
+		};
 	}
 	/**
 	 * Retourne les seuils sous la forme "Seuil Bas:  Seuil Haut: 	Valeur Normale:"

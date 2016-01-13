@@ -97,7 +97,7 @@ public class saisirReleveController {
 
 	int compteur;
 
-	int nbReleveEff=0;
+	static int nbReleveEff=0;
 	
 	double x;
 	
@@ -306,7 +306,7 @@ public class saisirReleveController {
 			commentaire.setText("");
 			scroll.setHvalue((double)currentPos/((double)nbStations-4));
 		}else{
-			nbReleveEff=nbStations;
+			avancement.setText(nbReleveEff+"\n/\n"+nbStations);
 		}
 	}
 	/**

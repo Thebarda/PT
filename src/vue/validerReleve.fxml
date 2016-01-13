@@ -28,7 +28,7 @@
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="seuilDepasse" alignment="CENTER" layoutX="28.0" layoutY="280.0" prefHeight="20.0" prefWidth="788.0" textAlignment="CENTER">
+      <Label fx:id="seuilDepasse" alignment="CENTER" contentDisplay="CENTER" layoutY="280.0" prefHeight="20.0" prefWidth="816.0" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
