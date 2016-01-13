@@ -32,7 +32,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="unite" layoutX="644.0" layoutY="158.0" prefHeight="35.0" MaxWidth="141.0">
+            <Label fx:id="unite" MaxWidth="141.0" layoutX="644.0" layoutY="158.0" prefHeight="35.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -90,6 +90,11 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
+            <Label fx:id="avancement" alignment="CENTER" layoutY="29.0" prefHeight="98.0" prefWidth="98.0" text="&#10;" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

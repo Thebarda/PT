@@ -70,6 +70,9 @@ public class saisirReleveController {
 	
 	@FXML
 	Label erreur;
+	
+	@FXML
+	Label avancement;
 
 	JsonObject[] stations;
 
@@ -92,6 +95,8 @@ public class saisirReleveController {
 	int nbStations;
 
 	int compteur;
+
+	int nbReleveEff=0;
 	
 	double x;
 	
@@ -132,6 +137,7 @@ public class saisirReleveController {
 				Stations.getChildren().add(releve);
 				labels.add(releve);
 				if(JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))){
+					nbReleveEff++;
 					releveDejaSaisi=JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
 					if(ReleveController.existeSeuilBas(compteur) && releveDejaSaisi>=stations[compteur].getInt("seuilBas")){
 						correctBas=true;
@@ -172,6 +178,7 @@ public class saisirReleveController {
 				}
 				compteur++;
 			}
+			avancement.setText(nbReleveEff+"\n/\n"+nbStations);
 			currentPos = 0;
 			charge(0);
 			
@@ -290,6 +297,8 @@ public class saisirReleveController {
 	 */
 	public void passerSuivant(){
 		if(currentPos+1!=nbStations){
+			nbReleveEff++;
+			avancement.setText(nbReleveEff+"\n/\n"+nbStations);
 			currentPos++;
 			charge(currentPos);
 			releve.setText("");
