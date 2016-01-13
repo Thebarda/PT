@@ -1,7 +1,7 @@
 
 package modele;
 /**
- * Classe qui créer un fichier
+ * Classe qui creer un fichier
  * @author 
  *@version 1
  */
@@ -64,6 +64,9 @@ public class Fichier {
 		this.chemin = chemin;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,6 +77,9 @@ public class Fichier {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

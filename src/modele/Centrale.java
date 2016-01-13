@@ -1,9 +1,4 @@
 package modele;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javafx.collections.ObservableList;
 /**
  * Classe permettant la gestion de centrale
  */
@@ -13,7 +8,7 @@ public class Centrale
 	private String nom;
 	private String identiteNationale;
 	/**
-	 * Constructeur pour la centrale en spécifiant son id, son nom et sa localisation
+	 * Constructeur pour la centrale en specifiant son id, son nom et sa localisation
 	 * @param id
 	 * 		id de la centrale
 	 * @param nom
@@ -32,7 +27,7 @@ public class Centrale
 	/**
 	 * Getter pour l'id de la Centrale 
 	 * @return id
-	 * 		entier correspondant à l'id de la centrale
+	 * 		entier correspondant a� l'id de la centrale
 	 */
 	public int getId() {
 		return id;
@@ -78,10 +73,16 @@ public class Centrale
 		this.identiteNationale = identiteNationale;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "["+id+"]"+nom;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,6 +92,9 @@ public class Centrale
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		boolean sontEgaux=false;

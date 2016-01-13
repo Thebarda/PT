@@ -4,34 +4,26 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-import controleur.ModeleTourneeController;
 import controleur.TourneeController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 /**
- * Classe qui créer un modèle de tournée à partir de station
+ * Classe qui creer un modèle de tournée à partir de station
  * @author 
  *@version 1
  */
 public class ModeleTournee 
 {
-	/**
-	 *  ce champ permet de fixer le mois "t0" d'un modèle de tournée
-	 *  c'est a dire que si t0 = 0, le mois de début est janvier
-	 *  les tournée des 3 mois sont  t0 + 3, les 6 mois t0 + 6....
-	 *  si aucun paramètre de t0 n'est indiqué, le mois courant deviens alors le mois de base pour ce modèle de tournée
-	 *  permet de determiner quelles stations il faut inclure pour la prochaine tournée a exporter
-	 */
 	private int  id;
 	private String nom;
 	private String description;
 	private HashMap<Integer,Station> stations;
 	
 	/**
-	 * Constructeur d'un modele de tournée avec un T0 par default
-	 * @param id : l'id du modèle de tournée
-	 * @param nom : le nom du modèle de tournée
-	 * @param description : la description du modèle de tournée
+	 * Constructeur d'un modele de tournee
+	 * @param id : l'id du modèle de tournee
+	 * @param nom : le nom du modèle de tournee
+	 * @param description : la description du modele de tournee
 	 */
 	public ModeleTournee(int id, String nom, String description) 
 	{
@@ -43,7 +35,7 @@ public class ModeleTournee
 	}
 
 	/**
-	 * Ajouter une station a un modele de tournée
+	 * Ajouter une station a un modele de tournee
 	 * @param station : la station à ajouter
 	 */
 	public void ajouterStation(Station station, int ordre){
@@ -52,7 +44,7 @@ public class ModeleTournee
 	
 	/**
 	 * Recuperer les stations du modele de tournee
-	 * @return les stations du modèle de tournée dans une arraylist
+	 * @return les stations du modele de tournee dans une arraylist
 	 */
 	public ObservableMap<Integer, Station> getStationN(int ordre){
 		ObservableMap<Integer, Station> ObsStations = FXCollections.observableHashMap();
@@ -61,46 +53,61 @@ public class ModeleTournee
 	}
 	
 	/**
-	 * retourne l'id
-	 * @return id
+	 * retourne l'id du modele de tournee
+	 * @return id : l'id du modele de tournee
 	 */
 	public int getId() {
 		return id;
 	}
 	/**
-	 * modifie l'id
-	 * @param id
+	 * modifie l'id du modele de tournee
+	 * @param id : le nouvel id du modele de tournee
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	/**
-	 * retourne le nom du modèle de tournée
-	 * @return nom
+	 * retourne le nom du modele de tournee
+	 * @return nom : le nom du modele de tournee
 	 */
 	public String getNom() {
 		return nom;
 	}
 	/**
-	 * modifie le nom
-	 * @param nom
+	 * modifie le nom du modele de tournee
+	 * @param nom : le nouveau nom du modele de tournee
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 	
+	/**
+	 * Methode permettant de recuperer la description du modele de tournee
+	 * @return description : la description du modele de tournee
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Methode permettant de modifier la description du modele de tournee
+	 * @param description : la nouvelle description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
 
+	/**
+	 * Methode permettant de recuperer les stations du modele de tournee
+	 * @return stations : les stations du modele de tournee
+	 */
 	public HashMap<Integer, Station> getStations() {
 		return stations;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -111,6 +118,9 @@ public class ModeleTournee
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,6 +145,9 @@ public class ModeleTournee
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "ModeleTournee [id=" + id + ", nom=" + nom + ", description=" + description
@@ -142,7 +155,7 @@ public class ModeleTournee
 	}
 	
 	/**
-	 * cette fonction permet de generer la tournée d'un modele
+	 * cette fonction permet de generer la tournee d'un modele
 	 * @param modele
 	 * @return 
 	 */

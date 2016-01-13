@@ -1,6 +1,6 @@
 package modele;
 /**
- * Classe relatif à un equipement
+ * Classe relatif a� un equipement
  */
 public class Equipement {
 	private int id;
@@ -10,15 +10,15 @@ public class Equipement {
 	private String ECSH;
 	
 	/**
-	 * Constructeur pour un équipement en spécifiant son id, son nom, sa descriptione et l'id de la Centrale relatif à cet équipement
+	 * Constructeur pour un equipement en specifiant son id, son nom, sa descriptione et l'id de la Centrale relatif a� cet equipement
 	 * @param id
-	 * 		id de l'équipement
+	 * 		id de l'equipement
 	 * @param nom
-	 * 		nom de l'équipement
+	 * 		nom de l'equipement
 	 * @param description
-	 * 		description de l'équipement
+	 * 		description de l'equipement
 	 * @param idCentrale
-	 * 		id de la Centrale relatif à l'équipement
+	 * 		id de la Centrale relatif a l'equipement
 	 * @param ECSH
 	 * 		repere ECSH de l'equipement
 	 */
@@ -31,49 +31,65 @@ public class Equipement {
 	}
 	
 	/**
-	 * Getter pour l'id d'un équipement 
+	 * Getter pour l'id d'un equipement 
 	 * @return id
-	 * 		l'identifiant de l'équipement
+	 * 		l'identifiant de l'equipement
 	 */
 	public int getId() {
 		return id;
 	}
 	/**
-	 * Setter pour l'id d'un équipement
+	 * Setter pour l'id d'un equipement
 	 * @param id
-	 * 		Nouveuax équipement de l'équipement
+	 * 		Nouvel id de de l'equipement
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	/**
-	 * Getter pour le nom d'un équipement
+	 * Getter pour l'id de la centrale d'un equipement d'un equipement 
+	 * @return id
+	 * 		l'identifiant de la centrale
+	 */
+	public int getIdCentrale() {
+		return idCentrale;
+	}
+	/**
+	 * Setter pour l'id de la centrale d'un equipement
+	 * @param id
+	 * 		Nouvel id de la centrale
+	 */
+	public void setIdCentrale(int id) {
+		this.idCentrale = id;
+	}
+	/**
+	 * Getter pour le nom d'un equipement
 	 * @return nom
-	 * 		nom de l'équipement
+	 * 		nom de l'equipement
 	 */
 	public String getNom() {
 		return nom;
 	}
 	/**
-	 * Setter pour le nom d'un équipement
+	 * Setter pour le nom d'un equipement
 	 * @param nom
-	 * 		Nouveaux nom d'un équipement
+	 * 		Nouveaux nom d'un equipement
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 	/**
-	 * Getter pour la description d'un équipement
+	 * Getter pour la description d'un equipement
 	 * @return description
-	 * 		Description de l'équipement
+	 * 		Description de l'equipement
 	 */
 	public String getDescription() {
 		return description;
 	}
 	/**
-	 * Setter pour la description d'un équipement
+	 * Setter pour la description d'un equipement
 	 * @param description
-	 * 		Nouvelle description de l'équipement
+	 * 		Nouvelle description de l'equipement
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -97,10 +113,16 @@ public class Equipement {
 		this.ECSH=ECSH;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "["+id+"]"+nom;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -108,6 +130,9 @@ public class Equipement {
 		result = prime * result + id;
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		boolean sontEgaux=false;

@@ -1,6 +1,6 @@
 package modele;
 /**
- * Classe qui instancie, modifie et affiche une unité de mesure
+ * Classe qui instancie, modifie et affiche une unite de mesure
  * @author 
  * @version 1
  */
@@ -8,42 +8,45 @@ public class Unite {
 	private int id;
 	private String nom;
 	/**
-	 * Construit l'unité par l'id et le nom
-	 * @param id
-	 * @param nom
+	 * Construit l'unite par l'id et le nom
+	 * @param id	: l'id de l'unite
+	 * @param nom	: le nom de l'unite
 	 */
 	public Unite(int id, String nom){
 		this.id = id;
 		this.nom = nom;
 	}
 	/**
-	 * Retourne l'id de l'unité
-	 * @return id
+	 * Retourne l'id de l'unite
+	 * @return id : l'id de l'unite
 	 */
 	public int getId(){
 		return this.id;
 	}
 	/**
-	 * Retourne le nom de l'unité
-	 * @return nom
+	 * Retourne le nom de l'unite
+	 * @return nom : le nom de l'unite
 	 */
 	public String getNom(){
 		return this.nom;
 	}
 	/**
-	 * Modifie l'id de l'unité
-	 * @param id
+	 * Modifie l'id de l'unite
+	 * @param id : nouvel id de l'unite
 	 */
 	public void setId(int id){
 		this.id = id;
 	}
 	/**
-	 * Modifie le nom de l'unité
-	 * @param nom
+	 * Modifie le nom de l'unite
+	 * @param nom : le nouveau nom de l'unite
 	 */
 	public void setNom(String nom){
 		this.nom = nom;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -51,6 +54,9 @@ public class Unite {
 		result = prime * result + id;
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -64,6 +70,9 @@ public class Unite {
 			return false;
 		return true;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString(){
 		return "["+id+"]"+nom;

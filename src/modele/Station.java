@@ -21,18 +21,19 @@ public class Station {
 	private boolean MISH;
 	
 	/**
-	 * constructeur d'une station en indiquant tous les param�tre qui la constitue
-	 * @param id id de la station
-	 * @param nom nom de la station
-	 * @param instructionCourte instruction courte de la station
-	 * @param instructionLongue instruction de la station
-	 * @param idUnite id de l'unit� de mesure de la station
-	 * @param frequence frequence de controle de la station
-	 * @param seuilHaut seuil maximum pour les mesures
-	 * @param seuilBas seuil minimum pour les mesures
-	 * @param valeurNotmale valeur normale pour les mesures
-	 * @param paramFonc parametre de fonctionnement de la station
-	 * @param MISH MISH de la station
+	 * constructeur d'une station en indiquant tous les parametres qui la constitue
+	 * @param id : id de la station
+	 * @param nom : nom de la station
+	 * @param instructionCourte : instruction courte de la station
+	 * @param instructionLongue : instruction de la station
+	 * @param idUnite : id de l'unite de mesure de la station
+	 * @param frequence : frequence de controle de la station
+	 * @param marqueur : marqueur permettant de savoir quels seuils ont etes saisis
+	 * @param seuilHaut : seuil maximum pour les mesures
+	 * @param seuilBas : seuil minimum pour les mesures
+	 * @param valeurNormale : valeur normale pour les mesures
+	 * @param paramFonc : parametre de fonctionnement de la station
+	 * @param MISH : MISH de la station
 	 */
 	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite, String marqueur,
 			double seuilHaut, double seuilBas,double valeurNormale,String paramFonc,boolean MISH) {
@@ -51,7 +52,7 @@ public class Station {
 	}
 	/**
 	 * getter de l'id de la station
-	 * @return l'id de la station
+	 * @return id : l'id de la station
 	 */
 	public int getId() {
 		return id;
@@ -59,7 +60,7 @@ public class Station {
 	
 	/**
 	 * setter de l'id de la station
-	 * @param id id de la station
+	 * @param id : id de la station
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -67,7 +68,7 @@ public class Station {
 	
 	/**
 	 * getter du marqueur de la station
-	 * @return le marqueur de la station
+	 * @return marqueur : le marqueur de la station
 	 */
 	public String getMarqueur() {
 		return marqueur;
@@ -75,7 +76,7 @@ public class Station {
 	
 	/**
 	 * setter du marqueur de la station
-	 * @param marqueur : marqueur de la station
+	 * @param marqueur : nouveau marqueur de la station
 	 */
 	public void setMarqueur(String marqueur) {
 		this.marqueur = marqueur;
@@ -83,84 +84,84 @@ public class Station {
 	
 	/**
 	 * getter du nom de la station
-	 * @return le nom de la station
+	 * @return nom : le nom de la station
 	 */
 	public String getNom() {
 		return nom;
 	}
 	/**
 	 * setter du nom de la station
-	 * @param nom nom de la station
+	 * @param nom : nouveau nom de la station
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 	/**
 	 * getter de l'instruction courte de la station
-	 * @return l'instruction courte de la station
+	 * @return instructionCourte : l'instruction courte de la station
 	 */
 	public String getInstructionCourte() {
 		return instructionCourte;
 	}
 	/**
 	 * setter de l'instruction courte de la station
-	 * @param instructionCourte instruction courte de la station
+	 * @param instructionCourte : instruction courte de la station
 	 */
 	public void setInstructionCourte(String instructionCourte) {
 		this.instructionCourte = instructionCourte;
 	}
 	/**
 	 * getter de l'instruction longue de la station
-	 * @return l'instruction longue de la station
+	 * @return instructionLongue : l'instruction longue de la station
 	 */
 	public String getInstructionLongue() {
 		return instructionLongue;
 	}
 	/**
 	 * setter de l'instruction longue d'une station
-	 * @param instructionLongue
+	 * @param instructionLongue : la nouvelle instruction longue de la station
 	 */
 	public void setInstructionLongue(String instructionLongue) {
 		this.instructionLongue = instructionLongue;
 	}
 	/**
-	 * getter de l'id de l'unit� de controle de la station
-	 * @return l'id de l'unit� associ� a la station
+	 * getter de l'id de l'unite de controle de la station
+	 * @return idUnite : l'id de l'unite associe a la station
 	 */
 	public int getIdUnite() {
 		return idUnite;
 	}
 	/**
-	 * setter de l'id de l'unit� de la station
-	 * @param unite id de l'unit� de la station
+	 * setter de l'id de l'unite de la station
+	 * @param idUunite : id de l'unite de la station
 	 */
 	public void setIdUnite(int unite) {
 		this.idUnite = unite;
 	}
 	/**
 	 * getter du seuil haut de controle de la station
-	 * @return le seuil haut de controle de la station
+	 * @return seuilHaut : le seuil haut de controle de la station
 	 */
 	public double getSeuilHaut() {
 		return seuilHaut;
 	}
 	/**
 	 * setter du seuil haut de la station
-	 * @param seuilHaut seuil de controle haut de la station
+	 * @param seuilHaut : seuil de controle haut de la station
 	 */
 	public void setSeuilHaut(double seuilHaut) {
 		this.seuilHaut = seuilHaut;
 	}
 	/**
 	 * getter du seuil bas de controle de la station
-	 * @return la seuil bas de controle de la station
+	 * @return seuilBas : le seuil bas de controle de la station
 	 */
 	public double getSeuilBas() {
 		return seuilBas;
 	}
 	/**
 	 * setter du seuil bas de controle de la station
-	 * @param seuilBas seuil bas de controle de la station
+	 * @param seuilBas : seuil bas de controle de la station
 	 */
 	public void setSeuilBas(double seuilBas) {
 		this.seuilBas = seuilBas;
@@ -168,21 +169,21 @@ public class Station {
 	
 	/**
 	 * getter du parametre de fonctionnement
-	 * @return le parametre de fonctionnement de la station
+	 * @return paramFonc : le parametre de fonctionnement de la station
 	 */
 	public String getParamFonc() {
 		return paramFonc;
 	}
 	/**
 	 * getter de la valeur normale
-	 * @return la valeur normale de la station
+	 * @return valeurNormale : la valeur normale de la station
 	 */
 	public double getValeurNormale() {
 		return valeurNormale;
 	}
 	/**
 	 * getter du MISH
-	 * @return le MISH de la station
+	 * @return le MISH de la station en booleen
 	 */
 	public int getMishEntier() {
 		if(MISH)
@@ -198,6 +199,9 @@ public class Station {
 	public String getNomUnite() {
 		return UniteController.idVersNom(idUnite);
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -205,6 +209,9 @@ public class Station {
 		result = prime * result + id;
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -218,6 +225,9 @@ public class Station {
 			return false;
 		return true;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "["+id+"]"+nom;
