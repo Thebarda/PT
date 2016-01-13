@@ -67,6 +67,9 @@ public class saisirReleveController {
 
 	@FXML
 	Label avancement;
+	
+	@FXML
+	Label erreurFin;
 
 	JsonObject[] stations;
 
@@ -224,6 +227,7 @@ public class saisirReleveController {
 	public void charge(int numStation) {
 		unite.setFont(new Font(24.0));
 		erreur.setVisible(false);
+		erreurFin.setText("");
 		seuilBas = stations[numStation].getInt("seuilBas");
 		seuilHaut = stations[numStation].getInt("seuilHaut");
 		paramFonc = stations[numStation].getString("paramFonc");
@@ -251,6 +255,7 @@ public class saisirReleveController {
 	 */
 	public void valider() {
 		erreur.setVisible(false);
+		erreurFin.setText("");
 		String releveStr = releve.getText();
 		if (releveStr.contains(",")) {
 			releveStr = releveStr.replace(",", ".");
@@ -389,26 +394,32 @@ public class saisirReleveController {
 	 * Fin des releves et passage vers la fenetre de validation finale
 	 */
 	public void fin() {
-		final Stage dialog = new Stage();
-		dialog.initModality(Modality.APPLICATION_MODAL);
-		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ValidationFinale.fxml"));
-		try {
-			AnchorPane page = (AnchorPane) loader.load();
-			Scene dialogScene = new Scene(page);
-			dialog.setScene(dialogScene);
-			dialog.setResizable(false);
-			dialog.setTitle("Validation");
-			dialog.show();
-			dialog.getIcons().add(new Image("file:logo.png"));
-			dialog.setOnHiding(new EventHandler<WindowEvent>() {
-				public void handle(WindowEvent we) {
-					dialog.close();
-					currentPos = 0;
-					charge(0);
-				}
-			});
-		} catch (IOException e) {
-			e.printStackTrace();
+		erreurFin.setText("");
+		if(nbReleveEff!=0){
+			final Stage dialog = new Stage();
+			dialog.initModality(Modality.APPLICATION_MODAL);
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("ValidationFinale.fxml"));
+			try {
+				AnchorPane page = (AnchorPane) loader.load();
+				Scene dialogScene = new Scene(page);
+				dialog.setScene(dialogScene);
+				dialog.setResizable(false);
+				dialog.setTitle("Validation");
+				dialog.show();
+				dialog.getIcons().add(new Image("file:logo.png"));
+				dialog.setOnHiding(new EventHandler<WindowEvent>() {
+					public void handle(WindowEvent we) {
+						dialog.close();
+						currentPos = 0;
+						charge(0);
+					}
+				});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			erreurFin.setText("Aucun releve saisi");
 		}
 	}
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="576.0" minWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.saisirReleveController">
+<VBox minHeight="576.0" minWidth="1024.0" onKeyPressed="#test" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.saisirReleveController">
    <children>
       <AnchorPane prefHeight="426.0" prefWidth="1024.0">
          <children>
@@ -78,7 +78,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="150.0" prefWidth="1024.0">
          <children>
-            <Button layoutX="862.0" layoutY="85.0" mnemonicParsing="false" onAction="#fin" prefHeight="51.0" prefWidth="135.0" text="Fin">
+            <Button layoutX="855.0" layoutY="70.0" mnemonicParsing="false" onAction="#fin" prefHeight="51.0" prefWidth="135.0" text="Fin">
                <font>
                   <Font size="20.0" />
                </font></Button>
@@ -95,6 +95,7 @@
                   <Font name="System Bold" size="26.0" />
                </font>
             </Label>
+            <Label fx:id="erreurFin" layoutX="826.0" layoutY="121.0" prefHeight="19.0" prefWidth="178.0" textAlignment="CENTER" textFill="#f20202" />
          </children>
       </AnchorPane>
    </children>
