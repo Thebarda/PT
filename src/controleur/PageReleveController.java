@@ -45,7 +45,6 @@ public class PageReleveController {
 	@FXML
 	public void initialize(){
 		tournee=AfficherDernereTournee.tournee;
-		System.out.println(tournee);
 		listerReleve();
 	}
 	
