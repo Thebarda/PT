@@ -99,7 +99,7 @@ public class GestionBD {
 	 * Fonction qui permet d'afficher le contenu relatif à la gestion de modele de tournees
 	 */
 	public void  AfficherAnalyse(){
-		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Analyse.fxml"));
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("analyse.fxml"));
 		AnchorPane page;
 		try {
 			page = (AnchorPane) loader.load();
