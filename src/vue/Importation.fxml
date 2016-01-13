@@ -44,6 +44,6 @@
       <Label fx:id="Ldescription1" layoutX="14.0" layoutY="369.0" prefHeight="17.0" prefWidth="148.0" text="Tournee commence :" />
       <Label fx:id="Complete" layoutX="155.0" layoutY="369.0" prefHeight="16.0" prefWidth="64.0" />
       <Label fx:id="Ldate" layoutX="14.0" layoutY="346.0" text="Date d'export :" />
-      <Label fx:id="date" layoutX="108.0" layoutY="346.0" prefHeight="17.0" prefWidth="18.0" />
+      <Label fx:id="date" layoutX="116" layoutY="346.0" prefHeight="17.0" />
    </children>
 </AnchorPane>
