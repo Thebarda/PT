@@ -4,11 +4,8 @@ import javax.json.JsonObject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import vue.Main;
 /**
  * Classe qui gere la validation d'un releve si la valeur de celui ci est anormale
- * @author ThebardaPNK
- *
  */
 public class ValiderReleveController {
 
@@ -18,13 +15,12 @@ public class ValiderReleveController {
 	static JsonObject[] tabStations;
 	static int currentPos;
 	/**
-	 * Init
-	 * @param tab
+	 * Init initialise le controller
+	 * @param tab tableau de Json objet correspondant a la frise de stations
 	 * @param pos
 	 */
 	public static void initialise(JsonObject[] tab,int pos) {
 		tabStations = tab;
-		currentPos=pos;
 	}
 	/**
 	 * Initialisation
