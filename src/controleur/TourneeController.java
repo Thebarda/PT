@@ -25,7 +25,7 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -41,6 +41,7 @@ public class TourneeController {
 				int idModele = resultat.getInt("idModele");
 				boolean estExportee = resultat.getBoolean("estExportee");
 				boolean estTerminee = resultat.getBoolean("estTerminee");
+				String dateReleve = resultat.getString("dateReleve");
 	
 				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 				
@@ -95,7 +96,8 @@ public class TourneeController {
 						stations,
 						estExportee,
 						estTerminee,
-						dateExport);
+						dateExport,
+						dateReleve);
 				
 				tournees.add(tournee);
 			}
@@ -132,7 +134,7 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -148,6 +150,7 @@ public class TourneeController {
 				int idModele = resultat.getInt("idModele");
 				boolean estExportee = resultat.getBoolean("estExportee");
 				boolean estTerminee = resultat.getBoolean("estTerminee");
+				String dateReleve = resultat.getString("dateReleve");
 	
 				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 				
@@ -202,7 +205,8 @@ public class TourneeController {
 						stations,
 						estExportee,
 						estTerminee,
-						dateExport);
+						dateExport,
+						dateReleve);
 				
 				tournees.add(tournee);
 			}
@@ -411,7 +415,7 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE idTournee = " + idTournee);
 			while(resultat.next()){
 				String dateExport = resultat.getString("dateExport");
@@ -419,6 +423,7 @@ public class TourneeController {
 				int idModele = resultat.getInt("idModele");
 				boolean estExportee = resultat.getBoolean("estExportee");
 				boolean estTerminee = resultat.getBoolean("estTerminee");
+				String dateReleve = resultat.getString("dateReleve");
 	
 				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 				
@@ -473,7 +478,8 @@ public class TourneeController {
 						stations,
 						estExportee,
 						estTerminee,
-						dateExport);
+						dateExport,
+						dateReleve);
 			}
 			
 		}catch(Exception e){

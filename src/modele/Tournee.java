@@ -15,6 +15,7 @@ public class Tournee
 	private boolean estExportee;
 	private boolean estTerminee;
 	private String dateExport;
+	private String dateReleve;
 	private HashMap<Integer,Station> stations;
 	
 	
@@ -29,7 +30,7 @@ public class Tournee
 	 * @param estTerminee	: si la tournee est terminee ou non
 	 * @param dateExport		: date d'export de la tournee
 	 */
-	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee,String dateExport) 
+	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee,String dateExport,String dateReleve) 
 	{
 		this.id = id;
 		this.nom = nom;
@@ -49,7 +50,7 @@ public class Tournee
 	 */
 	public Tournee(String nom, int idModele, HashMap<Integer, Station> stations,String dateExport) 
 	{
-		this(-1,nom,idModele,stations,false,false,dateExport);
+		this(-1,nom,idModele,stations,false,false,dateExport,"");
 	}
 	/**
 	 * retourne l'id de la tournee
@@ -130,6 +131,12 @@ public class Tournee
 	public String getDate() {
 		return this.dateExport;
 	}
-	
+	/**
+	 * Retourne la date du releve de la tournee
+	 * @return dateExport : la date du releve de la tournee
+	 */
+	public String getDateReleve() {
+		return this.dateReleve;
+	}
 	
 }
