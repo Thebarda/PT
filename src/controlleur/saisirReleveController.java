@@ -104,12 +104,16 @@ public class saisirReleveController {
 		JsonReader reader;
 		double releveDejaSaisi;
 		boolean releveDejaSaisiAnormale=false;
+		boolean releveDejaSaisiNormale=false;
+		boolean correctBas=false;
+		boolean correctHaut=false;
 		try {
 			nomJson = ImportationController.chemin;
 			reader = Json.createReader(new FileInputStream(nomJson));
 			JsonObject tournee = reader.readObject();
 			nbStations = tournee.getInt("nbStations");
 			stations = JsonController.loadStations(nomJson);
+			ReleveController.initialize(stations, nomJson);
 			compteur = 0;
 			while (compteur < nbStations) {
 				Label releve = new Label(stations[compteur].getString("nomStation"));
@@ -129,29 +133,46 @@ public class saisirReleveController {
 				labels.add(releve);
 				if(JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))){
 					releveDejaSaisi=JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
-					if(releveDejaSaisi>=stations[compteur].getInt("seuilBas")){
-						if(releveDejaSaisi<=stations[compteur].getInt("seuilHaut")){
-							labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nValide");
-							labels.get(compteur).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+					if(ReleveController.existeSeuilBas(compteur) && releveDejaSaisi>=stations[compteur].getInt("seuilBas")){
+						correctBas=true;
+					}
+					if(ReleveController.existeSeuilHaut(compteur) && releveDejaSaisi<=stations[compteur].getInt("seuilHaut")){
+						correctHaut=true;
+					}
+					if(ReleveController.existeSeuilBas(compteur)&& ReleveController.existeSeuilHaut(compteur)){
+						if(correctBas && correctHaut){
+							releveDejaSaisiNormale=true;
 						}
 						else{
 							releveDejaSaisiAnormale=true;
 						}
 					}
+					else if((ReleveController.existeSeuilBas(compteur) && correctBas) || (ReleveController.existeSeuilHaut(compteur) && correctHaut) || (!ReleveController.existeSeuilHaut(compteur) && !ReleveController.existeSeuilBas(compteur)) ){
+						releveDejaSaisiNormale=true;
+					}
 					else{
 						releveDejaSaisiAnormale=true;
+					}
+					
+					if(releveDejaSaisiNormale==true){
+						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nValide");
+						labels.get(compteur).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+						releveDejaSaisiNormale=false;
+						correctHaut=false;
+						correctBas=false;
 					}
 					
 					if(releveDejaSaisiAnormale==true){
 						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nAnormale");
 						labels.get(compteur).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
 						releveDejaSaisiAnormale=false;
+						correctHaut=false;
+						correctBas=false;
 					}
 				}
 				compteur++;
 			}
 			currentPos = 0;
-			ReleveController.initialize(stations, nomJson);
 			charge(0);
 			
 		} catch (FileNotFoundException e) {

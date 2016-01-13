@@ -51,10 +51,11 @@ public class ReleveController {
 				result= releve-seuilHaut;
 			}
 			else{
+				System.out.println("Bonjour");
 				enregistrer(station.getInt("idStation"),releve,commentaire);
 			}
 		}
-		else if(station.getString("marqueur").substring(0, 1).equals("1") && station.getString("marqueur").substring(1, 2).equals("0")){
+		else if(!existeSeuilHaut(num) && existeSeuilBas(num)){
 			seuilBas = station.getInt("seuilBas");
 			if(releve < seuilBas){
 				result= seuilBas-releve;
@@ -63,7 +64,7 @@ public class ReleveController {
 				enregistrer(station.getInt("idStation"),releve,commentaire);
 			}
 		}
-		else if(station.getString("marqueur").substring(0, 1).equals("0") && station.getString("marqueur").substring(1, 2).equals("1")){
+		else if(existeSeuilHaut(num) && !existeSeuilBas(num)){
 			seuilHaut = station.getInt("seuilHaut");
 			if(releve > seuilHaut){
 				result= releve-seuilHaut;
@@ -71,6 +72,9 @@ public class ReleveController {
 			else{
 				enregistrer(station.getInt("idStation"),releve,commentaire);
 			}
+		} else{ //Cas ou il n'y a ni seuil haut ni seuil bas : toutes les valeurs sont donc valides
+			enregistrer(station.getInt("idStation"),releve,commentaire);
+
 		}
 		
 		return Double.parseDouble(format.format(result).replace(",", "."));
@@ -98,11 +102,11 @@ public class ReleveController {
 		JsonObject station = tabStations[num];
 		String seuil="";
 		
-		if (station.getString("marqueur").substring(1, 2).equals("0")){
+		if (existeSeuilBas(num)){
 			seuil+="Seuil Bas: "+station.getInt("seuilBas")+ "		";
 		}
 		
-		if(station.getString("marqueur").substring(0, 1).equals("0")){
+		if(existeSeuilHaut(num)){
 			seuil+="Seuil Haut: "+station.getInt("seuilHaut")+ "		";
 
 		}
@@ -110,6 +114,9 @@ public class ReleveController {
 		if(station.getString("marqueur").substring(2, 3).equals("0")){
 			seuil+="Valeur Normale: "+station.getInt("valeurNormale");
 
+		}
+		if( seuil.equals("")){
+			seuil+="Toutes valeurs acceptees";
 		}
 		return seuil;
 	}
@@ -124,16 +131,25 @@ public class ReleveController {
 		JsonObject station = tabStations[num];
 		String seuil="";
 		
-		if (station.getString("marqueur").substring(1, 2).equals("0") && station.getString("marqueur").substring(0, 1).equals("0")){
+		if (existeSeuilBas(num) && existeSeuilHaut(num)){
 			seuil="compris entre "+station.getInt("seuilBas")+" et "+station.getInt("seuilHaut");
 		}
-		else if(station.getString("marqueur").substring(0, 1).equals("0")){
-			seuil="infeieure a "+station.getInt("seuilHaut");
+		else if(existeSeuilHaut(num)){
+			seuil="inferieure a "+station.getInt("seuilHaut");
 		}
-		else if(station.getString("marqueur").substring(1, 2).equals("0")){
+		else if(existeSeuilBas(num)){
 			seuil="superieure a "+station.getInt("seuilBas");
 		}
 		return seuil;
 	}
-
+	
+	public static boolean existeSeuilBas(int num){
+		JsonObject station = tabStations[num];
+		return station.getString("marqueur").substring(1, 2).equals("0");
+	}
+	
+	public static boolean existeSeuilHaut(int num){
+		JsonObject station = tabStations[num];
+		return station.getString("marqueur").substring(0, 1).equals("0");
+	}
 }
