@@ -26,9 +26,10 @@ public class JsonController {
 	 * @param com commentaire a ecrire
 	 * @param valeur valeur du releve
 	 */
-	public static void ecrireReleve(String fichier, int idStation, String com, double valeur) {
+	public static boolean ecrireReleve(String fichier, int idStation, String com, double valeur) {
 		
 		JsonReader reader;
+		boolean existe = false;
 		try {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
@@ -45,7 +46,6 @@ public class JsonController {
 			
 			JsonObject[] tabReleves;
 			tabReleves = releves.toArray(new JsonObject[0]);
-			boolean existe = false;
 			for(JsonObject jo : tabReleves){
 				if(jo.getInt("idStation")==idStation){
 					builder.add(releve);
@@ -85,6 +85,8 @@ public class JsonController {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		return existe;
 	}
 	/**
 	 * Fonction qui charge l'historique d'une station donnée
@@ -223,6 +225,10 @@ public class JsonController {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
+			String format = "dd/MM/yyyy";
+			java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+			java.util.Date date = new java.util.Date();
+			
 			JsonObject newTournee = Json.createObjectBuilder()
 					.add("nomApp", tournee.getString("nomApp"))
 					.add("idTournee", tournee.getInt("idTournee"))
@@ -230,6 +236,7 @@ public class JsonController {
 					.add("descModele", tournee.getString("descModele"))
 					.add("dateExport", tournee.getString("dateExport"))
 					.add("estComplete", estComplete)
+					.add("dateReleve", formater.format( date ).toString())
 					.add("nbStations", tournee.getInt("nbStations"))
 					.add("stations", tournee.getJsonArray("stations"))
 					.add("Releves", tournee.getJsonArray("Releves"))
