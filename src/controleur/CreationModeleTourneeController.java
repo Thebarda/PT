@@ -3,12 +3,15 @@ package controleur;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
@@ -65,6 +68,15 @@ public class CreationModeleTourneeController {
 	private Button annuler;
 	
 	@FXML
+	private Button baisserOrdre;
+	
+	@FXML
+	private Button monterOrdre;
+	
+	@FXML
+	private Button supprimer;
+	
+	@FXML
 	TableView<ObservableMap.Entry<Integer,Station>> tableStation;
 	
 	@FXML
@@ -82,7 +94,20 @@ public class CreationModeleTourneeController {
 	
 	ObservableList<String> mois=FXCollections.observableArrayList("01 - Janvier","02 - Fevrier","03 - Mars","04 - Avril","05 - Mai","06 - Juin","07 - Juillet","08 - Aout","09 - Septembre","10 - Octobre","11 - Novembre","12 - Decembre");
 	
+	@FXML
+	private void initialize(){
+		tableStation.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
+	    {
+	        @Override
+	        public void onChanged(Change<? extends Integer> change)
+	        {
+	            afficherBoutonOrdre();
+	        }
+
+	    });
 		
+	}
+	
 	/**
 	 * Fonction qui permet de connaitre la station choisi par le controlleur de gestion de modele de tournee
 	 * @param centrale
@@ -243,6 +268,85 @@ public class CreationModeleTourneeController {
 		data.removeAll(data);
 		data=ModeleTourneeController.loadAllModeleTournee(idCentrale);
 		tableStation.setItems(rowMaps);
+	}
+	
+	public void afficherBoutonOrdre(){
+		baisserOrdre.setDisable(false);
+		monterOrdre.setDisable(false);
+		supprimer.setDisable(false);
+	}
+	
+	public void monterOrdre(){
+		Station stationAInverser;
+		Station stationSelect;
+		Integer stationAInverserKey;
+		Integer stationSelectKey;
+		if(Ostations.size()>1){
+			stationSelectKey=tableStation.getSelectionModel().getSelectedItem().getKey();
+			if(stationSelectKey!=1){
+				stationAInverserKey=stationSelectKey-1;
+				stationAInverser=Ostations.get(stationAInverserKey);
+				stationSelect=Ostations.get(stationSelectKey);
+				Ostations.remove(stationSelectKey);
+				Ostations.remove(stationAInverserKey);
+				Ostations.put(stationSelectKey, stationAInverser);
+				Ostations.put(stationAInverserKey, stationSelect);
+            	ListerStation();
+			}
+			
+		}
+	}
+	
+	public void baisserOrdre(){
+		Station stationAInverser;
+		Station stationSelect;
+		Integer stationAInverserKey;
+		Integer stationSelectKey;
+		if(Ostations.size()>1){
+			stationSelectKey=tableStation.getSelectionModel().getSelectedItem().getKey();
+			if(stationSelectKey!=Ostations.size()){
+				stationAInverserKey=stationSelectKey+1;
+				stationAInverser=Ostations.get(stationAInverserKey);
+				stationSelect=Ostations.get(stationSelectKey);
+				Ostations.remove(stationSelectKey);
+				Ostations.remove(stationAInverserKey);
+				Ostations.put(stationSelectKey, stationAInverser);
+				Ostations.put(stationAInverserKey, stationSelect);
+            	ListerStation();
+			}
+			
+		}
+	}
+	
+	public void supprimerStation(){
+		List<Integer> cleARemplacer;
+		List<Station> stationARemplacer;
+		int ancienSize;
+		if(Ostations.size()>1){
+			cleARemplacer=new ArrayList<Integer>();
+			stationARemplacer=new ArrayList<Station>();
+			if(tableStation.getSelectionModel().getSelectedItem().getKey()!=Ostations.size()+1){
+				ancienSize=Ostations.size();
+				Ostations.remove(tableStation.getSelectionModel().getSelectedItem().getKey());
+				rangActuel--;
+				for (int i=tableStation.getSelectionModel().getSelectedItem().getKey()+1;i<=ancienSize;i++){
+					cleARemplacer.add(i);
+					stationARemplacer.add(Ostations.get(i));
+					Ostations.remove(i);
+				}
+				for(Integer i : cleARemplacer){
+					if(i-3<0){
+						i=3;
+					}
+					Ostations.put(cleARemplacer.get(i-3)-1,stationARemplacer.get(i-3));
+				}
+				ListerStation();
+				baisserOrdre.setDisable(true);
+				monterOrdre.setDisable(true);
+				supprimer.setDisable(true);
+			}
+			
+		}
 	}
 	
 	
