@@ -299,13 +299,14 @@ public class saisirReleveController {
 	 */
 	public void passerSuivant(){
 		if(currentPos+1!=nbStations){
-			nbReleveEff++;
 			avancement.setText(nbReleveEff+"\n/\n"+nbStations);
 			currentPos++;
 			charge(currentPos);
 			releve.setText("");
 			commentaire.setText("");
 			scroll.setHvalue((double)currentPos/((double)nbStations-4));
+		}else{
+			nbReleveEff=nbStations;
 		}
 	}
 	/**
