@@ -179,6 +179,7 @@ public class ImportationController {
  		{
  			Complete.setText("oui");
  		}
+ 		resetErreur();
      }
  
 	/**
