@@ -40,7 +40,7 @@ import modele.Station;
 import vue.Main;
 
 /**
- * Controleur relatif a  l'interface de l'importation du fichier json
+ * Controleur relatif aï¿½ l'interface de l'importation du fichier json
  */
 public class ImportationController {
 		
@@ -183,7 +183,7 @@ public class ImportationController {
  		nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
  		instru.setCellValueFactory(new PropertyValueFactory<Station, String>("instructionCourte"));
  		station.setItems(listStations);
- 		if(releves.toArray(new JsonObject[0]).length==1)
+ 		if(releves.toArray(new JsonObject[0]).length==0)
  		{
  			Complete.setText("non");
  		}
