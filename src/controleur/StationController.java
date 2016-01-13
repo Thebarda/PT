@@ -260,4 +260,72 @@ public class StationController
 		}
 		return idE;
 	}
+	
+	/**
+	 * Fonction permettant de r�cuperer tous les objets Station dans la base de donn�e pour un �quipement donn�
+	 * @param idEquipement id de l'�quipement dont on veut connaitre les stations
+	 * @return
+	 */
+	public static Station loadStationById(int idStation){
+		
+		Station station = null;
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM station WHERE idStation='" + idStation + "'");
+			while(resultat.next()){
+				
+				//1er bit = 1   ==>  seuilHaut NULL
+				//2eme bit = 1  ==>  seuilBas NULL
+				//3eme bit = 1  ==>  valeurNormale NULL
+				
+				double seuilHaut;
+				double seuilBas;
+				double valeurNormale;
+				
+				if (resultat.getString("marqueur").substring(0, 1).equals("1")){
+					seuilHaut = 0.0;
+				}else{
+					seuilHaut = resultat.getDouble("seuilHaut");
+				}
+				if (resultat.getString("marqueur").substring(1, 2).equals("1")){
+					seuilBas = 0.0;
+				}else{
+					seuilBas = resultat.getDouble("seuilBas");
+				}
+				if(resultat.getString("marqueur").substring(2, 3).equals("1")){
+					valeurNormale = 0.0;
+				}else{
+					valeurNormale = resultat.getDouble("valeurNormale");
+				}
+				
+				station = new Station(resultat.getInt("idStation"),
+						resultat.getString("nomStation"),
+						resultat.getString("instructionsCourtes"),
+						resultat.getString("instructionsLongues"),
+						resultat.getInt("idUnite"), resultat.getString("marqueur"),
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return station;
+	}
 }
