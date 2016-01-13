@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="576.0" minWidth="1024.0" onKeyPressed="#test" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.saisirReleveController">
+<VBox minHeight="576.0" minWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.saisirReleveController">
    <children>
       <AnchorPane prefHeight="426.0" prefWidth="1024.0">
          <children>
