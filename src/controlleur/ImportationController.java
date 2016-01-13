@@ -27,9 +27,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -88,6 +88,12 @@ public class ImportationController {
 	private Label Complete;
 	
 	@FXML
+	private Label Ldate;
+	
+	@FXML
+	private Label date;
+	
+	@FXML
 	ObservableList<Station> listStations;
 	
 	protected File file;
@@ -111,6 +117,8 @@ public class ImportationController {
 		IDD.setVisible(false);
 		Ldescription1.setVisible(false);
 		Complete.setVisible(false);
+		Ldate.setVisible(false);
+		date.setVisible(false);
 	}
 	 
 	/**
@@ -163,11 +171,14 @@ public class ImportationController {
  			IDD.setVisible(true);
  			Ldescription1.setVisible(true);
  			Complete.setVisible(true);
+ 			Ldate.setVisible(true);
+ 			date.setVisible(true);
  			
         releves = tournee.getJsonArray("Releves");
  		nomTournee.setText(tournee.getString("nomModele"));
  		description.setText(tournee.getString("descModele"));
  		id.setText(""+tournee.getInt("idTournee"));
+ 		date.setText(tournee.getString("dateExport"));
  		listStations = JsonController.loadObservableStations(route.getText());
  		nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
  		instru.setCellValueFactory(new PropertyValueFactory<Station, String>("instructionCourte"));
