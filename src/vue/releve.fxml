@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="300.0" minWidth="500.0" prefHeight="482.0" prefWidth="545.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.PageReleveController">
+   <children>
+      <Button fx:id="valider" layoutX="416.0" layoutY="384.0" mnemonicParsing="false" onAction="#ValiderUnite" text="VALIDER" />
+      <Label fx:id="erreurNom" layoutX="202.0" layoutY="159.0" prefHeight="16.0" prefWidth="184.0" textFill="#fc0101" />
+      <Label layoutX="150.0" layoutY="14.0" text="Affichage des releves">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tabStation" layoutX="88.0" layoutY="59.0" prefHeight="298.0" prefWidth="397.0">
+        <columns>
+          <TableColumn fx:id="ID" prefWidth="79.0" text="ID" />
+          <TableColumn fx:id="nom" prefWidth="76.0" text="Nom" />
+            <TableColumn fx:id="valeur" prefWidth="75.0" text="Valeur" />
+            <TableColumn fx:id="comm" prefWidth="166.0" text="Commentaire" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

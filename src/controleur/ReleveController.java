@@ -97,7 +97,7 @@ public class ReleveController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, idStation, nomStation, idTournee FROM releve r "
+			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, r.idStation, nomStation, r.idTournee FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
 										+ "INNER JOIN station s ON s.idStation = r.idStation "
 										+ "WHERE r.idTournee = " + idTournee);
