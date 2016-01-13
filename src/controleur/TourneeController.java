@@ -120,6 +120,113 @@ public class TourneeController {
 		return tournees;
 	}
 	
+	public static ObservableList<Tournee> loadTourneesTerminees(int idCentrale){
+		
+		ObservableList<Tournee> tournees=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		ResultSet resultatStations = null;
+		Statement statut = null;
+		Statement statutStations = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee FROM tournee t "
+										+ "WHERE ( "
+										+ "Select idCentrale from equipement e "
+										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
+										+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
+										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
+										+ "WHERE mt.idModele=t.idModele "
+										+ "limit 1 "
+										+ ")= " + idCentrale + " AND estTerminee = 1");
+			while(resultat.next()){
+				int  idTournee = resultat.getInt("idTournee");
+				String dateExport = resultat.getString("dateExport");
+				String nomTournee = resultat.getString("nomTournee");
+				int idModele = resultat.getInt("idModele");
+				boolean estExportee = resultat.getBoolean("estExportee");
+				boolean estTerminee = resultat.getBoolean("estTerminee");
+	
+				HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
+				
+				statutStations = connexion.createStatement();
+				
+				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
+													+ "instructionsLongues, marqueur, seuilBas, seuilHaut, "
+													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
+													+ "MISH from station s "
+													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
+													+ "WHERE asm.idModele=" + idModele + " "
+													+ "ORDER BY asm.ordre ASC");
+				int i = 1;
+				while(resultatStations.next()){
+					
+					//1er bit = 1   ==>  seuilHaut NULL
+					//2eme bit = 1  ==>  seuilBas NULL
+					//3eme bit = 1  ==>  valeurNormale NULL
+					
+					double seuilHaut;
+					double seuilBas;
+					double valeurNormale;
+					
+					if (resultatStations.getString("marqueur").substring(0, 1).equals("1")){
+						seuilHaut = 0.0;
+					}else{
+						seuilHaut = resultatStations.getDouble("seuilHaut");
+					}
+					if (resultatStations.getString("marqueur").substring(1, 2).equals("1")){
+						seuilBas = 0.0;
+					}else{
+						seuilBas = resultatStations.getDouble("seuilBas");
+					}
+					if(resultatStations.getString("marqueur").substring(2, 3).equals("1")){
+						valeurNormale = 0.0;
+					}else{
+						valeurNormale = resultatStations.getDouble("valeurNormale");
+					}
+					
+					Station station = new Station(resultatStations.getInt("idStation"),
+							resultatStations.getString("nomStation"),
+							resultatStations.getString("instructionsCourtes"),
+							resultatStations.getString("instructionsLongues"),
+							resultatStations.getInt("idUnite"), resultatStations.getString("marqueur"),
+							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
+					stations.put(i, station);
+					i++;
+				}
+				Tournee tournee = new Tournee(idTournee,
+						nomTournee,
+						idModele,
+						stations,
+						estExportee,
+						estTerminee,
+						dateExport);
+				
+				tournees.add(tournee);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+				 resultatStations.close();
+	             resultat.close();
+	             statut.close();
+	             statutStations.close();
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return tournees;
+	}
+	
 	public static void addTournee(Tournee tournee)
 	{
 		Connection connexion = null;
