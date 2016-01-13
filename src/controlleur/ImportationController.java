@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -56,7 +57,7 @@ public class ImportationController {
 	private Label nomTournee;
 	
 	@FXML
-	private Label description;
+	private TextArea description;
 	
 	@FXML
 	private Label LnomTournee;
@@ -113,7 +114,7 @@ public class ImportationController {
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
 	 * @param texte
-	 * 		Champs texte (ou TextField) a  analyser
+	 * 		Champs texte (ou TextField) aï¿½ analyser
 	 * @return
 	 * 		Vrai si le champs est vide, faux sinon
 	 */
