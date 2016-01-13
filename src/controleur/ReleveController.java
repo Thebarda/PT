@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import modele.Releve;
 
 public class ReleveController {
@@ -79,5 +82,45 @@ public class ReleveController {
 	             e.printStackTrace();  
 	         }  
 		}
+	}
+	
+	public static ObservableList<Releve> loadReleves(int idTournee){
+		
+		ObservableList<Releve> releves = FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve FROM releve r "
+										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
+										+ "WHERE r.idTournee = " + idTournee);
+			while(resultat.next()){
+				int  idReleve = resultat.getInt("idReleve");
+				String commentaireReleve = resultat.getString("commentaireReleve");
+				double valeurReleve = resultat.getDouble("valeurReleve");
+				String date = resultat.getString("dateReleve");
+	
+				releves.add(new Releve(idReleve, commentaireReleve, valeurReleve, date));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();
+	             statut.close();
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return releves;
 	}
 }
