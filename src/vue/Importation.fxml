@@ -14,8 +14,8 @@
          </font>
       </Label>
       <Button fx:id="importation" layoutX="397.0" layoutY="121.0" mnemonicParsing="false" onAction="#Importation" text="Importer  ...." />
-      <Button fx:id="valider" layoutX="494.0" layoutY="298.0" mnemonicParsing="false" onAction="#ValiderImportation" text="Valider" />
-      <Label fx:id="erreurRoute" layoutX="42.0" layoutY="153.0" prefHeight="17.0" prefWidth="554.0" />
+      <Button fx:id="valider" layoutX="513.0" layoutY="302.0" mnemonicParsing="false" onAction="#ValiderImportation" text="Valider" />
+      <Label fx:id="erreurRoute" layoutX="42.0" layoutY="153.0" prefHeight="17.0" prefWidth="554.0" textFill="RED" />
       <GridPane layoutX="19.0" layoutY="170.0" prefHeight="60.0" prefWidth="233.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="69.0" />
@@ -27,16 +27,18 @@
         </rowConstraints>
          <children>
             <Label fx:id="LnomTournee" text="Nom :" />
-            <Label fx:id="nomTournee" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="nomTournee" GridPane.columnIndex="1" />
             <Label fx:id="Ldescription" prefHeight="17.0" prefWidth="96.0" text="Description :" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <TableView fx:id="station" layoutX="245.0" layoutY="186.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="station" layoutX="245.0" layoutY="186.0" prefHeight="200.0" prefWidth="247.0">
         <columns>
           <TableColumn fx:id="nom" prefWidth="101.0" text="Nom" />
-          <TableColumn fx:id="instru" prefWidth="125.0" text="Instruction courte" />
+          <TableColumn fx:id="instru" prefWidth="145.0" text="Instruction courte" />
         </columns>
       </TableView>
-      <Label fx:id="description" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="29.0" layoutY="249.0" prefHeight="131.0" prefWidth="206.0" text="Label" />
+      <Label fx:id="description" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="29.0" layoutY="249.0" prefHeight="70.0" prefWidth="206.0" />
+      <Label fx:id="Ldescription1" layoutX="19.0" layoutY="320.0" prefHeight="17.0" prefWidth="148.0" text="Tournee commence :" />
+      <Label layoutX="169.0" layoutY="321.0" prefHeight="16.0" prefWidth="64.0" />
    </children>
 </AnchorPane>

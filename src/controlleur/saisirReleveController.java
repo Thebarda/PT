@@ -35,7 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
- * Classe qui gère la saisie des releves
+ * Classe qui gï¿½re la saisie des releves
  * @author ThebardaPNK
  *
  */
@@ -229,7 +229,6 @@ public class saisirReleveController {
 			releveEff=Double.parseDouble(releveStr);
 			ecartSeuil=ReleveController.controller(currentPos, releveEff, commentaire.getText());
 			seuilAff=ReleveController.seuil2(currentPos);
-		}
 			if (ecartSeuil!=0){
 				verifierReleve();
 			}
@@ -237,7 +236,7 @@ public class saisirReleveController {
 				releveNormale(currentPos);
 				passerSuivant();
 			}
-		
+		}
 	}
 	/**
 	 * Ouvre la fenetre qui permet de valider ou non une valeur anormale
@@ -266,7 +265,7 @@ public class saisirReleveController {
 		}	
 	}
 	/**
-	 * Permet de passer à la station suivante au niveau du scroll pane
+	 * Permet de passer ï¿½ la station suivante au niveau du scroll pane
 	 */
 	public void passerSuivant(){
 		if(currentPos+1!=nbStations){
@@ -288,7 +287,7 @@ public class saisirReleveController {
 		}
 	}
 	/**
-	 * Affiche les détails
+	 * Affiche les dï¿½tails
 	 */
 	public void afficherDetails(){
 		final Stage dialog = new Stage();
@@ -311,7 +310,7 @@ public class saisirReleveController {
 		}	
 	}
 	/**
-	 * Vérifie si la valeur passe en parametre est un double ou pas
+	 * Vï¿½rifie si la valeur passe en parametre est un double ou pas
 	 * @param chaine
 	 * @return booleen
 	 */
