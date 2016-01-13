@@ -40,6 +40,7 @@ public class Tournee
 		this.estTerminee = estTerminee;
 		this.stations = stations;
 		this.dateExport = dateExport;
+		this.dateReleve = dateReleve;
 	}
 	/**
 	 * Contructeur permettant de creer une tournee
