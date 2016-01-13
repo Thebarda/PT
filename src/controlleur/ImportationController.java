@@ -39,7 +39,7 @@ import modele.Station;
 import vue.Main;
 
 /**
- * Controleur relatif Ã  l'interface de l'importation du fichier json
+ * Controleur relatif a  l'interface de l'importation du fichier json
  */
 public class ImportationController {
 		
@@ -75,10 +75,16 @@ public class ImportationController {
 	private Label Ldescription;
 	
 	@FXML
+	private Label Ldescription1;
+	
+	@FXML
 	private Label id;
 	
 	@FXML
 	private Label IDD;
+	
+	@FXML
+	private Label Complete;
 	
 	@FXML
 	ObservableList<Station> listStations;
@@ -102,6 +108,8 @@ public class ImportationController {
 		Ldescription.setVisible(false);
 		id.setVisible(false);
 		IDD.setVisible(false);
+		Ldescription1.setVisible(false);
+		Complete.setVisible(false);
 	}
 	 
 	/**
@@ -152,6 +160,8 @@ public class ImportationController {
  			Ldescription.setVisible(true);
  			id.setVisible(true);
  			IDD.setVisible(true);
+ 			Ldescription1.setVisible(true);
+ 			Complete.setVisible(true);
  			
         releves = tournee.getJsonArray("Releves");
  		nomTournee.setText(tournee.getString("nomModele"));
@@ -161,6 +171,14 @@ public class ImportationController {
  		nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
  		instru.setCellValueFactory(new PropertyValueFactory<Station, String>("instructionCourte"));
  		station.setItems(listStations);
+ 		if(releves.toArray(new JsonObject[0]).length==1)
+ 		{
+ 			Complete.setText("non");
+ 		}
+ 		else
+ 		{
+ 			Complete.setText("oui");
+ 		}
      }
  
 	/**
