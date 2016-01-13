@@ -23,8 +23,9 @@ public class ReleveController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve FROM releve r "
+			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, r.idStation, nomStation, r.idTournee FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
+										+ "INNER JOIN station s ON s.idStation = r.idStation "
 										+ "WHERE r.idStation = " + idStation + " "
 										+ "ORDER BY t.dateReleve desc "
 										+ "limit 5");
@@ -33,8 +34,10 @@ public class ReleveController {
 				String commentaireReleve = resultat.getString("commentaireReleve");
 				double valeurReleve = resultat.getDouble("valeurReleve");
 				String date = resultat.getString("dateReleve");
+				String nomStation = resultat.getString("nomStation");
+				int idTournee = resultat.getInt("idTournee");
 	
-				releves.add(new Releve(idReleve, commentaireReleve, valeurReleve, date));
+				releves.add(new Releve(idReleve, commentaireReleve, valeurReleve, date, idStation, nomStation, idTournee));
 			}
 			
 		}catch(Exception e){
@@ -94,16 +97,19 @@ public class ReleveController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve FROM releve r "
+			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, idStation, nomStation, idTournee FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
+										+ "INNER JOIN station s ON s.idStation = r.idStation "
 										+ "WHERE r.idTournee = " + idTournee);
 			while(resultat.next()){
 				int  idReleve = resultat.getInt("idReleve");
 				String commentaireReleve = resultat.getString("commentaireReleve");
 				double valeurReleve = resultat.getDouble("valeurReleve");
 				String date = resultat.getString("dateReleve");
+				int idStation = resultat.getInt("idStation");
+				String nomStation = resultat.getString("nomStation");
 	
-				releves.add(new Releve(idReleve, commentaireReleve, valeurReleve, date));
+				releves.add(new Releve(idReleve, commentaireReleve, valeurReleve, date, idStation, nomStation, idTournee));
 			}
 			
 		}catch(Exception e){

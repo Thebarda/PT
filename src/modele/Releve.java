@@ -11,6 +11,9 @@ public class Releve {
 	private String  commentaire;
 	private double  valeur;
 	private String date;
+	private int idStation;
+	private String nomStation;
+	private int idTournee;
 	
 	
 	/**
@@ -19,12 +22,18 @@ public class Releve {
 	 * @param commentaire	: commentaire du releve
 	 * @param valeur		: valeur du releve
 	 * @param date			: date du releve
+	 * @param idStation		: id de la station
+	 * @param nomStation	: nom de la station
+	 * @param idTournee		: id de la tournee
 	 */
-	public Releve(int id, String commentaire, double valeur, String date){
+	public Releve(int id, String commentaire, double valeur, String date, int idStation, String nomStation, int idTournee){
 		this.id = id;
 		this.commentaire = commentaire;
 		this.valeur = valeur;
 		this.date = date;
+		this.idStation = idStation;
+		this.nomStation = nomStation;
+		this.idTournee = idTournee;
 	}
 	
 	/**
@@ -41,6 +50,52 @@ public class Releve {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Retourne l'id de la station du releve
+	 * @return idStation : l'id de la station du releve
+	 */
+	public int getIdStation() {
+		return idStation;
+	}
+	/**
+	 * Modifie l'id de la Station du releve
+	 * @param idStation : le nouvel id de la station du releve
+	 */
+	public void setIdStation(int idStation) {
+		this.idStation = idStation;
+	}
+	
+	/**
+	 * Retourne l'id de la tournee du releve
+	 * @return idTournee : l'id de la tournee du releve
+	 */
+	public int getIdTournee() {
+		return idTournee;
+	}
+	/**
+	 * Modifie l'id de la tournee du releve
+	 * @param idTournee : le nouvel id de la tournee du releve
+	 */
+	public void setIdTournee(int idTournee) {
+		this.idTournee = idTournee;
+	}
+	
+	/**
+	 * Retourne le nom de la station du releve
+	 * @return nomStation : le nom de la station du releve
+	 */
+	public String getNomStation() {
+		return nomStation;
+	}
+	/**
+	 * Modifie le nom de la station du releve
+	 * @param nomStation : le nouveau nom de la station du releve
+	 */
+	public void setNomStation(String nomStation) {
+		this.nomStation = nomStation;
+	}
+	
 	/**
 	 * Retourne le commentaire du releve
 	 * @return commentaire : le commentaire du releve
