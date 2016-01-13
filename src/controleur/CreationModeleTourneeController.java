@@ -57,13 +57,7 @@ public class CreationModeleTourneeController {
 	
 	@FXML 
 	private Label erreurStation;
-	
-	@FXML
-	private Label erreurMois;
-	
-	@FXML
-	private ComboBox<String> debut;
-	
+		
 	@FXML
 	private Button valider;
 	
@@ -88,10 +82,6 @@ public class CreationModeleTourneeController {
 	
 	ObservableList<String> mois=FXCollections.observableArrayList("01 - Janvier","02 - Fevrier","03 - Mars","04 - Avril","05 - Mai","06 - Juin","07 - Juillet","08 - Aout","09 - Septembre","10 - Octobre","11 - Novembre","12 - Decembre");
 	
-	@FXML
-	private void initialize() {
-		debut.setItems(mois);
-	}
 		
 	/**
 	 * Fonction qui permet de connaitre la station choisi par le controlleur de gestion de modele de tournee
@@ -174,10 +164,6 @@ public class CreationModeleTourneeController {
 			erreurStation.setText("Erreur : il faut des stations pour une tournee ");
 			estValide=false;
 		}
-		if(debut.getValue()==null){
-			erreurMois.setText("Erreur : veuillez saisir un mois de debut");
-			estValide=false;
-		}
 		
 		if(estValide == true)
 		{
@@ -202,7 +188,6 @@ public class CreationModeleTourneeController {
 	public void resetErreur(){
 		erreurNom.setText("");
 		erreurDescription.setText("");
-		erreurMois.setText("");
 		erreurStation.setText("");
 	}
 	/**
