@@ -86,6 +86,7 @@ public class PlanningController {
             		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
             		            public void handle(WindowEvent we) {
             		            	dialog.close();
+            		            	ListerEquipement();
             		            }
             		        });
             			} catch (IOException ioe) {
