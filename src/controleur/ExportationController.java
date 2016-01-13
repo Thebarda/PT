@@ -39,12 +39,13 @@ public class ExportationController {
 	 
 	 static Stage stage;
 	
-	
 	 public static void init (Tournee tourne ,Stage stage1 )
 	 {
 		 tournee=tourne;
 		 stage = stage1;
 	 }
+	 
+	 
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
 	 * @param texte

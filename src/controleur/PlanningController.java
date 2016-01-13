@@ -51,6 +51,7 @@ public class PlanningController {
 	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
 	
+	public static String dateExport;
 	
 	@FXML
 	/**
@@ -75,23 +76,45 @@ public class PlanningController {
             	    @Override public void handle(ActionEvent e) {
             	    	final Stage dialog = new Stage();
             	        dialog.initModality(Modality.APPLICATION_MODAL);
-            			FXMLLoader loader = new FXMLLoader(Main.class.getResource("Exportation.fxml"));
-            			AnchorPane page;
-            			try {
-            				page = (AnchorPane) loader.load();
-            				Scene dialogScene = new Scene(page);
-            		        dialog.setScene(dialogScene);
-            		        dialog.show();
-            		        ExportationController.init(p.getValue(),dialog);
-            		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
-            		            public void handle(WindowEvent we) {
-            		            	dialog.close();
-            		            	ListerEquipement();
-            		            }
-            		        });
-            			} catch (IOException ioe) {
-            				ioe.printStackTrace();
-            			}
+            	        if (p.getValue().isEstExportee()){
+            	        	dateExport=p.getValue().getDate();
+            	        	FXMLLoader loader = new FXMLLoader(Main.class.getResource("validerExport.fxml"));
+                			AnchorPane page;
+                			try {
+                				page = (AnchorPane) loader.load();
+                				Scene dialogScene = new Scene(page);
+                		        dialog.setScene(dialogScene);
+                		        dialog.show();
+                		        ValiderExportController.init(p.getValue(),dialog);
+                		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+                		            public void handle(WindowEvent we) {
+                		            	dialog.close();
+                		            	ListerEquipement();
+                		            }
+                		        });
+                			} catch (IOException ioe) {
+                				ioe.printStackTrace();
+                			}
+            	        }
+            	        else{
+            	        	FXMLLoader loader = new FXMLLoader(Main.class.getResource("Exportation.fxml"));
+                			AnchorPane page;
+                			try {
+                				page = (AnchorPane) loader.load();
+                				Scene dialogScene = new Scene(page);
+                		        dialog.setScene(dialogScene);
+                		        dialog.show();
+                		        ExportationController.init(p.getValue(),dialog);
+                		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+                		            public void handle(WindowEvent we) {
+                		            	dialog.close();
+                		            	ListerEquipement();
+                		            }
+                		        });
+                			} catch (IOException ioe) {
+                				ioe.printStackTrace();
+                			}
+            	        }
             	    }
             	};
             	Button button=new Button("Vers le mobile");
@@ -123,6 +146,7 @@ public class PlanningController {
             		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
             		            public void handle(WindowEvent we) {
             		            	dialog.close();
+            		            	ListerEquipement();
             		            }
             		        });
             			} catch (IOException ioe) {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.ValiderExportController">
+   <children>
+      <Label layoutX="191.0" layoutY="37.0" text="Validation de l'export">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="183.0" text="Attention : cette tournee a deja etait exportee le :" textFill="RED">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="339.0" prefHeight="40.0" prefWidth="805.0" text="Nous vous recommandons de vous renseigner avant d'exporter cette tournee à nouveau,&#10;afin d'eviter toutes erreurs. N'exportez cette tournee que si vous etes sur de ce que vous faites." textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="251.0" layoutY="456.0" text="Validez-vous l'export ?">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="272.0" prefHeight="21.0" prefWidth="415.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="168.0" text="Valider l'export" />
+      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" onAction="#annuler" prefHeight="64.0" prefWidth="168.0" text="Annuler l'export" />
+   </children>
+</AnchorPane>
