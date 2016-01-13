@@ -5,28 +5,32 @@ import java.text.DecimalFormat;
 import javax.json.JsonObject;
 /**
  * Classe qui gere un releve
- * @author ThebardaPNK
- *
  */
 public class ReleveController {
 
 	static private JsonObject[] tabStations;
 	static private String nomFichier;
 	/**
-	 * Initialisation
+	 * Initialisation du tableau de stations et du chemin du json
 	 * @param tab
+	 * 		tableau avec les stations a relever
 	 * @param nom
+	 * 			chemin du fichier json utilise
 	 */
 	public static void initialize(JsonObject[] tab, String nom) {
 		tabStations = tab;
 		nomFichier=nom;
 	}
 	/**
-	 * Controle la valeur d'un releve
+	 * Controle la valeur d'un releve (en fonction des seuils). La valeur est ajoute dans le json si elle est correcte
 	 * @param num
+	 * 		numero de la station relatif au releve
 	 * @param releve
+	 * 		releve effectue
 	 * @param commentaire
+	 * 		commentaire effectue
 	 * @return
+	 * 		0 si la valeur du releve est correcte, l'ecart au seuil sinon
 	 */
 	public static double controller(int num, double releve, String commentaire) {
 		
@@ -74,16 +78,21 @@ public class ReleveController {
 	/**
 	 * Enregistre un releve dans un fichier json
 	 * @param num
+	 * 		numero de la station o√π le releve est a enregistrer
 	 * @param releve
+	 * 		releve a enregistrer
 	 * @param commentaire
+	 * 		commentaire a enregistrer
 	 */
 	public static void enregistrer(int num, double releve, String commentaire) {
 		JsonController.ecrireReleve(nomFichier, num, commentaire, releve);
 	}
 	/**
-	 * Retourne le seuil bas
+	 * Retourne les seuils sous la forme "Seuil Bas:  Seuil Haut: 	Valeur Normale:"
 	 * @param num
+	 * 		numero de la station pour lequel on souhaite afficher les informations sur les seuils
 	 * @return String
+	 * 			Informations sur les seuils
 	 */
 	public static String seuil(int num){
 		JsonObject station = tabStations[num];
@@ -105,9 +114,11 @@ public class ReleveController {
 		return seuil;
 	}
 	/**
-	 * Retourne le seuil haut
+	 * Retourne les seuils sous la forme "Compris entre seuilBas et seuilHaut" ou "inferieure a seuilHaut" ou "superieure a seuilBas"
 	 * @param num
+	 * 		numero de la station pour lequel on souhaite afficher les informations sur les seuils
 	 * @return String
+	 * 			Informations sur les seuils
 	 */
 	public static String seuil2(int num){
 		JsonObject station = tabStations[num];
@@ -120,7 +131,7 @@ public class ReleveController {
 			seuil="infeieure a "+station.getInt("seuilHaut");
 		}
 		else if(station.getString("marqueur").substring(1, 2).equals("0")){
-			seuil="superieure a† "+station.getInt("seuilBas");
+			seuil="superieure a "+station.getInt("seuilBas");
 		}
 		return seuil;
 	}
