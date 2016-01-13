@@ -5,8 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 /**
  * Classe qui affiche les détails d'un releve
- * @author ThebardaPNK
- *
  */
 public class detailReleveController {
 

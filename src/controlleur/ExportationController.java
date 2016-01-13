@@ -1,16 +1,9 @@
 package controlleur;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import javax.json.Json;
-import javax.json.JsonReader;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import vue.Main;
 
 public class ExportationController {
 	@FXML

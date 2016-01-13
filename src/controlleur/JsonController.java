@@ -16,17 +16,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modele.Station;
 /**
- * Classe qui permet l'Ã©dition d'un fichier json
- * @author ThebardaPNK
- *
+ * Classe qui permet l'edition d'un fichier json
  */
 public class JsonController {
 	/**
 	 * Fonction qui ecrit un releve dans un fichier json
-	 * @param fichier
-	 * @param idStation
-	 * @param com
-	 * @param valeur
+	 * @param fichier chemin du fichier
+	 * @param idStation id de la station 
+	 * @param com commentaire a ecrire
+	 * @param valeur valeur du releve
 	 */
 	public static void ecrireReleve(String fichier, int idStation, String com, double valeur) {
 		
@@ -89,10 +87,10 @@ public class JsonController {
 		}
 	}
 	/**
-	 * Fonction qui charge l'historique
-	 * @param fichier
-	 * @param idStation
-	 * @return
+	 * Fonction qui charge l'historique d'une station donnée
+	 * @param fichier chemin du fichier
+	 * @param idStation id de la station
+	 * @return un JsonObject[], tableau d'onjet Json
 	 */
 	public static JsonObject[] loadHistoriques(String fichier, int idStation){
 		JsonReader reader;
@@ -115,9 +113,9 @@ public class JsonController {
 		return tabHistorique;
 	}
 	/**
-	 * Charge les stations
-	 * @param fichier
-	 * @return un objet json
+	 * Charge toutes les station d'un fichier json
+	 * @param fichier chemin du fichier
+	 * @return tableau d'objet Json avec la premiere station en indice 0.
 	 */
 	public static JsonObject[] loadStations(String fichier){
 		JsonReader reader;
@@ -136,8 +134,8 @@ public class JsonController {
 	}
 	/**
 	 * Charge les stations dans une observableList pour l'import
-	 * @param fichier
-	 * @return une observableList
+	 * @param fichier fichier chemin du fichier
+	 * @return une observableList de toutes les stations présentes
 	 */
 	public static ObservableList<Station> loadObservableStations(String fichier){
 		ObservableList<Station> oStations=FXCollections.observableArrayList();
@@ -151,9 +149,9 @@ public class JsonController {
 	}
 	/**
 	 * Fonction qui permet de changer MISH
-	 * @param fichier
-	 * @param idStation
-	 * @param mish
+	 * @param fichier chemin du fichier
+	 * @param idStation id de la station pour laquelle on souhaite le changement
+	 * @param mish nouvelle valeur du mish
 	 */
 	public static void changerMISH(String fichier, int idStation, int mish){
 		JsonReader reader;
@@ -215,9 +213,9 @@ public class JsonController {
 		}
 	}
 	/**
-	 * Fonction qui permet de savoir un fichier json est completï¿½ ou pas
-	 * @param fichier
-	 * @param estComplete
+	 * Fonction qui permet de changer la valeur de estComplete
+	 * @param fichier chemin du fichier
+	 * @param estComplete nouvelle valeur de estComplete
 	 */
 	public static void changerEstComplete(String fichier, int estComplete){
 		JsonReader reader;
@@ -252,10 +250,10 @@ public class JsonController {
 		}
 	}
 	/**
-	 * FOnction qui permet de savoir si un releve est saisi
-	 * @param fichier
-	 * @param idStation
-	 * @return booleen
+	 * FOnction qui permet de savoir si un releve est saisi pour une station donnée
+	 * @param fichier chemin du fichier
+	 * @param idStation id de la station
+	 * @return booleen true si le releve a ete saisi, false sinon
 	 */
 	public static boolean estReleveSaisi(String fichier, int idStation){
 		JsonReader reader;
@@ -282,10 +280,10 @@ public class JsonController {
 		return existe;
 	}
 	/**
-	 * Retourne la valeur du releve
-	 * @param fichier
-	 * @param idStation
-	 * @return double
+	 * Retourne la valeur du releve pour une station
+	 * @param fichier chemin du fichier
+	 * @param idStation id de la station
+	 * @return double valeur du releve de la station
 	 */
 	public static double getReleve(String fichier, int idStation){
 		JsonReader reader;
@@ -313,10 +311,10 @@ public class JsonController {
 		return valeurReleve;
 	}
 	/**
-	 * Retourne le commentaire
-	 * @param fichier
-	 * @param idStation
-	 * @return String
+	 * Retourne le commentaire pour une station
+	 * @param fichier chemin du fichier
+	 * @param idStation id de la station
+	 * @return String commentaire pour la station
 	 */
 	public static String getCommentaire(String fichier, int idStation){
 		JsonReader reader;

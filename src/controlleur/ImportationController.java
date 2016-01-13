@@ -7,40 +7,29 @@ import java.io.IOException;
 
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonWriter;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 import modele.Station;
 import vue.Main;
 
 /**
- * Controleur relatif aï¿½ l'interface de l'importation du fichier json
+ * Controleur relatif a  l'interface de l'importation du fichier json
  */
 public class ImportationController {
 		
@@ -124,7 +113,7 @@ public class ImportationController {
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
 	 * @param texte
-	 * 		Champs texte (ou TextField) Ã  analyser
+	 * 		Champs texte (ou TextField) a  analyser
 	 * @return
 	 * 		Vrai si le champs est vide, faux sinon
 	 */
