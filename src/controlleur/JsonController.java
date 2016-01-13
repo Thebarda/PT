@@ -223,6 +223,10 @@ public class JsonController {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
+			String format = "dd/MM/yyyy";
+			java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+			java.util.Date date = new java.util.Date();
+			
 			JsonObject newTournee = Json.createObjectBuilder()
 					.add("nomApp", tournee.getString("nomApp"))
 					.add("idTournee", tournee.getInt("idTournee"))
@@ -230,6 +234,7 @@ public class JsonController {
 					.add("descModele", tournee.getString("descModele"))
 					.add("dateExport", tournee.getString("dateExport"))
 					.add("estComplete", estComplete)
+					.add("dateReleve", formater.format( date ).toString())
 					.add("nbStations", tournee.getInt("nbStations"))
 					.add("stations", tournee.getJsonArray("stations"))
 					.add("Releves", tournee.getJsonArray("Releves"))
