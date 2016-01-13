@@ -17,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -138,6 +139,7 @@ public class ValidationFinaleController {
 	        dialog.setResizable(false);
 			dialog.setTitle("Exportation");
 	        dialog.show();
+	        dialog.getIcons().add(new Image("file:logo.png"));
 	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>(){
 				@Override
 				public void handle(WindowEvent arg0) {

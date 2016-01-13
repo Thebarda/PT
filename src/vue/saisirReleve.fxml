@@ -90,7 +90,7 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Label fx:id="avancement" alignment="CENTER" layoutY="29.0" prefHeight="98.0" prefWidth="98.0" text="&#10;" textAlignment="CENTER">
+            <Label fx:id="avancement" alignment="CENTER" layoutY="4.0" prefHeight="146.0" prefWidth="98.0" text="&#10;" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>

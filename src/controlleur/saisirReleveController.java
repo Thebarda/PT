@@ -32,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
@@ -282,6 +283,7 @@ public class saisirReleveController {
 			dialog.setTitle("Valider un releve");
 	        dialog.show();
 	        ValiderReleveController.initialise(stations, currentPos);
+	        dialog.getIcons().add(new Image("file:logo.png"));
 	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
 	            	dialog.close();
@@ -330,6 +332,7 @@ public class saisirReleveController {
 	        dialog.setResizable(false);
 			dialog.setTitle("Detail d'un releve");
 	        dialog.show();
+	        dialog.getIcons().add(new Image("file:logo.png"));
 	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
 	            	dialog.close();
@@ -383,6 +386,7 @@ public class saisirReleveController {
 	        dialog.setResizable(false);
 			dialog.setTitle("Validation");
 	        dialog.show();
+	        dialog.getIcons().add(new Image("file:logo.png"));
 	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
 	            	dialog.close();
