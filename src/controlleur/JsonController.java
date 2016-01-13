@@ -225,7 +225,7 @@ public class JsonController {
 			reader = Json.createReader(new FileInputStream(fichier));
 			JsonObject tournee = reader.readObject();
 			
-			String format = "dd/MM/yyyy";
+			String format = "dd/MM/yyyy H:mm";
 			java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
 			java.util.Date date = new java.util.Date();
 			
