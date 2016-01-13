@@ -2,6 +2,7 @@ package controleur;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -51,8 +52,32 @@ public class ReleveController {
 		return releves;
 	}
 
-	public static void ajouterReleve(double doubleValue, String string, int int1, int int2) {
-		// TODO Auto-generated method stub
-		
+	public static void ajouterReleve(double valeur, String com, int idStation, int idTournee) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
+					+ "releve(valeurReleve,commentaireReleve,"
+					+ "idStation,idTournee) "
+					+ "VALUES(?,?,?,?)");
+			preparedStatement.setDouble(1, valeur);
+			preparedStatement.setString(2, com);
+			preparedStatement.setInt(3, idStation);
+			preparedStatement.setInt(4, idTournee);
+			preparedStatement.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
 	}
 }

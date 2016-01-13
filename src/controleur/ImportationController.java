@@ -94,7 +94,6 @@ public class ImportationController {
 		}
 		if(estValide == true)
 		{
-			System.out.println(route.getText());
 			JsonController.importerTournee(route.getText());
 			annuler.getParent().getScene().getWindow().hide();
 		}
