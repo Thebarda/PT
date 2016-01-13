@@ -1,7 +1,5 @@
 package modele;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import controleur.TourneeController;
@@ -162,19 +160,8 @@ public class ModeleTournee
 	public void genererTournee()
 	{
 		Tournee tournee;
-		int mois = Calendar.MONTH;
-		String moisAnnee = String.valueOf(mois);
-		
-		GregorianCalendar calendar = new GregorianCalendar();
-		if(calendar.get(Calendar.MONTH) > mois)
-		{
-			moisAnnee+= "-" + (calendar.getWeekYear()+1);
-		}
-		else
-		{
-			moisAnnee+= "-" + calendar.getWeekYear();
-		}
-		tournee = new Tournee(this.getNom(),this.getId(),this.stations,moisAnnee);
+		String date = "";
+		tournee = new Tournee(this.getNom(),this.getId(),this.stations,date);
 		TourneeController.addTournee(tournee);
 	}
 }

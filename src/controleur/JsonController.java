@@ -14,7 +14,6 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
 
-import javafx.collections.ObservableList;
 import modele.ModeleTournee;
 import modele.Releve;
 import modele.Station;
@@ -73,6 +72,8 @@ public class JsonController {
 		
 		ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tournee.getIdModele());
 		
+		TourneeController.setDateExport(tournee.getId(), formater.format( date ).toString());
+		
 		JsonArray jsonReleves = Json.createArrayBuilder()
 				.build();
 		
@@ -115,6 +116,7 @@ public class JsonController {
 			}
 			Tournee tourneeBdd = TourneeController.loadTourneeById(tournee.getInt("idTournee"));
 			ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tourneeBdd.getIdModele());
+			TourneeController.setDateExport(tournee.getInt("idTournee"), tournee.getString("dateExport"));
 			modele.genererTournee();
 			reader.close();
 		} catch (FileNotFoundException e) {

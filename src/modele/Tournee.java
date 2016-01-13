@@ -14,7 +14,7 @@ public class Tournee
 	private final int idModele;
 	private boolean estExportee;
 	private boolean estTerminee;
-	private String moisAnnee;
+	private String dateExport;
 	private HashMap<Integer,Station> stations;
 	
 	
@@ -27,9 +27,9 @@ public class Tournee
 	 * @param stations		: stations de la tournee
 	 * @param estExportee	: si la tournee est exportee ou non
 	 * @param estTerminee	: si la tournee est terminee ou non
-	 * @param moisAnnee		: date d'export de la tournee
+	 * @param dateExport		: date d'export de la tournee
 	 */
-	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee,String moisAnnee) 
+	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee,String dateExport) 
 	{
 		this.id = id;
 		this.nom = nom;
@@ -38,7 +38,7 @@ public class Tournee
 		this.estExportee = estExportee;
 		this.estTerminee = estTerminee;
 		this.stations = stations;
-		this.moisAnnee = moisAnnee;
+		this.dateExport = dateExport;
 	}
 	/**
 	 * Contructeur permettant de creer une tournee
@@ -47,9 +47,9 @@ public class Tournee
 	 * @param stations		: stations de la tournee
 	 * @param moisAnnee		: date de la tournee
 	 */
-	public Tournee(String nom, int idModele, HashMap<Integer, Station> stations,String moisAnnee) 
+	public Tournee(String nom, int idModele, HashMap<Integer, Station> stations,String dateExport) 
 	{
-		this(-1,nom,idModele,stations,false,false,moisAnnee);
+		this(-1,nom,idModele,stations,false,false,dateExport);
 	}
 	/**
 	 * retourne l'id de la tournee
@@ -121,14 +121,14 @@ public class Tournee
 	@Override
 	public String toString() {
 		return "Tournee [id=" + id + ", nom=" + nom + ", idModele=" + idModele + ", estExportee=" + estExportee
-				+ ", estTerminee=" + estTerminee + ", moisAnnee=" + moisAnnee + ", stations=" + stations + "]";
+				+ ", estTerminee=" + estTerminee + ", dateExport=" + dateExport + ", stations=" + stations + "]";
 	}
 	/**
 	 * Retourne la date de la tournee
-	 * @return date : a date de la tournee
+	 * @return dateExport : a date de la tournee
 	 */
 	public String getDate() {
-		return this.moisAnnee;
+		return this.dateExport;
 	}
 	
 	
