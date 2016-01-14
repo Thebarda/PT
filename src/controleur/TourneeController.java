@@ -26,7 +26,8 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, t.idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
+										+ "INNER JOIN modele_tournee mdt ON mdt.idModele = t.idModele "
 										+ "WHERE ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -34,7 +35,7 @@ public class TourneeController {
 										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
 										+ "WHERE mt.idModele=t.idModele "
 										+ "limit 1 "
-										+ ")= " + idCentrale + " AND estTerminee = 0 AND mt.estSupprime = 0");
+										+ ")= " + idCentrale + " AND estTerminee = 0 AND mdt.estSupprime = 0");
 			while(resultat.next()){
 				int  idTournee = resultat.getInt("idTournee");
 				String dateExport = resultat.getString("dateExport");
