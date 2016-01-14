@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -11,6 +13,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
+import javax.json.JsonWriterFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,8 +78,13 @@ public class JsonController {
 			reader.close();
 			
 			try {
+				Map<String, Object> config = new HashMap<String, Object>();
+		        //if you need pretty printing
+		        config.put("javax.json.stream.JsonGenerator.prettyPrinting", Boolean.valueOf(true));
+		        JsonWriterFactory factory = Json.createWriterFactory(config);
+		        
 				JsonWriter writer;
-				writer = Json.createWriter(new FileOutputStream(fichier));
+				writer = factory.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
 			} catch (IOException e) {
@@ -245,8 +253,13 @@ public class JsonController {
 			reader.close();
 			
 			try {
+				Map<String, Object> config = new HashMap<String, Object>();
+		        //if you need pretty printing
+		        config.put("javax.json.stream.JsonGenerator.prettyPrinting", Boolean.valueOf(true));
+		        JsonWriterFactory factory = Json.createWriterFactory(config);
+				
 				JsonWriter writer;
-				writer = Json.createWriter(new FileOutputStream(fichier));
+				writer = factory.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
 			} catch (IOException e) {
