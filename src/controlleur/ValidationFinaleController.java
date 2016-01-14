@@ -52,10 +52,12 @@ public class ValidationFinaleController {
 	public void initialize(){
 		JsonReader reader;
 		double releveDejaSaisi;
-		boolean releveDejaSaisiAnormale=false;
-		boolean releveDejaSaisiNormale=false;
-		boolean correctBas=false;
-		boolean correctHaut=false;
+		boolean releveDejaSaisiAnormaleBas = false;
+		boolean releveDejaSaisiAnormaleHaut = false;
+		boolean releveDejaSaisiNormale = false;
+		boolean releveDejaSaisiOptimal = false;
+		boolean correctBas = false;
+		boolean correctHaut = false;
 		try {
 			nomJson = ImportationController.chemin;
 			reader = Json.createReader(new FileInputStream(nomJson));
@@ -78,52 +80,93 @@ public class ValidationFinaleController {
 				releve.setTextAlignment(TextAlignment.CENTER);
 				Stations.getChildren().add(releve);
 				labels.add(releve);
-				if(JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))){
-					releveDejaSaisi=JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
-					if(ReleveController.existeSeuilBas(compteur) && releveDejaSaisi>=stations[compteur].getInt("seuilBas")){
-						correctBas=true;
+				if (JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))) {
+					releveDejaSaisi = JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
+					if (ReleveController.existeSeuilBas(compteur)
+							&& releveDejaSaisi >= stations[compteur].getInt("seuilBas")) {
+						correctBas = true;
 					}
-					if(ReleveController.existeSeuilHaut(compteur) && releveDejaSaisi<=stations[compteur].getInt("seuilHaut")){
-						correctHaut=true;
+					if (ReleveController.existeSeuilHaut(compteur)
+							&& releveDejaSaisi <= stations[compteur].getInt("seuilHaut")) {
+						correctHaut = true;
 					}
-					if(ReleveController.existeSeuilBas(compteur)&& ReleveController.existeSeuilHaut(compteur)){
-						if(correctBas && correctHaut){
-							releveDejaSaisiNormale=true;
+					if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
+						if (correctBas && correctHaut) {
+							if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
+								releveDejaSaisiOptimal=true;
+							}
+							else{
+								releveDejaSaisiNormale = true;
+							}
+						} else {
+							if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
+								releveDejaSaisiAnormaleBas = true;
+							}
+							else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
+								releveDejaSaisiAnormaleHaut = true;
+							}
+						}
+					} else if ((ReleveController.existeSeuilBas(compteur) && correctBas)
+							|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
+							|| (!ReleveController.existeSeuilHaut(compteur)
+									&& !ReleveController.existeSeuilBas(compteur))) {
+						if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
+							releveDejaSaisiOptimal=true;
 						}
 						else{
-							releveDejaSaisiAnormale=true;
+							releveDejaSaisiNormale = true;
+						}
+					} else {
+						if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
+							releveDejaSaisiAnormaleBas = true;
+						}
+						else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
+							releveDejaSaisiAnormaleHaut = true;
 						}
 					}
-					else if((ReleveController.existeSeuilBas(compteur) && correctBas) || (ReleveController.existeSeuilHaut(compteur) && correctHaut) || (!ReleveController.existeSeuilHaut(compteur) && !ReleveController.existeSeuilBas(compteur)) ){
-						releveDejaSaisiNormale=true;
+					if (releveDejaSaisiNormale == true) {
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nValide");
+						labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+						releveDejaSaisiNormale = false;
+						correctHaut = false;
+						correctBas = false;
 					}
-					else{
-						releveDejaSaisiAnormale=true;
+
+					if (releveDejaSaisiOptimal == true) {
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nOptimale");
+						labels.get(compteur).setStyle("-fx-background-color: #3CAD13; -fx-border-style: solid;");
+						releveDejaSaisiOptimal = false;
+						correctHaut = false;
+						correctBas = false;
+					}
+					if(releveDejaSaisiAnormaleBas == true){
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nTrop Basse");
+						labels.get(compteur).setStyle("-fx-background-color: #35BEE8; -fx-border-style: solid;");
+						releveDejaSaisiAnormaleBas = false;
+						correctHaut = false;
+						correctBas = false;
+					}
+					if(releveDejaSaisiAnormaleHaut == true){
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nTrop Haute");
+						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+						releveDejaSaisiAnormaleHaut = false;
+						correctHaut = false;
+						correctBas = false;
 					}
 					
-					if(releveDejaSaisiNormale==true){
-						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nValide");
-						labels.get(compteur).setStyle("-fx-background-color: green; -fx-border-style: solid;");
-						releveDejaSaisiNormale=false;
-						correctHaut=false;
-						correctBas=false;
-					}
-					
-					if(releveDejaSaisiAnormale==true){
-						labels.get(compteur).setText(stations[compteur].getString("nomStation")+"\n"+releveDejaSaisi+" "+stations[compteur].getString("unite")+"\nAnormale");
-						labels.get(compteur).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
-						releveDejaSaisiAnormale=false;
-						correctHaut=false;
-						correctBas=false;
-					}
 				}
 				compteur++;
 			}
 			currentPos = 0;
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
 	}
 	/**
 	 * Passage vers la fenetre de fin de l'application
