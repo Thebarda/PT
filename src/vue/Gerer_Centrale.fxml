@@ -21,5 +21,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <Button fx:id="supprimer" layoutX="525.0" layoutY="401.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="34.0" prefWidth="102.0" text="Supprimer" />
    </children>
 </AnchorPane>

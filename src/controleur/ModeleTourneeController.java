@@ -64,6 +64,105 @@ public class ModeleTourneeController {
 		}
 		return modelesTournee;
 	}
+	
+	/**
+	 * Fonction permettant de r�cuperer tous les mod�les de tourn�e pour une centrale dans la base de donn�e
+	 * @param idCentrale id de la centrale dont on veut r�cup�rer les mod�les de tourn�e
+	 * @return
+	 */
+	public static ObservableList<ModeleTournee> loadAllModeleTourneeNonSupprimes(int idCentrale){
+		
+		ObservableList<ModeleTournee> modelesTournee=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, mt.estSupprime FROM modele_tournee mt "
+										+ "WHERE " + idCentrale + " = ( "
+										+ "Select idCentrale from equipement e "
+										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
+										+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
+										+ "WHERE asm.idModele=mt.idModele "
+										+ "limit 1) AND mt.estSupprime = 0");
+			while(resultat.next()){
+				//public ModeleTournee(int id, String nom, String description, int numExport) 
+				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
+						resultat.getString("nomModele"),
+						resultat.getString("descriptionModele"), resultat.getBoolean("estSupprime"));
+				
+				loadStationIntoModeleTournee(modeleTournee);
+				
+				modelesTournee.add(modeleTournee);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return modelesTournee;
+	}
+	
+	/**
+	 * Fonction permettant de r�cuperer tous les mod�les de tourn�e pour une centrale dans la base de donn�e
+	 * @param idCentrale id de la centrale dont on veut r�cup�rer les mod�les de tourn�e
+	 * @return
+	 */
+	public static ObservableList<ModeleTournee> loadModeleTourneeNonSupprimesStation(int idStation){
+		
+		ObservableList<ModeleTournee> modelesTournee=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT mt.idModele, nomModele, descriptionModele, estSupprime FROM modele_tournee mt "
+										+ "INNER JOIN asso_station_modele asm ON asm.idModele = mt.idModele "
+										+ "WHERE asm.idStation = " + idStation);
+			while(resultat.next()){
+				//public ModeleTournee(int id, String nom, String description, int numExport) 
+				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
+						resultat.getString("nomModele"),
+						resultat.getString("descriptionModele"), resultat.getBoolean("estSupprime"));
+				
+				loadStationIntoModeleTournee(modeleTournee);
+				
+				modelesTournee.add(modeleTournee);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return modelesTournee;
+	}
+	
 	/**
 	 * Fonction qui permet d'ajouter un modele de tourn�e a la base de donn�e.
 	 * on indique tous les parem�tre sauf l'id qui est en autoincr�ment.
@@ -231,5 +330,37 @@ public class ModeleTourneeController {
 	         }  
 		}
 		return modeleTournee;
+	}
+	
+	/**
+	 * definit un modele de tournee comme supprime
+	 * @param idModele
+	 * 		id du modele a supprimer de la BD
+	 */
+	public static void supprimer(int idModele) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE modele_tournee "
+					+ "SET estSupprime = 1 "
+					+ "WHERE idModele = ?");
+			preparedStatement.setInt(1, idModele);
+			preparedStatement.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
 	}
 }

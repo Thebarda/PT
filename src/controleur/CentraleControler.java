@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import modele.Centrale;
+import modele.Equipement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 /**
@@ -52,6 +53,46 @@ public class CentraleControler
 		}
 		return centrales;
 	}
+	
+	/**
+	 * Charge toutes les centrales non supprimees contenues dans la bases de donnees 
+	 * @return 
+	 * 		OservableList contenant des objets Centrales, representant toutes les centrales de la BD
+	 */
+	public static ObservableList<Centrale> loadCentralesNonSupprimees(){
+		
+		ObservableList<Centrale> centrales=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM centrale WHERE estSupprime = 0");
+			while(resultat.next()){
+				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
+				centrales.add(centrale);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return centrales;
+	}
+	
 	/**
 	 * Ajoute une centrale dans la bd en fonction des paramètres
 	 * On spécifie juste le nom et la localisation de la Centrale, l'id étant en auto-increment
@@ -85,28 +126,33 @@ public class CentraleControler
 		}
 	}
 	/**
-	 * Supprime de la BD la centrale spécifié en paramètres
+	 * definit une centrale comme supprimee
 	 * @param centrale
-	 * 		Centrale à supprimer de la BD
+	 * 		Centrale a supprimer de la BD
 	 */
-	public static void supprimerCentrale(Centrale centrale){
+	public static void supprimer(int idCentrale) {
 		Connection connexion = null;
-		ResultSet resultat = null;
-		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
-			statut = connexion.createStatement();
-			resultat = statut.executeQuery("DELETE FROM centrale WHERE  id="+centrale.getId());
-			resultat.clearWarnings();
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE centrale "
+					+ "SET estSupprime = 1 "
+					+ "WHERE idTournee = ?");
+			preparedStatement.setInt(1, idCentrale);
+			preparedStatement.executeUpdate();
+			
+			ObservableList<Equipement> equipements = EquipementController.loadEquipementNonSupprimes(idCentrale);
+			for(Equipement e : equipements){
+				EquipementController.supprimer(e.getId());
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			
 			try 
 	         {  
-	             resultat.close();  
-	             statut.close();  
 	             connexion.close();  
 	         } 
 	         catch (Exception e) 
