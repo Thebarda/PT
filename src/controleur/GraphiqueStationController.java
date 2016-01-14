@@ -35,6 +35,5 @@ public class GraphiqueStationController {
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Valeurs");
 		series = new XYChart.Series<Number, Number>();
-		series
 	}
 }
