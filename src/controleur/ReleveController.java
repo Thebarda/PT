@@ -100,7 +100,8 @@ public class ReleveController {
 			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, r.idStation, nomStation, r.idTournee FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
 										+ "INNER JOIN station s ON s.idStation = r.idStation "
-										+ "WHERE r.idTournee = " + idTournee);
+										+ "WHERE r.idTournee = " + idTournee + " "
+										+ "ORDER BY dateReleve desc");
 			while(resultat.next()){
 				int  idReleve = resultat.getInt("idReleve");
 				String commentaireReleve = resultat.getString("commentaireReleve");
