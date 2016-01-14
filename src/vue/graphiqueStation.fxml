@@ -16,7 +16,7 @@
       </Label>
       <Label layoutX="181.0" layoutY="89.0" text="Station :" />
       <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" onAction="#Graphique" prefWidth="150.0" />
-      <LineChart fx:id="graph" layoutY="134.0" prefHeight="329.0" prefWidth="586.0">
+      <LineChart fx:id="graph" layoutY="134.0" prefHeight="316.0" prefWidth="583.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -24,5 +24,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
+      <Button fx:id="exit" layoutX="419.0" layoutY="440.0" mnemonicParsing="false" onAction="#retour" prefHeight="35.0" prefWidth="82.0" text="Retour" />
    </children>
 </AnchorPane>

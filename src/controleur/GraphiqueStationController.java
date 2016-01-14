@@ -6,6 +6,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import modele.Releve;
 import modele.Station;
@@ -16,6 +17,9 @@ public class GraphiqueStationController {
 	
 	@FXML
 	LineChart<Number, Number> graph;
+	
+	@FXML
+	Button exit;
 	
 	ObservableList<Station> stations=StationController.loadStation(1);
 	XYChart.Series<Number, Number> series;
@@ -29,6 +33,7 @@ public class GraphiqueStationController {
 		graph.setVisible(false);
 	}
 	public void Graphique(){
+		graph.setVisible(true);
 		int idStationSelected=listeStation.getSelectionModel().getSelectedItem().getId();//pas ça
 		ObservableList<Releve> releve=ReleveController.loadRelevesForStation(idStationSelected);//pas ça
 		NumberAxis yAxis = new NumberAxis();
@@ -44,6 +49,9 @@ public class GraphiqueStationController {
 		series.getData().add(new Data<Number, Number>(5, 5));//pas ça
 		series.getData().add(new Data<Number, Number>(6, 6));//pas ça non plus
 		graph.getData().add(series);
-		graph.setVisible(true);
+	}
+	
+	public void retour(){
+		exit.getParent().getScene().getWindow().hide();
 	}
 }
