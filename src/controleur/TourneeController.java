@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Comparator;
 import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -228,6 +229,50 @@ public class TourneeController {
 	             e.printStackTrace();  
 	         }  
 		}
+		tournees.sort(new Comparator<Tournee>(){
+			@Override
+			public int compare(Tournee t1, Tournee t2){
+				String date1 = t1.getDateReleve();
+				String date2 = t2.getDateReleve();
+				int annee1 = Integer.parseInt(date1.substring(6,10));
+				int annee2 = Integer.parseInt(date2.substring(6,10));
+				int mois1  = Integer.parseInt(date1.substring(3,5));
+				int mois2  = Integer.parseInt(date2.substring(3,5));
+				int jour1  = Integer.parseInt(date1.substring(0,2));
+				int jour2  = Integer.parseInt(date2.substring(0,2));
+				int heure1 = Integer.parseInt(date1.substring(11,13));
+				int heure2 = Integer.parseInt(date2.substring(11,13));
+				int min1 = Integer.parseInt(date1.substring(14,16));
+				int min2 = Integer.parseInt(date2.substring(14,16));
+				
+				if(annee1 > annee2)
+					return -1;
+				if(annee1 < annee2)
+					return 1;
+				
+				if(mois1 > mois2)
+					return -1;
+				if(mois1 < mois2)
+					return 1;
+				
+				if(jour1 > jour2)
+					return -1;
+				if(jour1 < jour2)
+					return 1;
+				
+				if(heure1 > heure2)
+					return -1;
+				if(heure1 < heure2)
+					return 1;
+				
+				if(min1 > min2)
+					return -1;
+				if(min1 < min2)
+					return 1;
+				
+				return 0;
+			}
+		});
 		return tournees;
 	}
 	
