@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.GraphiqueStationController">
+   <children>
+      <Label alignment="CENTER" layoutX="286.0" layoutY="28.0" style="-fx-alignment: center;" text="Graphique" AnchorPane.topAnchor="28.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="181.0" layoutY="89.0" text="Station :" />
+      <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" prefWidth="150.0" />
+      <LineChart fx:id="graph" layoutY="134.0" prefHeight="329.0" prefWidth="586.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </children>
+</AnchorPane>
