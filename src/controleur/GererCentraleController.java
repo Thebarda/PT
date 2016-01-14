@@ -4,10 +4,13 @@ package controleur;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -41,6 +44,11 @@ public class GererCentraleController {
 	
 	ObservableList<Centrale> data=CentraleControler.loadCentrales();
 	
+	@FXML 
+	private Button supprimer;
+	
+	static Centrale centrale;
+	
 	
 	@FXML
 	/**
@@ -53,6 +61,17 @@ public class GererCentraleController {
 		data.removeAll(data);
 		data=CentraleControler.loadCentrales();
 		tableCentrale.setItems(data);
+		supprimer.setVisible(false);
+		tableCentrale.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
+	    {
+	        @Override
+	        public void onChanged(Change<? extends Integer> change)
+	        {
+	            supprimer.setVisible(true);
+	        }
+
+	    });
+
 	}
 	/**
 	 * Fonction qui permet d'ouvrir la popup d'ajout de Centrale.
@@ -80,6 +99,31 @@ public class GererCentraleController {
 			e.printStackTrace();
 		}
 		
+		
+	}
+	public void supprimer ()
+	{
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("supprimer.fxml"));
+		AnchorPane page;
+		try {
+			centrale=tableCentrale.getSelectionModel().getSelectedItem();
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Supprimer une centrale");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
