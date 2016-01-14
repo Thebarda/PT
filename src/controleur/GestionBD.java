@@ -84,6 +84,7 @@ public class GestionBD {
 	public void  AfficherGraphique(){
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("graphique.fxml"));
 		AnchorPane page;
+		
 		try {
 			page = (AnchorPane) loader.load();
 			Centre.getChildren().removeAll(Centre.getChildren());
