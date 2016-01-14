@@ -21,6 +21,7 @@ public class ValiderReleveController {
 	 */
 	public static void initialise(JsonObject[] tab,int pos) {
 		tabStations = tab;
+		currentPos = pos;
 	}
 	/**
 	 * Initialisation

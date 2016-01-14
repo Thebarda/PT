@@ -106,8 +106,10 @@ public class saisirReleveController {
 	private void initialize() {
 		JsonReader reader;
 		double releveDejaSaisi;
-		boolean releveDejaSaisiAnormale = false;
+		boolean releveDejaSaisiAnormaleBas = false;
+		boolean releveDejaSaisiAnormaleHaut = false;
 		boolean releveDejaSaisiNormale = false;
+		boolean releveDejaSaisiOptimal = false;
 		boolean correctBas = false;
 		boolean correctHaut = false;
 		try {
@@ -147,36 +149,72 @@ public class saisirReleveController {
 					}
 					if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
 						if (correctBas && correctHaut) {
-							releveDejaSaisiNormale = true;
+							if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
+								releveDejaSaisiOptimal=true;
+							}
+							else{
+								releveDejaSaisiNormale = true;
+							}
 						} else {
-							releveDejaSaisiAnormale = true;
+							if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
+								releveDejaSaisiAnormaleBas = true;
+							}
+							else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
+								releveDejaSaisiAnormaleHaut = true;
+							}
 						}
 					} else if ((ReleveController.existeSeuilBas(compteur) && correctBas)
 							|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
 							|| (!ReleveController.existeSeuilHaut(compteur)
 									&& !ReleveController.existeSeuilBas(compteur))) {
-						releveDejaSaisiNormale = true;
+						if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
+							releveDejaSaisiOptimal=true;
+						}
+						else{
+							releveDejaSaisiNormale = true;
+						}
 					} else {
-						releveDejaSaisiAnormale = true;
+						if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
+							releveDejaSaisiAnormaleBas = true;
+						}
+						else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
+							releveDejaSaisiAnormaleHaut = true;
+						}
 					}
-
 					if (releveDejaSaisiNormale == true) {
-						labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi
-								+ " " + stations[compteur].getString("unite") + "\nValide");
-						labels.get(compteur).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nValide");
+						labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
 						releveDejaSaisiNormale = false;
 						correctHaut = false;
 						correctBas = false;
 					}
 
-					if (releveDejaSaisiAnormale == true) {
-						labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi
-								+ " " + stations[compteur].getString("unite") + "\nAnormale");
-						labels.get(compteur).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
-						releveDejaSaisiAnormale = false;
+					if (releveDejaSaisiOptimal == true) {
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nOptimale");
+						labels.get(compteur).setStyle("-fx-background-color: #3CAD13; -fx-border-style: solid;");
+						releveDejaSaisiOptimal = false;
 						correctHaut = false;
 						correctBas = false;
 					}
+					if(releveDejaSaisiAnormaleBas == true){
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nTrop Basse");
+						labels.get(compteur).setStyle("-fx-background-color: #35BEE8; -fx-border-style: solid;");
+						releveDejaSaisiAnormaleBas = false;
+						correctHaut = false;
+						correctBas = false;
+					}
+					if(releveDejaSaisiAnormaleHaut == true){
+						labels.get(compteur).setText(
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nTrop Haute");
+						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+						releveDejaSaisiAnormaleHaut = false;
+						correctHaut = false;
+						correctBas = false;
+					}
+					
 				}
 				compteur++;
 			}
@@ -295,7 +333,7 @@ public class saisirReleveController {
 			dialog.setOnHiding(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					dialog.close();
-					chargerSuivant();
+					verifChargerSuivantAnormal();
 				}
 			});
 		} catch (IOException e) {
@@ -322,9 +360,9 @@ public class saisirReleveController {
 	/**
 	 * Charge les valeurs de la station suivante
 	 */
-	public void chargerSuivant() {
+	public void verifChargerSuivantAnormal() {
 		if (doitChargerSuivant) {
-			releveAnormale(currentPos);
+			releveAnormale(currentPos,(ecartSeuil < 0));
 			passerSuivant();
 			doitChargerSuivant = false;
 		}
@@ -375,19 +413,34 @@ public class saisirReleveController {
 	 * @param pos posisiton de la station a colore
 	 */
 	public void releveNormale(int pos) {
-		labels.get(pos).setText(
-				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nValide");
-		labels.get(pos).setStyle("-fx-background-color: green; -fx-border-style: solid;");
+		if(ReleveController.existeValeurOptimale(pos) && ReleveController.getValeurOptimale(pos)==Double.parseDouble(releve.getText())){
+			labels.get(pos).setText(
+					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nOptimale");
+			labels.get(pos).setStyle("-fx-background-color: #3CAD13; -fx-border-style: solid;");
+		}
+		else{
+			labels.get(pos).setText(
+					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nValide");
+			labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+		}
+			
 	}
 
 	/**
 	 * colore en orange la station a une position donnee
 	 * @param pos posisiton de la station a colore
 	 */
-	public void releveAnormale(int pos) {
+	public void releveAnormale(int pos, boolean estTropBasse) {
+		if(estTropBasse){
 		labels.get(pos).setText(
-				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nAnormale");
-		labels.get(pos).setStyle("-fx-background-color: orange; -fx-border-style: solid;");
+				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nTrop Basse");
+		labels.get(pos).setStyle("-fx-background-color: #35BEE8; -fx-border-style: solid;");
+		}
+		else{
+			labels.get(pos).setText(
+					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nTrop Haute");
+			labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+		}
 	}
 
 	/**
