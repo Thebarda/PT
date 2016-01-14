@@ -250,7 +250,15 @@ public class Station {
 	 */
 	@Override
 	public String toString() {
-		return "["+id+"]"+nom;
+		if(this.getEstSupprime()==true)
+		{
+			return "["+"SUPPR"+"]"+nom;
+		}
+		else
+		{
+			return "["+id+"]"+nom;
+		}
+		
 	}
 	
 }
