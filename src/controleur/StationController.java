@@ -328,4 +328,38 @@ public class StationController
 		}
 		return station;
 	}
+	
+	public static boolean estUtiliseDansModele(int idStation){
+		boolean estUtilise = false;
+		
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM asso_station_modele WHERE idStation='" + idStation + "'");
+			while(resultat.next()){
+				estUtilise = true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		
+		return estUtilise;
+	}
 }
