@@ -191,13 +191,13 @@ public class AnalyseStationController {
 				if(posReleve!=releves.size()-1&&posReleve!=-1){
 					releveAvant=releves.get(posReleve+1);
 					if(releveAvant.getValeur()>p.getValue().getValeur()){
-						tendance="↘";
+						tendance="\u2198";
 					}
 					else if(releveAvant.getValeur()<p.getValue().getValeur()){
-						tendance="↗";
+						tendance="\u2197";
 					}
 					else{
-						tendance="→";
+						tendance="\u2192";
 					}
 				}
 				
