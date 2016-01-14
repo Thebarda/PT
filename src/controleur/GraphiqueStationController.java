@@ -19,15 +19,12 @@ public class GraphiqueStationController {
 	
 	ObservableList<Station> stations=StationController.loadStation(1);
 	XYChart.Series<Number, Number> series;
-	int idEquipement;
 	
 	@FXML
 	/**
 	 * Fonction qui permet d'initialiser la combobox de Centrale (se demarre au lancement de la fÃªnetre)
 	 */
 	private void initialize() {
-		idEquipement = GraphiqueController.idEquipement;
-		stations = StationController.loadStation(idEquipement);
 		listeStation.setItems(stations);
 		graph.setVisible(false);
 	}
@@ -39,6 +36,7 @@ public class GraphiqueStationController {
 		xAxis.setLabel("Date");//pas ça
 		yAxis.setLabel("Valeurs");//pas ça
 		series = new XYChart.Series<>();
+		graph = new LineChart<Number, Number>(xAxis, yAxis);
 		series.getData().add(new Data<Number, Number>(1, 1));//pas ça
 		series.getData().add(new Data<Number, Number>(2, 2));//pas ça
 		series.getData().add(new Data<Number, Number>(3, 3));//pas ça

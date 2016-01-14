@@ -169,7 +169,7 @@ public class StationController
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT * FROM station s "
+			resultat = statut.executeQuery("SELECT idStation, nomStation, instructionsCourtes, instructionsLongues, idUnite, marqueur, paramFonc, valeurNormale, seuilHaut, seuilBas, MISH, s.estSupprime FROM station s "
 										+ "INNER JOIN Equipement e ON e.idEquipement=s.idEquipement "
 										+ "WHERE e.idCentrale='" + idCentrale + "'");
 			while(resultat.next()){
@@ -203,7 +203,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("s.estSupprime"));
+						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("estSupprime"));
 				stations.add(station);
 			}
 			

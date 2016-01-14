@@ -92,6 +92,7 @@ public class AnalyseController
 	            	    }
 	            	};
 	            	Button button=new Button("Analyser");
+	            	button.setMaxWidth(Double.MAX_VALUE);
 	            	button.setOnAction(event);
 	            	return new SimpleObjectProperty<Button>(button);
 	            }
