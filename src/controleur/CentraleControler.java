@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  */
 public class CentraleControler 
 {
-
+       
 	/**
 	 * Charge toutes les centrales contenues dans la bases de données 
 	 * @return 
@@ -138,7 +138,7 @@ public class CentraleControler
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE centrale "
 					+ "SET estSupprime = 1 "
-					+ "WHERE idTournee = ?");
+					+ "WHERE idCentrale = ?");
 			preparedStatement.setInt(1, idCentrale);
 			preparedStatement.executeUpdate();
 			

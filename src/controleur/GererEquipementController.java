@@ -52,7 +52,7 @@ public class GererEquipementController {
 	@FXML
 	Button supprimer;
 	
-	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
+	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static Equipement equipement;
 	
@@ -110,7 +110,7 @@ public class GererEquipementController {
 	 */
 	public void ListerEquipement(){
 		Ajouter.setVisible(true);
-		ObservableList<Equipement> equip=EquipementController.loadEquipement(listeCentrale.getValue().getId());
+		ObservableList<Equipement> equip=EquipementController.loadEquipementNonSupprimes(listeCentrale.getValue().getId());
 		Nom.setCellValueFactory(new PropertyValueFactory<Equipement, String>("nom"));
 		ID.setCellValueFactory(new PropertyValueFactory<Equipement, Integer>("id"));
 		Description.setCellValueFactory(new PropertyValueFactory<Equipement, String>("description"));

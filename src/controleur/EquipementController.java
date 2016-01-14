@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  */
 public class EquipementController 
 {
-
+       
 	/**
 	 * Charge toutes les Equipement pour une centrale  donnee
 	 * @param idCentrale
