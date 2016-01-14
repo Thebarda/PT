@@ -16,6 +16,7 @@ public class ModeleTournee
 	private String nom;
 	private String description;
 	private HashMap<Integer,Station> stations;
+	private boolean estSupprime;
 	
 	/**
 	 * Constructeur d'un modele de tournee
@@ -23,13 +24,13 @@ public class ModeleTournee
 	 * @param nom : le nom du modèle de tournee
 	 * @param description : la description du modele de tournee
 	 */
-	public ModeleTournee(int id, String nom, String description) 
+	public ModeleTournee(int id, String nom, String description, boolean estSupprime) 
 	{
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
 		this.stations = new HashMap<Integer,Station>();
-
+		this.estSupprime = estSupprime;
 	}
 
 	/**
@@ -95,6 +96,22 @@ public class ModeleTournee
 		this.description = description;
 	}
 
+	/**
+	 * Getter pour savoir si le modele est supprime
+	 * @return estSupprime
+	 * 		estSupprime : vrai si le modele est supprime, faux sinon
+	 */
+	public Boolean getEstSupprime() {
+		return estSupprime;
+	}
+	/**
+	 * Setter pour definir si le modele est supprime
+	 * @param estSupprime
+	 * 		estSupprime : vrai si le modele est supprime, faux sinon
+	 */
+	public void setEstSupprime(boolean estSupprime) {
+		this.estSupprime = estSupprime;
+	}
 
 	/**
 	 * Methode permettant de recuperer les stations du modele de tournee

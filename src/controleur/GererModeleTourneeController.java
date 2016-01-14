@@ -4,7 +4,9 @@ package controleur;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +50,12 @@ public class GererModeleTourneeController {
 	@FXML
 	Button Ajouter;
 	
+	@FXML
+	Button supprimer;
+	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
+	
+	static ModeleTournee modele;
 	
 	
 	@FXML
@@ -58,6 +65,16 @@ public class GererModeleTourneeController {
 	private void initialize() {
 		Ajouter.setVisible(false);
 		listeCentrale.setItems(centrale);
+		supprimer.setVisible(false);
+		tableModeleTournee.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
+	    {
+	        @Override
+	        public void onChanged(Change<? extends Integer> change)
+	        {
+	            supprimer.setVisible(true);
+	        }
+
+	    });
 	}
 	/**
 	 * Fonction qui permet d'ouvrir la popup d'ajout de modèle de tournées.
@@ -99,5 +116,30 @@ public class GererModeleTourneeController {
 		ID.setCellValueFactory(new PropertyValueFactory<ModeleTournee, Integer>("id"));
 		Description.setCellValueFactory(new PropertyValueFactory<ModeleTournee, String>("description"));
 		tableModeleTournee.setItems(modeleTournee);
+	}
+	public void supprimer ()
+	{
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("supprimer.fxml"));
+		AnchorPane page;
+		try {
+			modele=tableModeleTournee.getSelectionModel().getSelectedItem();
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Supprimer un modele de tournee");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

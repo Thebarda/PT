@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="456.0" minWidth="800.0" prefHeight="456.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.SupprimerController">
+   <children>
+      <Label layoutX="150.0" layoutY="35.0" text="Validation de la suppression">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="text" layoutX="138.0" layoutY="203.0" prefHeight="25.0" prefWidth="524.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="text2" layoutX="138.0" layoutY="249.0" prefHeight="25.0" prefWidth="524.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="valider" layoutX="80.0" layoutY="355.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="168.0" text="Valider " />
+      <Button fx:id="annuler" layoutX="500.0" layoutY="355.0" mnemonicParsing="false" onAction="#annuler" prefHeight="64.0" prefWidth="168.0" text="Annuler " />
+      <Label fx:id="titre" alignment="CENTER" layoutX="153.0" layoutY="100.0" prefHeight="50.0" prefWidth="506.0">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

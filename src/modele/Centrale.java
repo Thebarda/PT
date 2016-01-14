@@ -7,21 +7,24 @@ public class Centrale
 	private int id;
 	private String nom;
 	private String identiteNationale;
+	private boolean estSupprime;
 	/**
 	 * Constructeur pour la centrale en specifiant son id, son nom et sa localisation
 	 * @param id
 	 * 		id de la centrale
 	 * @param nom
 	 * 		nom de la centrale
-	 * @param lieu
-	 * 		localisation de la centrale
+	 * @param identiteNationale
+	 * 		identite nationale de la centrale
+	 * @param estSupprime
+	 * 		indique si la centrale a ete supprimme
 	 */
-	public Centrale(int id, String nom, String identiteNationale) {
+	public Centrale(int id, String nom, String identiteNationale, boolean estSupprime) {
 		
 		this.id = id;
 		this.nom = nom;
 		this.identiteNationale = identiteNationale;
-		
+		this.estSupprime = estSupprime;
 	}
 
 	/**
@@ -71,6 +74,23 @@ public class Centrale
 	 */
 	public void setIdentiteNationale(String identiteNationale) {
 		this.identiteNationale = identiteNationale;
+	}
+	
+	/**
+	 * Getter pour savoir si la centrale est supprime
+	 * @return estSupprime
+	 * 		estSupprime : vrai si la centrale est supprime, faux sinon
+	 */
+	public Boolean getEstSupprime() {
+		return estSupprime;
+	}
+	/**
+	 * Setter pour definir si la centrale est supprime
+	 * @param estSupprime
+	 * 		estSupprime : vrai si la centrale est supprime, faux sinon
+	 */
+	public void setEstSupprime(boolean estSupprime) {
+		this.estSupprime = estSupprime;
 	}
 
 	/* (non-Javadoc)

@@ -4,7 +4,9 @@ package controleur;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,8 +53,12 @@ public class GererStationController {
 	
 	@FXML
 	Button Ajouter;
+	@FXML
+	Button supprimer;
 	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
+	
+	static Station station;
 
 	
 	@FXML
@@ -62,6 +68,16 @@ public class GererStationController {
 	private void initialize() {
 		Ajouter.setVisible(false);
 		listeCentrale.setItems(centrale);
+		supprimer.setVisible(false);
+		tableStation.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
+	    {
+	        @Override
+	        public void onChanged(Change<? extends Integer> change)
+	        {
+	            supprimer.setVisible(true);
+	        }
+
+	    });
 	}
 	/**
 	 * Fonction qui permet d'ouvrir la popup d'ajout de Stations.
@@ -114,6 +130,31 @@ public class GererStationController {
 		Ajouter.setVisible(false);
 		ObservableList<Equipement> equipements=EquipementController.loadEquipement(listeCentrale.getValue().getId());
 		listeEquipement.setItems(equipements);
+	}
+	public void supprimer ()
+	{
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("supprimer.fxml"));
+		AnchorPane page;
+		try {
+			station=tableStation.getSelectionModel().getSelectedItem();
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Supprimer une station");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

@@ -61,7 +61,76 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("estSupprime"));
+				stations.add(station);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return stations;
+	}
+	
+	/**
+	 * Fonction permettant de recuperer tous les objets Station non supprimes dans la base de donnee pour un equipement donne
+	 * @param idEquipement id de l'equipement dont on veut connaitre les stations
+	 * @return
+	 */
+	public static ObservableList<Station> loadStationNonSupprimees(int idEquipement){
+		
+		ObservableList<Station> stations=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM station WHERE idEquipement='" + idEquipement + "' AND estSupprime = 0");
+			while(resultat.next()){
+				
+				//1er bit = 1   ==>  seuilHaut NULL
+				//2eme bit = 1  ==>  seuilBas NULL
+				//3eme bit = 1  ==>  valeurNormale NULL
+				
+				double seuilHaut;
+				double seuilBas;
+				double valeurNormale;
+				
+				if (resultat.getString("marqueur").substring(0, 1).equals("1")){
+					seuilHaut = 0.0;
+				}else{
+					seuilHaut = resultat.getDouble("seuilHaut");
+				}
+				if (resultat.getString("marqueur").substring(1, 2).equals("1")){
+					seuilBas = 0.0;
+				}else{
+					seuilBas = resultat.getDouble("seuilBas");
+				}
+				if(resultat.getString("marqueur").substring(2, 3).equals("1")){
+					valeurNormale = 0.0;
+				}else{
+					valeurNormale = resultat.getDouble("valeurNormale");
+				}
+				
+				Station station = new Station(resultat.getInt("idStation"),
+						resultat.getString("nomStation"),
+						resultat.getString("instructionsCourtes"),
+						resultat.getString("instructionsLongues"),
+						resultat.getInt("idUnite"), resultat.getString("marqueur"),
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("estSupprime"));
 				stations.add(station);
 			}
 			
@@ -132,7 +201,78 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("s.estSupprime"));
+				stations.add(station);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return stations;
+	}
+	
+	/**
+	 * Fonction permettant de recuperer tous les objets Station non supprimes dans la base de donnee pour une centrale donnee
+	 * @param idEquipement id de l'equipement dont on veut connaitre les stations
+	 * @return
+	 */
+	public static ObservableList<Station> loadStationNonSupprimeesForCentrale(int idCentrale){
+		
+		ObservableList<Station> stations=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM station s "
+										+ "INNER JOIN Equipement e ON e.idEquipement=s.idEquipement "
+										+ "WHERE e.idCentrale='" + idCentrale + "' AND s.estSupprime = 0");
+			while(resultat.next()){
+				
+				//1er bit = 1   ==>  seuilHaut NULL
+				//2eme bit = 1  ==>  seuilBas NULL
+				//3eme bit = 1  ==>  valeurNormale NULL
+				
+				double seuilHaut;
+				double seuilBas;
+				double valeurNormale;
+				
+				if (resultat.getString("marqueur").substring(0, 1).equals("1")){
+					seuilHaut = 0.0;
+				}else{
+					seuilHaut = resultat.getDouble("seuilHaut");
+				}
+				if (resultat.getString("marqueur").substring(1, 2).equals("1")){
+					seuilBas = 0.0;
+				}else{
+					seuilBas = resultat.getDouble("seuilBas");
+				}
+				if(resultat.getString("marqueur").substring(2, 3).equals("1")){
+					valeurNormale = 0.0;
+				}else{
+					valeurNormale = resultat.getDouble("valeurNormale");
+				}
+				
+				Station station = new Station(resultat.getInt("idStation"),
+						resultat.getString("nomStation"),
+						resultat.getString("instructionsCourtes"),
+						resultat.getString("instructionsLongues"),
+						resultat.getInt("idUnite"), resultat.getString("marqueur"),
+						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("s.estSupprime"));
 				stations.add(station);
 			}
 			
@@ -308,7 +448,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"),resultat.getBoolean("estSupprime"));
 			}
 			
 		}catch(Exception e){
@@ -327,5 +467,39 @@ public class StationController
 	         }  
 		}
 		return station;
+	}
+	
+	public static boolean estUtiliseDansModele(int idStation){
+		boolean estUtilise = false;
+		
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM asso_station_modele WHERE idStation='" + idStation + "'");
+			while(resultat.next()){
+				estUtilise = true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		
+		return estUtilise;
 	}
 }

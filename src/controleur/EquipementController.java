@@ -35,7 +35,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "'";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"));
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"),resultat.getBoolean("estSupprime"));
 				equipements.add(equipement);
 			}
 			
@@ -56,6 +56,50 @@ public class EquipementController
 		}
 		return equipements;
 	}
+	
+	/**
+	 * Charge toutes les Equipement non supprimes pour une centrale  donnee
+	 * @param idCentrale
+	 * 		id de la centrale dont l'on veut charger les equipements 
+	 * @return 
+	 * 		OservableList contenant des objets Equipement, representant toutes les Equipements non supprimes de la BD
+	 */
+	public static ObservableList<Equipement> loadEquipementNonSupprimes(int idCentrale)
+	{
+		
+		ObservableList<Equipement> equipements=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "' AND estSupprime = 0";
+			resultat = statut.executeQuery(sql);
+			while(resultat.next()){
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"),resultat.getBoolean("estSupprime"));
+				equipements.add(equipement);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return equipements;
+	}
+	
 	/**
 	 * charge tous les �quipements contenu dans la base de donn�e
 	 * @return une ObservableList contenant tous les �quipements
@@ -74,7 +118,47 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"));
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"), resultat.getBoolean("estSupprime"));
+				equipements.add(equipement);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return equipements;
+	}
+	
+	/**
+	 * charge tous les equipements non supprimes contenu dans la base de donnee
+	 * @return une ObservableList contenant tous les equipements
+	 */
+	public static ObservableList<Equipement> loadAllEquipementNonSupprimes()
+	{
+		
+		ObservableList<Equipement> equipements=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			String sql = "SELECT * FROM EQUIPEMENT WHERE estSupprime = 0";
+			resultat = statut.executeQuery(sql);
+			while(resultat.next()){
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"), resultat.getBoolean("estSupprime"));
 				equipements.add(equipement);
 			}
 			

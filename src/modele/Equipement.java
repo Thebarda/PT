@@ -8,6 +8,7 @@ public class Equipement {
 	private String description;
 	private int idCentrale;
 	private String ECSH;
+	private boolean estSupprime;
 	
 	/**
 	 * Constructeur pour un equipement en specifiant son id, son nom, sa descriptione et l'id de la Centrale relatif a  cet equipement
@@ -21,13 +22,16 @@ public class Equipement {
 	 * 		id de la Centrale relatif a l'equipement
 	 * @param ECSH
 	 * 		repere ECSH de l'equipement
+	 * @param
+	 * 		definit si l'equipement est supprime ou non
 	 */
-	public Equipement(int id, String nom, String description, int idCentrale,String ECSH){
+	public Equipement(int id, String nom, String description, int idCentrale,String ECSH, boolean estSupprime){
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
 		this.idCentrale=idCentrale;
 		this.ECSH=ECSH;
+		this.estSupprime = estSupprime;
 	}
 	
 	/**
@@ -111,6 +115,23 @@ public class Equipement {
 	 */
 	public void setECSH(String ECSH){
 		this.ECSH=ECSH;
+	}
+	
+	/**
+	 * Getter pour savoir si l'equipement est supprime
+	 * @return estSupprime
+	 * 		estSupprime : vrai si l'equipement est supprime, faux sinon
+	 */
+	public Boolean getEstSupprime() {
+		return estSupprime;
+	}
+	/**
+	 * Setter pour definir si l'equipement est supprime
+	 * @param estSupprime
+	 * 		estSupprime : vrai si l'equipement est supprime, faux sinon
+	 */
+	public void setEstSupprime(boolean estSupprime) {
+		this.estSupprime = estSupprime;
 	}
 	
 	/* (non-Javadoc)

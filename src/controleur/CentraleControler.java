@@ -31,7 +31,7 @@ public class CentraleControler
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM centrale");
 			while(resultat.next()){
-				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"));
+				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
 				centrales.add(centrale);
 			}
 			
@@ -52,6 +52,46 @@ public class CentraleControler
 		}
 		return centrales;
 	}
+	
+	/**
+	 * Charge toutes les centrales non supprimees contenues dans la bases de donnees 
+	 * @return 
+	 * 		OservableList contenant des objets Centrales, representant toutes les centrales de la BD
+	 */
+	public static ObservableList<Centrale> loadCentralesNonSupprimees(){
+		
+		ObservableList<Centrale> centrales=FXCollections.observableArrayList();
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM centrale WHERE estSupprime = 0");
+			while(resultat.next()){
+				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
+				centrales.add(centrale);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return centrales;
+	}
+	
 	/**
 	 * Ajoute une centrale dans la bd en fonction des paramètres
 	 * On spécifie juste le nom et la localisation de la Centrale, l'id étant en auto-increment
@@ -132,9 +172,9 @@ public class CentraleControler
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT nomCentrale, identiteNationale FROM centrale WHERE nomCentrale = '"+nom+"' AND identiteNationale = '"+identiteNationale+"'");
+			resultat = statut.executeQuery("SELECT nomCentrale, identiteNationale, estSupprime FROM centrale WHERE nomCentrale = '"+nom+"' AND identiteNationale = '"+identiteNationale+"'");
 			while(resultat.next()){
-				centrale=new Centrale(resultat.getInt("Id"),resultat.getString("nomCentrale"),resultat.getString("identiteNationale"));
+				centrale=new Centrale(resultat.getInt("Id"),resultat.getString("nomCentrale"),resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
 			}
 			
 		}catch(Exception e){

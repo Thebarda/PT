@@ -25,5 +25,6 @@
       <ComboBox fx:id="listeEquipement" layoutX="280.0" layoutY="97.0" onAction="#ListerStations" prefWidth="150.0" />
       <Label layoutX="196.0" layoutY="59.0" text="Centrale :" />
       <ComboBox fx:id="listeCentrale" layoutX="280.0" layoutY="54.0" onAction="#ListerEquipement" prefWidth="150.0" />
+      <Button fx:id="supprimer" layoutX="525.0" layoutY="401.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="34.0" prefWidth="102.0" text="Supprimer" />
    </children>
 </AnchorPane>
