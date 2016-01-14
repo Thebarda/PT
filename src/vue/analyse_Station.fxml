@@ -21,6 +21,6 @@
          </font>
       </Label>
       <Label layoutX="181.0" layoutY="89.0" text="Station :" />
-      <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" prefWidth="150.0" />
+      <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" onAction="#ListerReleve" prefWidth="150.0" />
    </children>
 </AnchorPane>

@@ -146,10 +146,7 @@ public class Station {
 	 * @return seuilHaut : le seuil haut de controle de la station
 	 */
 	public double getSeuilHaut() {
-		Double result=null;
-		if(marqueur.substring(0,1)=="0")
-			result= seuilHaut;
-		return result;
+			return seuilHaut;
 	}
 	/**
 	 * setter du seuil haut de la station
@@ -163,10 +160,7 @@ public class Station {
 	 * @return seuilBas : le seuil bas de controle de la station
 	 */
 	public double getSeuilBas() {
-		Double result = null;
-		if(marqueur.substring(1,2)=="0")
-			result = seuilBas;
-		return result;
+		return seuilBas;
 	}
 	/**
 	 * setter du seuil bas de controle de la station
@@ -188,10 +182,7 @@ public class Station {
 	 * @return valeurNormale : la valeur normale de la station
 	 */
 	public double getValeurNormale() {
-		Double result = null;
-		if(marqueur.substring(2,3)=="0")
-			result = valeurNormale;
-		return result;
+		return valeurNormale;
 	}
 	/**
 	 * getter du MISH

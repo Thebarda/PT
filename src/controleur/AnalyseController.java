@@ -47,6 +47,7 @@ public class AnalyseController
 		
 		ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
 		
+		static int idEquipement;
 		
 		@FXML
 		/**
@@ -74,6 +75,7 @@ public class AnalyseController
 	            			FXMLLoader loader = new FXMLLoader(Main.class.getResource("analyse_Station.fxml"));
 	            			AnchorPane page;
 	            			try {
+	            		        idEquipement=p.getValue().getId();	            		        
 	            				page = (AnchorPane) loader.load();
 	            				Scene dialogScene = new Scene(page);
 	            		        dialog.setScene(dialogScene);
