@@ -82,7 +82,7 @@ public class GestionBD {
 	 * Fonction qui permet d'afficher le contenu relatif à la gestion de station
 	 */
 	public void  AfficherGraphique(){
-		FXMLLoader loader =new FXMLLoader(Main.class.getResource("graphique.fxml"));
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Graphique.fxml"));
 		AnchorPane page;
 		try {
 			page = (AnchorPane) loader.load();
@@ -117,13 +117,10 @@ public class GestionBD {
 	 * @param idPage
 	 * 		id de la page souhaitée
 	 */
-	/*public void init(int idPage) {
+	public void init(int idPage) {
 		if (idPage==2){
-			AfficherGererCentrale();
+			AfficherAnalyse();
 		}
-		if (idPage==5){
-			AfficherModeleTournee();
-		}
-	}*/
+	}
 }
 	

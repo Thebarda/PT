@@ -34,6 +34,7 @@
                         </Label>
                         <Button layoutX="525.0" layoutY="168.0" mnemonicParsing="false" onAction="#AfficherGererModeleTournee" prefHeight="76.0" prefWidth="198.0" text="Gérer les Modèles de tournées" textAlignment="CENTER" wrapText="true" />
                         <Button layoutX="120.0" layoutY="306.0" mnemonicParsing="false" onAction="#AfficherPreparerTournees" prefHeight="76.0" prefWidth="198.0" text="Planning" />
+                        <Button layoutX="525.0" layoutY="306.0" mnemonicParsing="false" onAction="#AfficherAnalyse" prefHeight="76.0" prefWidth="198.0" text="Analyse" />
                      </children>
                   </AnchorPane>
                </children></HBox>

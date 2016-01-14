@@ -105,6 +105,21 @@ public class AccueilController {
 		}
 		
 	}
+	public void  AfficherAnalyse(){
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("GestionBD.fxml"));
+		HBox page;
+		try {
+			page = (HBox) loader.load();
+			Appli.getChildren().removeAll(Appli.getChildren());
+			Appli.getChildren().addAll(page);
+			GestionBD controller = loader.getController();
+	        controller.init(2);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 
