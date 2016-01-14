@@ -53,7 +53,7 @@ public class GererModeleTourneeController {
 	@FXML
 	Button supprimer;
 	
-	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
+	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static ModeleTournee modele;
 	
@@ -111,7 +111,7 @@ public class GererModeleTourneeController {
 	 */
 	public void ListerModeleTournees(){
 		Ajouter.setVisible(true);
-		ObservableList<ModeleTournee> modeleTournee=ModeleTourneeController.loadAllModeleTournee(listeCentrale.getValue().getId());
+		ObservableList<ModeleTournee> modeleTournee=ModeleTourneeController.loadAllModeleTourneeNonSupprimes(listeCentrale.getValue().getId());
 		Nom.setCellValueFactory(new PropertyValueFactory<ModeleTournee, String>("nom"));
 		ID.setCellValueFactory(new PropertyValueFactory<ModeleTournee, Integer>("id"));
 		Description.setCellValueFactory(new PropertyValueFactory<ModeleTournee, String>("description"));

@@ -82,6 +82,8 @@ public class SupprimerController {
 	{
 		if(centrale!=null)
 		{
+			CentraleControler.supprimer(centrale.getId());
+			valider.getParent().getScene().getWindow().hide();	
 			
 		}
 	}

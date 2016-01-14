@@ -42,7 +42,7 @@ public class GererCentraleController {
 	@FXML
 	TableColumn<Centrale, String> codeIdentiteNationale;
 	
-	ObservableList<Centrale> data=CentraleControler.loadCentrales();
+	ObservableList<Centrale> data=CentraleControler.loadCentralesNonSupprimees();
 	
 	@FXML 
 	private Button supprimer;
@@ -59,7 +59,7 @@ public class GererCentraleController {
 		Nom.setCellValueFactory(new PropertyValueFactory<Centrale, String>("nom"));
 		codeIdentiteNationale.setCellValueFactory(new PropertyValueFactory<Centrale, String>("identiteNationale"));
 		data.removeAll(data);
-		data=CentraleControler.loadCentrales();
+		data=CentraleControler.loadCentralesNonSupprimees();
 		tableCentrale.setItems(data);
 		supprimer.setVisible(false);
 		tableCentrale.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
