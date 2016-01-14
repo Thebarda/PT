@@ -19,23 +19,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import modele.Centrale;
-import modele.Equipement;
 import modele.ModeleTournee;
 import modele.Station;
-import modele.Unite;
 import vue.Main;
 
 /**
@@ -270,12 +266,18 @@ public class CreationModeleTourneeController {
 		tableStation.setItems(rowMaps);
 	}
 	
+	/**
+	 * Methode permettant d'afficher les boutons relatif l'ordre
+	 */
 	public void afficherBoutonOrdre(){
 		baisserOrdre.setDisable(false);
 		monterOrdre.setDisable(false);
 		supprimer.setDisable(false);
 	}
 	
+	/**
+	 * Methode montant l'ordre de la station inversee
+	 */
 	public void monterOrdre(){
 		Station stationAInverser;
 		Station stationSelect;
@@ -297,6 +299,9 @@ public class CreationModeleTourneeController {
 		}
 	}
 	
+	/**
+	 * Methode baissant l'ordre de la station inversee
+	 */
 	public void baisserOrdre(){
 		Station stationAInverser;
 		Station stationSelect;
@@ -318,6 +323,9 @@ public class CreationModeleTourneeController {
 		}
 	}
 	
+	/**
+	 * Methode supprimant la station selectionnee
+	 */
 	public void supprimerStation(){
 		List<Integer> cleARemplacer;
 		List<Station> stationARemplacer;

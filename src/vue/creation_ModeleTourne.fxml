@@ -27,16 +27,16 @@
       </TableView>
       <Label layoutX="48.0" layoutY="318.0" text="Station" />
       <Label layoutX="51.0" layoutY="345.0" text="(dans l'ordre)" />
-      <Button fx:id="valider" layoutX="526.0" layoutY="442.0" mnemonicParsing="false" onAction="#ajouterStationTournee" text="AJOUTER" />
+      <Button fx:id="valider" layoutX="535.0" layoutY="439.0" mnemonicParsing="false" onAction="#ajouterStationTournee" text="AJOUTER" />
       <Label fx:id="erreurDescription" layoutX="238.0" layoutY="210.0" prefHeight="16.0" prefWidth="319.0" textFill="#fc0101" />
       <Label fx:id="erreurStation" layoutX="202.0" layoutY="506.0" prefHeight="17.0" prefWidth="300.0" textFill="#fc0101" />
       <TextArea fx:id="description" layoutX="229.0" layoutY="131.0" prefHeight="71.0" prefWidth="259.0" />
-      <Button fx:id="baisserOrdre" disable="true" layoutX="590.0" layoutY="371.0" mnemonicParsing="false" onAction="#baisserOrdre" text="↓">
+      <Button fx:id="baisserOrdre" disable="true" layoutX="591.0" layoutY="380.0" mnemonicParsing="false" onAction="#baisserOrdre" text="↓">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="monterOrdre" disable="true" layoutX="517.0" layoutY="371.0" mnemonicParsing="false" onAction="#monterOrdre" text="↑">
+      <Button fx:id="monterOrdre" disable="true" layoutX="515.0" layoutY="380.0" mnemonicParsing="false" onAction="#monterOrdre" text="↑">
          <font>
             <Font size="18.0" />
          </font>
