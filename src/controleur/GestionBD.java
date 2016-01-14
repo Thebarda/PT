@@ -82,7 +82,7 @@ public class GestionBD {
 	 * Fonction qui permet d'afficher le contenu relatif à la gestion de station
 	 */
 	public void  AfficherGraphique(){
-		FXMLLoader loader =new FXMLLoader(Main.class.getResource("Graphique.fxml"));
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("graphique.fxml"));
 		AnchorPane page;
 		
 		try {
