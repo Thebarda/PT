@@ -8,12 +8,12 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.AnalyseStationController">
    <children>
-      <TableView fx:id="tableAnalyse" layoutX="22.0" layoutY="133.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="320.0" prefWidth="598.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="133.0">
+      <TableView fx:id="tableAnalyse" layoutX="22.0" layoutY="133.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="281.0" prefWidth="617.0" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="133.0">
          <columns>
             <TableColumn fx:id="Date" maxWidth="1.7976931348623157E308" prefWidth="160.0" text="Date" />
-            <TableColumn fx:id="Releve" maxWidth="1.7976931348623157E308" prefWidth="158.0" text="Releve" />
-            <TableColumn fx:id="Analyse" prefWidth="202.0" text="Analyse" />
-            <TableColumn fx:id="Tendance" prefWidth="77.0" text="Tendance" />
+            <TableColumn fx:id="Releve" maxWidth="1.7976931348623157E308" prefWidth="173.0" text="Releve" />
+            <TableColumn fx:id="Analyse" prefWidth="191.0" text="Analyse" />
+            <TableColumn fx:id="Tendance" prefWidth="92.0" text="Tendance" />
          </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="286.0" layoutY="28.0" style="-fx-alignment: center;" text="Analyse" AnchorPane.topAnchor="28.0">
@@ -23,5 +23,7 @@
       </Label>
       <Label layoutX="181.0" layoutY="89.0" text="Station :" />
       <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" onAction="#ListerReleve" prefWidth="150.0" />
+      <Button layoutX="567.0" layoutY="439.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="76.0" onAction="#retour" text="Retour" />
+      <TextArea fx:id="analyseGen" editable="false" layoutX="22.0" layoutY="421.0" prefHeight="67.0" prefWidth="534.0" visible="false" />
    </children>
 </AnchorPane>

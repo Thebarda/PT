@@ -1,6 +1,8 @@
 package controleur;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.json.JsonObject;
 
@@ -19,6 +21,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -51,6 +54,9 @@ public class AnalyseStationController {
 	@FXML
 	TableColumn<Releve,String> Tendance;
 	
+	@FXML
+	TextArea analyseGen;
+	
 	int idEquipement;
 	
 	ObservableList<Station> stations;
@@ -70,6 +76,8 @@ public class AnalyseStationController {
 	 * Fonction qui permet de lister les equipements dans le tableau quand on selectionne une centrale dans la combobox
 	 */
 	public void ListerReleve(){
+		int nbReleve=0;
+		int nbReleveAnormal=0;
 		int idStationSelected=listeStation.getSelectionModel().getSelectedItem().getId();
 		ObservableList<Releve> releve=ReleveController.loadRelevesForStation(idStationSelected);
 		Date.setCellValueFactory(new PropertyValueFactory<Releve, String>("date"));
@@ -158,7 +166,6 @@ public class AnalyseStationController {
 
 			
 		  });
-		tableAnalyse.setItems(releve);
 		Analyse.setCellFactory(new Callback<TableColumn<Releve,Label>,TableCell<Releve,Label>>(){
 			@Override
 		    public TableCell<Releve, Label> call(TableColumn<Releve, Label> param) {
@@ -204,5 +211,18 @@ public class AnalyseStationController {
 				return new SimpleObjectProperty<String>(tendance);
 			}
 		});
+		tableAnalyse.setItems(releve);
+		analyseGen.setVisible(true);
+		for (Releve item : tableAnalyse.getItems()) {
+			if(Analyse.getCellObservableValue(item).getValue().getText().contains("Anormale")){
+				nbReleveAnormal++;
+			}
+			nbReleve++;
+		}
+		analyseGen.setText("Proportion de valeurs anormales : "+(double)((double)nbReleveAnormal/(double)nbReleve)*100.0+"% ("+nbReleveAnormal+"/"+nbReleve+")");
+	}
+	
+	public void retour(){
+		analyseGen.getParent().getScene().getWindow().hide();	
 	}
 }
