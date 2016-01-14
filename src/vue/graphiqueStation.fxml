@@ -15,7 +15,7 @@
          </font>
       </Label>
       <Label layoutX="181.0" layoutY="89.0" text="Station :" />
-      <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" prefWidth="150.0" />
+      <ComboBox fx:id="listeStation" layoutX="279.0" layoutY="84.0" onAction="#Graphique" prefWidth="150.0" />
       <LineChart fx:id="graph" layoutY="134.0" prefHeight="329.0" prefWidth="586.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />

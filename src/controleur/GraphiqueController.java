@@ -41,7 +41,7 @@ public class GraphiqueController {
 	TableColumn<Equipement, Button> Graphique;
 	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
-	
+	static int idEquipement;
 	
 	@FXML
 	/**
@@ -69,6 +69,7 @@ public class GraphiqueController {
             			FXMLLoader loader = new FXMLLoader(Main.class.getResource("graphiqueStation.fxml"));
             			AnchorPane page;
             			try {
+            				idEquipement = p.getValue().getId();
             				page = (AnchorPane) loader.load();
             				Scene dialogScene = new Scene(page);
             		        dialog.setScene(dialogScene);
