@@ -165,8 +165,17 @@ public class ModeleTournee
 	 */
 	@Override
 	public String toString() {
-		return "ModeleTournee [id=" + id + ", nom=" + nom + ", description=" + description
+		if(this.getEstSupprime()==true)
+		{
+			return "ModeleTournee [SUPPR , nom=" + nom + ", description=" + description
+					+ ", stations=" + stations + "]";
+		}
+		else
+		{
+			return "ModeleTournee [id=" + id + ", nom=" + nom + ", description=" + description
 				+ ", stations=" + stations + "]";
+		}
+		
 	}
 	
 	/**

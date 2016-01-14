@@ -139,7 +139,14 @@ public class Equipement {
 	 */
 	@Override
 	public String toString() {
-		return "["+id+"]"+nom;
+		if(this.getEstSupprime()==true)
+		{
+			return "["+"SUPPR"+"]"+nom;
+		}
+		else{
+			return "["+id+"]"+nom;
+		}
+		
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
