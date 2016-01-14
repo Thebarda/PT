@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import modele.Equipement;
+import modele.Station;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 /**
@@ -214,6 +215,43 @@ public class EquipementController
 			try 
 	         {  
 	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
+	
+	/**
+	 * definit un equipement comme supprime
+	 * @param equipement
+	 * 		equipement a supprimer de la BD
+	 */
+	public static void supprimer(int idEquipement) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE equipement "
+					+ "SET estSupprime = 1 "
+					+ "WHERE idEquipement = ?");
+			preparedStatement.setInt(1, idEquipement);
+			preparedStatement.executeUpdate();
+			
+			ObservableList<Station> stations = StationController.loadStationNonSupprimees(idEquipement);
+			for(Station s : stations){
+				StationController.supprimer(s.getId());
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
 	             connexion.close();  
 	         } 
 	         catch (Exception e) 

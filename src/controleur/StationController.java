@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import modele.ModeleTournee;
 import modele.Station;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -501,5 +503,42 @@ public class StationController
 		}
 		
 		return estUtilise;
+	}
+	
+	/**
+	 * definit une station comme supprime
+	 * @param idStation
+	 * 		id station a supprimer de la BD
+	 */
+	public static void supprimer(int idStation) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE station "
+					+ "SET estSupprime = 1 "
+					+ "WHERE idStation = ?");
+			preparedStatement.setInt(1, idStation);
+			preparedStatement.executeUpdate();
+			
+			ObservableList<ModeleTournee> modeles = ModeleTourneeController.loadModeleTourneeNonSupprimesStation(idStation);
+			for(ModeleTournee mt : modeles){
+				ModeleTourneeController.supprimer(mt.getId());
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
 	}
 }
