@@ -51,7 +51,7 @@ public class TourneeController {
 				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
 													+ "instructionsLongues, marqueur, seuilBas, seuilHaut, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
-													+ "MISH from station s "
+													+ "MISH, estSupprime from station s "
 													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
 													+ "WHERE asm.idModele=" + idModele + " "
 													+ "ORDER BY asm.ordre ASC");
@@ -87,7 +87,7 @@ public class TourneeController {
 							resultatStations.getString("instructionsCourtes"),
 							resultatStations.getString("instructionsLongues"),
 							resultatStations.getInt("idUnite"), resultatStations.getString("marqueur"),
-							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
+							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"),resultatStations.getBoolean("estSupprime"));
 					stations.put(i, station);
 					i++;
 				}
@@ -160,7 +160,7 @@ public class TourneeController {
 				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
 													+ "instructionsLongues, marqueur, seuilBas, seuilHaut, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
-													+ "MISH from station s "
+													+ "MISH, estSupprime from station s "
 													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
 													+ "WHERE asm.idModele=" + idModele + " "
 													+ "ORDER BY asm.ordre ASC");
@@ -196,7 +196,7 @@ public class TourneeController {
 							resultatStations.getString("instructionsCourtes"),
 							resultatStations.getString("instructionsLongues"),
 							resultatStations.getInt("idUnite"), resultatStations.getString("marqueur"),
-							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
+							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"),resultatStations.getBoolean("estSupprime"));
 					stations.put(i, station);
 					i++;
 				}
@@ -477,7 +477,7 @@ public class TourneeController {
 				resultatStations = statutStations.executeQuery("SELECT s.idStation, nomStation, instructionsCourtes, "
 													+ "instructionsLongues, marqueur, seuilBas, seuilHaut, "
 													+ "idEquipement, idUnite, paramFonc, valeurNormale, "
-													+ "MISH from station s "
+													+ "MISH, estSupprime from station s "
 													+ "INNER JOIN asso_station_modele asm ON asm.idStation=s.idStation "
 													+ "WHERE asm.idModele=" + idModele + " "
 													+ "ORDER BY asm.ordre ASC");
@@ -513,7 +513,7 @@ public class TourneeController {
 							resultatStations.getString("instructionsCourtes"),
 							resultatStations.getString("instructionsLongues"),
 							resultatStations.getInt("idUnite"), resultatStations.getString("marqueur"),
-							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"));
+							seuilHaut,seuilBas,valeurNormale,resultatStations.getString("paramFonc"),resultatStations.getBoolean("MISH"), resultatStations.getBoolean("estSupprime"));
 					stations.put(i, station);
 					i++;
 				}

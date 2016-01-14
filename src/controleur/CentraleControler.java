@@ -31,7 +31,7 @@ public class CentraleControler
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM centrale");
 			while(resultat.next()){
-				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"));
+				Centrale centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
 				centrales.add(centrale);
 			}
 			
@@ -132,9 +132,9 @@ public class CentraleControler
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT nomCentrale, identiteNationale FROM centrale WHERE nomCentrale = '"+nom+"' AND identiteNationale = '"+identiteNationale+"'");
+			resultat = statut.executeQuery("SELECT nomCentrale, identiteNationale, estSupprime FROM centrale WHERE nomCentrale = '"+nom+"' AND identiteNationale = '"+identiteNationale+"'");
 			while(resultat.next()){
-				centrale=new Centrale(resultat.getInt("Id"),resultat.getString("nomCentrale"),resultat.getString("identiteNationale"));
+				centrale=new Centrale(resultat.getInt("Id"),resultat.getString("nomCentrale"),resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
 			}
 			
 		}catch(Exception e){

@@ -19,6 +19,7 @@ public class Station {
 	private double valeurNormale;
 	private String paramFonc;
 	private boolean MISH;
+	private boolean estSupprime;
 	
 	/**
 	 * constructeur d'une station en indiquant tous les parametres qui la constitue
@@ -34,9 +35,10 @@ public class Station {
 	 * @param valeurNormale : valeur normale pour les mesures
 	 * @param paramFonc : parametre de fonctionnement de la station
 	 * @param MISH : MISH de la station
+	 * @param estSupprime : definit si la station est supprime ou non
 	 */
 	public Station(int id, String nom, String instructionCourte, String instructionLongue, int idUnite, String marqueur,
-			double seuilHaut, double seuilBas,double valeurNormale,String paramFonc,boolean MISH) {
+			double seuilHaut, double seuilBas,double valeurNormale,String paramFonc,boolean MISH, boolean estSupprime) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -49,6 +51,7 @@ public class Station {
 		this.valeurNormale=valeurNormale;
 		this.paramFonc=paramFonc;
 		this.MISH=MISH;
+		this.estSupprime = estSupprime;
 	}
 	/**
 	 * getter de l'id de la station
@@ -143,7 +146,10 @@ public class Station {
 	 * @return seuilHaut : le seuil haut de controle de la station
 	 */
 	public double getSeuilHaut() {
-		return seuilHaut;
+		Double result=null;
+		if(marqueur.substring(0,1)=="0")
+			result= seuilHaut;
+		return result;
 	}
 	/**
 	 * setter du seuil haut de la station
@@ -157,7 +163,10 @@ public class Station {
 	 * @return seuilBas : le seuil bas de controle de la station
 	 */
 	public double getSeuilBas() {
-		return seuilBas;
+		Double result = null;
+		if(marqueur.substring(1,2)=="0")
+			result = seuilBas;
+		return result;
 	}
 	/**
 	 * setter du seuil bas de controle de la station
@@ -179,7 +188,10 @@ public class Station {
 	 * @return valeurNormale : la valeur normale de la station
 	 */
 	public double getValeurNormale() {
-		return valeurNormale;
+		Double result = null;
+		if(marqueur.substring(2,3)=="0")
+			result = valeurNormale;
+		return result;
 	}
 	/**
 	 * getter du MISH
@@ -190,6 +202,23 @@ public class Station {
 			return 1;
 		else
 			return 0;
+	}
+	
+	/**
+	 * Getter pour savoir si la station est supprime
+	 * @return estSupprime
+	 * 		estSupprime : vrai si la station est supprime, faux sinon
+	 */
+	public Boolean getEstSupprime() {
+		return estSupprime;
+	}
+	/**
+	 * Setter pour definir si la station est supprime
+	 * @param estSupprime
+	 * 		estSupprime : vrai si la station est supprime, faux sinon
+	 */
+	public void setEstSupprime(boolean estSupprime) {
+		this.estSupprime = estSupprime;
 	}
 	
 	/**

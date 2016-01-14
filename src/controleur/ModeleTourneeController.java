@@ -29,7 +29,7 @@ public class ModeleTourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele FROM modele_tournee mt "
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, mt.estSupprime FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -40,7 +40,7 @@ public class ModeleTourneeController {
 				//public ModeleTournee(int id, String nom, String description, int numExport) 
 				ModeleTournee modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
 						resultat.getString("nomModele"),
-						resultat.getString("descriptionModele"));
+						resultat.getString("descriptionModele"), resultat.getBoolean("estSupprime"));
 				
 				loadStationIntoModeleTournee(modeleTournee);
 				
@@ -99,7 +99,7 @@ public class ModeleTourneeController {
 				preparedStatementAsso.setInt(3, i);
 				preparedStatementAsso.executeUpdate();
 			}
-			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele);
+			ModeleTournee modele = new ModeleTournee(id, nomModele, descriptionModele, false);
 			loadStationIntoModeleTournee(modele);
 			modele.genererTournee();
 			
@@ -133,7 +133,7 @@ public class ModeleTourneeController {
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT s.idStation, s.nomStation, s.instructionsCourtes, s.instructionsLongues, "
-										+ "s.idUnite, s.marqueur, s.seuilHaut, s.seuilBas, s.valeurNormale, s.paramFonc, s.MISH, asm.ordre FROM station s "
+										+ "s.idUnite, s.marqueur, s.seuilHaut, s.seuilBas, s.valeurNormale, s.paramFonc, s.MISH, s.estSupprime asm.ordre FROM station s "
 										+ "INNER JOIN asso_station_modele asm ON s.idStation=asm.idStation "
 										+ "WHERE asm.idModele=" + modele.getId());
 			
@@ -168,7 +168,7 @@ public class ModeleTourneeController {
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"),resultat.getBoolean("estSupprime"));
 				int ordre = resultat.getInt("ordre");
 				modele.ajouterStation(station, ordre);
 			}
@@ -205,12 +205,12 @@ public class ModeleTourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele FROM modele_tournee mt "
+			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, estSupprime FROM modele_tournee mt "
 										+ "WHERE idModele = " + idModele);
 			while(resultat.next()){
 				modeleTournee = new ModeleTournee(resultat.getInt("idModele"),
 						resultat.getString("nomModele"),
-						resultat.getString("descriptionModele"));
+						resultat.getString("descriptionModele"),resultat.getBoolean("estSupprime"));
 				
 				loadStationIntoModeleTournee(modeleTournee);
 			}

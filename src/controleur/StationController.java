@@ -61,7 +61,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("estSupprime"));
 				stations.add(station);
 			}
 			
@@ -132,7 +132,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut,seuilBas,valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"), resultat.getBoolean("s.estSupprime"));
 				stations.add(station);
 			}
 			
@@ -308,7 +308,7 @@ public class StationController
 						resultat.getString("instructionsCourtes"),
 						resultat.getString("instructionsLongues"),
 						resultat.getInt("idUnite"), resultat.getString("marqueur"),
-						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"));
+						seuilHaut, seuilBas, valeurNormale,resultat.getString("paramFonc"),resultat.getBoolean("MISH"),resultat.getBoolean("estSupprime"));
 			}
 			
 		}catch(Exception e){

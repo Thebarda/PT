@@ -35,7 +35,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "'";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"));
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"),resultat.getBoolean("estSupprime"));
 				equipements.add(equipement);
 			}
 			
@@ -74,7 +74,7 @@ public class EquipementController
 			String sql = "SELECT * FROM EQUIPEMENT";
 			resultat = statut.executeQuery(sql);
 			while(resultat.next()){
-				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"));
+				Equipement equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"), resultat.getBoolean("estSupprime"));
 				equipements.add(equipement);
 			}
 			
