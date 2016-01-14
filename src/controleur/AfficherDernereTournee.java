@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -104,7 +105,9 @@ public class AfficherDernereTournee {
 							}
 
 						};
-						Button button = new Button("releve");
+						Button button = new Button("Releve");
+						button.setCenterShape(true);
+						button.setMaxWidth(Double.MAX_VALUE);
 						button.setOnAction(event);
 						return new SimpleObjectProperty<Button>(button);
 
