@@ -3,6 +3,7 @@ package controleur;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,9 +70,11 @@ public class ExportationController {
 
      public void Exportation() {
     	 FileChooser fileChooser = new FileChooser();
-    	 String newDate = tournee.getDate();
-    	 newDate = newDate.replace("/", "-");
-    	 newDate = newDate.substring(0, 10);
+    	 String format = "dd-MM-yyyy";
+ 		 java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+ 		 java.util.Date date = new java.util.Date();
+ 		 
+ 		 String newDate = formater.format(date).toString();
     	 fileChooser.setInitialFileName(tournee.getNom() + "_"  + newDate);
          //Set extension filter
          FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
