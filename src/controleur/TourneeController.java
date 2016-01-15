@@ -24,7 +24,7 @@ public class TourneeController {
 		Statement statutStations = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idTournee, dateExport, t.idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "INNER JOIN modele_tournee mdt ON mdt.idModele = t.idModele "
@@ -134,7 +134,7 @@ public class TourneeController {
 		Statement statutStations = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE ( "
@@ -282,7 +282,7 @@ public class TourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "tournee(nomTournee,dateExport,idModele,estExportee,estTerminee) "
@@ -343,7 +343,7 @@ public class TourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
 					+ "SET estTerminee = 1 "
@@ -370,7 +370,7 @@ public class TourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
 					+ "SET estExportee = 1 "
@@ -397,7 +397,7 @@ public class TourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
 					+ "SET dateExport = ? "
@@ -425,7 +425,7 @@ public class TourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
 					+ "SET dateReleve = ? "
@@ -459,7 +459,7 @@ public class TourneeController {
 		Statement statutStations = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE idTournee = " + idTournee);

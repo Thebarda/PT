@@ -29,7 +29,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM station WHERE idEquipement='" + idEquipement + "'");
 			while(resultat.next()){
@@ -98,7 +98,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM station WHERE idEquipement='" + idEquipement + "' AND estSupprime = 0");
 			while(resultat.next()){
@@ -167,7 +167,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idStation, nomStation, instructionsCourtes, instructionsLongues, idUnite, marqueur, paramFonc, valeurNormale, seuilHaut, seuilBas, MISH, s.estSupprime FROM station s "
 										+ "INNER JOIN Equipement e ON e.idEquipement=s.idEquipement "
@@ -238,7 +238,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM station s "
 										+ "INNER JOIN Equipement e ON e.idEquipement=s.idEquipement "
@@ -316,7 +316,7 @@ public class StationController
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "station(nomStation,instructionsCourtes,"
 					+ "instructionsLongues,idUnite,"
@@ -381,7 +381,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idEquipement FROM STATION WHERE idStation="+idStation);
 			while(resultat.next()){
@@ -416,7 +416,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM station WHERE idStation='" + idStation + "'");
 			while(resultat.next()){
@@ -479,7 +479,7 @@ public class StationController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM asso_station_modele WHERE idStation='" + idStation + "'");
 			while(resultat.next()){
@@ -514,7 +514,7 @@ public class StationController
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE station "
 					+ "SET estSupprime = 1 "
