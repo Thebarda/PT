@@ -87,6 +87,7 @@ public class GraphiqueController {
             	};
             	Button button=new Button("Generer un graphique");
             	button.setOnAction(event);
+            	button.setMaxWidth(Double.MAX_VALUE);
             	return new SimpleObjectProperty<Button>(button);
             }
         });
