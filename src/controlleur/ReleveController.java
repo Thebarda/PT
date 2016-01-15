@@ -154,16 +154,29 @@ public class ReleveController {
 		return seuil;
 	}
 
+	/**
+	 * fonction qui permet de savoir si une station a un seuil bas
+	 * @param num le numero de station 
+	 * @return true si la station a un seuil bas
+	 */
 	public static boolean existeSeuilBas(int num) {
 		JsonObject station = tabStations[num];
 		return station.getString("marqueur").substring(1, 2).equals("0");
 	}
-
+	/**
+	 * fonction qui permet de savoir si une station a un seuil haut
+	 * @param num le numero de station 
+	 * @return true si la station a un seuil haut
+	 */
 	public static boolean existeSeuilHaut(int num) {
 		JsonObject station = tabStations[num];
 		return station.getString("marqueur").substring(0, 1).equals("0");
 	}
-
+	/**
+	 * fonction qui permet de savoir si une station a une valeur optimale
+	 * @param num le numero de station 
+	 * @return true si la station a un une valeur optimale
+	 */
 	public static boolean existeValeurOptimale(int num) {
 		JsonObject station = tabStations[num];
 		return station.getString("marqueur").substring(2, 3).equals("0");
