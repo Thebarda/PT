@@ -135,6 +135,7 @@ public class GererModeleTourneeController {
 	            public void handle(WindowEvent we) {
 	            	initialize();
 	            	dialog.close();
+	            	ListerModeleTournees();
 	            }
 	        });
 		} catch (IOException e) {

@@ -44,11 +44,10 @@ public class SupprimerController {
 		if(centrale!=null)
 		{
 			titre.setText("d'une Centrale");
-			System.out.println(EquipementController.loadEquipement(centrale.getId()).size());
 			if(EquipementController.loadEquipement(centrale.getId()).size()!=0)
 			{
-				text.setText("il y a des équipements qui dépendent de cette centrale");
-				text2.setText("etes vous sur de vouloir supprimer cette centrale ");
+				text.setText("Il y a des équipements qui dépendent de cette centrale");
+				text2.setText("Etes vous sur de vouloir supprimer cette centrale ");
 			}
 		}
 		if(equipement!=null)
@@ -56,8 +55,8 @@ public class SupprimerController {
 			titre.setText("d'un equipement");
 				if(StationController.loadStation(equipement.getId()).size()!=0)
 				{
-				text.setText("il y a des station qui dépendent de cet equipement");
-				text2.setText("etes vous sur de vouloir supprimer cet equipement ");
+				text.setText("Il y a des station qui dépendent de cet equipement");
+				text2.setText("Etes vous sur de vouloir supprimer cet equipement ");
 				}
 		}
 		if(station!=null)
@@ -65,8 +64,8 @@ public class SupprimerController {
 			titre.setText("d'une station");
 			if(StationController.estUtiliseDansModele(station.getId()))
 			{
-				text.setText("il y a des station qui dépendent de cet equipement");
-				text2.setText("etes vous sur de vouloir supprimer cet equipement ");
+				text.setText("Il y a des modeles de tournees qui dépendent de cette station");
+				text2.setText("Etes vous sur de vouloir supprimer cet equipement ");
 			}
 		}
 		if(modele!=null)
@@ -83,6 +82,24 @@ public class SupprimerController {
 		if(centrale!=null)
 		{
 			CentraleControler.supprimer(centrale.getId());
+			valider.getParent().getScene().getWindow().hide();	
+			
+		}
+		if(equipement!=null)
+		{
+			EquipementController.supprimer(equipement.getId());
+			valider.getParent().getScene().getWindow().hide();	
+			
+		}
+		if(station!=null)
+		{
+			StationController.supprimer(station.getId());;
+			valider.getParent().getScene().getWindow().hide();	
+			
+		}
+		if(modele!=null)
+		{
+			ModeleTourneeController.supprimer(modele.getId());
 			valider.getParent().getScene().getWindow().hide();	
 			
 		}

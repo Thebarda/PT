@@ -65,15 +65,18 @@ public class GererEquipementController {
 		Ajouter.setVisible(false);
 		listeCentrale.setItems(centrale);
 		supprimer.setVisible(false);
+		
 		tableEquipement.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
 	        @Override
 	        public void onChanged(Change<? extends Integer> change)
 	        {
 	            supprimer.setVisible(true);
+	            
 	        }
 
 	    });
+		
 	}
 	/**
 	 * Fonction qui permet d'ouvrir la popup d'ajout d'Equipement.
@@ -134,6 +137,7 @@ public class GererEquipementController {
 	            public void handle(WindowEvent we) {
 	            	initialize();
 	            	dialog.close();
+	            	ListerEquipement();
 	            }
 	        });
 		} catch (IOException e) {

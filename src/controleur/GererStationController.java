@@ -149,6 +149,7 @@ public class GererStationController {
 	            public void handle(WindowEvent we) {
 	            	initialize();
 	            	dialog.close();
+	            	ListerStations();
 	            }
 	        });
 		} catch (IOException e) {
