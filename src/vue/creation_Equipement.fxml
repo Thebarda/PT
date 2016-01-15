@@ -21,10 +21,11 @@
          </font>
       </Label>
       <Label layoutX="66.0" layoutY="155.0" text="Repère ECSH" />
-      <TextField fx:id="ECSH1" layoutX="220.0" layoutY="150.0" prefHeight="26.0" prefWidth="60.0" />
+      <TextField fx:id="ECSH1" layoutX="171.0" layoutY="151.0" prefHeight="26.0" prefWidth="60.0" />
       <TextArea fx:id="description" layoutX="198.0" layoutY="216.0" prefHeight="127.0" prefWidth="267.0" />
       <Label fx:id="erreurECSH" layoutX="165.0" layoutY="190.0" prefHeight="16.0" prefWidth="294.0" textFill="#f20404" />
-      <TextField fx:id="ECSH2" layoutX="302.0" layoutY="150.0" prefHeight="26.0" prefWidth="60.0" />
-      <TextField fx:id="ECSH3" layoutX="380.0" layoutY="150.0" prefHeight="26.0" prefWidth="60.0" />
+      <TextField fx:id="ECSH2" layoutX="249.0" layoutY="150.0" prefHeight="26.0" prefWidth="60.0" />
+      <TextField fx:id="ECSH3" layoutX="324.0" layoutY="151.0" prefHeight="26.0" prefWidth="60.0" />
+      <TextField fx:id="ECSH4" layoutX="405.0" layoutY="151.0" prefHeight="26.0" prefWidth="60.0" />
    </children>
 </AnchorPane>

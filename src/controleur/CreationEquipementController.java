@@ -28,6 +28,9 @@ public class CreationEquipementController {
 	@FXML
 	private TextField ECSH3;
 	
+	@FXML
+	private TextField ECSH4;
+	
 	@FXML 
 	private Label erreurNom;
 	
@@ -77,12 +80,8 @@ public class CreationEquipementController {
 			erreurNom.setText("Erreur : le nom est vide");
 			estValide=false;
 		}
-		if(ECSH1.getText().length()!=2 || ECSH2.getText().length()!=2 || ECSH3.getText().length()!=2){
-			erreurECSH.setText("Erreur : chaque champs est composé de 2 caractères");
-			estValide=false;
-		}
-		if(estVide(ECSH1) || estVide(ECSH2) || estVide(ECSH3)){
-			erreurECSH.setText("Erreur : le repère n'est pas rempli");
+		if(estVide(ECSH1) || estVide(ECSH2) || estVide(ECSH3)|| estVide(ECSH4)){
+			erreurECSH.setText("Erreur : le repere n'est pas rempli");
 			estValide=false;
 		}
 		if(description.getText().isEmpty())
@@ -93,7 +92,7 @@ public class CreationEquipementController {
 		
 		if(estValide==true)
 		{
-			EquipementController.addEquipement(idCentrale,nom.getText(), description.getText(),(ECSH1.getText()+ECSH2.getText()+ECSH3.getText()));
+			EquipementController.addEquipement(idCentrale,nom.getText(), description.getText(),(ECSH1.getText()+ECSH2.getText()+ECSH3.getText()+ECSH4.getText()));
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
