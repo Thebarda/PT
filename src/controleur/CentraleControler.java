@@ -28,7 +28,7 @@ public class CentraleControler
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM centrale");
 			while(resultat.next()){
@@ -67,7 +67,7 @@ public class CentraleControler
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM centrale WHERE estSupprime = 0");
 			while(resultat.next()){
@@ -106,7 +106,7 @@ public class CentraleControler
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO centrale(nomCentrale, identiteNationale)VALUES(?,?)");
 			preparedStatement.setString(1, nom);
 			preparedStatement.setString(2, identiteNationale);
@@ -134,7 +134,7 @@ public class CentraleControler
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE centrale "
 					+ "SET estSupprime = 1 "
@@ -176,7 +176,7 @@ public class CentraleControler
 		Centrale centrale = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT nomCentrale, identiteNationale, estSupprime FROM centrale WHERE nomCentrale = '"+nom+"' AND identiteNationale = '"+identiteNationale+"'");
 			while(resultat.next()){

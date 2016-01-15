@@ -22,7 +22,7 @@ public class ReleveController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, r.idStation, nomStation, r.idTournee FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
@@ -63,7 +63,7 @@ public class ReleveController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "releve(valeurReleve,commentaireReleve,"
 					+ "idStation,idTournee) "
@@ -96,7 +96,7 @@ public class ReleveController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, r.idStation, nomStation, r.idTournee FROM releve r "
 										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "
@@ -139,7 +139,7 @@ public class ReleveController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idReleve, commentaireReleve, valeurReleve, dateReleve, r.idStation, nomStation, r.idTournee FROM releve r "
   										+ "INNER JOIN tournee t ON r.idTournee = t.idTournee "

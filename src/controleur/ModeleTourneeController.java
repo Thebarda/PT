@@ -27,7 +27,7 @@ public class ModeleTourneeController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, mt.estSupprime FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
@@ -78,7 +78,7 @@ public class ModeleTourneeController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, mt.estSupprime FROM modele_tournee mt "
 										+ "WHERE " + idCentrale + " = ( "
@@ -129,7 +129,7 @@ public class ModeleTourneeController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT mt.idModele, nomModele, descriptionModele, estSupprime FROM modele_tournee mt "
 										+ "INNER JOIN asso_station_modele asm ON asm.idModele = mt.idModele "
@@ -174,7 +174,7 @@ public class ModeleTourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
 					+ "modele_tournee(nomModele,descriptionModele) "
@@ -229,7 +229,7 @@ public class ModeleTourneeController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT s.idStation, s.nomStation, s.instructionsCourtes, s.instructionsLongues, "
 										+ "s.idUnite, s.marqueur, s.seuilHaut, s.seuilBas, s.valeurNormale, s.paramFonc, s.MISH, s.estSupprime, asm.ordre FROM station s "
@@ -302,7 +302,7 @@ public class ModeleTourneeController {
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT idModele, nomModele, descriptionModele, estSupprime FROM modele_tournee mt "
 										+ "WHERE idModele = " + idModele);
@@ -341,7 +341,7 @@ public class ModeleTourneeController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE modele_tournee "
 					+ "SET estSupprime = 1 "

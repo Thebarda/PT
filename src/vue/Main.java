@@ -2,12 +2,12 @@ package vue;
 	
 import java.io.IOException;
 
+import controleur.ConfigController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPaneBuilder;
 
 
 /**
@@ -32,6 +32,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		ConfigController.lireFichierConf();
 		launch(args);
 	}
 }

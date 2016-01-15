@@ -31,7 +31,7 @@ public class EquipementController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "'";
 			resultat = statut.executeQuery(sql);
@@ -74,7 +74,7 @@ public class EquipementController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			String sql = "SELECT * FROM EQUIPEMENT WHERE idCentrale='" + idCentrale + "' AND estSupprime = 0";
 			resultat = statut.executeQuery(sql);
@@ -114,7 +114,7 @@ public class EquipementController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			String sql = "SELECT * FROM EQUIPEMENT";
 			resultat = statut.executeQuery(sql);
@@ -154,7 +154,7 @@ public class EquipementController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			String sql = "SELECT * FROM EQUIPEMENT WHERE estSupprime = 0";
 			resultat = statut.executeQuery(sql);
@@ -199,7 +199,7 @@ public class EquipementController
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO equipement(idCentrale,nomEquipement, descriptionEquipement,repereECSH)VALUES(?,?,?,?)");
 			preparedStatement.setInt(1, idCentrale);
@@ -233,7 +233,7 @@ public class EquipementController
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE equipement "
 					+ "SET estSupprime = 1 "

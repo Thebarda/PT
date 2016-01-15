@@ -25,7 +25,7 @@ public class UniteController {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO UNITE(nomUnite)VALUES(?)");
 			preparedStatement.setString(1, nom);
 			preparedStatement.executeUpdate();
@@ -55,7 +55,7 @@ public static ObservableList<Unite> loadUnites(){
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT * FROM UNITE");
 			while(resultat.next()){
@@ -94,7 +94,7 @@ public static ObservableList<Unite> loadUnites(){
 		Statement statut = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
-			connexion = DriverManager.getConnection("jdbc:sqlite:bdProjetTutEDF.db");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
 			resultat = statut.executeQuery("SELECT nomUnite FROM UNITE WHERE idUnite="+id);
 			while(resultat.next()){
