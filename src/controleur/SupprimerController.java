@@ -46,7 +46,7 @@ public class SupprimerController {
 			titre.setText("d'une Centrale");
 			if(EquipementController.loadEquipement(centrale.getId()).size()!=0)
 			{
-				text.setText("Il y a des équipements qui dépendent de cette centrale");
+				text.setText("Il y a des equipements qui dépendent de cette centrale");
 				
 			}
 			text2.setText("Etes vous sur de vouloir supprimer cette centrale ?");
@@ -56,7 +56,7 @@ public class SupprimerController {
 			titre.setText("d'un equipement");
 				if(StationController.loadStation(equipement.getId()).size()!=0)
 				{
-				text.setText("Il y a des stations qui dépendent de cet equipement");
+				text.setText("Il y a des stations qui dependent de cet equipement");
 				
 				}
 				text2.setText("Etes vous sur de vouloir supprimer cet equipement ?");
