@@ -47,17 +47,19 @@ public class SupprimerController {
 			if(EquipementController.loadEquipement(centrale.getId()).size()!=0)
 			{
 				text.setText("Il y a des équipements qui dépendent de cette centrale");
-				text2.setText("Etes vous sur de vouloir supprimer cette centrale ");
+				
 			}
+			text2.setText("Etes vous sur de vouloir supprimer cette centrale ?");
 		}
 		if(equipement!=null)
 		{
 			titre.setText("d'un equipement");
 				if(StationController.loadStation(equipement.getId()).size()!=0)
 				{
-				text.setText("Il y a des station qui dépendent de cet equipement");
-				text2.setText("Etes vous sur de vouloir supprimer cet equipement ");
+				text.setText("Il y a des stations qui dépendent de cet equipement");
+				
 				}
+				text2.setText("Etes vous sur de vouloir supprimer cet equipement ?");
 		}
 		if(station!=null)
 		{
@@ -65,8 +67,9 @@ public class SupprimerController {
 			if(StationController.estUtiliseDansModele(station.getId()))
 			{
 				text.setText("Il y a des modeles de tournees qui dépendent de cette station");
-				text2.setText("Etes vous sur de vouloir supprimer cet equipement ");
+				
 			}
+			text2.setText("Etes vous sur de vouloir supprimer cet equipement ?");
 		}
 		if(modele!=null)
 		{
