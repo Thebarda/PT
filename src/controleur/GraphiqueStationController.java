@@ -1,13 +1,17 @@
 package controleur;
 
+import java.lang.reflect.Field;
 import java.util.Comparator;
 
 import javax.swing.event.ListSelectionEvent;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -17,7 +21,9 @@ import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import modele.Releve;
 import modele.Station;
 
@@ -48,8 +54,8 @@ public class GraphiqueStationController {
 		if(racine.getChildren().contains(graph)){
 			racine.getChildren().remove(graph);
 		}
-		int idStationSelected=listeStation.getSelectionModel().getSelectedItem().getId();//pas ça
-		ObservableList<Releve> releves=ReleveController.loadRelevesForStation(idStationSelected);//pas ça
+		int idStationSelected=listeStation.getSelectionModel().getSelectedItem().getId();//pas ï¿½a
+		ObservableList<Releve> releves=ReleveController.loadRelevesForStation(idStationSelected);//pas ï¿½a
 		final CategoryAxis xAxis = new CategoryAxis();
 	    final NumberAxis yAxis = new NumberAxis();
 	    xAxis.setLabel("Date");
@@ -62,6 +68,7 @@ public class GraphiqueStationController {
 	    for(int i=releves.size()-1;i>=0;i--){
 	    	series.getData().add(new XYChart.Data<String, Number>(releves.get(i).getDate(), releves.get(i).getValeur()));
 	    }
+	   
 	    graph.getData().add(series);
 	    graph.setLayoutY(134.0);
 	    graph.setPrefHeight(316.0);
@@ -70,25 +77,9 @@ public class GraphiqueStationController {
 	    
 	    for (XYChart.Series<String, Number> s : graph.getData()) {
             for (Data<String, Number> d : s.getData()) {
-                Tooltip.install(d.getNode(), new Tooltip(
-                        d.getXValue().toString() + "\n" + 
-                "Valeur : " + d.getYValue()));
-
-                d.getNode().setOnMouseEntered(new EventHandler<Event>() {
-
-                    @Override
-                    public void handle(Event event) {
-                        d.getNode().getStyleClass().add("onHover");                     
-                    }
-                });
-
-                d.getNode().setOnMouseExited(new EventHandler<Event>() {
-
-                    @Override
-                    public void handle(Event event) {
-                        d.getNode().getStyleClass().remove("onHover");      
-                    }
-                });
+            	Tooltip t=new Tooltip(d.getXValue().toString() + "\n" +"Valeur : " + d.getYValue());
+            	modifierDelaiToolTip(t,10);
+                Tooltip.install(d.getNode(), t);
             }
         }
 
@@ -96,5 +87,22 @@ public class GraphiqueStationController {
 	
 	public void retour(){
 		exit.getParent().getScene().getWindow().hide();
+	}
+	
+	public static void modifierDelaiToolTip(Tooltip tooltip,double delay) {
+	    try {
+	        Field fieldBehavior = tooltip.getClass().getDeclaredField("BEHAVIOR");
+	        fieldBehavior.setAccessible(true);
+	        Object objBehavior = fieldBehavior.get(tooltip);
+
+	        Field fieldTimer = objBehavior.getClass().getDeclaredField("activationTimer");
+	        fieldTimer.setAccessible(true);
+	        Timeline objTimer = (Timeline) fieldTimer.get(objBehavior);
+
+	        objTimer.getKeyFrames().clear();
+	        objTimer.getKeyFrames().add(new KeyFrame(new Duration(delay)));
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 }
