@@ -69,7 +69,10 @@ public class ExportationController {
 
      public void Exportation() {
     	 FileChooser fileChooser = new FileChooser();
-    	 
+    	 String newDate = tournee.getDate();
+    	 newDate = newDate.replace("/", "-");
+    	 newDate = newDate.substring(0, 10);
+    	 fileChooser.setInitialFileName(tournee.getNom() + "_"  + newDate);
          //Set extension filter
          FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
          fileChooser.getExtensionFilters().add(extFilter);
