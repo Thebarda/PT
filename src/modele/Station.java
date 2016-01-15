@@ -144,6 +144,28 @@ public class Station {
 		this.seuilBas = seuilBas;
 	}
 	
+	/**
+	 * getter du parametre de fonctionnement
+	 * @return paramFonc : le parametre de fonctionnement de la station
+	 */
+	public String getParamFonc() {
+		return paramFonc;
+	}
+	/**
+	 * getter de la valeur normale
+	 * @return valeurNormale : la valeur normale de la station
+	 */
+	public double getValeurNormale() {
+		return valeurNormale;
+	}
+	/**
+	 * getter du MISH
+	 * @return le MISH de la station en booleen
+	 */
+	public int getMish() {
+		return MISH;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

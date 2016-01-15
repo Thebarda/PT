@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 
 /**
@@ -19,7 +18,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	@Override
 	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+		Main.primaryStage = primaryStage;
 		primaryStage.setTitle("Application EDF");
 		
 		try {
