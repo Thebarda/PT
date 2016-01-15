@@ -41,7 +41,7 @@ public class GraphiqueStationController {
 	@FXML
 	Button exit;
 	
-	ObservableList<Station> stations=StationController.loadStation(1);
+	ObservableList<Station> stations;
 	XYChart.Series<String, Number> series;
 	
 	@FXML
@@ -49,6 +49,7 @@ public class GraphiqueStationController {
 	 * Fonction qui permet d'initialiser la combobox de Centrale (se demarre au lancement de la fênetre)
 	 */
 	private void initialize() {
+		stations=StationController.loadStation(GraphiqueController.idEquipement);
 		listeStation.setItems(stations);
 	}
 	public void Graphique(){
