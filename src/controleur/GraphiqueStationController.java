@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.geometry.Side;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -64,12 +65,45 @@ public class GraphiqueStationController {
 
 	    graph.setTitle("Graphique "+listeStation.getSelectionModel().getSelectedItem().getNom());
 	    Series<String, Number> series = new XYChart.Series<String, Number>();
+	    Series<String, Number> seriesSeuilHaut = new XYChart.Series<String, Number>();
+	    Series<String, Number> seriesSeuilBas = new XYChart.Series<String, Number>();
+	    Series<String, Number> seriesNormal = new XYChart.Series<String, Number>();
 	    series.setName("Releve");
 	    for(int i=releves.size()-1;i>=0;i--){
 	    	series.getData().add(new XYChart.Data<String, Number>(releves.get(i).getDate(), releves.get(i).getValeur()));
+	    	if(i==releves.size()-1 || i==0){
+	    		seriesSeuilHaut.getData().add(new XYChart.Data<String, Number>(releves.get(i).getDate(), listeStation.getSelectionModel().getSelectedItem().getSeuilHaut()));
+		    	seriesSeuilBas.getData().add(new XYChart.Data<String, Number>(releves.get(i).getDate(), listeStation.getSelectionModel().getSelectedItem().getSeuilBas()));
+		    	seriesNormal.getData().add(new XYChart.Data<String, Number>(releves.get(i).getDate(), listeStation.getSelectionModel().getSelectedItem().getValeurNormale()));
+	    	}
+	    	
 	    }
-	   
+	    graph.setLegendVisible(false);
 	    graph.getData().add(series);
+	    graph.getData().add(seriesSeuilHaut);
+	    graph.getData().add(seriesNormal);
+	    graph.getData().add(seriesSeuilBas);
+	    
+	    graph.getData().get(1).getNode().setStyle("-fx-stroke: red; -fx-stroke-width: 2; -fx-stroke-dash-array: 6 12; ");
+	    graph.getData().get(3).getNode().setStyle("-fx-stroke: #5CE3D1; -fx-stroke-width: 2; -fx-stroke-dash-array: 6 12;");
+	    graph.getData().get(2).getNode().setStyle("-fx-stroke: #37CA20; -fx-stroke-width: 2; -fx-stroke-dash-array: 6 12;");
+	    
+	    for(int i=0;i<2;i++){
+	    	graph.getData().get(1).getData().get(i).getNode().setVisible(false);
+	    	graph.getData().get(2).getData().get(i).getNode().setVisible(false);
+	    	graph.getData().get(3).getData().get(i).getNode().setVisible(false);
+	    }
+	    
+	    if(listeStation.getSelectionModel().getSelectedItem().getMarqueur().substring(0,1).equals("1")){
+	    	graph.getData().remove(seriesSeuilHaut);
+	    }
+	    if(listeStation.getSelectionModel().getSelectedItem().getMarqueur().substring(1,2).equals("1")){
+	    	graph.getData().remove(seriesSeuilBas);
+	    }
+	    if(listeStation.getSelectionModel().getSelectedItem().getMarqueur().substring(2,3).equals("1")){
+	    	graph.getData().remove(seriesNormal);
+	    }
+	    
 	    graph.setLayoutY(134.0);
 	    graph.setPrefHeight(316.0);
 	    graph.setPrefWidth(583.0);
