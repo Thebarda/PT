@@ -8,7 +8,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.detailReleveController">
    <children>
-      <Label layoutX="232.0" layoutY="35.0" text="Details du Releve">
+      <Label layoutX="232.0" layoutY="35.0" text="Détail du Relevé">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>

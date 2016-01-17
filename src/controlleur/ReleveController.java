@@ -108,16 +108,16 @@ public class ReleveController {
 		String seuil = "";
 
 		if (existeSeuilBas(num)) {
-			seuil += "Seuil Bas: " + station.getInt("seuilBas") + "		";
+			seuil += "Seuil bas: " + station.getInt("seuilBas") + "		";
 		}
 
 		if (existeSeuilHaut(num)) {
-			seuil += "Seuil Haut: " + station.getInt("seuilHaut") + "		";
+			seuil += "Seuil haut: " + station.getInt("seuilHaut") + "		";
 
 		}
 
 		if (existeValeurOptimale(num)) {
-			seuil += "Valeur Optimale: " + station.getInt("valeurNormale");
+			seuil += "Valeur optimale: " + station.getInt("valeurNormale");
 
 		}
 		if (seuil.equals("")) {
@@ -133,7 +133,7 @@ public class ReleveController {
 
 	/**
 	 * Retourne les seuils sous la forme "Compris entre seuilBas et seuilHaut"
-	 * ou "inferieure a seuilHaut" ou "superieure a seuilBas"
+	 * ou "inferieure a seuilHaut" ou "superieur a seuilBas"
 	 * 
 	 * @param num
 	 *            numero de la station pour lequel on souhaite afficher les
@@ -147,9 +147,9 @@ public class ReleveController {
 		if (existeSeuilBas(num) && existeSeuilHaut(num)) {
 			seuil = "compris entre " + station.getInt("seuilBas") + " et " + station.getInt("seuilHaut");
 		} else if (existeSeuilHaut(num)) {
-			seuil = "inferieure a " + station.getInt("seuilHaut");
+			seuil = "inferieur a " + station.getInt("seuilHaut");
 		} else if (existeSeuilBas(num)) {
-			seuil = "superieure a " + station.getInt("seuilBas");
+			seuil = "superieur a " + station.getInt("seuilBas");
 		}
 		return seuil;
 	}

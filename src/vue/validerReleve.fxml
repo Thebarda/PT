@@ -8,32 +8,32 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.ValiderReleveController">
    <children>
-      <Label layoutX="202.0" layoutY="38.0" text="Validation du Releve">
+      <Label layoutX="231.0" layoutY="45.0" text="Validation du relevé">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
       </Label>
-      <Label layoutX="143.0" layoutY="204.0" text="Votre releve n'est pas compris entre les seuils de valeurs normaux">
+      <Label layoutX="181.0" layoutY="201.0" prefHeight="25.0" prefWidth="421.0" text="Votre relevé n'est pas compris dans les valeurs attendues">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="113.0" layoutY="339.0" text="Il se peut que vous ayez effectue une erreur lors de la saisie du releve.">
+      <Label layoutX="146.0" layoutY="341.0" text="Il se peut que vous ayez effectué une erreur lors de la saisie du relevé.">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="233.0" layoutY="453.0" text="Validez-vous le releve ?">
+      <Label layoutX="254.0" layoutY="454.0" text="Validez-vous le relevé ?">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="seuilDepasse" alignment="CENTER" contentDisplay="CENTER" layoutY="280.0" prefHeight="20.0" prefWidth="816.0" textAlignment="CENTER">
+      <Label fx:id="seuilDepasse" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="275.0" prefHeight="20.0" prefWidth="816.0" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="82.0" layoutY="521.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="168.0" text="Valider le releve" />
-      <Button layoutX="483.0" layoutY="521.0" mnemonicParsing="false" onAction="#annuler" prefHeight="64.0" prefWidth="168.0" text="Annuler le releve" />
+      <Button layoutX="103.0" layoutY="522.0" mnemonicParsing="false" onAction="#valider" prefHeight="64.0" prefWidth="168.0" text="Oui" />
+      <Button layoutX="504.0" layoutY="522.0" mnemonicParsing="false" onAction="#annuler" prefHeight="64.0" prefWidth="168.0" text="Non" />
    </children>
 </AnchorPane>
