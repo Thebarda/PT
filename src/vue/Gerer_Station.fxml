@@ -16,7 +16,7 @@
          </columns>
       </TableView>
       <Button fx:id="Ajouter" layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#ajouterStation" prefHeight="34.0" prefWidth="102.0" text="Ajouter" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="33.0" />
-      <Label alignment="CENTER" layoutX="214.0" layoutY="14.0" style="-fx-alignment: center;" text="Gestion des Stations" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="14.0">
+      <Label alignment="CENTER" layoutX="214.0" layoutY="14.0" style="-fx-alignment: center;" text="Gestion des stations" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

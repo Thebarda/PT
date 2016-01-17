@@ -12,7 +12,7 @@
          <columns>
             <TableColumn fx:id="ID" maxWidth="1.7976931348623157E308" prefWidth="47.0" text="ID" />
             <TableColumn fx:id="Nom" maxWidth="1.7976931348623157E308" prefWidth="250.0" text="Nom" />
-            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="310.0" text="Releve">
+            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="310.0" text="Relevé">
                <columns>
                   <TableColumn fx:id="Export" prefWidth="160.0" text="Export" />
                   <TableColumn fx:id="Import" prefWidth="160.0" text="Import" />

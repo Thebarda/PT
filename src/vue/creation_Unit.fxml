@@ -11,9 +11,9 @@
       <Button fx:id="valider" layoutX="347.0" layoutY="233.0" mnemonicParsing="false" onAction="#ValiderUnite" text="VALIDER" />
       <Label fx:id="erreurNom" layoutX="202.0" layoutY="159.0" prefHeight="16.0" prefWidth="184.0" textFill="#fc0101" />
       <TextField fx:id="nom" layoutX="214.0" layoutY="118.0" />
-      <Label layoutX="67.0" layoutY="123.0" text="Nom " />
+      <Label layoutX="67.0" layoutY="123.0" text="nom :" />
       <Button fx:id="annuler" layoutX="238.0" layoutY="233.0" mnemonicParsing="false" onAction="#annulerUnite" text="ANNULER" />
-      <Label layoutX="134.0" layoutY="28.0" text="Création d'une Unite">
+      <Label layoutX="134.0" layoutY="28.0" text="Création d'une unité">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

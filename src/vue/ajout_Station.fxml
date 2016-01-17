@@ -10,7 +10,7 @@
    <children>
       <Button fx:id="valider" layoutX="340.0" layoutY="247.0" mnemonicParsing="false" onAction="#ValiderAjoutStation" text="VALIDER" />
       <Button fx:id="annuler" layoutX="236.0" layoutY="247.0" mnemonicParsing="false" onAction="#annulerAjoutStation" text="ANNULER" />
-      <Label layoutX="144.0" layoutY="34.0" text="Ajout d'une Station">
+      <Label layoutX="144.0" layoutY="34.0" text="Ajout d'une station">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

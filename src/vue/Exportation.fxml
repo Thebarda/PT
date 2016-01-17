@@ -14,8 +14,8 @@
          </font>
       </Label>
       <Button fx:id="exportation" layoutX="401.0" layoutY="175.0" mnemonicParsing="false" onAction="#Exportation" text="Exporter  ...." />
-      <Button fx:id="valider" layoutX="453.0" layoutY="316.0" mnemonicParsing="false" onAction="#ValiderExportation" text="Valider" />
-      <Button fx:id="annuler" layoutX="362.0" layoutY="316.0" mnemonicParsing="false" onAction="#annulerExportation" text="Annuler" />
+      <Button fx:id="valider" layoutX="426.0" layoutY="316.0" mnemonicParsing="false" onAction="#ValiderExportation" text="Valider" />
+      <Button fx:id="annuler" layoutX="336.0" layoutY="316.0" mnemonicParsing="false" onAction="#annulerExportation" text="Annuler" />
       <Label fx:id="erreurRoute" layoutX="179.0" layoutY="234.0" />
    </children>
 </AnchorPane>

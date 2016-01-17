@@ -12,7 +12,7 @@
          <columns>
             <TableColumn fx:id="ID" maxWidth="1.7976931348623157E308" prefWidth="68.0" text="ID" />
             <TableColumn fx:id="Nom" maxWidth="1.7976931348623157E308" prefWidth="297.0" text="Nom" />
-            <TableColumn fx:id="Graphique" prefWidth="249.0" text="Generer un graphique" />
+            <TableColumn fx:id="Graphique" prefWidth="249.0" text="Générer un graphique" />
          </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="286.0" layoutY="28.0" style="-fx-alignment: center;" text="Graphique" AnchorPane.topAnchor="28.0">

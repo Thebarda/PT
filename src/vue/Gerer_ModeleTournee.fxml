@@ -16,7 +16,7 @@
          </columns>
       </TableView>
       <Button fx:id="Ajouter" layoutX="563.0" layoutY="435.0" mnemonicParsing="false" onAction="#ajouterModeleTournee" prefHeight="34.0" prefWidth="102.0" text="Ajouter" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="33.0" />
-      <Label alignment="CENTER" layoutX="126.0" layoutY="36.0" style="-fx-alignment: center;" text="Gestion des Modeles de Tournées" AnchorPane.topAnchor="36.0">
+      <Label alignment="CENTER" layoutX="126.0" layoutY="36.0" style="-fx-alignment: center;" text="Gestion des modèles de tournées" AnchorPane.topAnchor="36.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

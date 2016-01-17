@@ -13,10 +13,10 @@
             <TableColumn fx:id="date" maxWidth="1.7976931348623157E308" prefWidth="145.0" text="Date" />
             <TableColumn fx:id="ID" maxWidth="1.7976931348623157E308" prefWidth="85.0" text="ID" />
             <TableColumn fx:id="Nom" maxWidth="1.7976931348623157E308" prefWidth="148.0" text="Nom" />
-            <TableColumn fx:id="releve" prefWidth="96.0" text="Releve" />
+            <TableColumn fx:id="releve" prefWidth="96.0" text="Relevé" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="126.0" layoutY="36.0" style="-fx-alignment: center;" text="Dernieres Tournees" AnchorPane.topAnchor="36.0">
+      <Label alignment="CENTER" layoutX="126.0" layoutY="36.0" style="-fx-alignment: center;" text="Dernières tournées" AnchorPane.topAnchor="36.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

@@ -13,12 +13,12 @@
             <Font name="System Bold" size="34.0" />
          </font>
       </Label>
-      <Label layoutX="181.0" layoutY="183.0" text="Attention : cette tournee a deja etait exportee le :" textFill="RED">
+      <Label layoutX="181.0" layoutY="183.0" text="Attention : cette tournée a déjà été exportée le :" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="339.0" prefHeight="64.0" prefWidth="805.0" text="Nous vous recommandons de vous renseigner avant d'exporter cette tournee à nouveau,&#10;afin d'eviter toutes erreurs. N'exportez cette tournee que si vous etes sur de ce que vous faites." textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="339.0" prefHeight="64.0" prefWidth="805.0" text="Nous vous recommandons de vous renseigner avant d'exporter cette tournée à nouveau,&#10;afin d'éviter toute erreur. N'exportez cette tournée que si vous êtes sûr de ce que vous faites." textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>

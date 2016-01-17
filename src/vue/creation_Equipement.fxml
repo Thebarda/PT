@@ -11,8 +11,8 @@
       <Button fx:id="valider" layoutX="358.0" layoutY="385.0" mnemonicParsing="false" onAction="#ValiderEquipement" text="VALIDER" />
       <Label fx:id="erreurNom" layoutX="246.0" layoutY="111.0" prefHeight="16.0" prefWidth="171.0" textFill="#fc0101" />
       <TextField fx:id="nom" layoutX="240.0" layoutY="76.0" />
-      <Label layoutX="66.0" layoutY="81.0" text="Nom " />
-      <Label layoutX="68.0" layoutY="216.0" text="Description  " />
+      <Label layoutX="66.0" layoutY="81.0" text="Nom :" />
+      <Label layoutX="68.0" layoutY="216.0" text="Description :" />
       <Label fx:id="erreurDesc" layoutX="198.0" layoutY="355.0" prefHeight="16.0" prefWidth="267.0" textFill="#f20404" />
       <Button fx:id="annuler" layoutX="244.0" layoutY="385.0" mnemonicParsing="false" onAction="#annulerEquipement" text="ANNULER" />
       <Label layoutX="107.0" layoutY="37.0" text="Création d'un Equipement">
@@ -20,7 +20,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="66.0" layoutY="155.0" text="Repère ECSH" />
+      <Label layoutX="66.0" layoutY="155.0" text="Repère ECSH :" />
       <TextField fx:id="ECSH1" layoutX="171.0" layoutY="151.0" prefHeight="26.0" prefWidth="60.0" />
       <TextArea fx:id="description" layoutX="198.0" layoutY="216.0" prefHeight="127.0" prefWidth="267.0" />
       <Label fx:id="erreurECSH" layoutX="165.0" layoutY="190.0" prefHeight="16.0" prefWidth="294.0" textFill="#f20404" />
