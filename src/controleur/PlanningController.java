@@ -43,7 +43,7 @@ public class PlanningController {
 	@FXML
 	ComboBox<Centrale> listeCentrale;
 	
-	ObservableList<Centrale> centrale=CentraleControler.loadCentrales();
+	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	public static String dateExport;
 	
