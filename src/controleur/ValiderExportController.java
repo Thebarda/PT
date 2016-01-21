@@ -2,8 +2,6 @@ package controleur;
 
 import java.io.IOException;
 
-import javax.json.JsonObject;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

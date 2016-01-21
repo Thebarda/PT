@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import modele.Centrale;
 
 /**
  * Controleur relatif à l'interface de création de centrale

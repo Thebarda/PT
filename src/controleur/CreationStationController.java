@@ -4,7 +4,6 @@ package controleur;
 
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import modele.Centrale;
 import modele.Equipement;
 import modele.Unite;
 import vue.Main;

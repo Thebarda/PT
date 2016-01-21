@@ -39,7 +39,6 @@ import vue.Main;
  */
 public class CreationModeleTourneeController {
 	
-	private Map<Integer,Station> map;
 	private int rangActuel=0;
 		
 	@FXML
