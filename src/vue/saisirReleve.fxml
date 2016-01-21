@@ -54,7 +54,7 @@
             </Button>
             <TextArea fx:id="instrCourte" editable="false" focusTraversable="false" layoutX="760.0" layoutY="279.0" prefHeight="129.0" prefWidth="225.0" wrapText="true" />
             <VBox fx:id="Historique" layoutX="66.0" layoutY="104.0" prefHeight="400.0" prefWidth="140.0" />
-            <Button layoutX="816.0" layoutY="414.0" mnemonicParsing="false" onAction="#afficherDetails" prefHeight="61.0" prefWidth="169.0" text="Plus de détails">
+            <Button layoutX="816.0" layoutY="414.0" mnemonicParsing="false" onAction="#afficherDetails" prefHeight="61.0" prefWidth="169.0" text="Plus de détails" textOverrun="CLIP">
                <font>
                   <Font size="20.0" />
                </font>
