@@ -109,7 +109,6 @@ public class saisirReleveController {
 		boolean releveDejaSaisiAnormaleBas = false;
 		boolean releveDejaSaisiAnormaleHaut = false;
 		boolean releveDejaSaisiNormale = false;
-		boolean releveDejaSaisiOptimal = false;
 		boolean correctBas = false;
 		boolean correctHaut = false;
 		try {
@@ -149,12 +148,7 @@ public class saisirReleveController {
 					}
 					if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
 						if (correctBas && correctHaut) {
-							if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
-								releveDejaSaisiOptimal=true;
-							}
-							else{
-								releveDejaSaisiNormale = true;
-							}
+							releveDejaSaisiNormale = true;
 						} else {
 							if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
 								releveDejaSaisiAnormaleBas = true;
@@ -167,12 +161,7 @@ public class saisirReleveController {
 							|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
 							|| (!ReleveController.existeSeuilHaut(compteur)
 									&& !ReleveController.existeSeuilBas(compteur))) {
-						if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
-							releveDejaSaisiOptimal=true;
-						}
-						else{
 							releveDejaSaisiNormale = true;
-						}
 					} else {
 						if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
 							releveDejaSaisiAnormaleBas = true;
@@ -189,19 +178,10 @@ public class saisirReleveController {
 						correctHaut = false;
 						correctBas = false;
 					}
-
-					if (releveDejaSaisiOptimal == true) {
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nOptimale");
-						labels.get(compteur).setStyle("-fx-background-color: #3CAD13; -fx-border-style: solid;");
-						releveDejaSaisiOptimal = false;
-						correctHaut = false;
-						correctBas = false;
-					}
 					if(releveDejaSaisiAnormaleBas == true){
 						labels.get(compteur).setText(
 								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nTrop Basse");
-						labels.get(compteur).setStyle("-fx-background-color: #35BEE8; -fx-border-style: solid;");
+						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 						releveDejaSaisiAnormaleBas = false;
 						correctHaut = false;
 						correctBas = false;

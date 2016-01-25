@@ -27,7 +27,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="oui" layoutX="158.0" layoutY="293.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="122.0" text="Oui et exporter" />
-      <Button fx:id="non" layoutX="321.0" layoutY="293.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="122.0" text="Non et modifier" />
+      <Button fx:id="oui" layoutX="111.0" layoutY="287.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et exporter &#10;(relevé non-modifiable)" />
+      <Button fx:id="non" layoutX="316.0" layoutY="287.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
    </children>
 </AnchorPane>
