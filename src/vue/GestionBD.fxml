@@ -11,7 +11,7 @@
          <children>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="540.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherDerniereTournee" prefHeight="110.0" prefWidth="140.0" text="Dernières tournées" VBox.vgrow="ALWAYS" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherDerniereTournee" prefHeight="110.0" prefWidth="140.0" text="Toutes les tournées" VBox.vgrow="ALWAYS" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherExport" prefHeight="110.0" prefWidth="140.0" text="Exporter vers .xls" VBox.vgrow="ALWAYS" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherImport" prefHeight="110.0" prefWidth="140.0" text="Importer depuis .csv" VBox.vgrow="ALWAYS" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#AfficherGraphique" prefHeight="110.0" prefWidth="140.0" text="Graphique" VBox.vgrow="ALWAYS" />
