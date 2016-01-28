@@ -103,7 +103,6 @@ public class ReprendreController {
 			e.printStackTrace();
 		}
 		tournee = reader.readObject();
-		valider.setVisible(true);
 		station.setVisible(true);
 		nomTournee.setVisible(true);
 		description.setVisible(true);
