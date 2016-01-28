@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,28 +8,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.ValidationFinaleController">
+<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="439.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.ValidationFinaleController">
    <children>
-      <Label layoutX="195.0" layoutY="31.0" text="Validation des releves">
+      <Label layoutX="249.0" layoutY="37.0" text="Validation des releves">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane hbarPolicy="NEVER" layoutX="36.0" layoutY="74.0" minHeight="60.0" pannable="true" prefHeight="140.0" prefWidth="543.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="77.0">
+      <ScrollPane fx:id="scroll" accessibleRole="SLIDER" hbarPolicy="NEVER" layoutX="70.0" layoutY="76.0" pannable="true" prefHeight="140.0" prefWidth="543.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="223.0">
          <cursor>
-            <Cursor fx:constant="CROSSHAIR" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor>
          <content>
             <AnchorPane fx:id="Stations" prefHeight="138.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="176.0" layoutY="244.0" text="Voulez-vous accepter ces valeurs ? ">
+      <Label layoutX="230.0" layoutY="250.0" text="Voulez-vous accepter ces valeurs ? ">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="oui" layoutX="111.0" layoutY="309.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et exporter &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
-      <Button fx:id="non" layoutX="321.0" layoutY="309.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
-      <Label layoutX="61.0" layoutY="280.0" text="Attention : Une fois exportée, vous ne pourrez plus modifier ces valeurs !" textFill="RED" />
+      <Button fx:id="oui" layoutX="165.0" layoutY="315.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et exporter &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Button fx:id="non" layoutX="375.0" layoutY="315.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
+      <Label layoutX="115.0" layoutY="286.0" text="Attention : Une fois exportée, vous ne pourrez plus modifier ces valeurs !" textFill="RED" />
+      <ImageView fx:id="imageGauche" fitHeight="140.0" fitWidth="30.0" layoutX="40.0" layoutY="76.0"/>
+      <ImageView fx:id="imageDroite" fitHeight="140.0" fitWidth="30.0" layoutX="613.0" layoutY="76.0" />
    </children>
 </AnchorPane>

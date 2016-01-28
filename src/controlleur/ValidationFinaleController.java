@@ -17,7 +17,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -38,6 +41,16 @@ public class ValidationFinaleController {
 	@FXML
 	Button non;
 	
+	@FXML
+	ImageView imageDroite;
+	
+	@FXML
+	ImageView imageGauche;
+	
+	@FXML
+	ScrollPane scroll;
+	
+	
 	public static String nomJson;
 	private int nbStations;
 	private int compteur;
@@ -55,7 +68,6 @@ public class ValidationFinaleController {
 		boolean releveDejaSaisiAnormaleBas = false;
 		boolean releveDejaSaisiAnormaleHaut = false;
 		boolean releveDejaSaisiNormale = false;
-		boolean releveDejaSaisiOptimal = false;
 		boolean correctBas = false;
 		boolean correctHaut = false;
 		try {
@@ -66,6 +78,17 @@ public class ValidationFinaleController {
 			stations = JsonController.loadStations(nomJson);
 			ReleveController.initialize(stations, nomJson);
 			compteur = 0;
+			System.out.println(System.getProperty("user.dir"));
+			imageDroite.setImage(new Image("File:droite.png"));
+			imageGauche.setImage(new Image("File:gauche.png"));
+			if(nbStations > 4){
+				scroll.setOnMouseReleased(releaseScroll);
+				imageGauche.setVisible(false);
+			}
+			else{
+				imageGauche.setVisible(false);
+				imageDroite.setVisible(false);
+			}
 			while (compteur < nbStations) {
 				Label releve = new Label(stations[compteur].getString("nomStation"));
 				releve.setPrefHeight(138.0);
@@ -92,12 +115,7 @@ public class ValidationFinaleController {
 					}
 					if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
 						if (correctBas && correctHaut) {
-							if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
-								releveDejaSaisiOptimal=true;
-							}
-							else{
-								releveDejaSaisiNormale = true;
-							}
+							releveDejaSaisiNormale = true;
 						} else {
 							if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
 								releveDejaSaisiAnormaleBas = true;
@@ -110,12 +128,7 @@ public class ValidationFinaleController {
 							|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
 							|| (!ReleveController.existeSeuilHaut(compteur)
 									&& !ReleveController.existeSeuilBas(compteur))) {
-						if(ReleveController.existeValeurOptimale(compteur) && releveDejaSaisi==ReleveController.getValeurOptimale(compteur)){
-							releveDejaSaisiOptimal=true;
-						}
-						else{
 							releveDejaSaisiNormale = true;
-						}
 					} else {
 						if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
 							releveDejaSaisiAnormaleBas = true;
@@ -132,26 +145,17 @@ public class ValidationFinaleController {
 						correctHaut = false;
 						correctBas = false;
 					}
-
-					if (releveDejaSaisiOptimal == true) {
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nOptimale");
-						labels.get(compteur).setStyle("-fx-background-color: #3CAD13; -fx-border-style: solid;");
-						releveDejaSaisiOptimal = false;
-						correctHaut = false;
-						correctBas = false;
-					}
 					if(releveDejaSaisiAnormaleBas == true){
 						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nTrop Basse");
-						labels.get(compteur).setStyle("-fx-background-color: #35BEE8; -fx-border-style: solid;");
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nAnormale");
+						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 						releveDejaSaisiAnormaleBas = false;
 						correctHaut = false;
 						correctBas = false;
 					}
 					if(releveDejaSaisiAnormaleHaut == true){
 						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nTrop Haute");
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nAnormale");
 						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 						releveDejaSaisiAnormaleHaut = false;
 						correctHaut = false;
@@ -166,8 +170,25 @@ public class ValidationFinaleController {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
+	EventHandler<MouseEvent> releaseScroll = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent e) {
+			ScrollPane scroll = (ScrollPane) e.getSource(); 
+			if(scroll.getHvalue()==0){
+				imageGauche.setVisible(false);
+				imageDroite.setVisible(true);
+			}
+			if(scroll.getHvalue()==1){
+				imageDroite.setVisible(false);
+				imageGauche.setVisible(true);
+			}
+			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0){
+				imageDroite.setVisible(true);
+				imageGauche.setVisible(true);
+			}
+		}
+	};
 	/**
 	 * Passage vers la fenetre de fin de l'application
 	 */
