@@ -9,7 +9,7 @@
 
 <AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.ValidationFinaleController">
    <children>
-      <Label layoutX="208.0" layoutY="14.0" text="Validation des releves">
+      <Label layoutX="195.0" layoutY="31.0" text="Validation des releves">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -22,7 +22,7 @@
             <AnchorPane fx:id="Stations" prefHeight="138.0" />
          </content>
       </ScrollPane>
-      <Label layoutX="176.0" layoutY="244.0" text="Voulez-vous modifier ces valeurs ? ">
+      <Label layoutX="176.0" layoutY="244.0" text="Voulez-vous accepter ces valeurs ? ">
          <font>
             <Font size="14.0" />
          </font>
