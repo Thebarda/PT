@@ -1,6 +1,8 @@
 package controlleur;
 
+import java.io.File;
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +24,10 @@ import modele.Station;
  * Classe qui permet l'edition d'un fichier json
  */
 public class JsonController {
+	
+	public final static String DEF_FICHIER_TMP = System.getProperty("java.io.tmpdir") + "RelevEDF_jsonMobile.tmp";
+	public static String fichier;
+	
 	/**
 	 * Fonction qui ecrit un releve dans un fichier json
 	 * @param fichier chemin du fichier
@@ -360,5 +366,61 @@ public class JsonController {
 			e.printStackTrace();
 		}
 		return comReleve;
+	}
+	
+	public static void chargerJson(String fichier){
+		JsonReader reader;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+
+			Map<String, Object> config = new HashMap<String, Object>();
+	        //if you need pretty printing
+			config.put("javax.json.stream.JsonGenerator.prettyPrinting", Boolean.valueOf(true));
+	        JsonWriterFactory factory = Json.createWriterFactory(config);
+	        
+			JsonWriter writer;
+			writer = factory.createWriter(new FileOutputStream(DEF_FICHIER_TMP));
+		    writer.writeObject(tournee);
+		    writer.close();
+			
+			reader.close();
+			JsonController.fichier = fichier;
+			ImportationController.chemin = DEF_FICHIER_TMP;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void exporterJson(String fichier, String export){
+		JsonReader reader;
+		try {
+			reader = Json.createReader(new FileInputStream(fichier));
+			JsonObject tournee = reader.readObject();
+
+			Map<String, Object> config = new HashMap<String, Object>();
+	        //if you need pretty printing
+			config.put("javax.json.stream.JsonGenerator.prettyPrinting", Boolean.valueOf(true));
+	        JsonWriterFactory factory = Json.createWriterFactory(config);
+	        
+			JsonWriter writer;
+			writer = factory.createWriter(new FileOutputStream(export));
+		    writer.writeObject(tournee);
+		    writer.close();
+			
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void supprimerTmpJson(){
+		File fichier = new File(DEF_FICHIER_TMP);
+		fichier.delete();
+	}
+	
+	public static boolean existeJsonTmp(){
+		File fichier = new File(DEF_FICHIER_TMP);
+		return fichier.exists();
 	}
 }
