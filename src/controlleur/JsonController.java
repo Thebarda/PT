@@ -25,7 +25,7 @@ import modele.Station;
  */
 public class JsonController {
 	
-	public final static String DEF_FICHIER_TMP = System.getProperty("java.io.tmpdir") + "jsonMobile.tmp";
+	public final static String DEF_FICHIER_TMP = System.getProperty("java.io.tmpdir") + "RelevEDF_jsonMobile.tmp";
 	public static String fichier;
 	
 	/**
