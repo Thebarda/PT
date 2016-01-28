@@ -20,6 +20,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -70,6 +71,12 @@ public class saisirReleveController {
 	
 	@FXML
 	Label erreurFin;
+	
+	@FXML
+	ImageView imageDroite;
+	
+	@FXML
+	ImageView imageGauche;
 
 	JsonObject[] stations;
 
@@ -133,6 +140,14 @@ public class saisirReleveController {
 				releve.setTextAlignment(TextAlignment.CENTER);
 				releve.setOnMousePressed(pressed);
 				releve.setOnMouseReleased(release);
+				if(nbStations > 4){
+					scroll.setOnMouseReleased(releaseScroll);
+					imageGauche.setVisible(false);
+				}
+				else{
+					imageGauche.setVisible(false);
+					imageDroite.setVisible(false);
+				}
 				Stations.getChildren().add(releve);
 				labels.add(releve);
 				if (JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))) {
@@ -180,7 +195,7 @@ public class saisirReleveController {
 					}
 					if(releveDejaSaisiAnormaleBas == true){
 						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nTrop Basse");
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nAnormale");
 						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 						releveDejaSaisiAnormaleBas = false;
 						correctHaut = false;
@@ -188,7 +203,7 @@ public class saisirReleveController {
 					}
 					if(releveDejaSaisiAnormaleHaut == true){
 						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nTrop Haute");
+								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nAnormale");
 						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 						releveDejaSaisiAnormaleHaut = false;
 						correctHaut = false;
@@ -227,9 +242,9 @@ public class saisirReleveController {
 	EventHandler<MouseEvent> release = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent e) {
+			Label label = (Label) e.getSource();
 			if (((e.getSceneX() - x) < 10.0) && ((e.getSceneY() - y) < 10.0)) {
 				if (((e.getSceneX() - x) > -10.0) && ((e.getSceneY() - y) > -10.0)) {
-					Label label = (Label) e.getSource();
 					currentPos = Integer.parseInt(label.getId());
 					charge(Integer.parseInt(label.getId()));
 
@@ -237,7 +252,25 @@ public class saisirReleveController {
 			}
 		}
 	};
-
+	
+	EventHandler<MouseEvent> releaseScroll = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent e) {
+			ScrollPane scroll = (ScrollPane) e.getSource(); 
+			if(scroll.getHvalue()==0){
+				imageGauche.setVisible(false);
+				imageDroite.setVisible(true);
+			}
+			if(scroll.getHvalue()==1){
+				imageDroite.setVisible(false);
+				imageGauche.setVisible(true);
+			}
+			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0){
+				imageDroite.setVisible(true);
+				imageGauche.setVisible(true);
+			}
+		}
+	};
 	/**
 	 * Charge la station selon son numero
 	 * @param numStation numero de la station que l'on veut charger
@@ -330,8 +363,20 @@ public class saisirReleveController {
 			currentPos++;
 			charge(currentPos);
 			releve.setText("");
-			commentaire.setText("");
+			commentaire.setText("");	
 			scroll.setHvalue((double) currentPos / ((double) nbStations - 4));
+			if(scroll.getHvalue()==0){
+				imageGauche.setVisible(false);
+				imageDroite.setVisible(true);
+			}
+			if(scroll.getHvalue()==1){
+				imageDroite.setVisible(false);
+				imageGauche.setVisible(true);
+			}
+			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0){
+				imageDroite.setVisible(true);
+				imageGauche.setVisible(true);
+			}
 		} else {
 			avancement.setText(nbReleveEff + "\n/\n" + nbStations);
 		}
@@ -342,7 +387,7 @@ public class saisirReleveController {
 	 */
 	public void verifChargerSuivantAnormal() {
 		if (doitChargerSuivant) {
-			releveAnormale(currentPos,(ecartSeuil < 0));
+			releveAnormale(currentPos);
 			passerSuivant();
 			doitChargerSuivant = false;
 		}
@@ -393,34 +438,20 @@ public class saisirReleveController {
 	 * @param pos posisiton de la station a colore
 	 */
 	public void releveNormale(int pos) {
-		if(ReleveController.existeValeurOptimale(pos) && ReleveController.getValeurOptimale(pos)==Double.parseDouble(releve.getText())){
-			labels.get(pos).setText(
-					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nOptimale");
-			labels.get(pos).setStyle("-fx-background-color: #3CAD13; -fx-border-style: solid;");
-		}
-		else{
 			labels.get(pos).setText(
 					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nValide");
-			labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
-		}
-			
+			labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");	
 	}
 
 	/**
 	 * colore en orange la station a une position donnee
 	 * @param pos posisiton de la station a colore
 	 */
-	public void releveAnormale(int pos, boolean estTropBasse) {
-		if(estTropBasse){
+	public void releveAnormale(int pos) {
 		labels.get(pos).setText(
-				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nTrop Basse");
-		labels.get(pos).setStyle("-fx-background-color: #35BEE8; -fx-border-style: solid;");
-		}
-		else{
-			labels.get(pos).setText(
-					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nTrop Haute");
-			labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-		}
+				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nAnormale");
+		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+		
 	}
 
 	/**
