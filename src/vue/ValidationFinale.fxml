@@ -28,7 +28,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="oui" layoutX="165.0" layoutY="315.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et exporter &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Button fx:id="oui" layoutX="165.0" layoutY="315.0" mnemonicParsing="false" onAction="#toExportationComplete" prefHeight="91.0" prefWidth="149.0" text="Oui et exporter &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
       <Button fx:id="non" layoutX="375.0" layoutY="315.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
       <Label layoutX="115.0" layoutY="286.0" text="Attention : Une fois exportée, vous ne pourrez plus modifier ces valeurs !" textFill="RED" />
       <ImageView fx:id="imageGauche" fitHeight="140.0" fitWidth="30.0" layoutX="40.0" layoutY="76.0" />

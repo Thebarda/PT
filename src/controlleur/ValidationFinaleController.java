@@ -10,6 +10,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -203,6 +204,33 @@ public class ValidationFinaleController {
 	        dialog.setResizable(false);
 			dialog.setTitle("Exportation");
 	        dialog.show();
+	        ChoixExportationController.init(dialog, false);
+	        dialog.getIcons().add(new Image("file:logo.png"));
+	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>(){
+				@Override
+				public void handle(WindowEvent arg0) {
+					dialog.close();
+				}
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Passage vers la fenetre de fin de l'application
+	 */
+	@FXML
+	public void toExportationComplete(){
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ChoixExportation.fxml"));
+		try {
+			AnchorPane page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Exportation");
+	        dialog.show();
+	        ChoixExportationController.init(dialog, true);
 	        dialog.getIcons().add(new Image("file:logo.png"));
 	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>(){
 				@Override
@@ -219,5 +247,9 @@ public class ValidationFinaleController {
 	 */
 	public void modif(){
 		non.getParent().getScene().getWindow().hide();
+	}
+	
+	public void toExit(){
+		Platform.exit();
 	}
 }

@@ -28,7 +28,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="oui" layoutX="64.0" layoutY="329.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et Mettre en Pause &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Button fx:id="oui" layoutX="64.0" layoutY="329.0" mnemonicParsing="false" onAction="#toExit" prefHeight="91.0" prefWidth="149.0" text="Oui et Mettre en Pause &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
       <Button fx:id="non" layoutX="453.0" layoutY="329.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
       <Label layoutX="165.0" layoutY="280.0" text="Vous pourrez reprendre cette tournee plus tard." textFill="RED" />
       <Label layoutX="96.0" layoutY="304.0" text="Celle-ci devra être validée pour etre importé sur l'application fixe !" textFill="RED" />

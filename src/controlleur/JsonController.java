@@ -393,7 +393,7 @@ public class JsonController {
 		}
 	}
 	
-	public static void exporterJson(String fichier, String export){
+	public static void exporterJson(String fichier, String export, boolean estComplete){
 		JsonReader reader;
 		try {
 			reader = Json.createReader(new FileInputStream(fichier));
@@ -408,8 +408,9 @@ public class JsonController {
 			writer = factory.createWriter(new FileOutputStream(export));
 		    writer.writeObject(tournee);
 		    writer.close();
-			
 			reader.close();
+			if(estComplete)
+				changerEstComplete(export, 1);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

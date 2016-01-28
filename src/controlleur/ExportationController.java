@@ -19,7 +19,7 @@ public class ExportationController {
 	public void initialize(){
 		this.route = ChoixExportationController.route;
 		chemin.setText(route);
-		JsonController.exporterJson(JsonController.def_fichier_tmp, route);
+		JsonController.exporterJson(JsonController.def_fichier_tmp, route, ChoixExportationController.complete);
 	}
 	/**
 	 * Ferme l'application donc toutes les fenetres d ouvertes

@@ -32,6 +32,8 @@ public class ChoixExportationController {
 	public static String route;
 	
 	private static Stage stage;
+	
+	public static boolean complete;
 	/**
 	 * Initialisation
 	 */
@@ -42,9 +44,10 @@ public class ChoixExportationController {
 			chemin.setText(route);
 	}
 	
-	public static void init (Stage stage1)
+	public static void init (Stage stage1, boolean complete1)
 	{
 		stage = stage1;
+		complete = complete1;
 	}
 	
 	/**
