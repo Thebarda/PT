@@ -174,7 +174,7 @@ public class ValidationFinaleController {
 	@FXML
 	public void toExportation(){
         dialog.initModality(Modality.APPLICATION_MODAL);
-		FXMLLoader loader = new FXMLLoader(Main.class.getResource("Exportation.fxml"));
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ChoixExportation.fxml"));
 		try {
 			AnchorPane page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);

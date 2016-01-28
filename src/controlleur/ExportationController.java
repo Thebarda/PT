@@ -17,9 +17,9 @@ public class ExportationController {
 	 */
 	@FXML
 	public void initialize(){
-		this.route = saisirReleveController.nomJson;
+		this.route = ChoixExportationController.route;
 		chemin.setText(route);
-		JsonController.changerEstComplete(route, 1);
+		JsonController.exporterJson(JsonController.def_fichier_tmp, route);
 	}
 	/**
 	 * Ferme l'application donc toutes les fenetres d ouvertes
