@@ -15,7 +15,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="47.0" layoutY="77.0" minHeight="60.0" pannable="true" prefHeight="140.0" prefWidth="543.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="222.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="77.0">
+      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="47.0" layoutY="77.0" minHeight="60.0" pannable="true" prefHeight="140.0" prefWidth="543.0" vbarPolicy="NEVER">
          <cursor>
             <Cursor fx:constant="CROSSHAIR" />
          </cursor>
