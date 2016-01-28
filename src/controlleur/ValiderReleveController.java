@@ -28,7 +28,6 @@ public class ValiderReleveController {
 	 */
 	@FXML
 	private void initialize(){
-		System.out.println(saisirReleveController.seuilAff);
 		seuilDepasse.setText("Ce relevé devrait être "+ saisirReleveController.seuilAff+". Or vous avez saisi "+saisirReleveController.releveEff+" (écart de "+saisirReleveController.ecartSeuil+")");
 	}
 	/**

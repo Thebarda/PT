@@ -27,7 +27,6 @@ public class Main extends Application {
         
         try {
             file = new File(JsonController.def_fichier_tmp);
-            System.out.println(file);
             if (!file.exists()){
                 fxml="Importation.fxml";
             }
