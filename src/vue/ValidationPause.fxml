@@ -31,6 +31,6 @@
       <Button fx:id="non" layoutX="439.0" layoutY="329.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
       <Label layoutX="151.0" layoutY="280.0" text="Vous pourrez reprendre cette tournee plus tard." textFill="RED" />
       <Label layoutX="82.0" layoutY="304.0" text="Celle-ci devra être validée pour etre importé sur l'application fixe !" textFill="RED" />
-      <Button fx:id="oui1" layoutX="242.0" layoutY="329.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et Garder une copie&#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Button layoutX="242.0" layoutY="329.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et Garder une copie&#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
    </children>
 </AnchorPane>

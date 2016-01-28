@@ -225,7 +225,7 @@ public class saisirReleveController {
 
 	/**
 	 * Gere l'evenement quand le bouton de la souris est presse on stocke les
-	 * coordonnée du corseur quand la souris est pressee
+	 * coordonnï¿½e du corseur quand la souris est pressee
 	 */
 	EventHandler<MouseEvent> pressed = new EventHandler<MouseEvent>() {
 		@Override
@@ -237,7 +237,7 @@ public class saisirReleveController {
 	/**
 	 * Gere l'evenement quand le bouton de la souris est relache quand la souris
 	 * est relache, on fait la difference de coordonnee, et l'on charge les
-	 * information seulement quand la différence estcomprise dans un carre de 10px
+	 * information seulement quand la diffï¿½rence estcomprise dans un carre de 10px
 	 */
 	EventHandler<MouseEvent> release = new EventHandler<MouseEvent>() {
 		@Override
@@ -487,9 +487,40 @@ public class saisirReleveController {
 			erreurFin.setText("Aucun releve saisi");
 		}
 	}
+	
+	public void MettreEnPause() {
+		erreurFin.setText("");
+		if(nbReleveEff!=0){
+			final Stage dialog = new Stage();
+			dialog.initModality(Modality.APPLICATION_MODAL);
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("ValidationPause.fxml"));
+			try {
+				AnchorPane page = (AnchorPane) loader.load();
+				Scene dialogScene = new Scene(page);
+				dialog.setScene(dialogScene);
+				dialog.setResizable(false);
+				dialog.setTitle("Validation");
+				dialog.show();
+				dialog.getIcons().add(new Image("file:logo.png"));
+				dialog.setOnHiding(new EventHandler<WindowEvent>() {
+					public void handle(WindowEvent we) {
+						dialog.close();
+						currentPos = 0;
+						charge(0);
+						scroll.setHvalue(0.0);
+					}
+				});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			erreurFin.setText("Aucun releve saisi");
+		}
+	}
 
 	/**
-	 * Affiche l'historique pour une station donnée
+	 * Affiche l'historique pour une station donnï¿½e
 	 * @param idStation id de la station
 	 */
 	public void afficherHistorique(int idStation) {
