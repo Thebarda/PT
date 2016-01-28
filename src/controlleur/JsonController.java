@@ -418,4 +418,9 @@ public class JsonController {
 		File fichier = new File(DEF_FICHIER_TMP);
 		fichier.delete();
 	}
+	
+	public static boolean existeJsonTmp(){
+		File fichier = new File(DEF_FICHIER_TMP);
+		return fichier.exists();
+	}
 }
