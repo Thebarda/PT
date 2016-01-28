@@ -204,6 +204,7 @@ public class ImportationController {
 			erreurRoute.setText("Erreur : fichier deja complete");
 		}
 		if(estValide==true){
+			JsonController.chargerJson(chemin);
 			toSaisirReleve();	
 		}
 		

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="439.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.ValidationFinaleController">
+   <children>
+      <Label layoutX="115.0" layoutY="31.0" text="Validation des releves (Mettre en pause)">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutX="36.0" layoutY="74.0" minHeight="60.0" pannable="true" prefHeight="140.0" prefWidth="543.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="203.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="77.0">
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor>
+         <content>
+            <AnchorPane fx:id="Stations" prefHeight="138.0" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="184.0" layoutY="249.0" text="Voulez-vous modifier ces valeurs ? ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="oui" layoutX="50.0" layoutY="329.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et Mettre en Pause &#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Button fx:id="non" layoutX="439.0" layoutY="329.0" mnemonicParsing="false" onAction="#modif" prefHeight="91.0" prefWidth="140.0" text="Non et modifier" />
+      <Label layoutX="151.0" layoutY="280.0" text="Vous pourrez reprendre cette tournee plus tard." textFill="RED" />
+      <Label layoutX="82.0" layoutY="304.0" text="Celle-ci devra être validée pour etre importé sur l'application fixe !" textFill="RED" />
+      <Button fx:id="oui1" layoutX="242.0" layoutY="329.0" mnemonicParsing="false" onAction="#toExportation" prefHeight="91.0" prefWidth="149.0" text="Oui et Garder une copie&#10;" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+   </children>
+</AnchorPane>
