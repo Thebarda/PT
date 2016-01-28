@@ -97,14 +97,8 @@
             </Label>
             <Label fx:id="erreurFin" layoutX="834.0" layoutY="121.0" prefHeight="19.0" prefWidth="178.0" textAlignment="CENTER" textFill="#f20202" />
             <ImageView fx:id="imageGauche" fitHeight="140.0" fitWidth="30.0" layoutX="82.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../Desktop/gauche.png" />
-               </image>
             </ImageView>
             <ImageView fx:id="imageDroite" fitHeight="140.0" fitWidth="30.0" layoutX="811.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../Desktop/droite.png" />
-               </image>
             </ImageView>
             <Button layoutX="855.0" layoutY="11.0" mnemonicParsing="false" onAction="#MettreEnPause" prefHeight="51.0" prefWidth="135.0" text="Mettre en Pause" textOverrun="CLIP" wrapText="true">
                <font>

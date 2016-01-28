@@ -126,6 +126,17 @@ public class saisirReleveController {
 			stations = JsonController.loadStations(nomJson);
 			ReleveController.initialize(stations, nomJson);
 			compteur = 0;
+			System.out.println(System.getProperty("user.dir"));
+			imageDroite.setImage(new Image("File:droite.png"));
+			imageGauche.setImage(new Image("File:gauche.png"));
+			if(nbStations > 4){
+				scroll.setOnMouseReleased(releaseScroll);
+				imageGauche.setVisible(false);
+			}
+			else{
+				imageGauche.setVisible(false);
+				imageDroite.setVisible(false);
+			}
 			while (compteur < nbStations) {
 				Label releve = new Label(stations[compteur].getString("nomStation"));
 				releve.setPrefHeight(138.0);
@@ -140,14 +151,6 @@ public class saisirReleveController {
 				releve.setTextAlignment(TextAlignment.CENTER);
 				releve.setOnMousePressed(pressed);
 				releve.setOnMouseReleased(release);
-				if(nbStations > 4){
-					scroll.setOnMouseReleased(releaseScroll);
-					imageGauche.setVisible(false);
-				}
-				else{
-					imageGauche.setVisible(false);
-					imageDroite.setVisible(false);
-				}
 				Stations.getChildren().add(releve);
 				labels.add(releve);
 				if (JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))) {
