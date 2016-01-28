@@ -25,7 +25,8 @@ import modele.Station;
  */
 public class JsonController {
 	
-	public final static String DEF_FICHIER_TMP = System.getProperty("java.io.tmpdir") + "RelevEDF_jsonMobile.tmp";
+
+	public static String def_fichier_tmp;
 	public static String fichier;
 	
 	/**
@@ -380,13 +381,13 @@ public class JsonController {
 	        JsonWriterFactory factory = Json.createWriterFactory(config);
 	        
 			JsonWriter writer;
-			writer = factory.createWriter(new FileOutputStream(DEF_FICHIER_TMP));
+			writer = factory.createWriter(new FileOutputStream(def_fichier_tmp));
 		    writer.writeObject(tournee);
 		    writer.close();
 			
 			reader.close();
 			JsonController.fichier = fichier;
-			ImportationController.chemin = DEF_FICHIER_TMP;
+			ImportationController.chemin = def_fichier_tmp;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -415,12 +416,21 @@ public class JsonController {
 	}
 	
 	public static void supprimerTmpJson(){
-		File fichier = new File(DEF_FICHIER_TMP);
+		File fichier = new File(def_fichier_tmp);
 		fichier.delete();
 	}
 	
 	public static boolean existeJsonTmp(){
-		File fichier = new File(DEF_FICHIER_TMP);
+		File fichier = new File(def_fichier_tmp);
 		return fichier.exists();
 	}
+	
+	public static void init(){
+		if(System.getProperty("java.io.tmpdir").substring(0, 1).equals("/")){
+			def_fichier_tmp = System.getProperty("java.io.tmpdir")+"/RelevEDF_jsonMobile.tmp";
+		}else{
+			def_fichier_tmp = System.getProperty("java.io.tmpdir")+"RelevEDF_jsonMobile.tmp";
+		}
+	}
+	
 }
