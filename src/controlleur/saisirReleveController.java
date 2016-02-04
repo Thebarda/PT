@@ -187,7 +187,7 @@ public class saisirReleveController {
 							releveDejaSaisiAnormaleHaut = true;
 						}
 					}
-					if (releveDejaSaisiNormale == true) {
+					if (releveDejaSaisiNormale) {
 						labels.get(compteur).setText(
 								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nValide");
 						labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
@@ -195,7 +195,7 @@ public class saisirReleveController {
 						correctHaut = false;
 						correctBas = false;
 					}
-					if(releveDejaSaisiAnormaleBas == true){
+					if((releveDejaSaisiAnormaleBas) || (releveDejaSaisiAnormaleHaut)){
 						labels.get(compteur).setText(
 								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nAnormale");
 						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
@@ -203,15 +203,6 @@ public class saisirReleveController {
 						correctHaut = false;
 						correctBas = false;
 					}
-					if(releveDejaSaisiAnormaleHaut == true){
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nAnormale");
-						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-						releveDejaSaisiAnormaleHaut = false;
-						correctHaut = false;
-						correctBas = false;
-					}
-					
 				}
 				compteur++;
 			}
@@ -367,15 +358,15 @@ public class saisirReleveController {
 			releve.setText("");
 			commentaire.setText("");	
 			scroll.setHvalue((double) currentPos / ((double) nbStations - 4));
-			if(scroll.getHvalue()==0){
+			if(scroll.getHvalue()==0 && (nbStations < 4)){
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(true);
 			}
-			if(scroll.getHvalue()==1){
+			if(scroll.getHvalue()==1 && (nbStations < 4)){
 				imageDroite.setVisible(false);
 				imageGauche.setVisible(true);
 			}
-			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0){
+			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0 && (nbStations < 4)){
 				imageDroite.setVisible(true);
 				imageGauche.setVisible(true);
 			}
@@ -529,10 +520,23 @@ public class saisirReleveController {
 		Historique.getChildren().clear();
 		JsonObject[] historique = JsonController.loadHistoriques(nomJson, idStation);
 		for (JsonObject obj : historique) {
-			Label valhist = new Label(obj.getString("date") + "\n" + obj.getJsonNumber("valeur").doubleValue());
+			Double valeur = obj.getJsonNumber("valeur").doubleValue();
+			Label valhist = new Label(obj.getString("date") + "\n" + valeur);
+			boolean estCorrect = true;
+			if(ReleveController.existeSeuilBas(currentPos) && (valeur<seuilBas)){
+				estCorrect = false;
+			}
+			if((ReleveController.existeSeuilHaut(currentPos) && (valeur>seuilHaut))){
+				estCorrect=false;
+			}
+			if(!estCorrect){
+				valhist.setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+			}
+			else{
+				valhist.setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+			}
 			valhist.setPrefHeight(80);
 			valhist.setPrefWidth(140);
-			valhist.setStyle("-fx-border-style: solid;");
 			valhist.setWrapText(true);
 			valhist.setId(String.valueOf(compteur));
 			valhist.setAlignment(Pos.CENTER);
