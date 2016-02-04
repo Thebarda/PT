@@ -538,6 +538,7 @@ public class saisirReleveController {
 			valhist.setPrefHeight(80);
 			valhist.setPrefWidth(140);
 			valhist.setWrapText(true);
+			valhist.setFont(new Font(16.0));
 			valhist.setId(String.valueOf(compteur));
 			valhist.setAlignment(Pos.CENTER);
 			valhist.setTextAlignment(TextAlignment.CENTER);
