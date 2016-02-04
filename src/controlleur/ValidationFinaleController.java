@@ -221,6 +221,7 @@ public class ValidationFinaleController {
 	 */
 	@FXML
 	public void toExportationComplete(){
+		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ChoixExportation.fxml"));
 		try {
