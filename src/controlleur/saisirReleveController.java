@@ -358,15 +358,15 @@ public class saisirReleveController {
 			releve.setText("");
 			commentaire.setText("");	
 			scroll.setHvalue((double) currentPos / ((double) nbStations - 4));
-			if(scroll.getHvalue()==0 && (nbStations < 4)){
+			if(scroll.getHvalue()==0 && (nbStations > 4)){
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(true);
 			}
-			if(scroll.getHvalue()==1 && (nbStations < 4)){
+			if(scroll.getHvalue()==1 && (nbStations > 4)){
 				imageDroite.setVisible(false);
 				imageGauche.setVisible(true);
 			}
-			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0 && (nbStations < 4)){
+			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0 && (nbStations > 4)){
 				imageDroite.setVisible(true);
 				imageGauche.setVisible(true);
 			}
