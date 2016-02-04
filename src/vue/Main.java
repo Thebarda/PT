@@ -1,7 +1,12 @@
 package vue;
 	
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import controlleur.JsonController;
 import javafx.application.Application;
@@ -31,7 +36,25 @@ public class Main extends Application {
                 fxml="Importation.fxml";
             }
             else{
-                fxml="ReprendreSaisie.fxml";
+            	try{
+            		JsonReader reader = Json.createReader(new FileInputStream(JsonController.def_fichier_tmp));
+        			reader.readObject();
+        			fxml="ReprendreSaisie.fxml";
+            	}catch(Exception e){
+            		if (!file.exists()){
+                        fxml="Importation.fxml";
+                    }
+            		else{
+	            		try{
+	            			JsonReader reader = Json.createReader(new FileInputStream(JsonController.def_fichier_tmp_2));
+	            			reader.readObject();
+	            			JsonController.chargerJson(JsonController.def_fichier_tmp_2);
+	            			fxml="ReprendreSaisie.fxml";
+	            		}catch(Exception e2){
+	            			fxml="Importation.fxml";
+	            		}
+            		}
+            	}
             }
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
             page = (AnchorPane) loader.load();

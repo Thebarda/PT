@@ -27,6 +27,7 @@ public class JsonController {
 	
 
 	public static String def_fichier_tmp;
+	public static String def_fichier_tmp_2;
 	public static String fichier;
 	
 	/**
@@ -94,6 +95,7 @@ public class JsonController {
 				writer = factory.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
+			    sauvegardeSupTmp();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -222,6 +224,7 @@ public class JsonController {
 				writer = Json.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
+			    sauvegardeSupTmp();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -269,6 +272,7 @@ public class JsonController {
 				writer = factory.createWriter(new FileOutputStream(fichier));
 			    writer.writeObject(newTournee);
 			    writer.close();
+			    sauvegardeSupTmp();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -384,7 +388,7 @@ public class JsonController {
 			writer = factory.createWriter(new FileOutputStream(def_fichier_tmp));
 		    writer.writeObject(tournee);
 		    writer.close();
-			
+		    sauvegardeSupTmp();
 			reader.close();
 			JsonController.fichier = fichier;
 			ImportationController.chemin = def_fichier_tmp;
@@ -409,6 +413,7 @@ public class JsonController {
 		    writer.writeObject(tournee);
 		    writer.close();
 			reader.close();
+			sauvegardeSupTmp();
 			if(estComplete)
 				changerEstComplete(export, 1);
 		} catch (FileNotFoundException e) {
@@ -425,12 +430,39 @@ public class JsonController {
 		File fichier = new File(def_fichier_tmp);
 		return fichier.exists();
 	}
+	public static boolean existeJsonTmp2(){
+		File fichier = new File(def_fichier_tmp);
+		return fichier.exists();
+	}
+	
+	public static void sauvegardeSupTmp(){
+		JsonReader reader;
+		try {
+			reader = Json.createReader(new FileInputStream(def_fichier_tmp));
+			JsonObject tournee = reader.readObject();
+
+			Map<String, Object> config = new HashMap<String, Object>();
+	        //if you need pretty printing
+			config.put("javax.json.stream.JsonGenerator.prettyPrinting", Boolean.valueOf(true));
+	        JsonWriterFactory factory = Json.createWriterFactory(config);
+	        
+			JsonWriter writer;
+			writer = factory.createWriter(new FileOutputStream(def_fichier_tmp_2));
+		    writer.writeObject(tournee);
+		    writer.close();
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void init(){
 		if(System.getProperty("java.io.tmpdir").substring(0, 1).equals("/")){
 			def_fichier_tmp = System.getProperty("java.io.tmpdir")+"/RelevEDF_jsonMobile.tmp";
+			def_fichier_tmp_2 = System.getProperty("java.io.tmpdir")+"/RelevEDF_jsonMobile_2.tmp";
 		}else{
 			def_fichier_tmp = System.getProperty("java.io.tmpdir")+"RelevEDF_jsonMobile.tmp";
+			def_fichier_tmp_2 = System.getProperty("java.io.tmpdir")+"/RelevEDF_jsonMobile_2.tmp";
 		}
 	}
 	
