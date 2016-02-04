@@ -58,7 +58,7 @@ public class ValidationFinaleController {
 	private JsonObject[] stations;
 	private List<Label> labels = new ArrayList<>();
 	int currentPos;
-	final static Stage dialog = new Stage();
+	static Stage dialog = new Stage();
 	/**
 	 * Initialisation
 	 */
@@ -212,6 +212,12 @@ public class ValidationFinaleController {
 					dialog.close();
 				}
 	        });
+	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					dialog.close();
+					dialog = new Stage();
+				}
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -221,7 +227,6 @@ public class ValidationFinaleController {
 	 */
 	@FXML
 	public void toExportationComplete(){
-		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ChoixExportation.fxml"));
 		try {
@@ -239,6 +244,12 @@ public class ValidationFinaleController {
 					dialog.close();
 				}
 	        });
+	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					dialog.close();
+					dialog = new Stage();
+				}
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import vue.Main;
 
 public class ChoixExportationController {
@@ -108,6 +110,12 @@ public class ChoixExportationController {
 			dialog.setTitle("Fichier bien exporté !");
 	        dialog.show();
 	        dialog.getIcons().add(new Image("file:logo.png"));
+	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>(){
+				@Override
+				public void handle(WindowEvent arg0) {
+					Platform.exit();
+				}
+	        });
 	        Main.primaryStage.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -153,6 +161,6 @@ public class ChoixExportationController {
 	 */
 	public void annulerExportation()
 	{
-		annuler.getParent().getScene().getWindow().hide();	
+		annuler.getParent().getScene().getWindow().hide();
 	}
 }

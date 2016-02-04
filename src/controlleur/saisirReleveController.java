@@ -126,7 +126,6 @@ public class saisirReleveController {
 			stations = JsonController.loadStations(nomJson);
 			ReleveController.initialize(stations, nomJson);
 			compteur = 0;
-			System.out.println(System.getProperty("user.dir"));
 			imageDroite.setImage(new Image("File:droite.png"));
 			imageGauche.setImage(new Image("File:gauche.png"));
 			if(nbStations > 4){
