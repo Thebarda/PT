@@ -1,5 +1,6 @@
 package controlleur;
 
+import java.awt.Checkbox;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,11 +11,13 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -34,8 +37,11 @@ import vue.Main;
 /**
  * Classe qui gere la saisie des releves
  */
-public class saisirReleveController {
 
+
+public class saisirReleveController {
+	
+	public final String NOM_UNITE_CHECK="__VERIFICATION";
 	@FXML
 	AnchorPane Stations;
 
@@ -77,6 +83,15 @@ public class saisirReleveController {
 	
 	@FXML
 	ImageView imageGauche;
+	
+	@FXML
+	CheckBox checkBox1;
+	
+	@FXML
+	CheckBox checkBox2;
+	
+	@FXML
+	Label textReleve;
 
 	JsonObject[] stations;
 
@@ -264,6 +279,21 @@ public class saisirReleveController {
 			}
 		}
 	};
+	
+	EventHandler eh = new EventHandler<ActionEvent>() {
+	    @Override
+	    public void handle(ActionEvent event) {
+	        if (event.getSource() instanceof CheckBox) {
+	            CheckBox chk = (CheckBox) event.getSource();
+	            if ("Conforme".equals(chk.getText())) {
+	                checkBox2.setSelected(false);
+	            } else if ("Anomalie".equals(chk.getText())) {
+	                checkBox1.setSelected(false);
+	            }
+	        }
+	    }
+	};
+	
 	/**
 	 * Charge la station selon son numero
 	 * @param numStation numero de la station que l'on veut charger
@@ -276,22 +306,53 @@ public class saisirReleveController {
 		seuilHaut = stations[numStation].getInt("seuilHaut");
 		paramFonc = stations[numStation].getString("paramFonc");
 		instruLongue = stations[numStation].getString("instructionsLongues");
+		
 		nom.setText(stations[numStation].getString("nomStation"));
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
-		unite.setText(stations[numStation].getString("unite"));
-		if (unite.getText().length() >= 12) {
-			unite.setFont(new Font(15));
+		if(stations[numStation].getString("unite").equals("__VERIFICATION")){
+			unite.setVisible(false);
+			releve.setVisible(false);
+			textReleve.setVisible(false);
+			checkBox1.setVisible(true);
+			checkBox2.setVisible(true);
+			seuil.setVisible(false);
+			afficherHistorique(stations[numStation].getInt("idStation"));
+			checkBox1.setOnAction(eh);
+			checkBox2.setOnAction(eh);
+			if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
+				if(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))==0){
+					checkBox2.setSelected(true);
+					checkBox1.setSelected(false);
+				}
+				else{
+					checkBox1.setSelected(true);
+					checkBox2.setSelected(false);
+				}
+				commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
+			}
 		}
-		;
-		seuil.setText(ReleveController.seuil(numStation));
-		releve.setText("");
-		commentaire.setText("");
-		if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
-			releve.setText(
-					Double.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
-			commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
+		else{
+			unite.setVisible(true);
+			releve.setVisible(true);
+			textReleve.setVisible(true);
+			checkBox1.setVisible(false);
+			checkBox2.setVisible(false);
+			seuil.setVisible(true);
+			unite.setText(stations[numStation].getString("unite"));
+		
+			if (unite.getText().length() >= 12) {
+				unite.setFont(new Font(15));
+			}
+			seuil.setText(ReleveController.seuil(numStation));
+			releve.setText("");
+			commentaire.setText("");
+			if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
+				releve.setText(
+						Double.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
+				commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
+			}
+			afficherHistorique(stations[numStation].getInt("idStation"));
 		}
-		afficherHistorique(stations[numStation].getInt("idStation"));
 	}
 
 	/**
@@ -301,20 +362,33 @@ public class saisirReleveController {
 		erreur.setVisible(false);
 		erreurFin.setText("");
 		String releveStr = releve.getText();
-		if (releveStr.contains(",")) {
-			releveStr = releveStr.replace(",", ".");
+		if(stations[currentPos].getString("unite").equals("__VERIFICATION")){
+			if(checkBox1.isSelected() || checkBox2.isSelected()){
+				if(checkBox1.isSelected()){
+					ReleveController.controller(currentPos, 1, commentaire.getText());
+				}
+				else{
+					ReleveController.controller(currentPos, 0, commentaire.getText());
+				}
+			}
+			passerSuivant();
 		}
-		if (!estUnDouble(releveStr)) {
-			erreur.setVisible(true);
-		} else {
-			releveEff = Double.parseDouble(releveStr);
-			ecartSeuil = ReleveController.controller(currentPos, releveEff, commentaire.getText());
-			seuilAff = ReleveController.seuil2(currentPos);
-			if (ecartSeuil != 0) {
-				verifierReleve();
+		else{
+			if (releveStr.contains(",")) {
+				releveStr = releveStr.replace(",", ".");
+			}
+			if (!estUnDouble(releveStr)) {
+				erreur.setVisible(true);
 			} else {
-				releveNormale(currentPos);
-				passerSuivant();
+				releveEff = Double.parseDouble(releveStr);
+				ecartSeuil = ReleveController.controller(currentPos, releveEff, commentaire.getText());
+				seuilAff = ReleveController.seuil2(currentPos);
+				if (ecartSeuil != 0) {
+					verifierReleve();
+				} else {
+					releveNormale(currentPos);
+					passerSuivant();
+				}
 			}
 		}
 	}
