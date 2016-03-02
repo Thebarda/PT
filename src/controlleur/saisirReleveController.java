@@ -38,10 +38,9 @@ import vue.Main;
  * Classe qui gere la saisie des releves
  */
 
-
 public class saisirReleveController {
-	
-	public final String NOM_UNITE_CHECK="__VERIFICATION";
+
+	public final String NOM_UNITE_CHECK = "__VERIFICATION";
 	@FXML
 	AnchorPane Stations;
 
@@ -74,22 +73,22 @@ public class saisirReleveController {
 
 	@FXML
 	Label avancement;
-	
+
 	@FXML
 	Label erreurFin;
-	
+
 	@FXML
 	ImageView imageDroite;
-	
+
 	@FXML
 	ImageView imageGauche;
-	
+
 	@FXML
 	CheckBox checkBox1;
-	
+
 	@FXML
 	CheckBox checkBox2;
-	
+
 	@FXML
 	Label textReleve;
 
@@ -143,11 +142,10 @@ public class saisirReleveController {
 			compteur = 0;
 			imageDroite.setImage(new Image("File:droite.png"));
 			imageGauche.setImage(new Image("File:gauche.png"));
-			if(nbStations > 4){
+			if (nbStations > 4) {
 				scroll.setOnMouseReleased(releaseScroll);
 				imageGauche.setVisible(false);
-			}
-			else{
+			} else {
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(false);
 			}
@@ -170,53 +168,64 @@ public class saisirReleveController {
 				if (JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))) {
 					nbReleveEff++;
 					releveDejaSaisi = JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
-					if (ReleveController.existeSeuilBas(compteur)
-							&& releveDejaSaisi >= stations[compteur].getInt("seuilBas")) {
-						correctBas = true;
-					}
-					if (ReleveController.existeSeuilHaut(compteur)
-							&& releveDejaSaisi <= stations[compteur].getInt("seuilHaut")) {
-						correctHaut = true;
-					}
-					if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
-						if (correctBas && correctHaut) {
+					if (stations[compteur].getString("unite").equals("__VERIFICATION")) {
+						System.out.println("verif");
+						if (releveDejaSaisi == 1.0) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Conforme");
+							labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+						}
+						if (releveDejaSaisi == 0.0) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Anomalie");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+						}
+
+					} else {
+						if (ReleveController.existeSeuilBas(compteur)
+								&& releveDejaSaisi >= stations[compteur].getInt("seuilBas")) {
+							correctBas = true;
+						}
+						if (ReleveController.existeSeuilHaut(compteur)
+								&& releveDejaSaisi <= stations[compteur].getInt("seuilHaut")) {
+							correctHaut = true;
+						}
+						if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
+							if (correctBas && correctHaut) {
+								releveDejaSaisiNormale = true;
+							} else {
+								if (correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))) {
+									releveDejaSaisiAnormaleBas = true;
+								} else if (correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))) {
+									releveDejaSaisiAnormaleHaut = true;
+								}
+							}
+						} else if ((ReleveController.existeSeuilBas(compteur) && correctBas)
+								|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
+								|| (!ReleveController.existeSeuilHaut(compteur)
+										&& !ReleveController.existeSeuilBas(compteur))) {
 							releveDejaSaisiNormale = true;
 						} else {
-							if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
+							if (correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))) {
 								releveDejaSaisiAnormaleBas = true;
-							}
-							else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
+							} else if (correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))) {
 								releveDejaSaisiAnormaleHaut = true;
 							}
 						}
-					} else if ((ReleveController.existeSeuilBas(compteur) && correctBas)
-							|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
-							|| (!ReleveController.existeSeuilHaut(compteur)
-									&& !ReleveController.existeSeuilBas(compteur))) {
-							releveDejaSaisiNormale = true;
-					} else {
-						if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
-							releveDejaSaisiAnormaleBas = true;
+						if (releveDejaSaisiNormale) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n"
+									+ releveDejaSaisi + " " + unite.getText() + "\nValide");
+							labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+							releveDejaSaisiNormale = false;
+							correctHaut = false;
+							correctBas = false;
 						}
-						else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
-							releveDejaSaisiAnormaleHaut = true;
+						if ((releveDejaSaisiAnormaleBas) || (releveDejaSaisiAnormaleHaut)) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n"
+									+ releveDejaSaisi + " " + unite.getText() + "\nAnormale");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+							releveDejaSaisiAnormaleBas = false;
+							correctHaut = false;
+							correctBas = false;
 						}
-					}
-					if (releveDejaSaisiNormale) {
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nValide");
-						labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
-						releveDejaSaisiNormale = false;
-						correctHaut = false;
-						correctBas = false;
-					}
-					if((releveDejaSaisiAnormaleBas) || (releveDejaSaisiAnormaleHaut)){
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + unite.getText() + "\nAnormale");
-						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-						releveDejaSaisiAnormaleBas = false;
-						correctHaut = false;
-						correctBas = false;
 					}
 				}
 				compteur++;
@@ -245,7 +254,8 @@ public class saisirReleveController {
 	/**
 	 * Gere l'evenement quand le bouton de la souris est relache quand la souris
 	 * est relache, on fait la difference de coordonnee, et l'on charge les
-	 * information seulement quand la diffï¿½rence estcomprise dans un carre de 10px
+	 * information seulement quand la diffï¿½rence estcomprise dans un carre de
+	 * 10px
 	 */
 	EventHandler<MouseEvent> release = new EventHandler<MouseEvent>() {
 		@Override
@@ -260,43 +270,45 @@ public class saisirReleveController {
 			}
 		}
 	};
-	
+
 	EventHandler<MouseEvent> releaseScroll = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent e) {
-			ScrollPane scroll = (ScrollPane) e.getSource(); 
-			if(scroll.getHvalue()==0){
+			ScrollPane scroll = (ScrollPane) e.getSource();
+			if (scroll.getHvalue() == 0) {
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(true);
 			}
-			if(scroll.getHvalue()==1){
+			if (scroll.getHvalue() == 1) {
 				imageDroite.setVisible(false);
 				imageGauche.setVisible(true);
 			}
-			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0){
+			if (scroll.getHvalue() != 1 && scroll.getHvalue() != 0) {
 				imageDroite.setVisible(true);
 				imageGauche.setVisible(true);
 			}
 		}
 	};
-	
+
 	EventHandler eh = new EventHandler<ActionEvent>() {
-	    @Override
-	    public void handle(ActionEvent event) {
-	        if (event.getSource() instanceof CheckBox) {
-	            CheckBox chk = (CheckBox) event.getSource();
-	            if ("Conforme".equals(chk.getText())) {
-	                checkBox2.setSelected(false);
-	            } else if ("Anomalie".equals(chk.getText())) {
-	                checkBox1.setSelected(false);
-	            }
-	        }
-	    }
+		@Override
+		public void handle(ActionEvent event) {
+			if (event.getSource() instanceof CheckBox) {
+				CheckBox chk = (CheckBox) event.getSource();
+				if ("Conforme".equals(chk.getText())) {
+					checkBox2.setSelected(false);
+				} else if ("Anomalie".equals(chk.getText())) {
+					checkBox1.setSelected(false);
+				}
+			}
+		}
 	};
-	
+
 	/**
 	 * Charge la station selon son numero
-	 * @param numStation numero de la station que l'on veut charger
+	 * 
+	 * @param numStation
+	 *            numero de la station que l'on veut charger
 	 */
 	public void charge(int numStation) {
 		unite.setFont(new Font(24.0));
@@ -306,10 +318,10 @@ public class saisirReleveController {
 		seuilHaut = stations[numStation].getInt("seuilHaut");
 		paramFonc = stations[numStation].getString("paramFonc");
 		instruLongue = stations[numStation].getString("instructionsLongues");
-		
+
 		nom.setText(stations[numStation].getString("nomStation"));
 		instrCourte.setText(stations[numStation].getString("instructionsCourtes"));
-		if(stations[numStation].getString("unite").equals("__VERIFICATION")){
+		if (stations[numStation].getString("unite").equals("__VERIFICATION")) {
 			unite.setVisible(false);
 			releve.setVisible(false);
 			textReleve.setVisible(false);
@@ -320,18 +332,19 @@ public class saisirReleveController {
 			checkBox1.setOnAction(eh);
 			checkBox2.setOnAction(eh);
 			if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
-				if(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))==0){
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 0) {
 					checkBox2.setSelected(true);
 					checkBox1.setSelected(false);
-				}
-				else{
+				} else {
 					checkBox1.setSelected(true);
 					checkBox2.setSelected(false);
 				}
 				commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
+			} else {
+				checkBox2.setSelected(false);
+				checkBox1.setSelected(false);
 			}
-		}
-		else{
+		} else {
 			unite.setVisible(true);
 			releve.setVisible(true);
 			textReleve.setVisible(true);
@@ -339,7 +352,7 @@ public class saisirReleveController {
 			checkBox2.setVisible(false);
 			seuil.setVisible(true);
 			unite.setText(stations[numStation].getString("unite"));
-		
+
 			if (unite.getText().length() >= 12) {
 				unite.setFont(new Font(15));
 			}
@@ -362,18 +375,18 @@ public class saisirReleveController {
 		erreur.setVisible(false);
 		erreurFin.setText("");
 		String releveStr = releve.getText();
-		if(stations[currentPos].getString("unite").equals("__VERIFICATION")){
-			if(checkBox1.isSelected() || checkBox2.isSelected()){
-				if(checkBox1.isSelected()){
+		if (stations[currentPos].getString("unite").equals("__VERIFICATION")) {
+			if (checkBox1.isSelected() || checkBox2.isSelected()) {
+				if (checkBox1.isSelected()) {
+					releveConforme(currentPos);
 					ReleveController.controller(currentPos, 1, commentaire.getText());
-				}
-				else{
+				} else {
+					releveNonConforme(currentPos);
 					ReleveController.controller(currentPos, 0, commentaire.getText());
 				}
 			}
 			passerSuivant();
-		}
-		else{
+		} else {
 			if (releveStr.contains(",")) {
 				releveStr = releveStr.replace(",", ".");
 			}
@@ -430,17 +443,17 @@ public class saisirReleveController {
 			currentPos++;
 			charge(currentPos);
 			releve.setText("");
-			commentaire.setText("");	
+			commentaire.setText("");
 			scroll.setHvalue((double) currentPos / ((double) nbStations - 4));
-			if(scroll.getHvalue()==0 && (nbStations > 4)){
+			if (scroll.getHvalue() == 0 && (nbStations > 4)) {
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(true);
 			}
-			if(scroll.getHvalue()==1 && (nbStations > 4)){
+			if (scroll.getHvalue() == 1 && (nbStations > 4)) {
 				imageDroite.setVisible(false);
 				imageGauche.setVisible(true);
 			}
-			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0 && (nbStations > 4)){
+			if (scroll.getHvalue() != 1 && scroll.getHvalue() != 0 && (nbStations > 4)) {
 				imageDroite.setVisible(true);
 				imageGauche.setVisible(true);
 			}
@@ -487,7 +500,9 @@ public class saisirReleveController {
 
 	/**
 	 * Verifie si la valeur passe en parametre est un double ou pas
-	 * @param chaine chaine a verifier
+	 * 
+	 * @param chaine
+	 *            chaine a verifier
 	 * @return true si la chaine est un double, false sinon
 	 */
 	public boolean estUnDouble(String chaine) {
@@ -502,23 +517,46 @@ public class saisirReleveController {
 
 	/**
 	 * colore en vert la station a une position donnee
-	 * @param pos posisiton de la station a colore
+	 * 
+	 * @param pos
+	 *            posisiton de la station a colore
 	 */
 	public void releveNormale(int pos) {
-			labels.get(pos).setText(
-					stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nValide");
-			labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");	
+		labels.get(pos).setText(
+				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nValide");
+		labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
 	}
 
 	/**
 	 * colore en orange la station a une position donnee
-	 * @param pos posisiton de la station a colore
+	 * 
+	 * @param pos
+	 *            posisiton de la station a colore
 	 */
 	public void releveAnormale(int pos) {
 		labels.get(pos).setText(
 				stations[pos].getString("nomStation") + "\n" + releve.getText() + " " + unite.getText() + "\nAnormale");
 		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-		
+
+	}
+	/**
+	 * fait le texte  et la colorisation a la validation pour les case de récap
+	 * @param pos
+	 * 			position de la station a colore
+	 */
+	public void releveConforme(int pos){
+		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nConforme");
+		labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+	}
+	
+	/**
+	 * fait le texte  et la colorisation a la validation pour les case de récap
+	 * @param pos
+	 * 			position de la station a colore
+	 */
+	public void releveNonConforme(int pos){
+		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nAnomalie");
+		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 	}
 
 	/**
@@ -526,7 +564,7 @@ public class saisirReleveController {
 	 */
 	public void fin() {
 		erreurFin.setText("");
-		if(nbReleveEff!=0){
+		if (nbReleveEff != 0) {
 			final Stage dialog = new Stage();
 			dialog.initModality(Modality.APPLICATION_MODAL);
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("ValidationFinale.fxml"));
@@ -549,15 +587,14 @@ public class saisirReleveController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		else{
+		} else {
 			erreurFin.setText("Aucun releve saisi");
 		}
 	}
-	
+
 	public void MettreEnPause() {
 		erreurFin.setText("");
-		if(nbReleveEff!=0){
+		if (nbReleveEff != 0) {
 			final Stage dialog = new Stage();
 			dialog.initModality(Modality.APPLICATION_MODAL);
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("ValidationPause.fxml"));
@@ -580,15 +617,16 @@ public class saisirReleveController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		else{
+		} else {
 			erreurFin.setText("Aucun releve saisi");
 		}
 	}
 
 	/**
 	 * Affiche l'historique pour une station donnï¿½e
-	 * @param idStation id de la station
+	 * 
+	 * @param idStation
+	 *            id de la station
 	 */
 	public void afficherHistorique(int idStation) {
 		Historique.getChildren().clear();
@@ -597,16 +635,15 @@ public class saisirReleveController {
 			Double valeur = obj.getJsonNumber("valeur").doubleValue();
 			Label valhist = new Label(obj.getString("date") + "\n" + valeur);
 			boolean estCorrect = true;
-			if(ReleveController.existeSeuilBas(currentPos) && (valeur<seuilBas)){
+			if (ReleveController.existeSeuilBas(currentPos) && (valeur < seuilBas)) {
 				estCorrect = false;
 			}
-			if((ReleveController.existeSeuilHaut(currentPos) && (valeur>seuilHaut))){
-				estCorrect=false;
+			if ((ReleveController.existeSeuilHaut(currentPos) && (valeur > seuilHaut))) {
+				estCorrect = false;
 			}
-			if(!estCorrect){
+			if (!estCorrect) {
 				valhist.setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-			}
-			else{
+			} else {
 				valhist.setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
 			}
 			valhist.setPrefHeight(80);
