@@ -328,7 +328,7 @@ public class saisirReleveController {
 			checkBox1.setVisible(true);
 			checkBox2.setVisible(true);
 			seuil.setVisible(false);
-			afficherHistorique(stations[numStation].getInt("idStation"));
+			afficherHistorique(stations[numStation].getInt("idStation"), numStation);
 			checkBox1.setOnAction(eh);
 			checkBox2.setOnAction(eh);
 			if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
@@ -364,7 +364,7 @@ public class saisirReleveController {
 						Double.toString(JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation"))));
 				commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
 			}
-			afficherHistorique(stations[numStation].getInt("idStation"));
+			afficherHistorique(stations[numStation].getInt("idStation"),numStation);
 		}
 	}
 
@@ -539,22 +539,25 @@ public class saisirReleveController {
 		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 
 	}
+
 	/**
-	 * fait le texte  et la colorisation a la validation pour les case de récap
+	 * fait le texte et la colorisation a la validation pour les case de récap
+	 * 
 	 * @param pos
-	 * 			position de la station a colore
+	 *            position de la station a colore
 	 */
-	public void releveConforme(int pos){
+	public void releveConforme(int pos) {
 		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nConforme");
 		labels.get(pos).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
 	}
-	
+
 	/**
-	 * fait le texte  et la colorisation a la validation pour les case de récap
+	 * fait le texte et la colorisation a la validation pour les case de récap
+	 * 
 	 * @param pos
-	 * 			position de la station a colore
+	 *            position de la station a colore
 	 */
-	public void releveNonConforme(int pos){
+	public void releveNonConforme(int pos) {
 		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nAnomalie");
 		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 	}
@@ -628,23 +631,35 @@ public class saisirReleveController {
 	 * @param idStation
 	 *            id de la station
 	 */
-	public void afficherHistorique(int idStation) {
+	public void afficherHistorique(int idStation, int numStation) {
 		Historique.getChildren().clear();
 		JsonObject[] historique = JsonController.loadHistoriques(nomJson, idStation);
 		for (JsonObject obj : historique) {
 			Double valeur = obj.getJsonNumber("valeur").doubleValue();
-			Label valhist = new Label(obj.getString("date") + "\n" + valeur);
-			boolean estCorrect = true;
-			if (ReleveController.existeSeuilBas(currentPos) && (valeur < seuilBas)) {
-				estCorrect = false;
-			}
-			if ((ReleveController.existeSeuilHaut(currentPos) && (valeur > seuilHaut))) {
-				estCorrect = false;
-			}
-			if (!estCorrect) {
-				valhist.setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+			Label valhist=null;
+			if (stations[numStation].getString("unite").equals("__VERIFICATION")) {
+				if (valeur == 0.0) {
+					valhist = new Label(obj.getString("date") + "\nAnomalie");
+					valhist.setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+				}
+				if(valeur ==1.0){
+					valhist = new Label(obj.getString("date") + "\nConforme");
+					valhist.setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+				}
 			} else {
-				valhist.setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+				valhist = new Label(obj.getString("date") + "\n" + valeur);
+				boolean estCorrect = true;
+				if (ReleveController.existeSeuilBas(currentPos) && (valeur < seuilBas)) {
+					estCorrect = false;
+				}
+				if ((ReleveController.existeSeuilHaut(currentPos) && (valeur > seuilHaut))) {
+					estCorrect = false;
+				}
+				if (!estCorrect) {
+					valhist.setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+				} else {
+					valhist.setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+				}
 			}
 			valhist.setPrefHeight(80);
 			valhist.setPrefWidth(140);
