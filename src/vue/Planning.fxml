@@ -25,6 +25,6 @@
          </font>
       </Label>
       <Label layoutX="181.0" layoutY="89.0" text="Centrale :" />
-      <ComboBox fx:id="listeCentrale" layoutX="279.0" layoutY="84.0" onAction="#ListerEquipement" />
+      <ComboBox fx:id="listeCentrale" layoutX="279.0" layoutY="84.0" onAction="#ListerTournee" />
    </children>
 </AnchorPane>

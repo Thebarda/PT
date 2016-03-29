@@ -216,10 +216,10 @@ public class CreationStationController {
 			erreurParamFonc.setText("Erreur : le parametre de fonctionnement est vide");
 			estValide=false;
 		}
-		/*if(!estVide(MISH) && ((!MISH.getText().equals("1")) || (!MISH.getText().equals("0")))){
+		if(estVide(MISH) && ((Integer.parseInt(MISH.getText())!=1) || (Integer.parseInt(MISH.getText())!=0))){
 			erreurMISH.setText("Erreur : MISH doit être un booleen");
 			estValide=false;
-		}*/
+		}
 		if(!seuilHaut.getText().isEmpty() && !estUnDouble(seuilHaut.getText())){
 			erreurSeuilHaut.setText("Erreur : un nombre doit être saisi");
 			estValide=false;
