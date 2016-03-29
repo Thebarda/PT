@@ -12,9 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -88,6 +90,14 @@ public class CreationStationController {
 	@FXML
 	private int idEquipement;
 	
+	@FXML
+	private RadioButton uniteRadio;
+	
+	@FXML
+	private RadioButton faitRadio;
+	
+	@FXML
+	private ToggleGroup group;
 	
 	@FXML
 	private Button ajouter;
@@ -99,6 +109,8 @@ public class CreationStationController {
 	
 	@FXML
 	TableColumn<Unite, String> Nom;
+	
+	
 		
 	@FXML
 	private void initialize() {
@@ -169,6 +181,8 @@ public class CreationStationController {
 		double haut=0.0;
 		double bas=0.0;
 		double normale=0.0;
+		int unit = -1;
+		
 		resetErreur();
 		if(estVide(nom)){
 			erreurNom.setText("Erreur : le nom est vide");
@@ -179,10 +193,20 @@ public class CreationStationController {
 			erreurinstrCourtes.setText("Erreur : l'instruction courte est vide");
 			estValide=false;
 		}
-		if(estVideComboBox(ListeUnite))
-		{
-			erreurUnite.setText("Erreur : l'unite est vide");
-			estValide=false;
+		if(uniteRadio.isSelected()){
+			if(estVideComboBox(ListeUnite))
+			{
+				erreurUnite.setText("Erreur : l'unite est vide");
+				estValide=false;
+			}
+			else{
+				unit = ListeUnite.getValue().getId();
+			}
+		}
+		else{
+			if(faitRadio.isSelected()){
+				unit = UniteController.getUnitVerif().getId();
+			}
 		}
 		if(estVide(MISH)){
 			erreurMISH.setText("Erreur : MISH est vide");
@@ -237,7 +261,7 @@ public class CreationStationController {
 				normale=Double.parseDouble(valeurNormale.getText());
 				m3 = "0";
 			}
-			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),ListeUnite.getValue().getId(),(m1+m2+m3),haut,bas,idEquipement,paramFonc.getText(),normale,Boolean.valueOf(MISH.getText()));
+			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),unit,(m1+m2+m3),haut,bas,idEquipement,paramFonc.getText(),normale,Boolean.valueOf(MISH.getText()));
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		

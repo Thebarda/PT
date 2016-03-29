@@ -53,6 +53,7 @@ public static ObservableList<Unite> loadUnites(){
 		Connection connexion = null;
 		ResultSet resultat = null;
 		Statement statut = null;
+		Unite unitVerif = getUnitVerif();
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
@@ -60,7 +61,8 @@ public static ObservableList<Unite> loadUnites(){
 			resultat = statut.executeQuery("SELECT * FROM UNITE");
 			while(resultat.next()){
 				Unite unite = new Unite(resultat.getInt("idUnite"), resultat.getString("nomUnite"));
-				unites.add(unite);
+				if(!unite.equals(unitVerif))
+					unites.add(unite);
 			}
 			
 		}catch(Exception e){
@@ -114,6 +116,45 @@ public static ObservableList<Unite> loadUnites(){
 	         }  
 		}
 		return nom;
+	}
+	
+	/**
+	 * Fonction qui recupere l'unite de verification
+	 * @param id
+	 * 		id de l'unité
+	 * @return
+	 * 		Nom de l'unité
+	 */
+	public static Unite getUnitVerif(){
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		Unite unite = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM UNITE WHERE nomUnite = '__VERIFICATION'");
+			while(resultat.next()){
+				unite = new Unite(resultat.getInt("idUnite"), resultat.getString("nomUnite"));
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return unite;
 	}
 
 }

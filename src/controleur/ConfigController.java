@@ -53,6 +53,7 @@ public class ConfigController {
 		File bdFile = new File(bd);
 		if(!bdFile.exists()){
 			creerBd();
+			insertDefaultBd();
 		}
 	}
 
@@ -134,6 +135,25 @@ public class ConfigController {
 					   + "	FOREIGN KEY(`idTournee`) REFERENCES TOURNEE ( idTournee ), "
 					   + "	FOREIGN KEY(`idStation`) REFERENCES STATION ( idStation ) "
 					   + "); ";
+			statement.executeUpdate(sql);
+			statement.close();
+			co.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+	}
+	
+	public static void insertDefaultBd(){
+		Connection co = null;
+		Statement statement = null;
+		try
+		{
+			Class.forName("org.sqlite.JDBC");
+			co = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+
+			statement = co.createStatement();
+			String sql = "INSERT INTO UNITE (idUnite, nomUnite) VALUES(0, '__VERIFICATION'); ";
 			statement.executeUpdate(sql);
 			statement.close();
 			co.close();
