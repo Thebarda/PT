@@ -16,7 +16,7 @@
       <Label layoutX="69.0" layoutY="169.0" text="Code Identité Nationale :" />
       <Label fx:id="erreurCode" layoutX="285.0" layoutY="200.0" textFill="#f20404" />
       <Button fx:id="annuler" layoutX="238.0" layoutY="233.0" mnemonicParsing="false" onAction="#annulerCentrale" text="ANNULER" />
-      <Label layoutX="116.0" layoutY="29.0" text="Création d'une Centrale">
+      <Label fx:id="titre" layoutX="116.0" layoutY="29.0" text="Création d'une Centrale">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

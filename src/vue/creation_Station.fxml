@@ -15,7 +15,7 @@
       <Label layoutX="51.0" layoutY="112.0" text="Instruction courte :" />
       <Label fx:id="erreurinstrCourtes" layoutX="231.0" layoutY="179.0" prefHeight="16.0" prefWidth="301.0" textFill="#ff0000" />
       <Button fx:id="annuler" layoutX="454.0" layoutY="557.0" mnemonicParsing="false" onAction="#annulerStation" text="ANNULER" />
-      <Label layoutX="238.0" layoutY="14.0" text="Création d'une Station">
+      <Label fx:id="titre" layoutX="238.0" layoutY="14.0" text="Création d'une Station">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -35,7 +35,7 @@
          <font>
             <Font size="11.0" />
          </font></Label>
-      <ComboBox fx:id="ListeUnite" layoutX="119.0" layoutY="316.0" prefWidth="150.0" />
+      <ComboBox fx:id="listeUnite" layoutX="119.0" layoutY="316.0" prefWidth="150.0" />
       <Button layoutX="279.0" layoutY="316.0" mnemonicParsing="false" onAction="#ajouterUnit" text="AJOUTER" />
       <TextArea fx:id="instructionCourtes" layoutX="232.0" layoutY="112.0" prefHeight="59.0" prefWidth="493.0" />
       <TextArea fx:id="instructionLongues" layoutX="234.0" layoutY="201.0" prefHeight="92.0" prefWidth="493.0" />

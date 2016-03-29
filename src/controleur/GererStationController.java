@@ -52,13 +52,16 @@ public class GererStationController {
 	Button supprimer;
 	
 	@FXML
+	Button modifier;
+	
+	@FXML
 	Button details;
 	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static Station station;
 
-	
+	static int idStation;
 	@FXML
 	/**
 	 * Fonction qui permet d'initialiser la combobox de Centrale (se demarre au lancement de la fênetre)
@@ -72,15 +75,18 @@ public class GererStationController {
 		listeCentrale.setItems(centrale);
 		supprimer.setVisible(false);
 		details.setVisible(false);
+		modifier.setVisible(false);
 		tableStation.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
 	        @Override
 	        public void onChanged(Change<? extends Integer> change)
 	        {
-	            supprimer.setVisible(true);
-	            details.setVisible(true);
+	        	if(tableStation.getItems()  != null){
+	        		supprimer.setVisible(true);
+	        		details.setVisible(true);
+	        		modifier.setVisible(true);
+	        	}     
 	        }
-
 	    });
 	}
 	/**
@@ -88,6 +94,7 @@ public class GererStationController {
 	 * Une fois que l'utilisateur à annuler l'ajout ou ajouter une stations, on recharge le tableau et ferme la popup
 	 */
 	public void ajouterStation(){
+		idStation=-1;
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Station.fxml"));
@@ -113,6 +120,37 @@ public class GererStationController {
 		
 		
 	}
+	
+	public void modifier(){
+		station=tableStation.getSelectionModel().getSelectedItem();
+		idStation=station.getId();
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Station.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Modification d'une station");
+	        CreationStationController controller = loader.getController();
+	        controller.init(listeEquipement.getValue());
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	ListerStations();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 	/**
 	 * Fonction qui permet de lister les stations dans le tableau quand on selectionne un équipement dans la combobox (après avoir selectionné une centrale)
 	 */
@@ -132,7 +170,11 @@ public class GererStationController {
 	 */
 	public void ListerEquipement(){
 		Ajouter.setVisible(false);
+		modifier.setVisible(false);
+		details.setVisible(false);
+		supprimer.setVisible(false);
 		ObservableList<Equipement> equipements=EquipementController.loadEquipementNonSupprimes(listeCentrale.getValue().getId());
+		tableStation.setItems(null);
 		listeEquipement.setItems(equipements);
 	}
 	public void supprimer ()
@@ -151,7 +193,6 @@ public class GererStationController {
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
-	            	initialize();
 	            	dialog.close();
 	            	ListerStations();
 	            }
@@ -177,7 +218,6 @@ public class GererStationController {
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
-	            	initialize();
 	            	dialog.close();
 	            }
 	        });

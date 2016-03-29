@@ -49,12 +49,16 @@ public class GererEquipementController {
 	Button supprimer;
 	
 	@FXML
+	Button modifier;
+	
+	@FXML
 	Button details;
 	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static Equipement equipement;
 	
+	static int idModif;
 	
 	@FXML
 	/**
@@ -69,7 +73,7 @@ public class GererEquipementController {
 		listeCentrale.setItems(centrale);
 		supprimer.setVisible(false);
         details.setVisible(false);
-
+        modifier.setVisible(false);
 		
 		tableEquipement.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
@@ -78,7 +82,7 @@ public class GererEquipementController {
 	        {
 	            supprimer.setVisible(true);
 	            details.setVisible(true);
-
+	            modifier.setVisible(true);
 	            
 	        }
 
@@ -90,6 +94,7 @@ public class GererEquipementController {
 	 * Une fois que l'utilisateur à annuler l'ajout ou ajouter un équipement , on recharge le tableau et ferme la popup
 	 */
 	public void ajouterEquipement(){
+		idModif=-1;
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Equipement.fxml"));
@@ -115,6 +120,36 @@ public class GererEquipementController {
 		
 		
 	}
+	
+	public void modifier(){
+		equipement=tableEquipement.getSelectionModel().getSelectedItem();
+		idModif = equipement.getId();
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Equipement.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Modification d'un equipement");
+	        CreationEquipementController controller = loader.getController();
+	        controller.init(listeCentrale.getValue());
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	ListerEquipement();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	/**
 	 * Fonction qui permet de lister les equipements dans le tableau quand on selectionne une centrale dans la combobox
 	 */

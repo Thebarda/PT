@@ -22,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import modele.Equipement;
+import modele.Station;
 import modele.Unite;
 import vue.Main;
 
@@ -37,7 +38,7 @@ public class CreationStationController {
 	private TextArea instructionLongues ;
 	
 	@FXML
-	private ComboBox<Unite> ListeUnite;
+	private ComboBox<Unite> listeUnite;
 	
 	@FXML
 	private TextField seuilHaut;
@@ -110,11 +111,31 @@ public class CreationStationController {
 	@FXML
 	TableColumn<Unite, String> Nom;
 	
+	@FXML
+	Label titre;
 	
-		
 	@FXML
 	private void initialize() {
-		ListeUnite.setItems(unite);
+		listeUnite.setItems(unite);
+		if(GererStationController.idStation !=-1){
+			titre.setText("Modification de la station");
+			Station station = GererStationController.station;
+			nom.setText(station.getNom());
+			instructionCourtes.setText(station.getInstructionCourte());
+			instructionLongues.setText(station.getInstructionLongue());
+			if(station.getNomUnite().equals("__VERIFICATION")){
+				faitRadio.setSelected(true);
+			}
+			else{
+				uniteRadio.setSelected(true);
+				listeUnite.setValue(UniteController.getUnitById(station.getIdUnite()));
+				seuilBas.setText(""+station.getSeuilBas());
+				seuilHaut.setText(""+station.getSeuilHaut());
+				valeurNormale.setText(""+station.getValeurNormale());
+			}
+			paramFonc.setText(station.getParamFonc());
+			MISH.setText(""+station.getMishEntier());
+		}
 	}
 	
 	/**
@@ -194,13 +215,13 @@ public class CreationStationController {
 			estValide=false;
 		}
 		if(uniteRadio.isSelected()){
-			if(estVideComboBox(ListeUnite))
+			if(estVideComboBox(listeUnite))
 			{
 				erreurUnite.setText("Erreur : l'unite est vide");
 				estValide=false;
 			}
 			else{
-				unit = ListeUnite.getValue().getId();
+				unit = listeUnite.getValue().getId();
 			}
 		}
 		else{
@@ -246,7 +267,7 @@ public class CreationStationController {
 			estValide=false;
 		}
 		
-		if(estValide==true)
+		if((estValide==true)&&(GererStationController.idStation==-1))
 		{
 			String m1 = "1", m2 = "1", m3 = "1";
 			if(!seuilHaut.getText().isEmpty()){
@@ -262,6 +283,24 @@ public class CreationStationController {
 				m3 = "0";
 			}
 			StationController.addStation( nom.getText(), instructionCourtes.getText(),instructionLongues.getText(),unit,(m1+m2+m3),haut,bas,idEquipement,paramFonc.getText(),normale,Boolean.valueOf(MISH.getText()));
+			annuler.getParent().getScene().getWindow().hide();
+		}
+		if((estValide==true)&&(GererStationController.idStation!=-1))
+		{
+			String m1 = "1", m2 = "1", m3 = "1";
+			if(!seuilHaut.getText().isEmpty()){
+				haut=Double.parseDouble(seuilHaut.getText());
+				m1 = "0";
+			}
+			if(!seuilBas.getText().isEmpty()){
+				bas=Double.parseDouble(seuilBas.getText());
+				m2 = "0";
+			}
+			if(!valeurNormale.getText().isEmpty()){
+				normale=Double.parseDouble(valeurNormale.getText());
+				m3 = "0";
+			}
+			StationController.modifier(GererStationController.idStation, nom.getText(), instructionCourtes.getText(), instructionLongues.getText(), unit, haut, bas, paramFonc.getText(), normale, Boolean.valueOf(MISH.getText()), (m1+m2+m3));
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		
@@ -314,7 +353,7 @@ public class CreationStationController {
 	 */
 	public void ListerUnit(){
 		ObservableList<Unite> unit=UniteController.loadUnites();
-		ListeUnite.setItems(unit);
+		listeUnite.setItems(unit);
 	}
 	
 	/**

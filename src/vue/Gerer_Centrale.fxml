@@ -22,9 +22,11 @@
          </font>
       </Label>
       <Button fx:id="supprimer" layoutX="525.0" layoutY="401.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="34.0" prefWidth="102.0" text="Supprimer" />
-   	  <Button fx:id="details" layoutX="525.0" layoutY="352.0" mnemonicParsing="false" onAction="#details" prefHeight="34.0" prefWidth="102.0" text="Plus de details" wrapText="true">
+   	  <Button fx:id="modifier" layoutX="525.0" layoutY="352.0" mnemonicParsing="false" onAction="#modifier" prefHeight="34.0" prefWidth="102.0" text="Modifier" wrapText="true"/>
+      <Button fx:id="details" layoutX="525.0" layoutY="310.0" mnemonicParsing="false" onAction="#details" prefHeight="34.0" prefWidth="102.0" text="Plus de details" wrapText="true">
          <font>
             <Font size="11.0" />
-         </font></Button>
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -161,6 +161,37 @@ public class CentraleControler
 	         }  
 		}
 	}
+	
+	public static void modifier(int idCentrale,String nomCentrale,String identiteNationale){
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE centrale "
+					+ "SET nomCentrale = ? ,identiteNationale=?"
+					+ "WHERE idCentrale = ?");
+			preparedStatement.setString(1, nomCentrale);
+			preparedStatement.setString(2, identiteNationale);
+			preparedStatement.setInt(3, idCentrale);
+			preparedStatement.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
+	
+	
 	/**
 	 * Recherche une centrale en fonction de son nom ou du lieu de la centrale
 	 * Un des champs peut-être NULL, la recherche se fait alors uniquement en fonction de l'autre champs

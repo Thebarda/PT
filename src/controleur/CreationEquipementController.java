@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import modele.Centrale;
+import modele.Equipement;
 /**
  * Controleur relatif à l'interface de création d'équipement
  */
@@ -46,9 +47,33 @@ public class CreationEquipementController {
 	@FXML 
 	private Button annuler;
 	
+	@FXML
+	private Label titre;	
 	
 	private int idCentrale;
 	
+	
+	@FXML
+	private void initialize() {
+		if(GererEquipementController.idModif !=-1){
+			titre.setText("Modification de l'�quipement");
+			Equipement equipement  = GererEquipementController.equipement;
+			nom.setText(equipement.getNom());
+			int nb =equipement.getECSH().length()/4;
+			if(nb>0){
+				ECSH1.setText(equipement.getECSH().substring(0,4));
+			}
+			if(nb>1){
+				ECSH2.setText(equipement.getECSH().substring(4,8));
+			}
+			if(nb>2){
+				ECSH3.setText(equipement.getECSH().substring(4,6));
+			}
+			ECSH4.setText(equipement.getECSH().substring(8));
+			description.setText(equipement.getDescription());
+		}
+	}
+
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
 	 * @param texte
@@ -90,9 +115,14 @@ public class CreationEquipementController {
 			estValide=false;
 		}
 		
-		if(estValide==true)
+		if((estValide==true)&&(GererEquipementController.idModif ==-1))
 		{
 			EquipementController.addEquipement(idCentrale,nom.getText(), description.getText(),(ECSH1.getText()+ECSH2.getText()+ECSH3.getText()+ECSH4.getText()));
+			annuler.getParent().getScene().getWindow().hide();
+		}
+		if((estValide==true)&&(GererEquipementController.idModif !=-1)){
+			Equipement equipement  = GererEquipementController.equipement;
+			EquipementController.modifier(equipement.getId(), nom.getText(), description.getText(), (ECSH1.getText()+ECSH2.getText()+ECSH3.getText()+ECSH4.getText()));
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		

@@ -541,4 +541,45 @@ public class StationController
 	         }  
 		}
 	}
+	
+	
+	public static void modifier(int idStation,String nomStation,String courte,String longue,int idUnite,Double seuilHaut,Double SeuilBas,String paramFonc,Double valeurNormale,Boolean MISH,String marqueur) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE station "
+					+ "SET nomStation=?,instructionsCourtes=?,instructionsLongues=?,idUnite=?,"
+					+ "seuilHaut=?,seuilBas=?,paramFonc=?,valeurNormale=?,MISH=?, marqueur=?"
+					+ "WHERE idStation = ?");
+			System.out.println(idStation);
+
+			preparedStatement.setString(1, nomStation);
+			preparedStatement.setString(2, courte);
+			preparedStatement.setString(3, longue);
+			preparedStatement.setInt(4, idUnite);
+			preparedStatement.setDouble(5, seuilHaut);
+			preparedStatement.setDouble(6, SeuilBas);
+			preparedStatement.setString(7, paramFonc);
+			preparedStatement.setDouble(8, valeurNormale);
+			preparedStatement.setBoolean(9, MISH);
+			preparedStatement.setString(10, marqueur);			
+			preparedStatement.setInt(11, idStation);
+			preparedStatement.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
 }

@@ -15,7 +15,7 @@
       <Label layoutX="68.0" layoutY="216.0" text="Description :" />
       <Label fx:id="erreurDesc" layoutX="198.0" layoutY="355.0" prefHeight="16.0" prefWidth="267.0" textFill="#f20404" />
       <Button fx:id="annuler" layoutX="244.0" layoutY="385.0" mnemonicParsing="false" onAction="#annulerEquipement" text="ANNULER" />
-      <Label layoutX="107.0" layoutY="37.0" text="Création d'un Equipement">
+      <Label fx:id="titre" layoutX="107.0" layoutY="37.0" text="Création d'un Equipement">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

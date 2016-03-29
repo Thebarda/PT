@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import modele.Centrale;
 
 /**
  * Controleur relatif à l'interface de création de centrale
@@ -29,6 +30,21 @@ public class CreationCentraleController {
 	
 	@FXML 
 	private Button annuler;
+	
+	@FXML
+	private Label titre;
+	
+	
+	@FXML
+	private void initialize() {
+		Centrale centrale;
+		if(GererCentraleController.idModif!=-1){
+			titre.setText("Modification de Centrale");
+			centrale = GererCentraleController.centrale;
+			nom.setText(centrale.getNom());
+			codeIdentiteNationale.setText(centrale.getIdentiteNationale());
+		}
+	}
 	
 	/**
 	 * Fonction qui permet de verifier si un champs de Texte est vide ou non
@@ -66,10 +82,16 @@ public class CreationCentraleController {
 			erreurCode.setText("Erreur : le code est vide");
 			estValide=false;
 		}
-		
-		if(estValide == true)
+		System.out.println(GererCentraleController.idModif);
+		if((estValide == true)&&(GererCentraleController.idModif==-1))
 		{
+			System.out.println("passe ajout");
 			CentraleControler.addCentrale(nom.getText(), codeIdentiteNationale.getText());
+			annuler.getParent().getScene().getWindow().hide();
+		}
+		if((estValide == true)&&(GererCentraleController.idModif!=-1)){
+			System.out.println("passe modif");
+			CentraleControler.modifier(GererCentraleController.idModif, nom.getText(), codeIdentiteNationale.getText());
 			annuler.getParent().getScene().getWindow().hide();
 		}
 		

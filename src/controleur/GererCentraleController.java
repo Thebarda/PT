@@ -42,10 +42,15 @@ public class GererCentraleController {
 	@FXML 
 	private Button supprimer;
 	
+	@FXML 
+	private Button modifier;
+	
 	@FXML
 	Button details;
 	
 	static Centrale centrale;
+	
+	static int idModif;
 	
 	
 	@FXML
@@ -64,6 +69,7 @@ public class GererCentraleController {
 		data=CentraleControler.loadCentralesNonSupprimees();
 		tableCentrale.setItems(data);
 		supprimer.setVisible(false);
+		modifier.setVisible(false);
 		details.setVisible(false);
 		tableCentrale.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
@@ -72,6 +78,7 @@ public class GererCentraleController {
 	        {
 	            supprimer.setVisible(true);
 	            details.setVisible(true);
+	            modifier.setVisible(true);
 	        }
 
 	    });
@@ -82,6 +89,7 @@ public class GererCentraleController {
 	 * Quand l'utisateur annule l'ajout ou ajoute une centrale, on actualise le tableaux de centrale et ferme la popup
 	 */
 	public void ajouterCentrale(){
+		idModif=-1;
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Centrale.fxml"));
@@ -105,6 +113,36 @@ public class GererCentraleController {
 		
 		
 	}
+	
+	public void modifier(){
+		centrale=tableCentrale.getSelectionModel().getSelectedItem();
+		idModif=centrale.getId();
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_Centrale.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Modification d'une centrale");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
 	public void supprimer ()
 	{
 		final Stage dialog = new Stage();

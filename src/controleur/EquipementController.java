@@ -229,6 +229,36 @@ public class EquipementController
 	 * @param equipement
 	 * 		equipement a supprimer de la BD
 	 */
+	public static void modifier(int idEquipement,String nomEquipement,String description,String repereECSH) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE equipement "
+					+ "SET nomEquipement=?,descriptionEquipement=?,repereECSH=?"
+					+ "WHERE idEquipement = ?");
+			preparedStatement.setString(1, nomEquipement);
+			preparedStatement.setString(2, description);
+			preparedStatement.setString(3, repereECSH);
+			preparedStatement.setInt(4, idEquipement);
+			preparedStatement.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
+	
 	public static void supprimer(int idEquipement) {
 		Connection connexion = null;
 		try{
@@ -236,7 +266,7 @@ public class EquipementController
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE equipement "
-					+ "SET estSupprime = 1 "
+					+ "SET estSupprime = 1 ,"
 					+ "WHERE idEquipement = ?");
 			preparedStatement.setInt(1, idEquipement);
 			preparedStatement.executeUpdate();
