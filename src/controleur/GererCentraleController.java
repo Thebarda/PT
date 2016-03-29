@@ -42,6 +42,9 @@ public class GererCentraleController {
 	@FXML 
 	private Button supprimer;
 	
+	@FXML
+	Button details;
+	
 	static Centrale centrale;
 	
 	
@@ -50,6 +53,10 @@ public class GererCentraleController {
 	 * Fonction qui permet d'initialiser le tableaux de Centrale (se demarre au lancement de la fênetre)
 	 */
 	private void initialize() {
+		GererEquipementController.equipement=null;
+		GererStationController.station=null;
+		GererModeleTourneeController.modele=null;
+		GererCentraleController.centrale=null;
 		ID.setCellValueFactory(new PropertyValueFactory<Centrale, Integer>("id"));
 		Nom.setCellValueFactory(new PropertyValueFactory<Centrale, String>("nom"));
 		codeIdentiteNationale.setCellValueFactory(new PropertyValueFactory<Centrale, String>("identiteNationale"));
@@ -57,12 +64,14 @@ public class GererCentraleController {
 		data=CentraleControler.loadCentralesNonSupprimees();
 		tableCentrale.setItems(data);
 		supprimer.setVisible(false);
+		details.setVisible(false);
 		tableCentrale.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
 	        @Override
 	        public void onChanged(Change<? extends Integer> change)
 	        {
 	            supprimer.setVisible(true);
+	            details.setVisible(true);
 	        }
 
 	    });
@@ -109,6 +118,31 @@ public class GererCentraleController {
 	        dialog.setScene(dialogScene);
 			dialog.setResizable(false);
 			dialog.setTitle("Supprimer une centrale");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void details (){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("details.fxml"));
+		AnchorPane page;
+		try {
+			centrale=tableCentrale.getSelectionModel().getSelectedItem();
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Plus de details (centrale)");
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {

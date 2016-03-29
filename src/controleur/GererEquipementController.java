@@ -48,6 +48,9 @@ public class GererEquipementController {
 	@FXML
 	Button supprimer;
 	
+	@FXML
+	Button details;
+	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static Equipement equipement;
@@ -58,9 +61,15 @@ public class GererEquipementController {
 	 * Fonction qui permet d'initialiser la combobox de Centrale (se demarre au lancement de la fênetre)
 	 */
 	private void initialize() {
+		GererEquipementController.equipement=null;
+		GererStationController.station=null;
+		GererModeleTourneeController.modele=null;
+		GererCentraleController.centrale=null;
 		Ajouter.setVisible(false);
 		listeCentrale.setItems(centrale);
 		supprimer.setVisible(false);
+        details.setVisible(false);
+
 		
 		tableEquipement.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
@@ -68,6 +77,8 @@ public class GererEquipementController {
 	        public void onChanged(Change<? extends Integer> change)
 	        {
 	            supprimer.setVisible(true);
+	            details.setVisible(true);
+
 	            
 	        }
 
@@ -108,6 +119,8 @@ public class GererEquipementController {
 	 * Fonction qui permet de lister les equipements dans le tableau quand on selectionne une centrale dans la combobox
 	 */
 	public void ListerEquipement(){
+		supprimer.setVisible(false);
+        details.setVisible(false);
 		Ajouter.setVisible(true);
 		ObservableList<Equipement> equip=EquipementController.loadEquipementNonSupprimes(listeCentrale.getValue().getId());
 		Nom.setCellValueFactory(new PropertyValueFactory<Equipement, String>("nom"));
@@ -115,8 +128,7 @@ public class GererEquipementController {
 		Description.setCellValueFactory(new PropertyValueFactory<Equipement, String>("description"));
 		tableEquipement.setItems(equip);
 	}
-	public void supprimer ()
-	{
+	public void supprimer (){
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("supprimer.fxml"));
@@ -140,5 +152,31 @@ public class GererEquipementController {
 			e.printStackTrace();
 		}
 		
-}
+	}
+	
+	public void details (){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("details.fxml"));
+		AnchorPane page;
+		try {
+			equipement=tableEquipement.getSelectionModel().getSelectedItem();
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Plus de details (equipement)");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
+	            	ListerEquipement();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
