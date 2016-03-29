@@ -182,6 +182,44 @@ public class EquipementController
 	}
 	
 	/**
+	 * charge l'equipement ayant l'id demand�
+	 * @return un equipement
+	 */
+	public static Equipement loadEquipementById(int id)
+	{
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		
+		Equipement equipement = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			statut = connexion.createStatement();
+			String sql = "SELECT * FROM EQUIPEMENT WHERE idEquipement = " + id;
+			resultat = statut.executeQuery(sql);
+			resultat.next();
+			equipement = new Equipement(resultat.getInt("idEquipement"), resultat.getString("nomEquipement"), resultat.getString("descriptionEquipement"),resultat.getInt("idCentrale"),resultat.getString("repereECSH"), resultat.getBoolean("estSupprime"));
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return equipement;
+	}
+	
+	/**
 	 * Ajoute une equipement dans la bd en fonction des paramètres
 	 * On spécifie juste le nom ,la description de l'equipement, ainsi que l'id de la centrale de cette équipement, l'id de ce dernier étant en auto-increment
 	 * @param idCentrale

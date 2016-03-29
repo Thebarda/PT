@@ -110,11 +110,21 @@ public class TourneeController {
 			
 			try 
 	         {  
-				 resultatStations.close();
-	             resultat.close();
-	             statut.close();
-	             statutStations.close();
-	             connexion.close();  
+				if(resultatStations!=null){
+					resultatStations.close();
+				}
+				if(resultat!=null){
+		             resultat.close();
+				}
+				if(statut!=null){
+		             statut.close();
+				}
+				if(statutStations!=null){
+		             statutStations.close();
+				}
+				if(connexion!=null){
+		             connexion.close(); 
+				}
 	         } 
 	         catch (Exception e) 
 	         {  
@@ -306,7 +316,7 @@ public class TourneeController {
 			preparedStatement.setInt(5, isTerminee);
 			preparedStatement.executeUpdate();
 			
-			/*// On recupère l'id de la tournée crée
+			/*// On recupï¿½re l'id de la tournï¿½e crï¿½e
 			int id = preparedStatement.getGeneratedKeys().getInt(1);
 			
 			// Ajout dans l'association avec les stations

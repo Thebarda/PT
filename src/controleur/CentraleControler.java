@@ -94,6 +94,44 @@ public class CentraleControler
 	}
 	
 	/**
+	 * Charge la centrale ayant l'id demandé
+	 * @return 
+	 * 		Centrale demandée
+	 */
+	public static Centrale loadCentraleById(int id){
+		
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		Centrale centrale = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT * FROM centrale WHERE idCentrale = " + id);
+			
+			centrale = new Centrale(resultat.getInt("idCentrale"), resultat.getString("nomCentrale"), resultat.getString("identiteNationale"), resultat.getBoolean("estSupprime"));
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();  
+	             statut.close();  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return centrale;
+	}
+	
+	/**
 	 * Ajoute une centrale dans la bd en fonction des paramÃ¨tres
 	 * On spÃ©cifie juste le nom et la localisation de la Centrale, l'id Ã©tant en auto-increment
 	 * @param nom
