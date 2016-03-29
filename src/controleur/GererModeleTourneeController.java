@@ -48,6 +48,9 @@ public class GererModeleTourneeController {
 	@FXML
 	Button supprimer;
 	
+	@FXML
+	Button details;
+	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static ModeleTournee modele;
@@ -58,15 +61,21 @@ public class GererModeleTourneeController {
 	 * Fonction qui permet d'initialiser la combobox de Centrale (se demarre au lancement de la fênetre)
 	 */
 	private void initialize() {
+		GererEquipementController.equipement=null;
+		GererStationController.station=null;
+		GererModeleTourneeController.modele=null;
+		GererCentraleController.centrale=null;
 		Ajouter.setVisible(false);
 		listeCentrale.setItems(centrale);
 		supprimer.setVisible(false);
+		details.setVisible(false);
 		tableModeleTournee.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
 	        @Override
 	        public void onChanged(Change<? extends Integer> change)
 	        {
 	            supprimer.setVisible(true);
+	            details.setVisible(true);
 	        }
 
 	    });
@@ -131,6 +140,31 @@ public class GererModeleTourneeController {
 	            	initialize();
 	            	dialog.close();
 	            	ListerModeleTournees();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void details (){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("details.fxml"));
+		AnchorPane page;
+		try {
+			modele=tableModeleTournee.getSelectionModel().getSelectedItem();
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+			dialog.setResizable(false);
+			dialog.setTitle("Plus de details (modele)");
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	initialize();
+	            	dialog.close();
 	            }
 	        });
 		} catch (IOException e) {

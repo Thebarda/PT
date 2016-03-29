@@ -58,7 +58,7 @@ public class PlanningController {
 	/**
 	 * Fonction qui permet de lister les tournees dans le tableau quand on selectionne une centrale dans la combobox
 	 */
-	public void ListerEquipement(){
+	public void ListerTournee(){
 		ObservableList<Tournee> tournees=TourneeController.loadTournee(listeCentrale.getValue().getId());
 		ID.setCellValueFactory(new PropertyValueFactory<Tournee, Integer>("id"));
 		Nom.setCellValueFactory(new PropertyValueFactory<Tournee, String>("nom"));
@@ -83,7 +83,7 @@ public class PlanningController {
                 		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
                 		            public void handle(WindowEvent we) {
                 		            	dialog.close();
-                		            	ListerEquipement();
+                		            	ListerTournee();
                 		            }
                 		        });
                 			} catch (IOException ioe) {
@@ -102,7 +102,7 @@ public class PlanningController {
                 		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
                 		            public void handle(WindowEvent we) {
                 		            	dialog.close();
-                		            	ListerEquipement();
+                		            	ListerTournee();
                 		            }
                 		        });
                 			} catch (IOException ioe) {
@@ -140,7 +140,7 @@ public class PlanningController {
             		        dialog.setOnHidden(new EventHandler<WindowEvent>() {
             		            public void handle(WindowEvent we) {
             		            	dialog.close();
-            		            	ListerEquipement();
+            		            	ListerTournee();
             		            }
             		        });
             			} catch (IOException ioe) {
