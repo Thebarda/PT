@@ -247,6 +247,12 @@ public class TourneeController {
 		tournees.sort(new Comparator<Tournee>(){
 			@Override
 			public int compare(Tournee t1, Tournee t2){
+				if(t1.getDateReleve()==null || t1.getDateReleve().equals("")){
+					return 1;
+				}
+				if(t2.getDateReleve()==null || t2.getDateReleve().equals("")){
+					return -1;
+				}
 				String date1 = t1.getDateReleve();
 				String date2 = t2.getDateReleve();
 				int annee1 = Integer.parseInt(date1.substring(6,10));
