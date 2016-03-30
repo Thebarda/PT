@@ -13,7 +13,7 @@
       <TextField fx:id="nom" layoutX="273.0" layoutY="75.0" />
       <Label layoutX="52.0" layoutY="80.0" text="Nom  :" />
       <Button fx:id="annuler" layoutX="409.0" layoutY="534.0" mnemonicParsing="false" onAction="#annulerModeleTournee" text="ANNULER" />
-      <Label layoutX="183.0" layoutY="22.0" text="Création d'un modèle de tournée">
+      <Label fx:id="titre" layoutX="183.0" layoutY="22.0" text="Création d'un modèle de tournée">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

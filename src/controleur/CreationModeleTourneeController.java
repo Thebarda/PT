@@ -72,6 +72,9 @@ public class CreationModeleTourneeController {
 	private Button supprimer;
 	
 	@FXML
+	private Label titre;
+	
+	@FXML
 	TableView<ObservableMap.Entry<Integer,Station>> tableStation;
 	
 	@FXML
@@ -91,6 +94,17 @@ public class CreationModeleTourneeController {
 	
 	@FXML
 	private void initialize(){
+		if(GererModeleTourneeController.idModif !=-1){
+			ModeleTournee modele = GererModeleTourneeController.modele;
+			nom.setText(modele.getNom());
+			titre.setText("Modification du modele");
+			description.setText(modele.getDescription());
+			for(int i=1;i<modele.getStations().size()+1;i++){
+				Ostations.put(i, modele.getStations().get(i));
+			}
+			initFils(Ostations, modele.getStations().size());
+			ListerStation();
+		}
 		tableStation.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
 	        @Override
@@ -185,10 +199,15 @@ public class CreationModeleTourneeController {
 			estValide=false;
 		}
 		
-		if(estValide == true)
+		if((estValide == true)&&(GererModeleTourneeController.idModif ==-1))
 		{
 			
-			ModeleTourneeController.addModeleTournee(nom.getText(),description.getText(),Ostations);			annuler.getParent().getScene().getWindow().hide();
+			ModeleTourneeController.addModeleTournee(nom.getText(),description.getText(),Ostations);			
+			annuler.getParent().getScene().getWindow().hide();
+		}
+		if((estValide == true)&&(GererModeleTourneeController.idModif !=-1)){
+			ModeleTourneeController.modifierModeleTournee(GererModeleTourneeController.idModif, nom.getText(), description.getText(),Ostations);
+			annuler.getParent().getScene().getWindow().hide();
 		}
 		
 	}

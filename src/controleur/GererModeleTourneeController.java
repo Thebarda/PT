@@ -55,7 +55,7 @@ public class GererModeleTourneeController {
 	
 	static ModeleTournee modele;
 	
-	
+	static int idModif;
 	@FXML
 	/**
 	 * Fonction qui permet d'initialiser la combobox de Centrale (se demarre au lancement de la fênetre)
@@ -85,6 +85,7 @@ public class GererModeleTourneeController {
 	 * Une fois que l'utilisateur à annuler l'ajout ou ajouter un modèle de tournées , on recharge le tableau et ferme la popup
 	 */
 	public void ajouterModeleTournee(){
+		idModif=-1;
 		final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_ModeleTourne.fxml"));
@@ -110,6 +111,36 @@ public class GererModeleTourneeController {
 		
 		
 	}
+	
+	public void modifier(){
+		modele=tableModeleTournee.getSelectionModel().getSelectedItem();
+		idModif=modele.getId();
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("creation_ModeleTourne.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Scene dialogScene = new Scene(page);
+	        dialog.setScene(dialogScene);
+	        dialog.setResizable(false);
+			dialog.setTitle("Creation d'un modele de tournee");
+	        CreationModeleTourneeController controller = loader.getController();
+	        controller.init(listeCentrale.getValue());
+	        dialog.show();
+	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	ListerModeleTournees();
+	            	dialog.close();
+	            }
+	        });
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
 	/**
 	 * Fonction qui permet de lister les modèle de tournees dans le tableau quand on selectionne une centrale dans la combobox
 	 */
@@ -137,7 +168,6 @@ public class GererModeleTourneeController {
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
-	            	initialize();
 	            	dialog.close();
 	            	ListerModeleTournees();
 	            }
@@ -163,7 +193,6 @@ public class GererModeleTourneeController {
 	        dialog.show();
 	        dialog.setOnHidden(new EventHandler<WindowEvent>() {
 	            public void handle(WindowEvent we) {
-	            	initialize();
 	            	dialog.close();
 	            }
 	        });

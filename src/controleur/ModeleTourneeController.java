@@ -217,6 +217,53 @@ public class ModeleTourneeController {
 		}
 	}
 	
+	public static void modifierModeleTournee(int idModele,String nomModele, String descriptionModele, Map<Integer, Station> stations)
+	{
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE modele_tournee "
+					+ "SET nomModele=?,descriptionModele=? "
+					+ "WHERE idModele=?");
+			preparedStatement.setString(1, nomModele);
+			preparedStatement.setString(2, descriptionModele);
+			preparedStatement.setInt(3, idModele);	
+			preparedStatement.executeUpdate();
+
+			PreparedStatement suppression = connexion.prepareStatement("DELETE FROM asso_station_modele "
+					+ "WHERE idModele=?");
+			suppression.setInt(1, idModele);
+			suppression.executeUpdate();
+			
+			
+			for(int i=1; i<=stations.size();i++){
+				Station station = stations.get(i);
+				PreparedStatement preparedStatementAsso = connexion.prepareStatement("INSERT INTO "
+					+ "asso_station_modele(idModele, idStation, ordre) "
+					+ "VALUES(?,?,?)");
+				preparedStatementAsso.setInt(1, idModele);
+				preparedStatementAsso.setInt(2, station.getId());
+				preparedStatementAsso.setInt(3, i);
+				preparedStatementAsso.executeUpdate();
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
+	
 	/**
 	 * Fonction permettant de r�cuperer toutes les station d'un mod�le de tourn�e
 	 * et les ajoute au modele de tourn�e
