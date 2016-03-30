@@ -94,7 +94,7 @@ public class ReleveController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE releve "
-					+ "SET valeur=?, commentaire=? "
+					+ "SET valeurReleve=?, commentaireReleve=? "
 					+ "WHERE idReleve=?");
 			preparedStatement.setDouble(1, valeur);
 			preparedStatement.setString(2, com);
