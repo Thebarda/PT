@@ -16,12 +16,13 @@ import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 
+import modele.Equipement;
 import modele.ModeleTournee;
 import modele.Releve;
 import modele.Station;
 import modele.Tournee;
 
-public class JsonController {
+public class JsonControllerBis {
 
 	public static void exporterTournee(String fichier, Tournee tournee){
 		
@@ -32,11 +33,32 @@ public class JsonController {
 			Station station = stations.get(i);
 			ArrayList<Releve> releves = ReleveController.load5LastReleve(station.getId());
 			
+			String typ;
+			boolean boolr, textr;
+			
+			if(UniteController.idVersNom(station.getIdUnite()).equals(UniteController.getUnitVerif())){
+				typ = "Vrai / Faux";
+				boolr = true;
+				textr = false;
+			}
+			else{
+				typ = "Intervale";
+				boolr = true;
+				textr = true;
+			}
+			
 			JsonArrayBuilder histoBuilder = Json.createArrayBuilder();
 			for(Releve releve : releves){
 				JsonObject JsonReleve = Json.createObjectBuilder()
-						.add("date", releve.getDate())
-						.add("valeur", releve.getValeur())
+							.add("idReleve", releve.getId())
+							.add("valeur", releve.getValeur())
+							.add("idStation", releve.getIdStation())
+							.add("idTourneeExport", releve.getIdTournee())
+							.add("type", typ)
+							.add("date", releve.getDate())
+							.add("lock", false)
+							.add("commentaire", releve.getCommentaire())
+							.add("impossible", false)
 						.build();
 				
 				histoBuilder.add(JsonReleve);
@@ -44,21 +66,29 @@ public class JsonController {
 			
 			JsonArray JsonHistoriques = histoBuilder.build();
 			
+			Equipement eq = EquipementController.loadEquipementById(StationController.loadStationIdEquipement(station.getId()));
+			
+			JsonObject equipment = Json.createObjectBuilder()
+					.add("idEquipement", eq.getId())
+					.add("usine", Json.createObjectBuilder()
+							.add("id", eq.getIdCentrale())
+							.add("idGroupeUsine", 1)
+							.add("nomUsine", CentraleControler.loadCentraleById(eq.getIdCentrale()).getNom())
+							.build())
+					.add("ecsh", eq.getECSH())
+					.add("lock", false)
+					.build();
+			
 			JsonObject JsonStation = Json.createObjectBuilder()
+					.add("historique", JsonHistoriques)
 					.add("idStation", station.getId())
-					.add("nomStation", station.getNom())
+					.add("libelleStation", station.getNom())
 					.add("instructionsCourtes", station.getInstructionCourte())
 					.add("instructionsLongues", station.getInstructionLongue())
-					.add("seuilBas", station.getSeuilBas())
-					.add("seuilHaut", station.getSeuilHaut())
-					.add("idEquipement", StationController.loadStationIdEquipement(station.getId()))
-					.add("unite", UniteController.idVersNom(station.getIdUnite()))
-					.add("marqueur", station.getMarqueur())
-					.add("paramFonc", station.getParamFonc())
-					.add("valeurNormale", station.getValeurNormale())
-					.add("MISH", station.getMishEntier())
-					.add("nbHistorique", releves.size())
-					.add("historiques", JsonHistoriques)
+					.add("boolReponse", boolr)
+					.add("textReponse", textr)
+					.add("lock", false)
+					.add("equipement", equipment)
 					.build();
 			
 			builderStations.add(JsonStation);
@@ -80,15 +110,13 @@ public class JsonController {
 				.build();
 		
 		JsonObject JsonTournee = Json.createObjectBuilder()
-				.add("nomApp", "relevEDF")
-				.add("idTournee", tournee.getId())
-				.add("nomModele", modele.getNom())
-				.add("descModele", modele.getDescription())
 				.add("dateExport", formater.format( date ).toString())
-				.add("estComplete", 0)
-				.add("nbStations", stations.size())
-				.add("stations", JsonStations)
-				.add("Releves", jsonReleves)
+				.add("stationsHistorique", JsonStations)
+				.add("releves", jsonReleves)
+				.add("idTourneeExport", tournee.getId())
+				.add("idTournee", tournee.getIdModele())
+				.add("libelleTournee", modele.getNom())
+				.add("lock", false)
 				.build();
 		
 		try {

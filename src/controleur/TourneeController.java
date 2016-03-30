@@ -376,16 +376,17 @@ public class TourneeController {
 		}
 	}
 	
-	public static void setExportee(int idTournee) {
+	public static void setExportee(int idTournee, int export) {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
-					+ "SET estExportee = 1 "
+					+ "SET estExportee = ? "
 					+ "WHERE idTournee = ?");
-			preparedStatement.setInt(1, idTournee);
+			preparedStatement.setInt(1, export);
+			preparedStatement.setInt(2, idTournee);
 			preparedStatement.executeUpdate();
 			
 		}catch(Exception e){
@@ -556,5 +557,39 @@ public class TourneeController {
 	         }  
 		}
 		return tournee;
+	}
+	
+	public static int getExport(int idTournee){
+		
+		Connection connexion = null;
+		ResultSet resultat = null;
+		Statement statut = null;
+		int export = -1;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			statut = connexion.createStatement();
+			resultat = statut.executeQuery("SELECT estExportee FROM tournee t "
+										+ "WHERE idTournee = " + idTournee);
+			resultat.next();
+			
+			export = resultat.getInt("estExportee");
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             resultat.close();
+	             statut.close();
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+		return export;
 	}
 }
