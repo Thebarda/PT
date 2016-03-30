@@ -52,9 +52,8 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <TextArea fx:id="instrCourte" editable="false" focusTraversable="false" layoutX="760.0" layoutY="279.0" prefHeight="129.0" prefWidth="225.0" wrapText="true" />
             <VBox fx:id="Historique" layoutX="66.0" layoutY="104.0" prefHeight="400.0" prefWidth="140.0" />
-            <Button layoutX="816.0" layoutY="414.0" mnemonicParsing="false" onAction="#afficherDetails" prefHeight="61.0" prefWidth="169.0" text="Plus de détails" textOverrun="CLIP">
+            <Button layoutX="800.0" layoutY="264.0" mnemonicParsing="false" onAction="#afficherDetails" prefHeight="61.0" prefWidth="169.0" text="Plus de détails" textOverrun="CLIP">
                <font>
                   <Font size="20.0" />
                </font>
@@ -64,34 +63,48 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="803.0" layoutY="237.0" text="Instruction courte">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
             <Label fx:id="erreur" layoutX="480.0" layoutY="240.0" text="Le releve doit être un nombre" textFill="RED" visible="false">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>
             </Label>
-            <CheckBox fx:id="checkBox1" layoutX="400.0" layoutY="113.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="225.0" text="Conforme" visible="false">
+            <CheckBox fx:id="checkBox1" layoutX="266.0" layoutY="112.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="165.0" text="Conforme" visible="false">
                <font>
                   <Font size="24.0" />
                </font></CheckBox>
-            <CheckBox fx:id="checkBox2" layoutX="400.0" layoutY="185.0" mnemonicParsing="false" text="Anomalie" visible="false">
+            <CheckBox fx:id="checkBox2" layoutX="266.0" layoutY="186.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="165.0" text="Anomalie" visible="false">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </CheckBox>
+            <Label fx:id="instrCourte" alignment="CENTER" layoutX="344.0" layoutY="67.0" prefHeight="35.0" prefWidth="359.0" text="Label">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Button layoutX="800.0" layoutY="342.0" mnemonicParsing="false" onAction="#MettreEnPause" prefHeight="61.0" prefWidth="140.0" text="Mettre en Pause" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="800.0" layoutY="424.0" mnemonicParsing="false" onAction="#fin" prefHeight="52.0" prefWidth="140.0" text="Fin">
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <CheckBox fx:id="checkBox3" layoutX="498.0" layoutY="121.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="151.0" text="Non Fait" visible="false">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="checkBox4" layoutX="498.0" layoutY="186.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="178.0" text="Intervention" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
             </CheckBox>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="150.0" prefWidth="1024.0">
+      <AnchorPane prefHeight="155.0" prefWidth="1052.0">
          <children>
-            <Button layoutX="855.0" layoutY="70.0" mnemonicParsing="false" onAction="#fin" prefHeight="51.0" prefWidth="135.0" text="Fin">
-               <font>
-                  <Font size="20.0" />
-               </font></Button>
-            <ScrollPane fx:id="scroll" accessibleRole="SLIDER" hbarPolicy="NEVER" layoutX="112.0" layoutY="32.0" pannable="true" prefHeight="140.0" prefWidth="700.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="15.0">
+            <ScrollPane fx:id="scroll" accessibleRole="SLIDER" hbarPolicy="NEVER" layoutX="122.0" layoutY="32.0" pannable="true" prefHeight="140.0" prefWidth="875.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="15.0">
               <content>
                 <AnchorPane fx:id="Stations" minHeight="0.0" minWidth="0.0" prefHeight="138.0">
                      <children>
@@ -99,21 +112,16 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Label fx:id="avancement" alignment="CENTER" layoutY="4.0" prefHeight="146.0" prefWidth="98.0" text="&#10;" textAlignment="CENTER">
+            <Label fx:id="erreurFin" layoutX="834.0" layoutY="121.0" prefHeight="19.0" prefWidth="178.0" textAlignment="CENTER" textFill="#f20202" />
+            <ImageView fx:id="imageGauche" fitHeight="140.0" fitWidth="30.0" layoutX="92.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            <ImageView fx:id="imageDroite" fitHeight="140.0" fitWidth="30.0" layoutX="997.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            <Label fx:id="avancement" alignment="CENTER" layoutX="-6.0" layoutY="-3.0" prefHeight="146.0" prefWidth="98.0" text="&#10;" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Label fx:id="erreurFin" layoutX="834.0" layoutY="121.0" prefHeight="19.0" prefWidth="178.0" textAlignment="CENTER" textFill="#f20202" />
-            <ImageView fx:id="imageGauche" fitHeight="140.0" fitWidth="30.0" layoutX="82.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="imageDroite" fitHeight="140.0" fitWidth="30.0" layoutX="811.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <Button layoutX="855.0" layoutY="11.0" mnemonicParsing="false" onAction="#MettreEnPause" prefHeight="51.0" prefWidth="135.0" text="Mettre en Pause" textOverrun="CLIP" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
    </children>

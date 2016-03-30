@@ -51,7 +51,7 @@ public class saisirReleveController {
 	Label nom;
 
 	@FXML
-	TextArea instrCourte;
+	Label instrCourte;
 
 	@FXML
 	Label unite;
@@ -88,6 +88,12 @@ public class saisirReleveController {
 
 	@FXML
 	CheckBox checkBox2;
+	
+	@FXML
+	CheckBox checkBox3;
+
+	@FXML
+	CheckBox checkBox4;
 
 	@FXML
 	Label textReleve;
@@ -297,8 +303,22 @@ public class saisirReleveController {
 				CheckBox chk = (CheckBox) event.getSource();
 				if ("Conforme".equals(chk.getText())) {
 					checkBox2.setSelected(false);
+					checkBox3.setSelected(false);
+					checkBox4.setSelected(false);			
 				} else if ("Anomalie".equals(chk.getText())) {
 					checkBox1.setSelected(false);
+					checkBox3.setSelected(false);
+					checkBox4.setSelected(false);
+				}
+				else if ("Non Fait".equals(chk.getText())) {
+					checkBox1.setSelected(false);
+					checkBox2.setSelected(false);
+					checkBox4.setSelected(false);
+				}
+				else if ("Intervention".equals(chk.getText())) {
+					checkBox1.setSelected(false);
+					checkBox2.setSelected(false);
+					checkBox3.setSelected(false);
 				}
 			}
 		}
@@ -327,22 +347,45 @@ public class saisirReleveController {
 			textReleve.setVisible(false);
 			checkBox1.setVisible(true);
 			checkBox2.setVisible(true);
+			checkBox3.setVisible(true);
+			checkBox4.setVisible(true);
 			seuil.setVisible(false);
 			afficherHistorique(stations[numStation].getInt("idStation"), numStation);
 			checkBox1.setOnAction(eh);
 			checkBox2.setOnAction(eh);
+			checkBox3.setOnAction(eh);
+			checkBox4.setOnAction(eh);
 			if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
 				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 0) {
-					checkBox2.setSelected(true);
-					checkBox1.setSelected(false);
-				} else {
 					checkBox1.setSelected(true);
 					checkBox2.setSelected(false);
+					checkBox3.setSelected(false);
+					checkBox4.setSelected(false);
+				} 
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 1) {
+					checkBox1.setSelected(false);
+					checkBox2.setSelected(true);
+					checkBox3.setSelected(false);
+					checkBox4.setSelected(false);
+				}
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 2) {
+					checkBox1.setSelected(false);
+					checkBox2.setSelected(false);
+					checkBox3.setSelected(true);
+					checkBox4.setSelected(false);
+				}
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 3) {
+					checkBox1.setSelected(false);
+					checkBox2.setSelected(false);
+					checkBox3.setSelected(false);
+					checkBox4.setSelected(true);
 				}
 				commentaire.setText(JsonController.getCommentaire(nomJson, stations[currentPos].getInt("idStation")));
 			} else {
 				checkBox2.setSelected(false);
 				checkBox1.setSelected(false);
+				checkBox3.setSelected(false);
+				checkBox4.setSelected(false);
 			}
 		} else {
 			unite.setVisible(true);
@@ -380,9 +423,18 @@ public class saisirReleveController {
 				if (checkBox1.isSelected()) {
 					releveConforme(currentPos);
 					ReleveController.controller(currentPos, 1, commentaire.getText());
-				} else {
+				} 
+				if (checkBox2.isSelected()) {
 					releveNonConforme(currentPos);
 					ReleveController.controller(currentPos, 0, commentaire.getText());
+				}
+				if (checkBox3.isSelected()) {
+					releveNonConforme(currentPos);
+					ReleveController.controller(currentPos, 2, commentaire.getText());
+				}
+				if (checkBox4.isSelected()) {
+					releveNonConforme(currentPos);
+					ReleveController.controller(currentPos, 3, commentaire.getText());
 				}
 			}
 			passerSuivant();
@@ -444,7 +496,7 @@ public class saisirReleveController {
 			charge(currentPos);
 			releve.setText("");
 			commentaire.setText("");
-			scroll.setHvalue((double) currentPos / ((double) nbStations - 4));
+			scroll.setHvalue((double) currentPos / ((double) nbStations - 5));
 			if (scroll.getHvalue() == 0 && (nbStations > 4)) {
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(true);
