@@ -39,7 +39,15 @@ public class PageReleveController {
 	
 	@FXML
 	public void initialize(){
-		tournee=AfficherDernereTournee.tournee;
+		if(AccueilController.tourneeSelect!=null){
+			tournee=AccueilController.tourneeSelect;
+			valeur.setEditable(true);
+			comm.setEditable(true);
+			
+		}
+		else{
+			tournee=AfficherDernereTournee.tournee;
+		}
 		listerReleve();
 	}
 	
@@ -60,7 +68,7 @@ public class PageReleveController {
 	 * Fonction qui permet de valider une unité, et donc de l'ajouter à la base
 	 * On ajoute la centrale que si le champs nom est non vide
 	 */
-	public void ValiderUnite(){
+	public void Valider(){
 	
 			valider.getParent().getScene().getWindow().hide();
 		

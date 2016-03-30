@@ -53,7 +53,7 @@ public class AfficherDernereTournee {
 	
 	@FXML
 	public void initialize() {
-
+		tournee=null;
 		listeCentrale.setItems(centrale);
 
 	}

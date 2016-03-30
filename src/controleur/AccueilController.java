@@ -64,10 +64,13 @@ public class AccueilController {
 	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 
 	public static String dateExport;
+	
+	public static Tournee tourneeSelect;
 
 	@FXML
 	private void initialize(){
 		listeCentrale.setItems(centrale);
+		tourneeSelect=null;
 	}
 	
 	public void ListerTournee(){
@@ -81,6 +84,7 @@ public class AccueilController {
 
             @Override
             public ObservableValue<HBox> call(TableColumn.CellDataFeatures<Tournee, HBox> p) {
+            	tourneeSelect = p.getValue();
             	EventHandler<ActionEvent> eventExport = new EventHandler<ActionEvent>() {
             	    @Override public void handle(ActionEvent e) {
             	    	final Stage dialog = new Stage();
@@ -164,6 +168,31 @@ public class AccueilController {
             		buttonImport.setOnAction(eventImport);
                 	hbox.getChildren().add(buttonImport);
             	}
+            	
+            	EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent e) {
+						final Stage dialog = new Stage();
+						dialog.initModality(Modality.APPLICATION_MODAL);
+						FXMLLoader loader = new FXMLLoader(Main.class.getResource("releve.fxml"));
+						AnchorPane page;
+						try {
+							page = (AnchorPane) loader.load();
+							Scene dialogScene = new Scene(page);
+							dialog.setScene(dialogScene);
+							dialog.show();
+							dialog.setOnHidden(new EventHandler<WindowEvent>() {
+								public void handle(WindowEvent we) {
+									dialog.close();
+								}
+							});
+						} catch (IOException ioe) {
+							ioe.printStackTrace();
+						}
+
+					}
+
+				};
             
             	return new SimpleObjectProperty<HBox>(hbox);
             }
