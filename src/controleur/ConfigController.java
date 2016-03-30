@@ -153,7 +153,8 @@ public class ConfigController {
 			co = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 
 			statement = co.createStatement();
-			String sql = "INSERT INTO UNITE (idUnite, nomUnite) VALUES(0, '__VERIFICATION'); ";
+			String sql = "INSERT INTO UNITE (idUnite, nomUnite) VALUES(0, '__VERIFICATION'); "
+					+ "INSERT INTO UNITE (idUnite, nomUnite) VALUES(1, '__TEXTE'); ";
 			statement.executeUpdate(sql);
 			statement.close();
 			co.close();

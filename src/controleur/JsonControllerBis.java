@@ -36,10 +36,15 @@ public class JsonControllerBis {
 			String typ;
 			boolean boolr, textr;
 			
-			if(UniteController.idVersNom(station.getIdUnite()).equals(UniteController.getUnitVerif())){
+			if(UniteController.getUnitById(station.getIdUnite()).equals(UniteController.getUnitVerif())){
 				typ = "Vrai / Faux";
 				boolr = true;
 				textr = false;
+			}
+			else if(UniteController.getUnitById(station.getIdUnite()).equals(UniteController.getUnitText())){
+				typ = "Texte";
+				boolr = false;
+				textr = true;
 			}
 			else{
 				typ = "Intervale";
