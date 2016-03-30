@@ -1,7 +1,7 @@
 package modele;
 
 /**
- * Classe qui permet de créer un releve
+ * Classe qui permet de crï¿½er un releve
  * @author 
  * @version 1
  *
@@ -128,7 +128,7 @@ public class Releve {
 	 * Modifie la valeur du releve
 	 * @param valeur : la nouvelle valeur du releve
 	 */
-	public void setValeur(int valeur) {
+	public void setValeur(double valeur) {
 		this.valeur = valeur;
 	}
 	/* (non-Javadoc)

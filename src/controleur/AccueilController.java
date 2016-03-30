@@ -81,15 +81,14 @@ public class AccueilController {
 		date.setCellValueFactory(new PropertyValueFactory<Tournee, String>("dateExport"));
 		
 		button.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Tournee, HBox>, ObservableValue<HBox>>(){
-
+			
             @Override
             public ObservableValue<HBox> call(TableColumn.CellDataFeatures<Tournee, HBox> p) {
-            	tourneeSelect = p.getValue();
             	EventHandler<ActionEvent> eventExport = new EventHandler<ActionEvent>() {
             	    @Override public void handle(ActionEvent e) {
             	    	final Stage dialog = new Stage();
             	        dialog.initModality(Modality.APPLICATION_MODAL);
-            	        if (p.getValue().isEstExportee()){
+            	        if (p.getValue().getEtat()==1){
             	        	dateExport=p.getValue().getDate();
             	        	FXMLLoader loader = new FXMLLoader(Main.class.getResource("validerExport.fxml"));
                 			AnchorPane page;
@@ -133,7 +132,7 @@ public class AccueilController {
             	HBox hbox =new HBox();
 
             	Button buttonExport=new Button("Vers le mobile");
-            	if(!p.getValue().isTerminee()){
+            	if(p.getValue().getEtat()<=1){
             		buttonExport.setOnAction(eventExport);
                 	hbox.getChildren().add(buttonExport);
 
@@ -162,14 +161,14 @@ public class AccueilController {
             			}
             	    }
             	};
-            	
+            	System.out.println(p.getValue().getEtat());
             	Button buttonImport=new Button("Importer depuis le mobile");
-            	if(!p.getValue().isTerminee() && p.getValue().isEstExportee()){
+            	if(p.getValue().getEtat()==1){
             		buttonImport.setOnAction(eventImport);
                 	hbox.getChildren().add(buttonImport);
             	}
             	
-            	EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            	EventHandler<ActionEvent> eventVerif = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
 						final Stage dialog = new Stage();
@@ -177,6 +176,7 @@ public class AccueilController {
 						FXMLLoader loader = new FXMLLoader(Main.class.getResource("releve.fxml"));
 						AnchorPane page;
 						try {
+			            	tourneeSelect = p.getValue();
 							page = (AnchorPane) loader.load();
 							Scene dialogScene = new Scene(page);
 							dialog.setScene(dialogScene);
@@ -184,6 +184,7 @@ public class AccueilController {
 							dialog.setOnHidden(new EventHandler<WindowEvent>() {
 								public void handle(WindowEvent we) {
 									dialog.close();
+									ListerTournee();
 								}
 							});
 						} catch (IOException ioe) {
@@ -193,6 +194,17 @@ public class AccueilController {
 					}
 
 				};
+				
+				Button buttonVerif=new Button("Verifier");
+            	if(p.getValue().getEtat()==2){
+            		buttonVerif.setOnAction(eventVerif);
+                	hbox.getChildren().add(buttonVerif);
+            	}
+				Button buttonValider=new Button("Valider");
+            	if(p.getValue().getEtat()==3){
+            		buttonValider.setOnAction(eventVerif);
+                	hbox.getChildren().add(buttonValider);
+            	}
             
             	return new SimpleObjectProperty<HBox>(hbox);
             }

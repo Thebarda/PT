@@ -35,7 +35,7 @@ public class Tournee
 		this.id = id;
 		this.nom = nom;
 		this.idModele = idModele;
-		// une tournée est par default non exportée
+		// une tournï¿½e est par default non exportï¿½e
 		this.etat = etat;
 		this.estTerminee = estTerminee;
 		this.stations = stations;
@@ -89,7 +89,7 @@ public class Tournee
 		return etat;
 	}
 	/**
-	 * indique si la tournée a ete terminee
+	 * indique si la tournï¿½e a ete terminee
 	 * @return estTerminee : vrai si la tournee est terminee, faux sinon
 	 */
 	public boolean isTerminee() {
@@ -97,7 +97,7 @@ public class Tournee
 	}
 	/**
 	 * modifie la valeur de l'exportation d'une tournee
-	 * @param etat : indique si la tournée est exportee
+	 * @param etat : indique si la tournï¿½e est exportee
 	 */
 	public void setEtat(int etat) {
 		this.etat = etat;
