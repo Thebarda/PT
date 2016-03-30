@@ -393,7 +393,8 @@ public class TourneeController {
 			preparedStatement.setInt(2, idTournee);
 			preparedStatement.executeUpdate();
 			
-			setTerminee(idTournee);
+			if(etat == 4)
+				setTerminee(idTournee);
 			
 		}catch(Exception e){
 			e.printStackTrace();
