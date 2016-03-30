@@ -128,6 +128,11 @@ public class saisirReleveController {
 
 	/**
 	 * Initialisation
+	 * si case a cocher:
+	 * 0.0 = Anomalie
+	 * 1.0 = Conforme
+	 * 2.0 = Non Fait
+	 * 3.0 = Intervention
 	 */
 	@FXML
 	private void initialize() {
@@ -182,6 +187,14 @@ public class saisirReleveController {
 						}
 						if (releveDejaSaisi == 0.0) {
 							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Anomalie");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+						}
+						if (releveDejaSaisi == 2.0) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Non Fait");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+						}
+						if (releveDejaSaisi == 3.0) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Intervention");
 							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 						}
 
@@ -419,7 +432,7 @@ public class saisirReleveController {
 		erreurFin.setText("");
 		String releveStr = releve.getText();
 		if (stations[currentPos].getString("unite").equals("__VERIFICATION")) {
-			if (checkBox1.isSelected() || checkBox2.isSelected()) {
+			if (checkBox1.isSelected() || checkBox2.isSelected()||checkBox3.isSelected() || checkBox4.isSelected()) {
 				if (checkBox1.isSelected()) {
 					releveConforme(currentPos);
 					ReleveController.controller(currentPos, 1, commentaire.getText());
@@ -429,11 +442,11 @@ public class saisirReleveController {
 					ReleveController.controller(currentPos, 0, commentaire.getText());
 				}
 				if (checkBox3.isSelected()) {
-					releveNonConforme(currentPos);
+					releveNonFait(currentPos);
 					ReleveController.controller(currentPos, 2, commentaire.getText());
 				}
 				if (checkBox4.isSelected()) {
-					releveNonConforme(currentPos);
+					releveIntervention(currentPos);
 					ReleveController.controller(currentPos, 3, commentaire.getText());
 				}
 			}
@@ -613,6 +626,16 @@ public class saisirReleveController {
 		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nAnomalie");
 		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 	}
+	
+	public void releveNonFait(int pos) {
+		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nNon Fait");
+		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+	}
+	
+	public void releveIntervention(int pos) {
+		labels.get(pos).setText(stations[pos].getString("nomStation") + "\nIntervention");
+		labels.get(pos).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+	}
 
 	/**
 	 * Fin des releves et passage vers la fenetre de validation finale
@@ -697,6 +720,14 @@ public class saisirReleveController {
 				if(valeur ==1.0){
 					valhist = new Label(obj.getString("date") + "\nConforme");
 					valhist.setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+				}
+				if (valeur == 2.0) {
+					labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Non Fait");
+					labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+				}
+				if (valeur == 3.0) {
+					labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Intervention");
+					labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
 				}
 			} else {
 				valhist = new Label(obj.getString("date") + "\n" + valeur);

@@ -28,8 +28,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import vue.Main;
+
 /**
  * Classe qui gere la validation finale de la tournee
+ * 
  * @author ThebardaPNK
  *
  */
@@ -38,20 +40,19 @@ public class ValidationFinaleController {
 	AnchorPane Stations;
 	@FXML
 	Button oui;
-	
+
 	@FXML
 	Button non;
-	
+
 	@FXML
 	ImageView imageDroite;
-	
+
 	@FXML
 	ImageView imageGauche;
-	
+
 	@FXML
 	ScrollPane scroll;
-	
-	
+
 	public static String nomJson;
 	private int nbStations;
 	private int compteur;
@@ -59,11 +60,12 @@ public class ValidationFinaleController {
 	private List<Label> labels = new ArrayList<>();
 	int currentPos;
 	static Stage dialog = new Stage();
+
 	/**
 	 * Initialisation
 	 */
 	@FXML
-	public void initialize(){
+	public void initialize() {
 		JsonReader reader;
 		double releveDejaSaisi;
 		boolean releveDejaSaisiAnormaleBas = false;
@@ -82,11 +84,10 @@ public class ValidationFinaleController {
 			System.out.println(System.getProperty("user.dir"));
 			imageDroite.setImage(new Image("File:droite.png"));
 			imageGauche.setImage(new Image("File:gauche.png"));
-			if(nbStations > 4){
+			if (nbStations > 4) {
 				scroll.setOnMouseReleased(releaseScroll);
 				imageGauche.setVisible(false);
-			}
-			else{
+			} else {
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(false);
 			}
@@ -106,63 +107,72 @@ public class ValidationFinaleController {
 				labels.add(releve);
 				if (JsonController.estReleveSaisi(nomJson, stations[compteur].getInt("idStation"))) {
 					releveDejaSaisi = JsonController.getReleve(nomJson, stations[compteur].getInt("idStation"));
-					if (ReleveController.existeSeuilBas(compteur)
-							&& releveDejaSaisi >= stations[compteur].getInt("seuilBas")) {
-						correctBas = true;
-					}
-					if (ReleveController.existeSeuilHaut(compteur)
-							&& releveDejaSaisi <= stations[compteur].getInt("seuilHaut")) {
-						correctHaut = true;
-					}
-					if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
-						if (correctBas && correctHaut) {
+					if (stations[compteur].getString("unite").equals("__VERIFICATION")) {
+						if (releveDejaSaisi == 1.0) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Conforme");
+							labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+						}
+						if (releveDejaSaisi == 0.0) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n Anomalie");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+						}
+					} else {
+						if (ReleveController.existeSeuilBas(compteur)
+								&& releveDejaSaisi >= stations[compteur].getInt("seuilBas")) {
+							correctBas = true;
+						}
+						if (ReleveController.existeSeuilHaut(compteur)
+								&& releveDejaSaisi <= stations[compteur].getInt("seuilHaut")) {
+							correctHaut = true;
+						}
+						if (ReleveController.existeSeuilBas(compteur) && ReleveController.existeSeuilHaut(compteur)) {
+							if (correctBas && correctHaut) {
+								releveDejaSaisiNormale = true;
+							} else {
+								if (correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))) {
+									releveDejaSaisiAnormaleBas = true;
+								} else if (correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))) {
+									releveDejaSaisiAnormaleHaut = true;
+								}
+							}
+						} else if ((ReleveController.existeSeuilBas(compteur) && correctBas)
+								|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
+								|| (!ReleveController.existeSeuilHaut(compteur)
+										&& !ReleveController.existeSeuilBas(compteur))) {
 							releveDejaSaisiNormale = true;
 						} else {
-							if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
+							if (correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))) {
 								releveDejaSaisiAnormaleBas = true;
-							}
-							else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
+							} else if (correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))) {
 								releveDejaSaisiAnormaleHaut = true;
 							}
 						}
-					} else if ((ReleveController.existeSeuilBas(compteur) && correctBas)
-							|| (ReleveController.existeSeuilHaut(compteur) && correctHaut)
-							|| (!ReleveController.existeSeuilHaut(compteur)
-									&& !ReleveController.existeSeuilBas(compteur))) {
-							releveDejaSaisiNormale = true;
-					} else {
-						if(correctHaut || (!correctBas && !ReleveController.existeSeuilHaut(compteur))){
-							releveDejaSaisiAnormaleBas = true;
+						if (releveDejaSaisiNormale == true) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n"
+									+ releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nValide");
+							labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
+							releveDejaSaisiNormale = false;
+							correctHaut = false;
+							correctBas = false;
 						}
-						else if(correctBas || (!correctHaut && !ReleveController.existeSeuilBas(compteur))){
-							releveDejaSaisiAnormaleHaut = true;
+						if (releveDejaSaisiAnormaleBas == true) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n"
+									+ releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nAnormale");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+							releveDejaSaisiAnormaleBas = false;
+							correctHaut = false;
+							correctBas = false;
+						}
+						if (releveDejaSaisiAnormaleHaut == true) {
+							labels.get(compteur).setText(stations[compteur].getString("nomStation") + "\n"
+									+ releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nAnormale");
+							labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
+							releveDejaSaisiAnormaleHaut = false;
+							correctHaut = false;
+							correctBas = false;
 						}
 					}
-					if (releveDejaSaisiNormale == true) {
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nValide");
-						labels.get(compteur).setStyle("-fx-background-color: #9BEB7F; -fx-border-style: solid;");
-						releveDejaSaisiNormale = false;
-						correctHaut = false;
-						correctBas = false;
-					}
-					if(releveDejaSaisiAnormaleBas == true){
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nAnormale");
-						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-						releveDejaSaisiAnormaleBas = false;
-						correctHaut = false;
-						correctBas = false;
-					}
-					if(releveDejaSaisiAnormaleHaut == true){
-						labels.get(compteur).setText(
-								stations[compteur].getString("nomStation") + "\n" + releveDejaSaisi + " " + stations[compteur].getString("unite") + "\nAnormale");
-						labels.get(compteur).setStyle("-fx-background-color: #E6A83E; -fx-border-style: solid;");
-						releveDejaSaisiAnormaleHaut = false;
-						correctHaut = false;
-						correctBas = false;
-					}
-					
+
 				}
 				compteur++;
 			}
@@ -172,47 +182,49 @@ public class ValidationFinaleController {
 			e.printStackTrace();
 		}
 	}
+
 	EventHandler<MouseEvent> releaseScroll = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent e) {
-			ScrollPane scroll = (ScrollPane) e.getSource(); 
-			if(scroll.getHvalue()==0){
+			ScrollPane scroll = (ScrollPane) e.getSource();
+			if (scroll.getHvalue() == 0) {
 				imageGauche.setVisible(false);
 				imageDroite.setVisible(true);
 			}
-			if(scroll.getHvalue()==1){
+			if (scroll.getHvalue() == 1) {
 				imageDroite.setVisible(false);
 				imageGauche.setVisible(true);
 			}
-			if(scroll.getHvalue()!=1 && scroll.getHvalue()!=0){
+			if (scroll.getHvalue() != 1 && scroll.getHvalue() != 0) {
 				imageDroite.setVisible(true);
 				imageGauche.setVisible(true);
 			}
 		}
 	};
+
 	/**
 	 * Passage vers la fenetre de fin de l'application
 	 */
 	@FXML
-	public void toExportation(){
-        dialog.initModality(Modality.APPLICATION_MODAL);
+	public void toExportation() {
+		dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ChoixExportation.fxml"));
 		try {
 			AnchorPane page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
-	        dialog.setScene(dialogScene);
-	        dialog.setResizable(false);
+			dialog.setScene(dialogScene);
+			dialog.setResizable(false);
 			dialog.setTitle("Exportation");
-	        dialog.show();
-	        ChoixExportationController.init(dialog, false);
-	        dialog.getIcons().add(new Image("file:logo.png"));
-	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>(){
+			dialog.show();
+			ChoixExportationController.init(dialog, false);
+			dialog.getIcons().add(new Image("file:logo.png"));
+			dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent arg0) {
 					dialog.close();
 				}
-	        });
-	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+			});
+			dialog.setOnHiding(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					dialog.close();
 					dialog = new Stage();
@@ -222,29 +234,30 @@ public class ValidationFinaleController {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Passage vers la fenetre de fin de l'application
 	 */
 	@FXML
-	public void toExportationComplete(){
-        dialog.initModality(Modality.APPLICATION_MODAL);
+	public void toExportationComplete() {
+		dialog.initModality(Modality.APPLICATION_MODAL);
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("ChoixExportation.fxml"));
 		try {
 			AnchorPane page = (AnchorPane) loader.load();
 			Scene dialogScene = new Scene(page);
-	        dialog.setScene(dialogScene);
-	        dialog.setResizable(false);
+			dialog.setScene(dialogScene);
+			dialog.setResizable(false);
 			dialog.setTitle("Exportation");
-	        dialog.show();
-	        ChoixExportationController.init(dialog, true);
-	        dialog.getIcons().add(new Image("file:logo.png"));
-	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>(){
+			dialog.show();
+			ChoixExportationController.init(dialog, true);
+			dialog.getIcons().add(new Image("file:logo.png"));
+			dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent arg0) {
 					dialog.close();
 				}
-	        });
-	        dialog.setOnHiding(new EventHandler<WindowEvent>() {
+			});
+			dialog.setOnHiding(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					dialog.close();
 					dialog = new Stage();
@@ -254,14 +267,15 @@ public class ValidationFinaleController {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Retourne vers la fenetre de saisie des releves pour modification
 	 */
-	public void modif(){
+	public void modif() {
 		non.getParent().getScene().getWindow().hide();
 	}
-	
-	public void toExit(){
+
+	public void toExit() {
 		Platform.exit();
 	}
 }
