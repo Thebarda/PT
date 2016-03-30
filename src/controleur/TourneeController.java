@@ -35,7 +35,7 @@ public class TourneeController {
 										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
 										+ "WHERE mt.idModele=t.idModele "
 										+ "limit 1 "
-										+ ")= " + idCentrale + " AND estTerminee = 0 AND mdt.estSupprime = 0 AND ");
+										+ ")= " + idCentrale + " AND estTerminee = 0 AND mdt.estSupprime = 0");
 			while(resultat.next()){
 				int  idTournee = resultat.getInt("idTournee");
 				String dateExport = resultat.getString("dateExport");
