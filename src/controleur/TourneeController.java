@@ -374,6 +374,12 @@ public class TourneeController {
 		}
 	}
 	
+	//Etat :
+	//	0: pas exportée
+	//	1: exportée et pas importée
+	//	2: importée et à vérifier
+	//	3: vérifier et à valider par le chef
+	//	4: validé et terminé
 	public static void setEtat(int idTournee, int etat) {
 		Connection connexion = null;
 		try{
@@ -386,6 +392,8 @@ public class TourneeController {
 			preparedStatement.setInt(1, etat);
 			preparedStatement.setInt(2, idTournee);
 			preparedStatement.executeUpdate();
+			
+			setTerminee(idTournee);
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -557,7 +565,7 @@ public class TourneeController {
 		return tournee;
 	}
 	
-	public static int getExport(int idTournee){
+	public static int getEtat(int idTournee){
 		
 		Connection connexion = null;
 		ResultSet resultat = null;
