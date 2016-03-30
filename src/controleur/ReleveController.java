@@ -88,6 +88,33 @@ public class ReleveController {
 		}
 	}
 	
+	public static void modifierReleve(int idReleve, double valeur, String com) {
+		Connection connexion = null;
+		try{
+			Class.forName("org.sqlite.JDBC");
+			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE releve "
+					+ "SET valeur=?, commentaire=? "
+					+ "WHERE idReleve=?");
+			preparedStatement.setDouble(1, valeur);
+			preparedStatement.setString(2, com);
+			preparedStatement.setInt(3, idReleve);
+			preparedStatement.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try 
+	         {  
+	             connexion.close();  
+	         } 
+	         catch (Exception e) 
+	         {  
+	             e.printStackTrace();  
+	         }  
+		}
+	}
+	
 	public static ObservableList<Releve> loadReleves(int idTournee){
 		
 		ObservableList<Releve> releves = FXCollections.observableArrayList();

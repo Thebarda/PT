@@ -12,7 +12,7 @@ public class Tournee
 	private int id;
 	private final String nom;
 	private final int idModele;
-	private boolean estExportee;
+	private int etat;
 	private boolean estTerminee;
 	private String dateExport;
 	private String dateReleve;
@@ -26,17 +26,17 @@ public class Tournee
 	 * @param nom			: nom de la tournee
 	 * @param idModele		: id du modele de tournee de la tournee
 	 * @param stations		: stations de la tournee
-	 * @param estExportee	: si la tournee est exportee ou non
+	 * @param etat	: si la tournee est exportee ou non
 	 * @param estTerminee	: si la tournee est terminee ou non
 	 * @param dateExport		: date d'export de la tournee
 	 */
-	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, boolean estExportee, boolean estTerminee,String dateExport,String dateReleve) 
+	public Tournee(int id, String nom, int idModele, HashMap<Integer, Station> stations, int etat, boolean estTerminee,String dateExport,String dateReleve) 
 	{
 		this.id = id;
 		this.nom = nom;
 		this.idModele = idModele;
 		// une tournée est par default non exportée
-		this.estExportee = estExportee;
+		this.etat = etat;
 		this.estTerminee = estTerminee;
 		this.stations = stations;
 		this.dateExport = dateExport;
@@ -51,7 +51,7 @@ public class Tournee
 	 */
 	public Tournee(String nom, int idModele, HashMap<Integer, Station> stations,String dateExport) 
 	{
-		this(-1,nom,idModele,stations,false,false,dateExport,"");
+		this(-1,nom,idModele,stations,0,false,dateExport,"");
 	}
 	/**
 	 * retourne l'id de la tournee
@@ -83,10 +83,10 @@ public class Tournee
 	}
 	/**
 	 * indique si la tournee a ete au moins une fois exportee
-	 * @return estExportee : vrai si la tournee est exportee, faux sinon
+	 * @return etat : vrai si la tournee est exportee, faux sinon
 	 */
-	public boolean isEstExportee() {
-		return estExportee;
+	public int getEtat() {
+		return etat;
 	}
 	/**
 	 * indique si la tournée a ete terminee
@@ -97,10 +97,10 @@ public class Tournee
 	}
 	/**
 	 * modifie la valeur de l'exportation d'une tournee
-	 * @param estExportee : indique si la tournée est exportee
+	 * @param etat : indique si la tournée est exportee
 	 */
-	public void setEstExportee(boolean estExportee) {
-		this.estExportee = estExportee;
+	public void setEtat(int etat) {
+		this.etat = etat;
 	}
 	/**
 	 * Definit une tournee comme terminee ou non
@@ -122,7 +122,7 @@ public class Tournee
 	 */
 	@Override
 	public String toString() {
-		return "Tournee [id=" + id + ", nom=" + nom + ", idModele=" + idModele + ", estExportee=" + estExportee
+		return "Tournee [id=" + id + ", nom=" + nom + ", idModele=" + idModele + ", etat=" + etat
 				+ ", estTerminee=" + estTerminee + ", dateExport=" + dateExport + ", stations=" + stations + "]";
 	}
 	/**

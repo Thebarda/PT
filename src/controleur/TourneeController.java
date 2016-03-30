@@ -26,7 +26,7 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, t.idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, t.idModele, etat, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "INNER JOIN modele_tournee mdt ON mdt.idModele = t.idModele "
 										+ "WHERE ( "
 										+ "Select idCentrale from equipement e "
@@ -35,13 +35,13 @@ public class TourneeController {
 										+ "INNER JOIN modele_tournee mt ON asm.idModele=mt.idModele "
 										+ "WHERE mt.idModele=t.idModele "
 										+ "limit 1 "
-										+ ")= " + idCentrale + " AND estTerminee = 0 AND mdt.estSupprime = 0");
+										+ ")= " + idCentrale + " AND estTerminee = 0 AND mdt.estSupprime = 0 AND ");
 			while(resultat.next()){
 				int  idTournee = resultat.getInt("idTournee");
 				String dateExport = resultat.getString("dateExport");
 				String nomTournee = resultat.getString("nomTournee");
 				int idModele = resultat.getInt("idModele");
-				boolean estExportee = resultat.getBoolean("estExportee");
+				int etat = resultat.getInt("etat");
 				boolean estTerminee = resultat.getBoolean("estTerminee");
 				String dateReleve = resultat.getString("dateReleve");
 	
@@ -96,7 +96,7 @@ public class TourneeController {
 						nomTournee,
 						idModele,
 						stations,
-						estExportee,
+						etat,
 						estTerminee,
 						dateExport,
 						dateReleve);
@@ -150,7 +150,7 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, etat, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE ( "
 										+ "Select idCentrale from equipement e "
 										+ "INNER JOIN station s ON e.idEquipement=s.idEquipement "
@@ -164,7 +164,7 @@ public class TourneeController {
 				String dateExport = resultat.getString("dateExport");
 				String nomTournee = resultat.getString("nomTournee");
 				int idModele = resultat.getInt("idModele");
-				boolean estExportee = resultat.getBoolean("estExportee");
+				int etat = resultat.getInt("etat");
 				boolean estTerminee = resultat.getBoolean("estTerminee");
 				String dateReleve = resultat.getString("dateReleve");
 	
@@ -219,7 +219,7 @@ public class TourneeController {
 						nomTournee,
 						idModele,
 						stations,
-						estExportee,
+						etat,
 						estTerminee,
 						dateExport,
 						dateReleve);
@@ -299,18 +299,12 @@ public class TourneeController {
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("INSERT INTO "
-					+ "tournee(nomTournee,dateExport,idModele,estExportee,estTerminee) "
+					+ "tournee(nomTournee,dateExport,idModele,etat,estTerminee) "
 					+ "VALUES(?,?,?,?,?)");
 			preparedStatement.setString(1, tournee.getNom());
 			preparedStatement.setString(2, tournee.getDate());
 			preparedStatement.setInt(3, tournee.getIdModele());
-			int isExportee;
-			if(tournee.isEstExportee()){
-				isExportee = 1;
-			} else {
-				isExportee = 0;
-			}
-			preparedStatement.setInt(4, isExportee);
+			preparedStatement.setInt(4, tournee.getEtat());
 			int isTerminee;
 			if(tournee.isTerminee()){
 				isTerminee = 1;
@@ -380,16 +374,16 @@ public class TourneeController {
 		}
 	}
 	
-	public static void setExportee(int idTournee, int export) {
+	public static void setEtat(int idTournee, int etat) {
 		Connection connexion = null;
 		try{
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			
 			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE tournee "
-					+ "SET estExportee = ? "
+					+ "SET etat = ? "
 					+ "WHERE idTournee = ?");
-			preparedStatement.setInt(1, export);
+			preparedStatement.setInt(1, etat);
 			preparedStatement.setInt(2, idTournee);
 			preparedStatement.executeUpdate();
 			
@@ -476,13 +470,13 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, estExportee, estTerminee, nomTournee, dateReleve FROM tournee t "
+			resultat = statut.executeQuery("SELECT idTournee, dateExport, idModele, etat, estTerminee, nomTournee, dateReleve FROM tournee t "
 										+ "WHERE idTournee = " + idTournee);
 			while(resultat.next()){
 				String dateExport = resultat.getString("dateExport");
 				String nomTournee = resultat.getString("nomTournee");
 				int idModele = resultat.getInt("idModele");
-				boolean estExportee = resultat.getBoolean("estExportee");
+				int etat = resultat.getInt("etat");
 				boolean estTerminee = resultat.getBoolean("estTerminee");
 				String dateReleve = resultat.getString("dateReleve");
 	
@@ -537,7 +531,7 @@ public class TourneeController {
 						nomTournee,
 						idModele,
 						stations,
-						estExportee,
+						etat,
 						estTerminee,
 						dateExport,
 						dateReleve);
@@ -573,11 +567,11 @@ public class TourneeController {
 			Class.forName("org.sqlite.JDBC");
 			connexion = DriverManager.getConnection("jdbc:sqlite:"+ConfigController.bd);
 			statut = connexion.createStatement();
-			resultat = statut.executeQuery("SELECT estExportee FROM tournee t "
+			resultat = statut.executeQuery("SELECT etat FROM tournee t "
 										+ "WHERE idTournee = " + idTournee);
 			resultat.next();
 			
-			export = resultat.getInt("estExportee");
+			export = resultat.getInt("etat");
 			
 		}catch(Exception e){
 			e.printStackTrace();

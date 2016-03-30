@@ -120,7 +120,7 @@ public class ConfigController {
 					   + "	`idTournee`	INTEGER PRIMARY KEY AUTOINCREMENT, "
 					   + "	`dateExport`	TEXT NOT NULL, "
 					   + "	`idModele`	INTEGER NOT NULL, "
-					   + "	`estExportee`	NUMERIC NOT NULL, "
+					   + "	`etat`	NUMERIC NOT NULL, "
 					   + "	`estTerminee`	NUMERIC NOT NULL, "
 					   + "	`nomTournee`	VARCHAR, "
 					   + "	`dateReleve`	TEXT, "

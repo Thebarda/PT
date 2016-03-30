@@ -70,7 +70,7 @@ public class PlanningController {
             	    @Override public void handle(ActionEvent e) {
             	    	final Stage dialog = new Stage();
             	        dialog.initModality(Modality.APPLICATION_MODAL);
-            	        if (p.getValue().isEstExportee()){
+            	        if (p.getValue().getEtat() == 1){
             	        	dateExport=p.getValue().getDate();
             	        	FXMLLoader loader = new FXMLLoader(Main.class.getResource("validerExport.fxml"));
                 			AnchorPane page;
@@ -149,7 +149,7 @@ public class PlanningController {
             	    }
             	};
             	Button button=new Button("Importer depuis le mobile");
-            	if(!p.getValue().isTerminee() && p.getValue().isEstExportee()){
+            	if(!p.getValue().isTerminee() && p.getValue().getEtat() == 1){
             		button.setOnAction(event);
             	}
             	else{

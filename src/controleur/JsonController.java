@@ -101,7 +101,7 @@ public class JsonController {
 			writer = factory.createWriter(new FileOutputStream(fichier));
 		    writer.writeObject(JsonTournee);
 		    writer.close();
-		    TourneeController.setExportee(tournee.getId(), 1);
+		    TourneeController.setEtat(tournee.getId(), 1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -117,7 +117,7 @@ public class JsonController {
 			JsonObject[] tabReleves;
 			tabReleves = releves.toArray(new JsonObject[0]);
 			
-			TourneeController.setTerminee(tournee.getInt("idTournee"));
+			TourneeController.setEtat(tournee.getInt("idTournee"), 2);
 			for(JsonObject jo : tabReleves){
 				ReleveController.ajouterReleve(jo.getJsonNumber("valeur").doubleValue(), jo.getString("commentaire"), jo.getInt("idStation"), tournee.getInt("idTournee"));
 			}
