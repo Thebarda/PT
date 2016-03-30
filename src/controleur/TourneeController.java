@@ -358,6 +358,7 @@ public class TourneeController {
 					+ "WHERE idTournee = ?");
 			preparedStatement.setInt(1, idTournee);
 			preparedStatement.executeUpdate();
+			ModeleTourneeController.loadModeleTournee(TourneeController.loadTourneeById(idTournee).getIdModele()).genererTournee();
 			
 		}catch(Exception e){
 			e.printStackTrace();

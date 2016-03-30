@@ -159,7 +159,6 @@ public class JsonControllerBis {
 			ModeleTournee modele = ModeleTourneeController.loadModeleTournee(tourneeBdd.getIdModele());
 			TourneeController.setDateExport(tournee.getInt("idTournee"), tournee.getString("dateExport"));
 			TourneeController.setDateReleve(tournee.getInt("idTournee"), tournee.getString("dateReleve"));
-			modele.genererTournee();
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
