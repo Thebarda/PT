@@ -35,7 +35,7 @@ public class ValiderExportController {
 	 */
 	@FXML
 	private void initialize(){
-		date.setText(PlanningController.dateExport);
+		date.setText(AccueilController.dateExport);
 	}
 	
 	public void annuler(){

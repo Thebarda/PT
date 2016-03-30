@@ -78,7 +78,21 @@ public class AccueilController {
 		nom.setCellValueFactory(new PropertyValueFactory<Tournee, String>("nom"));
 		id.setCellValueFactory(new PropertyValueFactory<Tournee, Integer>("id"));
 
-		date.setCellValueFactory(new PropertyValueFactory<Tournee, String>("dateExport"));
+		date.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Tournee, String>, ObservableValue<String>>(){
+			
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Tournee, String> p) {
+            	String date="";
+            	if (p.getValue().getDateReleve()!=null){
+            		date=p.getValue().getDateReleve()+" (date de releve)";
+            	}
+            	else if(p.getValue().getDate()!=null && !p.getValue().getDate().isEmpty()){
+            		date=p.getValue().getDate()+" (date d'export)";
+            	}
+            	return new SimpleObjectProperty<String>(date);
+            	
+            }
+		});
 		
 		button.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Tournee, HBox>, ObservableValue<HBox>>(){
 			
@@ -132,6 +146,7 @@ public class AccueilController {
             	HBox hbox =new HBox();
 
             	Button buttonExport=new Button("Vers le mobile");
+            	buttonExport.setPrefWidth(135);
             	if(p.getValue().getEtat()<=1){
             		buttonExport.setOnAction(eventExport);
                 	hbox.getChildren().add(buttonExport);
@@ -161,8 +176,8 @@ public class AccueilController {
             			}
             	    }
             	};
-            	System.out.println(p.getValue().getEtat());
             	Button buttonImport=new Button("Importer depuis le mobile");
+            	buttonImport.setPrefWidth(135);
             	if(p.getValue().getEtat()==1){
             		buttonImport.setOnAction(eventImport);
                 	hbox.getChildren().add(buttonImport);
@@ -196,11 +211,13 @@ public class AccueilController {
 				};
 				
 				Button buttonVerif=new Button("Verifier");
+				buttonVerif.setPrefWidth(135);
             	if(p.getValue().getEtat()==2){
             		buttonVerif.setOnAction(eventVerif);
                 	hbox.getChildren().add(buttonVerif);
             	}
 				Button buttonValider=new Button("Valider");
+				buttonValider.setPrefWidth(135);
             	if(p.getValue().getEtat()==3){
             		buttonValider.setOnAction(eventVerif);
                 	hbox.getChildren().add(buttonValider);
@@ -217,6 +234,7 @@ public class AccueilController {
 	 * Fonction qui permet de changer le contenu du centre, en lui appliquant le contenu relatif à la préparation de tournées
 	 */
 	public void  AfficherPreparerTournees(){
+		tourneeSelect=null;
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("PreparerTournees.fxml"));
 		HBox page;
 		try {
@@ -231,9 +249,28 @@ public class AccueilController {
 	}
 	
 	/**
+	 * Fonction qui permet de changer le contenu du centre, en lui appliquant le contenu relatif à l'accueil
+	 */
+	public void  AfficherAccueil(){
+		tourneeSelect=null;
+		FXMLLoader loader =new FXMLLoader(Main.class.getResource("accueil.fxml"));
+		AnchorPane page;
+		try {
+			page = (AnchorPane) loader.load();
+			Appli.getChildren().removeAll(Appli.getChildren());
+			Appli.getChildren().addAll(page);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
 	 * Fonction qui permet de changer le contenu du centre, en lui appliquant le contenu relatif à la préparation de tournées, et plus precisemment gerer centrales
 	 */
 	public void  AfficherGererCentrales(){
+		tourneeSelect=null;
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("PreparerTournees.fxml"));
 		HBox page;
 		try {
@@ -253,6 +290,7 @@ public class AccueilController {
 	 * Fonction qui permet de changer le contenu du centre, en lui appliquant le contenu relatif à la préparation de tournées, et plus precisemment gerer les modele de tournee
 	 */
 	public void  AfficherGererModeleTournee(){
+		tourneeSelect=null;
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("PreparerTournees.fxml"));
 		HBox page;
 		try {
@@ -268,6 +306,7 @@ public class AccueilController {
 		
 	}
 	public void AfficherGestionBD(){
+		tourneeSelect=null;
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("GestionBD.fxml"));
 		HBox page;
 		try {
@@ -281,6 +320,7 @@ public class AccueilController {
 		
 	}
 	public void  AfficherAnalyse(){
+		tourneeSelect=null;
 		FXMLLoader loader =new FXMLLoader(Main.class.getResource("GestionBD.fxml"));
 		HBox page;
 		try {

@@ -21,10 +21,10 @@ public class PreparerTourneesController {
 	
 	@FXML
 	/**
-	 * Fonction qui permet d'initialiser la page en affichant le planning(page par défaut)
+	 * Fonction qui permet d'initialiser la page en affichant gerer centrale(page par défaut)
 	 */
 	private void initialize() {
-		AfficherPlanning();
+		AfficherGererCentrale();
 	}
 	
 	/**

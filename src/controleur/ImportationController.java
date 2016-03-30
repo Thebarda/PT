@@ -78,12 +78,12 @@ public class ImportationController {
 		boolean estValide=true;
 		resetErreur();
 		if(estVide(route)){
-			erreurRoute.setText("Erreur : veuillez sspécifier votre fichier ");
+			erreurRoute.setText("Erreur : veuillez specifier votre fichier ");
 			estValide=false;
 		}	
 		if(!JsonController.estCompleteTournee(route.getText()))
 		{
-			erreurRoute.setText("Erreur : la tournée n'est pas complétée ");
+			erreurRoute.setText("Erreur : la tournee n'est pas completee ");
 			estValide=false;
 		}
 		if(!JsonController.estPareilTournee(route.getText(), tournee))
