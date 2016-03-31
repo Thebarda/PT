@@ -369,25 +369,25 @@ public class saisirReleveController {
 			checkBox3.setOnAction(eh);
 			checkBox4.setOnAction(eh);
 			if (JsonController.estReleveSaisi(nomJson, stations[currentPos].getInt("idStation"))) {
-				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 0) {
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 1.0) {
 					checkBox1.setSelected(true);
 					checkBox2.setSelected(false);
 					checkBox3.setSelected(false);
 					checkBox4.setSelected(false);
 				} 
-				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 1) {
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 0.0) {
 					checkBox1.setSelected(false);
 					checkBox2.setSelected(true);
 					checkBox3.setSelected(false);
 					checkBox4.setSelected(false);
 				}
-				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 2) {
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 2.0) {
 					checkBox1.setSelected(false);
 					checkBox2.setSelected(false);
 					checkBox3.setSelected(true);
 					checkBox4.setSelected(false);
 				}
-				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 3) {
+				if (JsonController.getReleve(nomJson, stations[currentPos].getInt("idStation")) == 3.0) {
 					checkBox1.setSelected(false);
 					checkBox2.setSelected(false);
 					checkBox3.setSelected(false);
