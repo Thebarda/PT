@@ -406,6 +406,8 @@ public class saisirReleveController {
 			textReleve.setVisible(true);
 			checkBox1.setVisible(false);
 			checkBox2.setVisible(false);
+			checkBox3.setVisible(false);
+			checkBox4.setVisible(false);
 			seuil.setVisible(true);
 			unite.setText(stations[numStation].getString("unite"));
 
