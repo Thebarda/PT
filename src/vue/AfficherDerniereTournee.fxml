@@ -16,12 +16,12 @@
             <TableColumn fx:id="releve" prefWidth="96.0" text="Relevé" />
          </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="126.0" layoutY="36.0" style="-fx-alignment: center;" text="Dernières tournées" AnchorPane.topAnchor="36.0">
+      <Label alignment="CENTER" layoutX="214.0" layoutY="36.0" style="-fx-alignment: center;" text="Dernières tournées" AnchorPane.topAnchor="36.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="listeCentrale" layoutX="195.0" layoutY="80.0" onAction="#listerTournee" prefWidth="150.0" />
-      <Label layoutX="113.0" layoutY="84.0" text="Centrale" />
+      <ComboBox fx:id="listeCentrale" layoutX="296.0" layoutY="79.0" onAction="#listerTournee" prefWidth="150.0" />
+      <Label layoutX="214.0" layoutY="84.0" text="Centrale" />
    </children>
 </AnchorPane>
