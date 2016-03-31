@@ -66,6 +66,8 @@ public class AccueilController {
 	public static String dateExport;
 	
 	public static Tournee tourneeSelect;
+	
+	public static int idCentrale;
 
 	@FXML
 	private void initialize(){
