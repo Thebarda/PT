@@ -51,6 +51,9 @@ public class GererModeleTourneeController {
 	@FXML
 	Button details;
 	
+	@FXML
+	Button modifier;
+	
 	ObservableList<Centrale> centrale=CentraleControler.loadCentralesNonSupprimees();
 	
 	static ModeleTournee modele;
@@ -69,6 +72,7 @@ public class GererModeleTourneeController {
 		listeCentrale.setItems(centrale);
 		supprimer.setVisible(false);
 		details.setVisible(false);
+		modifier.setVisible(false);
 		tableModeleTournee.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>()
 	    {
 	        @Override
@@ -76,6 +80,7 @@ public class GererModeleTourneeController {
 	        {
 	            supprimer.setVisible(true);
 	            details.setVisible(true);
+	            modifier.setVisible(true);
 	        }
 
 	    });
