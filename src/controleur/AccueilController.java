@@ -41,6 +41,9 @@ public class AccueilController {
 	AnchorPane Centre;
 	
 	@FXML
+	AnchorPane Fenetre;
+	
+	@FXML
 	HBox Appli;
 	
 	@FXML
@@ -259,8 +262,8 @@ public class AccueilController {
 		AnchorPane page;
 		try {
 			page = (AnchorPane) loader.load();
-			Appli.getChildren().removeAll(Appli.getChildren());
-			Appli.getChildren().addAll(page);
+			Fenetre.getChildren().removeAll(Fenetre.getChildren());
+			Fenetre.getChildren().addAll(page);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
