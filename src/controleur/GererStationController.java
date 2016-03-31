@@ -3,6 +3,8 @@ package controleur;
 
 import java.io.IOException;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -17,9 +19,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import modele.Centrale;
 import modele.Equipement;
 import modele.Station;
+import modele.Tournee;
 import vue.Main;
 import javafx.scene.Scene;
 
@@ -160,7 +164,25 @@ public class GererStationController {
 			ObservableList<Station> stations=StationController.loadStationNonSupprimees(listeEquipement.getValue().getId());
 			ID.setCellValueFactory(new PropertyValueFactory<Station, Integer>("id"));
 			Nom.setCellValueFactory(new PropertyValueFactory<Station, String>("nom"));
-			Unite.setCellValueFactory(new PropertyValueFactory<Station, String>("nomUnite"));
+			Unite.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Station, String>, ObservableValue<String>>(){
+				
+	            @Override
+	            public ObservableValue<String> call(TableColumn.CellDataFeatures<Station, String> p) {
+	            	String uniteAff="";
+	            	String nomUnite=p.getValue().getNomUnite();
+	            	if (nomUnite.equals("__VERIFICATION")){
+	            		uniteAff="Fait/Anomalie";
+	            	}
+	            	else if(nomUnite.equals("__TEXTE")){
+	            		uniteAff="Champ de texte";
+	            	}
+	            	else{
+	            		uniteAff=nomUnite;
+	            	}
+	            	return new SimpleObjectProperty<String>(uniteAff);
+	            	
+	            }
+			});
 			tableStation.setItems(stations);
 		}
 	}

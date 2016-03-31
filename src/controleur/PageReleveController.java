@@ -45,7 +45,6 @@ public class PageReleveController {
 	@FXML
 	public void initialize(){
 		if(AccueilController.tourneeSelect!=null){
-			System.out.println("C VREMENT LOL");
 			tournee=AccueilController.tourneeSelect;
 			valeur.setEditable(true);
 			comm.setEditable(true);
@@ -65,21 +64,24 @@ public class PageReleveController {
 	nom.setCellValueFactory(new PropertyValueFactory<Releve, String>("nomStation"));
 	ID.setCellValueFactory(new PropertyValueFactory<Releve, String>("idStation"));
 	valeur.setCellValueFactory(new PropertyValueFactory<Releve, Double>("valeur"));
-	valeur.setCellFactory(TextFieldTableCell.<Releve, Double>forTableColumn(new DoubleStringConverter()));
-	valeur.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Releve, Double>>() {
-		@Override
-		public void handle(CellEditEvent<Releve, Double> t) {
-			((Releve)t.getTableView().getItems().get(t.getTablePosition().getRow())).setValeur(t.getNewValue());
-		}});
+	if(AccueilController.tourneeSelect!=null){
+		valeur.setCellFactory(TextFieldTableCell.<Releve, Double>forTableColumn(new DoubleStringConverter()));
+		valeur.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Releve, Double>>() {
+			@Override
+			public void handle(CellEditEvent<Releve, Double> t) {
+				((Releve)t.getTableView().getItems().get(t.getTablePosition().getRow())).setValeur(t.getNewValue());
+			}});
+	}
 	comm.setCellValueFactory(new PropertyValueFactory<Releve, String>("commentaire"));
-	comm.setCellFactory(TextFieldTableCell.forTableColumn());
-	comm.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Releve, String>>() {
-		@Override
-		public void handle(CellEditEvent<Releve, String> t) {
-			((Releve)t.getTableView().getItems().get(t.getTablePosition().getRow())).setCommentaire(t.getNewValue());
-		}});
+	if(AccueilController.tourneeSelect!=null){
+		comm.setCellFactory(TextFieldTableCell.forTableColumn());
+		comm.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Releve, String>>() {
+			@Override
+			public void handle(CellEditEvent<Releve, String> t) {
+				((Releve)t.getTableView().getItems().get(t.getTablePosition().getRow())).setCommentaire(t.getNewValue());
+			}});
+	}
 	tabStation.setItems(releve);
-	System.out.println(comm.isEditable());
 	tabStation.setEditable(true);
 	}
 	/**
